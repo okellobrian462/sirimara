@@ -6,11 +6,27 @@ import { Camera, Map as MapIcon, ChevronLeft, ChevronRight, Calculator, Plus } f
 import { useState } from 'react';
 import { useParams } from 'next/navigation';
 
+interface ListingData {
+    address: string;
+    location: string;
+    price: string;
+    beds: string;
+    baths: string;
+    sqft: string;
+    image: string;
+    agent: {
+        name: string;
+        image: string;
+        phone: string;
+        title: string;
+    };
+}
+
 export default function ListingDetailPage() {
     const params = useParams();
     const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug;
 
-    const listings: Record<string, any> = {
+    const listings: Record<string, ListingData> = {
         '200-e-59th-st-ph32-new-york-ny-10022': {
             address: '200 E 59TH St PH32',
             location: 'NEW YORK, NY 10022',
