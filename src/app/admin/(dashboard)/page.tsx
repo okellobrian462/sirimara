@@ -3,6 +3,12 @@ import { Property } from './featured/FeaturedClient';
 import { Building2, Star, Mail, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 
+// Define a local interface that extends the base Property with dashboard-specific fields
+interface DashboardProperty extends Property {
+    status: string;
+    created_at: string;
+}
+
 async function getDashboardStats() {
     const supabase = await createClient();
 
@@ -22,7 +28,7 @@ async function getDashboardStats() {
         propertiesCount: propertiesCount || 0,
         featuredCount: featuredCount || 0,
         subscribersCount: subscribersCount || 0,
-        recentProperties: (recentProperties || []) as unknown as Property[]
+        recentProperties: (recentProperties || []) as unknown as DashboardProperty[]
     };
 }
 
@@ -126,7 +132,7 @@ export default async function AdminDashboard() {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-100">
-                            {stats.recentProperties.map((property: Property) => (
+                            {stats.recentProperties.map((property: DashboardProperty) => (
                                 <tr key={property.id} className="hover:bg-gray-50 transition-colors">
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="text-sm font-medium text-gray-900 font-serif">
@@ -144,17 +150,17 @@ export default async function AdminDashboard() {
                                         </div>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
-                                        <span className={`inline-flex px-2 py-1 text-[9px] font-bold tracking-widest uppercase rounded-sm ${(property as any).status === 'active'
+                                        <span className={`inline-flex px-2 py-1 text-[9px] font-bold tracking-widest uppercase rounded-sm ${property.status === 'active'
                                                 ? 'bg-green-50 text-green-700 border border-green-100'
-                                                : (property as any).status === 'pending'
+                                                : property.status === 'pending'
                                                     ? 'bg-yellow-50 text-yellow-700 border border-yellow-100'
                                                     : 'bg-gray-50 text-gray-700 border border-gray-100'
                                             }`}>
-                                            {(property as any).status}
+                                            {property.status}
                                         </span>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-[10px] text-gray-400 font-bold uppercase tracking-widest">
-                                        {new Date((property as any).created_at).toLocaleDateString()}
+                                        {new Date(property.created_at).toLocaleDateString()}
                                     </td>
                                 </tr>
                             ))}
