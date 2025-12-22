@@ -78,8 +78,9 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
                     });
                     setImages(data.images || []);
                 }
-            } catch (err: any) {
-                setError(err.message || 'Failed to fetch property');
+            } catch (err: unknown) {
+                const errorMessage = err instanceof Error ? err.message : 'Failed to fetch property';
+                setError(errorMessage);
             } finally {
                 setFetching(false);
             }
@@ -139,8 +140,9 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
 
             router.push('/admin/properties');
             router.refresh();
-        } catch (err: any) {
-            setError(err.message || 'Failed to update property');
+        } catch (err: unknown) {
+            const errorMessage = err instanceof Error ? err.message : 'Failed to update property';
+            setError(errorMessage);
         } finally {
             setLoading(false);
         }

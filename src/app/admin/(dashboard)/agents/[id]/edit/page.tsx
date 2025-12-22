@@ -64,8 +64,9 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                     });
                     setPhotoUrl(data.photo_url || '');
                 }
-            } catch (err: any) {
-                setError(err.message || 'Failed to fetch agent');
+            } catch (err: unknown) {
+                const errorMessage = err instanceof Error ? err.message : 'Failed to fetch agent';
+                setError(errorMessage);
             } finally {
                 setFetching(false);
             }
@@ -136,8 +137,9 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
 
             router.push('/admin/agents');
             router.refresh();
-        } catch (err: any) {
-            setError(err.message || 'Failed to update agent');
+        } catch (err: unknown) {
+            const errorMessage = err instanceof Error ? err.message : 'Failed to update agent';
+            setError(errorMessage);
         } finally {
             setLoading(false);
         }

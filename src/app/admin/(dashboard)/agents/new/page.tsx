@@ -89,8 +89,9 @@ export default function NewAgentPage() {
 
             router.push('/admin/agents');
             router.refresh();
-        } catch (err: any) {
-            setError(err.message || 'Failed to create agent');
+        } catch (err: unknown) {
+            const errorMessage = err instanceof Error ? err.message : 'Failed to create agent';
+            setError(errorMessage);
         } finally {
             setLoading(false);
         }

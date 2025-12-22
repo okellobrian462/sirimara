@@ -5,7 +5,7 @@ import { createClient } from '@/lib/supabase/client';
 import { Plus, Search, Trash2, GripVertical, X } from 'lucide-react';
 import { addToFeatured, removeFromFeatured, updateFeaturedOrder } from './actions';
 
-interface Property {
+export interface Property {
     id: string;
     title: string;
     address: string;
@@ -14,14 +14,14 @@ interface Property {
     city: string;
 }
 
-interface FeaturedProperty {
+export interface FeaturedProperty {
     id: string; // The featured_properties ID
     property_id: string; // The properties ID
     display_order: number;
     property: Property;
 }
 
-interface FeaturedClientProps {
+export interface FeaturedClientProps {
     initialFeatured: FeaturedProperty[];
 }
 
@@ -61,7 +61,7 @@ export default function FeaturedClient({ initialFeatured }: FeaturedClientProps)
 
             if (data) {
                 // Filter out already featured properties client-side as "not in" is potentialperf hit or just easier here
-                const available = data.filter((p: any) => !featuredIds.includes(p.id));
+                const available = (data as Property[]).filter((p) => !featuredIds.includes(p.id));
                 setSearchResults(available);
             }
             setSearching(false);

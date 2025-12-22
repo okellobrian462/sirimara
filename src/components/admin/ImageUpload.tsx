@@ -51,9 +51,10 @@ export default function ImageUpload({
             if (fileInputRef.current) {
                 fileInputRef.current.value = '';
             }
-        } catch (err: any) {
+        } catch (err: unknown) {
             console.error('Upload error:', err);
-            setError(err.message || 'Failed to upload image');
+            const errorMessage = err instanceof Error ? err.message : 'Failed to upload image';
+            setError(errorMessage);
         } finally {
             setUploading(false);
         }

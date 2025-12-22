@@ -6,7 +6,7 @@ import { revalidatePath } from 'next/cache';
 export async function toggleSubscriberStatus(id: string, isActive: boolean) {
     const supabase = await createClient();
 
-    const updates: any = {
+    const updates: { is_active: boolean; unsubscribed_at?: string | null } = {
         is_active: isActive,
     };
 

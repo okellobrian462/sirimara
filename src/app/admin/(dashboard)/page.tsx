@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
+import { Property } from './featured/FeaturedClient';
 import { Building2, Star, Mail, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 
@@ -21,7 +22,7 @@ async function getDashboardStats() {
         propertiesCount: propertiesCount || 0,
         featuredCount: featuredCount || 0,
         subscribersCount: subscribersCount || 0,
-        recentProperties: recentProperties || []
+        recentProperties: (recentProperties || []) as unknown as Property[]
     };
 }
 
@@ -125,7 +126,7 @@ export default async function AdminDashboard() {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-100">
-                            {stats.recentProperties.map((property: any) => (
+                            {stats.recentProperties.map((property: Property) => (
                                 <tr key={property.id} className="hover:bg-gray-50 transition-colors">
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="text-sm font-medium text-gray-900 font-serif">
@@ -143,17 +144,17 @@ export default async function AdminDashboard() {
                                         </div>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
-                                        <span className={`inline-flex px-2 py-1 text-[9px] font-bold tracking-widest uppercase rounded-sm ${property.status === 'active'
-                                            ? 'bg-green-50 text-green-700 border border-green-100'
-                                            : property.status === 'pending'
-                                                ? 'bg-yellow-50 text-yellow-700 border border-yellow-100'
-                                                : 'bg-gray-50 text-gray-700 border border-gray-100'
+                                        <span className={`inline-flex px-2 py-1 text-[9px] font-bold tracking-widest uppercase rounded-sm ${(property as any).status === 'active'
+                                                ? 'bg-green-50 text-green-700 border border-green-100'
+                                                : (property as any).status === 'pending'
+                                                    ? 'bg-yellow-50 text-yellow-700 border border-yellow-100'
+                                                    : 'bg-gray-50 text-gray-700 border border-gray-100'
                                             }`}>
-                                            {property.status}
+                                            {(property as any).status}
                                         </span>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-[10px] text-gray-400 font-bold uppercase tracking-widest">
-                                        {new Date(property.created_at).toLocaleDateString()}
+                                        {new Date((property as any).created_at).toLocaleDateString()}
                                     </td>
                                 </tr>
                             ))}

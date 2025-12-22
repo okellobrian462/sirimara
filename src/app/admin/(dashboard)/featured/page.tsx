@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
-import FeaturedClient from './FeaturedClient';
+import FeaturedClient, { FeaturedProperty } from './FeaturedClient';
 
 async function getFeaturedProperties() {
     const supabase = await createClient();
@@ -32,5 +32,5 @@ async function getFeaturedProperties() {
 export default async function FeaturedPage() {
     const featuredProperties = await getFeaturedProperties();
 
-    return <FeaturedClient initialFeatured={featuredProperties as any} />;
+    return <FeaturedClient initialFeatured={featuredProperties as unknown as FeaturedProperty[]} />;
 }

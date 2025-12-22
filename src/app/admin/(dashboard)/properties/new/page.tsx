@@ -95,8 +95,9 @@ export default function NewPropertyPage() {
 
             router.push('/admin/properties');
             router.refresh();
-        } catch (err: any) {
-            setError(err.message || 'Failed to create property');
+        } catch (err: unknown) {
+            const errorMessage = err instanceof Error ? err.message : 'Failed to create property';
+            setError(errorMessage);
         } finally {
             setLoading(false);
         }
