@@ -1,10 +1,6 @@
-'use client';
-
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Camera, Map as MapIcon, ChevronLeft, ChevronRight, Calculator, Plus } from 'lucide-react';
-import { useState } from 'react';
-import { useParams } from 'next/navigation';
 
 interface ListingData {
     address: string;
@@ -22,9 +18,9 @@ interface ListingData {
     };
 }
 
-export default function ListingDetailPage() {
-    const params = useParams();
-    const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug;
+export default async function ListingDetailPage({ params }: { params: Promise<{ slug: string[] }> }) {
+    const resolvedParams = await params;
+    const slug = Array.isArray(resolvedParams.slug) ? resolvedParams.slug[0] : resolvedParams.slug;
 
     const listings: Record<string, ListingData> = {
         '200-e-59th-st-ph32-new-york-ny-10022': {

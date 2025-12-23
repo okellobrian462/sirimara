@@ -1,0 +1,40 @@
+import { fetchStatistics } from '@/lib/content/fetchStatistics';
+
+export default async function AgentsStats() {
+    const statistics = await fetchStatistics('company');
+
+    return (
+        <section className="bg-white py-24 md:py-32">
+            <div className="container mx-auto px-6">
+                <div className="max-w-4xl mx-auto text-center mb-16 md:mb-24">
+                    <h2 className="text-3xl md:text-5xl lg:text-6xl font-light tracking-tight text-[#181728] leading-[1.1] mb-8 uppercase">
+                        OUR NETWORK IS YOUR ADVANTAGE
+                    </h2>
+                    <p className="text-lg md:text-xl text-gray-500 font-light max-w-3xl mx-auto leading-relaxed">
+                        With thousands of exceptional agents across key luxury markets, we deliver unparalleled service and expertise.
+                    </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-24 max-w-5xl mx-auto">
+                    {statistics.slice(0, 3).map((stat) => (
+                        <div key={stat.id} className="text-center group">
+                            <div className="text-7xl md:text-8xl lg:text-9xl font-light text-[#181728] mb-4 tracking-tighter transition-transform duration-500 group-hover:scale-105">
+                                {stat.value}
+                            </div>
+                            <div className="space-y-1">
+                                <p className="text-sm font-bold tracking-[0.2em] uppercase text-[#181728]">
+                                    {stat.label}
+                                </p>
+                                {stat.sublabel && (
+                                    <p className="text-xs tracking-[0.1em] text-gray-400 uppercase">
+                                        {stat.sublabel}
+                                    </p>
+                                )}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}

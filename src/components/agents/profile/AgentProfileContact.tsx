@@ -1,0 +1,92 @@
+'use client';
+
+interface AgentProfileContactProps {
+    name: string;
+}
+
+export default function AgentProfileContact({ name }: AgentProfileContactProps) {
+    return (
+        <section className="bg-[#FAF9F5] py-20 md:py-32 px-6">
+            <div className="container mx-auto max-w-4xl">
+                <h2 className="text-3xl md:text-4xl font-sans font-light tracking-[0.1em] uppercase mb-16 text-center text-[#181728]">
+                    Start a Conversation with {name.split(' ')[0]}
+                </h2>
+
+                <form className="space-y-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="relative group">
+                            <input
+                                type="text"
+                                placeholder="First Name"
+                                className="w-full bg-transparent border-b border-gray-300 py-4 text-[#181728] placeholder:text-gray-400 focus:outline-none focus:border-[#181728] transition-colors"
+                            />
+                        </div>
+                        <div className="relative group">
+                            <input
+                                type="text"
+                                placeholder="Last Name"
+                                className="w-full bg-transparent border-b border-gray-300 py-4 text-[#181728] placeholder:text-gray-400 focus:outline-none focus:border-[#181728] transition-colors"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="relative group">
+                            <input
+                                type="email"
+                                placeholder="Email"
+                                className="w-full bg-transparent border-b border-gray-300 py-4 text-[#181728] placeholder:text-gray-400 focus:outline-none focus:border-[#181728] transition-colors"
+                            />
+                        </div>
+                        <div className="relative group">
+                            <input
+                                type="tel"
+                                placeholder="Phone (optional)"
+                                className="w-full bg-transparent border-b border-gray-300 py-4 text-[#181728] placeholder:text-gray-400 focus:outline-none focus:border-[#181728] transition-colors"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="relative group">
+                        <textarea
+                            placeholder="Message (optional)"
+                            className="w-full bg-transparent border-b border-gray-300 py-4 text-[#181728] placeholder:text-gray-400 focus:outline-none focus:border-[#181728] transition-colors resize-none h-32"
+                        ></textarea>
+                    </div>
+
+                    <div className="space-y-4">
+                        <div className="flex items-start gap-4">
+                            <input
+                                type="checkbox"
+                                id="marketing-consent"
+                                className="mt-1 w-4 h-4 rounded border-gray-300 text-[#181728]"
+                            />
+                            <label htmlFor="marketing-consent" className="text-xs text-gray-500 leading-relaxed">
+                                Join {name.split(' ')[0]} on Elliman Inspirations – your personalized, AI-powered platform that unlocks the full potential of property search and collaboration.
+                            </label>
+                        </div>
+                        <div className="flex items-start gap-4">
+                            <input
+                                type="checkbox"
+                                id="sms-consent"
+                                className="mt-1 w-4 h-4 rounded border-gray-300 text-[#181728]"
+                            />
+                            <label htmlFor="sms-consent" className="text-xs text-gray-500 leading-relaxed">
+                                By checking this box, you consent to receive sms/text messages from Douglas Elliman Real Estate. Reply STOP to opt-out anytime. <a href="/privacy-policy" className="underline hover:text-[#181728]">Privacy Policy</a>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div className="text-center pt-8">
+                        <button
+                            type="submit"
+                            className="px-12 py-4 bg-[#181728] text-white rounded-full text-xs font-bold tracking-[0.2em] uppercase hover:bg-opacity-90 transition-opacity"
+                        >
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    );
+}

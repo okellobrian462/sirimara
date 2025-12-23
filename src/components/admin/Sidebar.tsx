@@ -10,15 +10,30 @@ import {
     Mail,
     Settings,
     ChevronLeft,
-    ChevronRight
+    ChevronRight,
+    Image,
+    FileText,
+    BarChart3,
+    Monitor,
+    Sliders,
+    Home, // Added for Properties icon
+    TrendingUp, // Added for Statistics icon
+    FileImage, // Added for Media Library icon
+    Menu // Added for Navigation icon
 } from 'lucide-react';
 import { useState } from 'react';
 
 const navigation = [
     { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
-    { name: 'Properties', href: '/admin/properties', icon: Building2 },
+    { name: 'Properties', href: '/admin/properties', icon: Home },
     { name: 'Featured', href: '/admin/featured', icon: Star },
     { name: 'Agents', href: '/admin/agents', icon: Users },
+    { name: 'Hero Sections', href: '/admin/heroes', icon: Image },
+    { name: 'Statistics', href: '/admin/statistics', icon: TrendingUp },
+    { name: 'Content Blocks', href: '/admin/content', icon: FileText },
+    { name: 'Media Library', href: '/admin/media', icon: FileImage },
+    { name: 'Navigation', href: '/admin/navigation', icon: Menu },
+    { name: 'Site Config', href: '/admin/config', icon: Sliders },
     { name: 'Subscribers', href: '/admin/subscribers', icon: Mail },
     { name: 'Settings', href: '/admin/settings', icon: Settings },
 ];

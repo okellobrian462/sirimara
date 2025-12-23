@@ -22,6 +22,10 @@ export const metadata: Metadata = {
   },
 };
 
+import { SearchProvider } from "@/context/SearchContext";
+
+// ...
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -36,7 +40,9 @@ export default function RootLayout({
         />
       </head>
       <body suppressHydrationWarning className="antialiased">
-        <ClientBody>{children}</ClientBody>
+        <SearchProvider>
+          <ClientBody>{children}</ClientBody>
+        </SearchProvider>
       </body>
     </html>
   );

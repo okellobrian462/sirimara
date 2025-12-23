@@ -1,5 +1,3 @@
-'use client';
-
 import Header from '@/components/Header';
 import { ChevronDown, Plus, Search, Heart, Camera, MapPin, SlidersHorizontal } from 'lucide-react';
 import Link from 'next/link';

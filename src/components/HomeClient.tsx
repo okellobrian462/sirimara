@@ -8,10 +8,11 @@ import type { Property } from '@/types/database.types';
 interface HomeClientProps {
     featuredProperties: Property[];
     propertyListings: Property[];
+    categories: string[];
 }
 
-export default function HomeClient({ featuredProperties, propertyListings }: HomeClientProps) {
-    const [activeTab, setActiveTab] = useState('city-skylines');
+export default function HomeClient({ featuredProperties, propertyListings, categories }: HomeClientProps) {
+    const [activeTab, setActiveTab] = useState(categories[0] || 'all');
     const [currentCarousel, setCurrentCarousel] = useState(0);
 
     const formatBeds = (beds?: number) => beds ? `${beds} BR` : '';
@@ -22,6 +23,12 @@ export default function HomeClient({ featuredProperties, propertyListings }: Hom
         return parts.join(', ');
     };
     const formatPrice = (price: number) => `$${price.toLocaleString()}`;
+
+    // Filter properties based on active tab
+    const filteredProperties = propertyListings.filter(property => {
+        if (!property.category) return false;
+        return property.category === activeTab;
+    });
 
     return (
         <>
@@ -83,43 +90,49 @@ export default function HomeClient({ featuredProperties, propertyListings }: Hom
 
                     {/* Tabs */}
                     <div className="flex flex-wrap justify-center gap-4 md:gap-8 mb-12 border-b border-white/20">
-                        {['CITY SKYLINES', 'WATER VIEWS', 'FARM & RANCH', 'JUST LISTED', 'UNDER $2 MILLION'].map((tab) => (
+                        {categories.map((category) => (
                             <button
-                                key={tab}
-                                onClick={() => setActiveTab(tab.toLowerCase().replace(/\s+/g, '-'))}
-                                className={`pb-4 text-xs md:text-sm tracking-widest uppercase transition-colors ${activeTab === tab.toLowerCase().replace(/\s+/g, '-')
+                                key={category}
+                                onClick={() => setActiveTab(category)}
+                                className={`pb-4 text-xs md:text-sm tracking-widest uppercase transition-colors ${activeTab === category
                                     ? 'text-white border-b-2 border-white'
                                     : 'text-gray-400 hover:text-white'
                                     }`}
                             >
-                                {tab}
+                                {category}
                             </button>
                         ))}
                     </div>
 
                     {/* Property Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-                        {propertyListings.map((property) => (
-                            <Link key={property.id} href={`/listing/${property.slug}`} className="group cursor-pointer">
-                                <div className="relative overflow-hidden mb-4 aspect-[3/4]">
-                                    <img
-                                        src={property.images[0] || ''}
-                                        alt={property.city}
-                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                    />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80" />
-                                    <div className="absolute bottom-8 left-0 right-0 text-center text-white px-4 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                                        <h3 className="text-4xl mb-3 font-serif">
-                                            {property.city}
-                                        </h3>
-                                        <div className="text-xs tracking-widest uppercase space-y-2 font-medium">
-                                            <div>{formatBeds(property.bedrooms)} | {formatBaths(property.bathrooms, property.half_baths)}</div>
-                                            <div className="text-base">{formatPrice(property.price)}</div>
+                        {filteredProperties.length > 0 ? (
+                            filteredProperties.map((property) => (
+                                <Link key={property.id} href={`/listing/${property.slug}`} className="group cursor-pointer">
+                                    <div className="relative overflow-hidden mb-4 aspect-[3/4]">
+                                        <img
+                                            src={property.images[0] || ''}
+                                            alt={property.city}
+                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80" />
+                                        <div className="absolute bottom-8 left-0 right-0 text-center text-white px-4 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                                            <h3 className="text-4xl mb-3 font-serif">
+                                                {property.city}
+                                            </h3>
+                                            <div className="text-xs tracking-widest uppercase space-y-2 font-medium">
+                                                <div>{formatBeds(property.bedrooms)} | {formatBaths(property.bathrooms, property.half_baths)}</div>
+                                                <div className="text-base">{formatPrice(property.price)}</div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </Link>
-                        ))}
+                                </Link>
+                            ))
+                        ) : (
+                            <div className="col-span-full text-center text-white/60 py-12">
+                                <p>No properties found in this category.</p>
+                            </div>
+                        )}
                     </div>
 
                     {/* View All Button */}

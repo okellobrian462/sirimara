@@ -1,10 +1,7 @@
-'use client';
-
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { ChevronDown, Plus, Search, Heart, Camera, MapPin, SlidersHorizontal, Image as ImageIcon } from 'lucide-react';
 import Link from 'next/link';
-import { useState } from 'react';
 
 export default function SalesSearchPage() {
     // Sample data based on user provided HTML/Images

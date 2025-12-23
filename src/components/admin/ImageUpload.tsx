@@ -10,6 +10,7 @@ interface ImageUploadProps {
     label?: string;
     description?: string;
     className?: string;
+    currentImage?: string;
 }
 
 export default function ImageUpload({
@@ -17,7 +18,8 @@ export default function ImageUpload({
     onUpload,
     label = 'Upload Image',
     description = 'Click or drag to upload (Max 5MB)',
-    className = ''
+    className = '',
+    currentImage
 }: ImageUploadProps) {
     const [uploading, setUploading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -111,6 +113,15 @@ export default function ImageUpload({
                     <div className="space-y-3">
                         <Loader2 className="w-10 h-10 text-purple-600 animate-spin mx-auto" />
                         <p className="text-sm font-medium text-gray-700">Uploading...</p>
+                    </div>
+                ) : currentImage ? (
+                    <div className="relative w-full h-full min-h-[200px] flex flex-col items-center justify-center">
+                        <img
+                            src={currentImage}
+                            alt="Current"
+                            className="max-h-48 w-auto object-contain mb-4 rounded-lg"
+                        />
+                        <p className="text-xs text-gray-500">Click to change image</p>
                     </div>
                 ) : (
                     <>

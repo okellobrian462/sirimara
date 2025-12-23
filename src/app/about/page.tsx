@@ -1,11 +1,18 @@
-'use client';
+'use server';
 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CookieConsent from '@/components/CookieConsent';
 import { Play } from 'lucide-react';
+import { fetchHeroSections } from '@/lib/content/fetchHeroSections';
+import { fetchStatistics } from '@/lib/content/fetchStatistics';
+import { fetchContentBlock } from '@/lib/content/fetchContentBlocks';
 
-export default function About() {
+export default async function About() {
+    const heroSections = await fetchHeroSections('about');
+    const statistics = await fetchStatistics('company');
+    const quoteBlock = await fetchContentBlock('about', 'quote');
+    const leadershipBlock = await fetchContentBlock('about', 'leadership_intro');
     return (
         <div className="min-h-screen bg-[#181728]">
             <Header />
@@ -42,36 +49,37 @@ export default function About() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
-                        <div>
-                            <h3 className="text-5xl md:text-7xl font-light mb-4 text-white">$36.4B</h3>
-                            <p className="text-sm tracking-widest uppercase text-white/60">In Sales</p>
-                        </div>
-                        <div>
-                            <h3 className="text-5xl md:text-7xl font-light mb-4 text-white">$87B</h3>
-                            <p className="text-sm tracking-widest uppercase text-white/60">In New Development</p>
-                        </div>
-                        <div>
-                            <h3 className="text-5xl md:text-7xl font-light mb-4 text-white">6.6K</h3>
-                            <p className="text-sm tracking-widest uppercase text-white/60">Agents in Key Luxury Markets</p>
-                        </div>
+                        {statistics.map((stat) => (
+                            <div key={stat.id}>
+                                <h3 className="text-5xl md:text-7xl font-light mb-4 text-white">{stat.value}</h3>
+                                <p className="text-sm tracking-widest uppercase text-white/60">{stat.label}</p>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </section>
 
             {/* Leadership Intro Section */}
-            <section className="py-20 px-6 bg-[#181728]">
-                <div className="container mx-auto max-w-5xl text-center">
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-wide mb-8 uppercase font-light text-white">
-                        We Are Guided by a Legacy of Thought Leaders
-                    </h2>
-                    <p className="text-lg md:text-xl text-gray-300 mb-12 leading-relaxed">
-                        Their voices mentor and support the next generation of trailblazers and culture makers.
-                    </p>
-                    <a href="/leadership" className="inline-block px-8 py-4 border border-white rounded-full text-xs tracking-widest uppercase text-white hover:bg-white hover:text-[#181728] transition-colors">
-                        Meet Our Leadership
-                    </a>
-                </div>
-            </section>
+            {leadershipBlock && (
+                <section className="py-20 px-6 bg-[#181728]">
+                    <div className="container mx-auto max-w-5xl text-center">
+                        <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-wide mb-8 uppercase font-light text-white">
+                            {leadershipBlock.title}
+                        </h2>
+                        <p className="text-lg md:text-xl text-gray-300 mb-12 leading-relaxed">
+                            {leadershipBlock.content}
+                        </p>
+                        {leadershipBlock.metadata?.cta_text && leadershipBlock.metadata?.cta_link && (
+                            <a
+                                href={leadershipBlock.metadata.cta_link}
+                                className="inline-block px-8 py-4 border border-white rounded-full text-xs tracking-widest uppercase text-white hover:bg-white hover:text-[#181728] transition-colors"
+                            >
+                                {leadershipBlock.metadata.cta_text}
+                            </a>
+                        )}
+                    </div>
+                </section>
+            )}
 
             {/* Leadership Image Section */}
             <section className="relative w-full aspect-[4/3] md:aspect-[16/9]">
