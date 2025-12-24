@@ -1,71 +1,151 @@
+import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
-import { NextResponse } from 'next/server';
 
-export async function GET(request: Request) {
-    const { searchParams } = new URL(request.url);
-    const query = searchParams.get('q');
-    const type = searchParams.get('type') || 'buy';
+export async function GET(request: NextRequest) {
+    const searchParams = request.nextUrl.searchParams;
+    const query = searchParams.get('q') || '';
+    const type = searchParams.get('type') || 'all'; // 'buy', 'rent', 'agents', 'all'
+    const limit = parseInt(searchParams.get('limit') || '10');
+
+    const minPrice = parseInt(searchParams.get('min_price') || '0');
+    const maxPrice = parseInt(searchParams.get('max_price') || '1000000000');
+    const beds = parseInt(searchParams.get('beds') || '0');
+    const baths = parseInt(searchParams.get('baths') || '0');
 
     if (!query || query.length < 2) {
-        return NextResponse.json({ results: [] });
+        return NextResponse.json({ results: [], total: 0 });
     }
 
     const supabase = await createClient();
 
+    interface SearchResult {
+        id: string;
+        type: 'property' | 'agent';
+        subtype?: 'buy' | 'rent';
+        title: string;
+        subtitle: string;
+        image: string;
+        url: string;
+        metadata: {
+            price?: number;
+            bedrooms?: number;
+            bathrooms?: number;
+        };
+    }
+
+    const results: SearchResult[] = [];
+
     try {
-        if (type === 'agents') {
-            const { data, error } = await supabase
+        // Search properties (buy)
+        if (type === 'buy' || type === 'all') {
+            let propertyQuery = supabase
+                .from('properties')
+                .select('id, address, city, state, zip_code, price, images, slug, bedrooms, bathrooms')
+                .eq('status', 'active')
+                .eq('listing_type', 'sale')
+                .gte('price', minPrice)
+                .lte('price', maxPrice);
+
+            if (beds > 0) propertyQuery = propertyQuery.gte('bedrooms', beds);
+            if (baths > 0) propertyQuery = propertyQuery.gte('bathrooms', baths);
+
+            // Text search
+            propertyQuery = propertyQuery.or(`address.ilike.%${query}%,city.ilike.%${query}%,zip_code.ilike.%${query}%,neighborhood.ilike.%${query}%`);
+
+            const { data: buyProperties } = await propertyQuery.limit(limit);
+
+            if (buyProperties) {
+                results.push(...buyProperties.map(p => ({
+                    id: p.id,
+                    type: 'property' as const,
+                    subtype: 'buy' as const,
+                    title: p.address,
+                    subtitle: `${p.city}, ${p.state} ${p.zip_code}`,
+                    image: p.images?.[0] || '',
+                    url: `/listing/${p.slug}`,
+                    metadata: {
+                        price: p.price,
+                        bedrooms: p.bedrooms,
+                        bathrooms: p.bathrooms
+                    }
+                })));
+            }
+        }
+
+        // Search properties (rent)
+        if (type === 'rent' || type === 'all') {
+            let propertyQuery = supabase
+                .from('properties')
+                .select('id, address, city, state, zip_code, price, images, slug, bedrooms, bathrooms')
+                .eq('status', 'active')
+                .eq('listing_type', 'rent') // Assuming you handle rent price similarly or separate params
+                .gte('price', minPrice)
+                .lte('price', maxPrice);
+
+            if (beds > 0) propertyQuery = propertyQuery.gte('bedrooms', beds);
+            if (baths > 0) propertyQuery = propertyQuery.gte('bathrooms', baths);
+
+            propertyQuery = propertyQuery.or(`address.ilike.%${query}%,city.ilike.%${query}%,zip_code.ilike.%${query}%,neighborhood.ilike.%${query}%`);
+
+            const { data: rentProperties } = await propertyQuery.limit(limit);
+
+            if (rentProperties) {
+                results.push(...rentProperties.map(p => ({
+                    id: p.id,
+                    type: 'property' as const,
+                    subtype: 'rent' as const,
+                    title: p.address,
+                    subtitle: `${p.city}, ${p.state} ${p.zip_code}`,
+                    image: p.images?.[0] || '',
+                    url: `/listing/${p.slug}`,
+                    metadata: {
+                        price: p.price,
+                        bedrooms: p.bedrooms,
+                        bathrooms: p.bathrooms
+                    }
+                })));
+            }
+        }
+
+        // Search agents
+        if (type === 'agents' || type === 'all') {
+            const { data: agents } = await supabase
                 .from('agents')
                 .select('id, first_name, last_name, title, photo_url')
-                .or(`first_name.ilike.%${query}%,last_name.ilike.%${query}%`)
                 .eq('is_active', true)
-                .limit(10);
+                .or(`first_name.ilike.%${query}%,last_name.ilike.%${query}%,title.ilike.%${query}%`)
+                .limit(limit);
 
-            if (error) throw error;
-
-            return NextResponse.json({
-                type: 'agents',
-                results: data.map(agent => ({
-                    id: agent.id,
-                    primaryText: `${agent.first_name} ${agent.last_name}`,
-                    secondaryText: agent.title || 'Real Estate Agent',
-                    image: agent.photo_url,
-                    url: `/agents/${agent.id}`
-                }))
-            });
-        } else {
-            // For Buy/Rent search, suggest Places (Cities)
-            // We'll search for unique cities that match the query
-            const { data, error } = await supabase
-                .from('properties')
-                .select('city, state')
-                .ilike('city', `%${query}%`)
-                .not('city', 'is', null) // Ensure unique cities only technically requires a GROUP BY or distinct
-                .limit(50); // Fetch more to process distinct in memory if simple distinct query is hard via SDK
-
-            if (error) throw error;
-
-            // Deduplicate cities client-side (or server-side here)
-            const uniquePlaces = new Map();
-            data.forEach(p => {
-                const key = `${p.city}, ${p.state}`;
-                if (!uniquePlaces.has(key)) {
-                    uniquePlaces.set(key, {
-                        id: key,
-                        primaryText: p.city,
-                        secondaryText: p.state,
-                        url: `/search?q=${p.city}&type=${type}` // Clicking a place goes to search results for that place
-                    });
-                }
-            });
-
-            return NextResponse.json({
-                type: 'places',
-                results: Array.from(uniquePlaces.values()).slice(0, 10)
-            });
+            if (agents) {
+                results.push(...agents.map(a => ({
+                    id: a.id,
+                    type: 'agent' as const,
+                    title: `${a.first_name} ${a.last_name}`,
+                    subtitle: a.title || 'Real Estate Agent',
+                    image: a.photo_url || '',
+                    url: `/agents/${a.id}`,
+                    metadata: {}
+                })));
+            }
         }
+
+        // Sort by relevance (properties first, then agents)
+        const sortedResults = results.sort((a, b) => {
+            if (a.type === 'property' && b.type === 'agent') return -1;
+            if (a.type === 'agent' && b.type === 'property') return 1;
+            return 0;
+        });
+
+        return NextResponse.json({
+            results: sortedResults.slice(0, limit),
+            total: sortedResults.length
+        });
+
     } catch (error) {
-        console.error('Search API Error:', error);
-        return NextResponse.json({ results: [] }, { status: 500 });
+        console.error('Search API error:', error);
+        return NextResponse.json(
+            { error: 'Search failed', results: [], total: 0 },
+            { status: 500 }
+        );
     }
 }

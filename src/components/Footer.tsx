@@ -2,6 +2,7 @@ import { fetchSiteConfig } from '@/lib/content/fetchSiteConfig';
 import { fetchNavigationByLocations } from '@/lib/content/fetchNavigation';
 import Link from 'next/link';
 import FooterMarkets from '@/components/FooterMarkets';
+import FooterLink from '@/components/FooterLink';
 
 export default async function Footer() {
     const config = await fetchSiteConfig();
@@ -9,7 +10,8 @@ export default async function Footer() {
         'footer_company',
         'footer_resources',
         'footer_portfolio',
-        'footer_markets'
+        'footer_markets',
+        'footer_legal'
     ]);
 
     // Extract config values with fallbacks
@@ -30,13 +32,7 @@ export default async function Footer() {
     return (
         <footer className="bg-[#181728] text-white py-16">
             <div className="px-6">
-                <div className="mb-12">
-                    <img
-                        src="https://ext.same-assets.com/2757429726/1668398672.svg"
-                        alt={siteName}
-                        className="h-10 mb-12"
-                    />
-                </div>
+
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
                     {/* Company Section */}
@@ -45,30 +41,7 @@ export default async function Footer() {
                         <ul className="space-y-3 text-sm">
                             {companyLinks.map((link) => (
                                 <li key={link.id}>
-                                    {link.url.startsWith('mailto:') ? (
-                                        <a
-                                            href={link.url}
-                                            className="hover:opacity-80 transition-opacity uppercase tracking-wider"
-                                        >
-                                            {link.label}
-                                        </a>
-                                    ) : link.url.startsWith('http') ? (
-                                        <a
-                                            href={link.url}
-                                            target={link.opens_in_new_tab ? '_blank' : undefined}
-                                            rel={link.opens_in_new_tab ? 'noopener noreferrer' : undefined}
-                                            className="hover:opacity-80 transition-opacity uppercase tracking-wider"
-                                        >
-                                            {link.label}
-                                        </a>
-                                    ) : (
-                                        <Link
-                                            href={link.url}
-                                            className="hover:opacity-80 transition-opacity uppercase tracking-wider"
-                                        >
-                                            {link.label}
-                                        </Link>
-                                    )}
+                                    <FooterLink link={link} />
                                 </li>
                             ))}
                         </ul>
@@ -80,23 +53,7 @@ export default async function Footer() {
                         <ul className="space-y-3 text-sm">
                             {resourcesLinks.map((link) => (
                                 <li key={link.id}>
-                                    {link.url.startsWith('http') ? (
-                                        <a
-                                            href={link.url}
-                                            target={link.opens_in_new_tab ? '_blank' : undefined}
-                                            rel={link.opens_in_new_tab ? 'noopener noreferrer' : undefined}
-                                            className="hover:opacity-80 transition-opacity uppercase tracking-wider"
-                                        >
-                                            {link.label}
-                                        </a>
-                                    ) : (
-                                        <Link
-                                            href={link.url}
-                                            className="hover:opacity-80 transition-opacity uppercase tracking-wider"
-                                        >
-                                            {link.label}
-                                        </Link>
-                                    )}
+                                    <FooterLink link={link} />
                                 </li>
                             ))}
                         </ul>
@@ -108,23 +65,7 @@ export default async function Footer() {
                         <ul className="space-y-3 text-sm">
                             {portfolioLinks.map((link) => (
                                 <li key={link.id}>
-                                    {link.url.startsWith('http') ? (
-                                        <a
-                                            href={link.url}
-                                            target={link.opens_in_new_tab ? '_blank' : undefined}
-                                            rel={link.opens_in_new_tab ? 'noopener noreferrer' : undefined}
-                                            className="hover:opacity-80 transition-opacity uppercase tracking-wider"
-                                        >
-                                            {link.label}
-                                        </a>
-                                    ) : (
-                                        <Link
-                                            href={link.url}
-                                            className="hover:opacity-80 transition-opacity uppercase tracking-wider"
-                                        >
-                                            {link.label}
-                                        </Link>
-                                    )}
+                                    <FooterLink link={link} />
                                 </li>
                             ))}
                         </ul>
@@ -164,57 +105,36 @@ export default async function Footer() {
                         </a>
                     </div>
 
-                    {/* Legal Document Links */}
+                    {/* Legal Document Links - Now CMS-managed */}
                     <div className="mb-8 space-y-2">
-                        <a href="#" className="block text-xs underline hover:opacity-80 transition-opacity uppercase tracking-wider">
-                            NYS Housing Discrimination Disclosure Notice & Form
-                        </a>
-                        <a href="#" className="block text-xs underline hover:opacity-80 transition-opacity uppercase tracking-wider">
-                            NYS Standard Operating Procedure
-                        </a>
-                        <a href="#" className="block text-xs underline hover:opacity-80 transition-opacity uppercase tracking-wider">
-                            NYS Tenants' Rights to Reasonable Accommodations for Persons with Disabilities
-                        </a>
-                        <a href="#" className="block text-xs underline hover:opacity-80 transition-opacity uppercase tracking-wider">
-                            California Consumer Privacy Act Notice
-                        </a>
-                        <a href="#" className="block text-xs underline hover:opacity-80 transition-opacity uppercase tracking-wider">
-                            Texas Consumer Protection Notice
-                        </a>
-                        <a href="#" className="block text-xs underline hover:opacity-80 transition-opacity uppercase tracking-wider">
-                            Texas Real Estate Commission Information About Brokerage Services
-                        </a>
-                        <a href="#" className="block text-xs underline hover:opacity-80 transition-opacity uppercase tracking-wider">
-                            Text of New York City Human Rights Law
-                        </a>
-                        <a href="#" className="block text-xs underline hover:opacity-80 transition-opacity uppercase tracking-wider">
-                            New York City Commission on Human Rights
-                        </a>
-                        <a href="#" className="block text-xs underline hover:opacity-80 transition-opacity uppercase tracking-wider">
-                            NYC Source of Income Discrimination Information
-                        </a>
-                        <a href="#" className="block text-xs underline hover:opacity-80 transition-opacity uppercase tracking-wider">
-                            NYC Source of Income Discrimination Tenant FAQs
-                        </a>
+                        {(navigation.footer_legal || []).map((link) => (
+                            <a
+                                key={link.id}
+                                href={link.url}
+                                target={link.opens_in_new_tab ? '_blank' : undefined}
+                                rel={link.opens_in_new_tab ? 'noopener noreferrer' : undefined}
+                                className="block text-xs underline hover:opacity-80 transition-opacity uppercase tracking-wider"
+                            >
+                                {link.label}
+                            </a>
+                        ))}
                     </div>
 
                     <p className="text-xs text-gray-400 leading-relaxed mb-4 uppercase">
-                        The Source of the Displayed Data is Either the Property Owner or Public Record Provided by Non-Governmental Third Parties. It is Believed to be Reliable but Not Guaranteed. For Colorado Viewers, Information About Non-Commercial Properties is Provided Exclusively for Your Personal, Non-Commercial Use.
+                        {config.footer_disclaimer_1 || 'The Source of the Displayed Data is Either the Property Owner or Public Record Provided by Non-Governmental Third Parties. It is Believed to be Reliable but Not Guaranteed. For Colorado Viewers, Information About Non-Commercial Properties is Provided Exclusively for Your Personal, Non-Commercial Use.'}
                     </p>
 
                     <p className="text-xs text-gray-400 leading-relaxed mb-4">
                         {contactAddress}. {contactPhone} © 2025 {siteName}.
-                        EQUAL EMPLOYMENT OPPORTUNITY PROVIDER. ALL MATERIAL PRESENTED HEREIN IS INTENDED FOR INFORMATION
-                        PURPOSES ONLY. WHILE THIS INFORMATION IS BELIEVED TO BE CORRECT, IT IS REPRESENTED SUBJECT TO
-                        ERRORS, OMISSIONS, CHANGES, OR WITHDRAWAL WITHOUT NOTICE. ALL PROPERTY INFORMATION, INCLUDING, BUT NOT LIMITED TO SQUARE FOOTAGE, ROOM COUNT, NUMBER OF BEDROOMS, AND THE SCHOOL DISTRICT IN PROPERTY LISTINGS SHOULD BE VERIFIED BY YOUR OWN ATTORNEY, ARCHITECT, OR ZONING EXPERT. EQUAL HOUSING OPPORTUNITY. LISTING DATA REFRESHED ON NOV 28 2025 AT 11:12 PM.
+                        {config.footer_disclaimer_2 || ' EQUAL EMPLOYMENT OPPORTUNITY PROVIDER. ALL MATERIAL PRESENTED HEREIN IS INTENDED FOR INFORMATION PURPOSES ONLY. WHILE THIS INFORMATION IS BELIEVED TO BE CORRECT, IT IS REPRESENTED SUBJECT TO ERRORS, OMISSIONS, CHANGES, OR WITHDRAWAL WITHOUT NOTICE. ALL PROPERTY INFORMATION, INCLUDING, BUT NOT LIMITED TO SQUARE FOOTAGE, ROOM COUNT, NUMBER OF BEDROOMS, AND THE SCHOOL DISTRICT IN PROPERTY LISTINGS SHOULD BE VERIFIED BY YOUR OWN ATTORNEY, ARCHITECT, OR ZONING EXPERT. EQUAL HOUSING OPPORTUNITY. LISTING DATA REFRESHED ON NOV 28 2025 AT 11:12 PM.'}
                     </p>
 
                     <p className="text-xs text-gray-400 leading-relaxed mb-4">
-                        DOUGLAS ELLIMAN IS A LICENSED REAL ESTATE BROKER IN CALIFORNIA WITH LICENSE # 01947727, COLORADO WITH LICENSE # EC100053892, CONNECTICUT WITH LICENSE # REB.0314827, THE DISTRICT OF COLUMBIA WITH LICENSE # REO40000160, FLORIDA WITH LICENSE # CQ1020232, MARYLAND WITH LICENSE # 645270, MASSACHUSETTS WITH LICENSE # 422764, NEVADA WITH LICENSE # 1454643, NEW JERSEY WITH LICENSE # 0572105, NEW YORK WITH LICENSE # 10991211812, TEXAS WITH LICENSE # 9008706, AND VIRGINIA WITH LICENSE # 0226035659.
+                        {config.footer_disclaimer_3 || 'DOUGLAS ELLIMAN IS A LICENSED REAL ESTATE BROKER IN CALIFORNIA WITH LICENSE # 01947727, COLORADO WITH LICENSE # EC100053892, CONNECTICUT WITH LICENSE # REB.0314827, THE DISTRICT OF COLUMBIA WITH LICENSE # REO40000160, FLORIDA WITH LICENSE # CQ1020232, MARYLAND WITH LICENSE # 645270, MASSACHUSETTS WITH LICENSE # 422764, NEVADA WITH LICENSE # 1454643, NEW JERSEY WITH LICENSE # 0572105, NEW YORK WITH LICENSE # 10991211812, TEXAS WITH LICENSE # 9008706, AND VIRGINIA WITH LICENSE # 0226035659.'}
                     </p>
 
                     <p className="text-xs text-gray-400">
-                        POWERED BY PURLIN.AI
+                        {config.footer_powered_by || 'POWERED BY PURLIN.AI'}
                     </p>
                 </div>
             </div>

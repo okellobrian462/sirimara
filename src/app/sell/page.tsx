@@ -1,29 +1,26 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import SellHero from '@/components/sell/SellHero';
-import SellStats from '@/components/sell/SellStats';
-import SellAdvantage from '@/components/sell/SellAdvantage';
-import SellSpotlight from '@/components/sell/SellSpotlight';
-import SellStories from '@/components/sell/SellStories';
-import SellValuation from '@/components/sell/SellValuation';
-import SellContact from '@/components/sell/SellContact';
+import { fetchPageSections } from '@/lib/content/fetchPageSections';
+import SectionRenderer from '@/components/sections/SectionRenderer';
 
 export const metadata = {
     title: 'Sell Your Home or Property | Douglas Elliman',
     description: 'Ready to sell? Douglas Elliman connects sellers with qualified buyers through expert strategies and a global network. Start your selling journey today.',
 }
 
-export default function SellPage() {
+export default async function SellPage() {
+    // Fetch CMS-managed sections
+    const sections = await fetchPageSections('sell');
+
     return (
         <main className="min-h-screen bg-white">
             <Header />
-            <SellHero />
-            <SellStats />
-            <SellAdvantage />
-            <SellSpotlight />
-            <SellStories />
-            <SellValuation />
-            <SellContact />
+
+            {/* Render CMS-managed sections (includes tabs section) */}
+            {sections.map((section) => (
+                <SectionRenderer key={section.id} section={section} />
+            ))}
+
             <Footer />
         </main>
     );

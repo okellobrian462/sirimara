@@ -11,6 +11,9 @@ export interface NavigationItem {
     is_active: boolean;
     opens_in_new_tab: boolean;
     icon: string | null;
+    has_dropdown: boolean;
+    dropdown_type: string | null;
+    dropdown_config: Record<string, unknown>;
 }
 
 /**

@@ -23,6 +23,7 @@ export const metadata: Metadata = {
 };
 
 import { SearchProvider } from "@/context/SearchContext";
+import { ModalProvider } from "@/context/ModalContext";
 
 // ...
 
@@ -41,7 +42,9 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning className="antialiased">
         <SearchProvider>
-          <ClientBody>{children}</ClientBody>
+          <ModalProvider>
+            <ClientBody>{children}</ClientBody>
+          </ModalProvider>
         </SearchProvider>
       </body>
     </html>

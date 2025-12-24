@@ -9,9 +9,15 @@ interface HomeClientProps {
     featuredProperties: Property[];
     propertyListings: Property[];
     categories: string[];
+    sectionHeading?: {
+        metadata?: {
+            subtitle?: string;
+            main_title?: string;
+        };
+    } | null;
 }
 
-export default function HomeClient({ featuredProperties, propertyListings, categories }: HomeClientProps) {
+export default function HomeClient({ featuredProperties, propertyListings, categories, sectionHeading }: HomeClientProps) {
     const [activeTab, setActiveTab] = useState(categories[0] || 'all');
     const [currentCarousel, setCurrentCarousel] = useState(0);
 
@@ -80,9 +86,11 @@ export default function HomeClient({ featuredProperties, propertyListings, categ
             <section className="bg-[#181728] py-20">
                 <div className="px-6">
                     <div className="text-center text-white mb-12">
-                        <p className="text-sm tracking-widest uppercase mb-4">Local Experts, Global Reach</p>
+                        <p className="text-sm tracking-widest uppercase mb-4">
+                            {sectionHeading?.metadata?.subtitle || 'Local Experts, Global Reach'}
+                        </p>
                         <h2 className="text-5xl md:text-6xl tracking-wide mb-12">
-                            THE NEXT MOVE IS YOURS
+                            {sectionHeading?.metadata?.main_title || 'THE NEXT MOVE IS YOURS'}
                         </h2>
                         {/* Vertical Divider */}
                         <div className="w-px h-20 bg-white/40 mx-auto mb-12" />
