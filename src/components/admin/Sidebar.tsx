@@ -19,12 +19,14 @@ import {
     Home, // Added for Properties icon
     TrendingUp, // Added for Statistics icon
     FileImage, // Added for Media Library icon
-    Menu // Added for Navigation icon
+    Menu, // Added for Navigation icon
+    Layers // Added for Pages icon
 } from 'lucide-react';
 import { useState } from 'react';
 
 const navigation = [
     { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
+    { name: 'Pages', href: '/admin/pages', icon: Layers },
     { name: 'Properties', href: '/admin/properties', icon: Home },
     { name: 'Featured', href: '/admin/featured', icon: Star },
     { name: 'Agents', href: '/admin/agents', icon: Users },
