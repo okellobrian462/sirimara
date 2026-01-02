@@ -14,6 +14,7 @@ export interface Property {
     property_type?: string;
     status: 'active' | 'pending' | 'sold' | 'off-market';
     square_feet?: number;
+    sqft?: number; // Added for compatibility with some mappings
     lot_size?: number;
     year_built?: number;
     is_featured: boolean;
@@ -21,6 +22,11 @@ export interface Property {
     images: string[];
     amenities: string[];
     category?: string;
+    badge_text?: string | null;
+    latitude?: number;
+    longitude?: number;
+    is_exclusive?: boolean;
+    listing_type?: 'sale' | 'rent';
     created_at: string;
     updated_at: string;
 }

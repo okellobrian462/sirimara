@@ -10,8 +10,7 @@ interface ContentBlock {
     block_type: string;
     title: string | null;
     content: string | null;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    metadata: any;
+    metadata: Record<string, unknown> | null;
     order: number;
     is_active: boolean;
 }

@@ -7,8 +7,7 @@ import { Save, Loader2 } from 'lucide-react';
 interface ConfigItem {
     id: string;
     key: string;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    value: any;
+    value: string | number | boolean | null | { [key: string]: unknown } | unknown[];
     category: string;
 }
 

@@ -111,3 +111,26 @@
   font-style: italic;
   font-display: swap;
 }
+
+/* Swiper Custom Styles for Listing Cards */
+.listing-bullet {
+  width: 6px !important;
+  height: 6px !important;
+  background: rgba(255, 255, 255, 0.5) !important;
+  border-radius: 50% !important;
+  opacity: 1 !important;
+  margin: 0 4px !important;
+  transition: all 0.3s ease !important;
+}
+
+.listing-bullet-active {
+  background: rgba(255, 255, 255, 1) !important;
+  width: 8px !important;
+  height: 8px !important;
+}
+
+/* Swiper Navigation Button Overrides */
+.swiper-button-disabled {
+  opacity: 0.3 !important;
+  cursor: not-allowed !important;
+}

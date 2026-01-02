@@ -1,62 +1,63 @@
+import { createClient } from "@/lib/supabase/server";
+import { notFound } from "next/navigation";
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Camera, Map as MapIcon, ChevronLeft, ChevronRight, Calculator, Plus } from 'lucide-react';
 
-interface ListingData {
-    address: string;
-    location: string;
-    price: string;
-    beds: string;
-    baths: string;
-    sqft: string;
-    image: string;
-    agent: {
-        name: string;
-        image: string;
-        phone: string;
-        title: string;
-    };
-}
-
 export default async function ListingDetailPage({ params }: { params: Promise<{ slug: string[] }> }) {
     const resolvedParams = await params;
-    const slug = Array.isArray(resolvedParams.slug) ? resolvedParams.slug[0] : resolvedParams.slug;
+    const slugArray = resolvedParams.slug;
+    const lookupSlug = Array.isArray(slugArray) ? slugArray[0] : slugArray;
 
-    const listings: Record<string, ListingData> = {
-        '200-e-59th-st-ph32-new-york-ny-10022': {
-            address: '200 E 59TH St PH32',
-            location: 'NEW YORK, NY 10022',
-            price: '$17,990,000',
-            beds: '2 BR',
-            baths: '3 BA, 1 HALF BA',
-            sqft: 'Approx. 3,924 SF',
-            image: 'https://api.cotality.com/trestle/Media/Property/PHOTO-Jpeg/1100149223/1/MzY3Ny81NzgwLzY/Ni8xMjc1My8xNzY2MzM3NDA2/JwUEZ3EjKhowuXy8szILFnG3L9rBd1zFdbpQaommrSg',
-            agent: {
-                name: 'Kathryn Neugold',
-                image: 'https://res.cloudinary.com/douglas-elliman/image/upload/v1/HeadShots/50/m5hnqoylnbiatruef56i',
-                phone: '212.891.7000',
-                title: 'Licensed Real Estate Salesperson'
-            }
-        },
-        '291-palm-ave-miami-beach-fl-33139': {
-            address: '291 Palm Ave',
-            location: 'Miami Beach, FL 33139',
-            price: '$5,995,000',
-            beds: '4 BR',
-            baths: '4 BA, 1 HALF BA',
-            sqft: 'Approx. 3,077 SF',
-            image: 'https://dvvjkgh94f2v6.cloudfront.net/523fa3e6/420661812/83dcefb7.jpeg',
-            agent: {
-                name: 'Devin Kay',
-                image: 'https://res.cloudinary.com/douglas-elliman/image/upload/v1/Headshots/316/ub0fha9mutlzdnenehdt',
-                phone: '305.677.5000',
-                title: 'Sales Associate'
-            }
+    const supabase = await createClient();
+
+    // Fetch property by slug
+    // We also check 'id' in case the slug passed is actually an ID (backward compatibility or direct link)
+    let { data: property } = await supabase
+        .from('properties')
+        .select('*')
+        .eq('slug', lookupSlug)
+        .single();
+
+    if (!property) {
+        // Try fetching by ID as fallback if slug lookup failed
+        const { data: propertyById } = await supabase
+            .from('properties')
+            .select('*')
+            .eq('id', lookupSlug)
+            .single();
+
+        property = propertyById;
+    }
+
+    if (!property) {
+        return notFound();
+    }
+
+    // Fetch a random active agent to display as contact
+    // In a real scenario, this would link to the specific listing agent(s)
+    const { data: agent } = await supabase
+        .from('agents')
+        .select('*')
+        .eq('is_active', true)
+        .limit(1)
+        .single();
+
+    const data = {
+        address: property.address || "Address Unavailable",
+        location: `${property.city || ''}, ${property.state || ''} ${property.zip_code || ''}`.trim().toUpperCase(),
+        price: property.price ? `$${property.price.toLocaleString()}` : "Price Upon Request",
+        beds: property.bedrooms ? `${property.bedrooms} BR` : "",
+        baths: property.bathrooms ? `${property.bathrooms} BA${property.half_baths ? `, ${property.half_baths} HALF BA` : ''}` : "",
+        sqft: property.sqft ? `Approx. ${property.sqft.toLocaleString()} SF` : '',
+        image: property.images?.[0] || 'https://images.unsplash.com/photo-1600596542815-27b88eae2b30?auto=format&fit=crop&w=1200&q=80',
+        agent: {
+            name: agent ? `${agent.first_name} ${agent.last_name}` : 'Douglas Elliman Agent',
+            image: agent?.photo_url || 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=256&q=80',
+            phone: agent?.phone || '212.891.7000',
+            title: agent?.title || 'Licensed Real Estate Salesperson'
         }
     };
-
-    // Default to Miami Beach if slug doesn't match
-    const data = (slug && listings[slug]) || listings['291-palm-ave-miami-beach-fl-33139'];
 
     return (
         <main className="min-h-screen bg-white">
@@ -66,7 +67,7 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
             <section className="relative w-full h-[60vh] md:h-[85vh] group overflow-hidden bg-gray-100">
                 <img
                     src={data.image}
-                    alt="Property Hero"
+                    alt={data.address}
                     className="w-full h-full object-cover"
                 />
 
@@ -117,24 +118,30 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
                     {/* Stats Divider Lines */}
                     <div className="w-full h-[1px] bg-gray-200"></div>
                     <div className="flex flex-wrap justify-center items-center gap-x-12 md:gap-x-20 py-8 text-[#181728]">
-                        <div className="flex items-center gap-3 py-4">
-                            <svg className="w-6 h-6 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-                                <path d="M2.5 12h19M2.5 12V6.5a2 2 0 0 1 2-2h15a2 2 0 0 1 2 2V12M2.5 12v5.5a2 2 0 0 0 2 2h15a2 2 0 0 0 2-2V12m-16-7.5v5m13-5v5" />
-                            </svg>
-                            <span className="text-sm font-medium tracking-[0.2em] uppercase">{data.beds}</span>
-                        </div>
-                        <div className="flex items-center gap-3 py-4">
-                            <svg className="w-6 h-6 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-                                <path d="M4 11h16M7 7h10M6 15h12v3a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-3z" />
-                            </svg>
-                            <span className="text-sm font-medium tracking-[0.2em] uppercase">{data.baths}</span>
-                        </div>
-                        <div className="flex items-center gap-3 py-4">
-                            <svg className="w-6 h-6 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-                                <path d="M3 3h18v18H3zM9 3v18M15 3v18M3 9h18M3 15h18" />
-                            </svg>
-                            <span className="text-sm font-medium tracking-[0.2em] uppercase">{data.sqft}</span>
-                        </div>
+                        {data.beds && (
+                            <div className="flex items-center gap-3 py-4">
+                                <svg className="w-6 h-6 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+                                    <path d="M2.5 12h19M2.5 12V6.5a2 2 0 0 1 2-2h15a2 2 0 0 1 2 2V12M2.5 12v5.5a2 2 0 0 0 2 2h15a2 2 0 0 0 2-2V12m-16-7.5v5m13-5v5" />
+                                </svg>
+                                <span className="text-sm font-medium tracking-[0.2em] uppercase">{data.beds}</span>
+                            </div>
+                        )}
+                        {data.baths && (
+                            <div className="flex items-center gap-3 py-4">
+                                <svg className="w-6 h-6 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+                                    <path d="M4 11h16M7 7h10M6 15h12v3a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-3z" />
+                                </svg>
+                                <span className="text-sm font-medium tracking-[0.2em] uppercase">{data.baths}</span>
+                            </div>
+                        )}
+                        {data.sqft && (
+                            <div className="flex items-center gap-3 py-4">
+                                <svg className="w-6 h-6 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+                                    <path d="M3 3h18v18H3zM9 3v18M15 3v18M3 9h18M3 15h18" />
+                                </svg>
+                                <span className="text-sm font-medium tracking-[0.2em] uppercase">{data.sqft}</span>
+                            </div>
+                        )}
                     </div>
                     <div className="w-full h-[1px] bg-gray-200"></div>
 

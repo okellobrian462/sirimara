@@ -145,9 +145,9 @@ export default function HomeClient({ featuredProperties, propertyListings, categ
 
                     {/* View All Button */}
                     <div className="text-center">
-                        <button className="px-8 py-4 border-2 border-white rounded-full text-sm tracking-widest text-white hover:bg-white hover:text-gray-900 transition-colors uppercase">
+                        <Link href="/sales" className="inline-block px-8 py-4 border-2 border-white rounded-full text-sm tracking-widest text-white hover:bg-white hover:text-gray-900 transition-colors uppercase">
                             View All Listings
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </section>

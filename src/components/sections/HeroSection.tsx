@@ -109,8 +109,9 @@ export default function HeroSection({ section }: HeroSectionProps) {
                                 <Search className="w-5 h-5" />
                             </button>
                             <nav className="hidden md:flex gap-8 uppercase text-sm tracking-wider">
-                                <Link href="/sales/new-york-ny" className="hover:opacity-80 transition-opacity">Buy</Link>
-                                <Link href="/rentals/new-york-ny" className="hover:opacity-80 transition-opacity">Rent</Link>
+                                <Link href="/sales" className="hover:opacity-80 transition-opacity">Buy</Link>
+                                <span>|</span>
+                                <Link href="/rentals" className="hover:opacity-80 transition-opacity">Rent</Link>
                                 <Link href="/sell" className="hover:opacity-80 transition-opacity">Sell</Link>
                                 <Link href="/agents" className="hover:opacity-80 transition-opacity">Agents</Link>
                             </nav>
