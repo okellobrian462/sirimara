@@ -11,11 +11,13 @@ import type { Listing, FilterState } from "@/lib/types/listing";
 interface SalesSearchClientProps {
     listings: Listing[];
     googleMapsApiKey: string;
+    hideHero?: boolean;
 }
 
 export default function SalesSearchClient({
     listings,
     googleMapsApiKey,
+    hideHero = false,
 }: SalesSearchClientProps) {
     const [filters, setFilters] = useState<FilterState>({
         goal: "sale",
@@ -59,14 +61,16 @@ export default function SalesSearchClient({
     return (
         <>
             {/* Hero Section */}
-            <div className="bg-[#4d525c] pt-28 pb-16 text-center px-6">
-                <h2 className="text-white text-3xl md:text-4xl font-light tracking-[0.15em] mb-4 font-serif">
-                    FIND YOUR DREAM HOME
-                </h2>
-                <p className="text-white/90 text-sm tracking-wide font-light">
-                    We are experts in the luxury sales market.
-                </p>
-            </div>
+            {!hideHero && (
+                <div className="bg-[#4d525c] pt-28 pb-16 text-center px-6">
+                    <h2 className="text-white text-3xl md:text-4xl font-light tracking-[0.15em] mb-4 font-serif">
+                        FIND YOUR DREAM HOME
+                    </h2>
+                    <p className="text-white/90 text-sm tracking-wide font-light">
+                        We are experts in the luxury sales market.
+                    </p>
+                </div>
+            )}
 
             {/* Sticky Container */}
             <div className="sticky top-0 z-40 bg-white h-screen flex flex-col">

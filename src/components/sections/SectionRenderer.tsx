@@ -7,6 +7,10 @@ import BannerSection from './BannerSection';
 import ContactSection from './ContactSection';
 import TabsSection from './TabsSection';
 import StoriesSection from './StoriesSection';
+import SalesSearchSection from './SalesSearchSection';
+import RentalsSearchSection from './RentalsSearchSection';
+import DevelopmentsGridSection from './DevelopmentsGridSection';
+import LogosSection from './LogosSection';
 
 interface SectionRendererProps {
     section: PageSection;
@@ -35,6 +39,14 @@ export default async function SectionRenderer({ section }: SectionRendererProps)
             return <TabsSection section={section} tabs={tabs} />;
         case 'stories':
             return <StoriesSection section={section} />;
+        case 'property_search_sales':
+            return <SalesSearchSection section={section} />;
+        case 'property_search_rentals':
+            return <RentalsSearchSection section={section} />;
+        case 'development_grid':
+            return <DevelopmentsGridSection section={section} />;
+        case 'logo_grid':
+            return <LogosSection section={section} />;
         default:
             console.warn(`Unknown section type: ${section.section_type}`);
             return null;

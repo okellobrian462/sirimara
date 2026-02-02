@@ -12,12 +12,12 @@ import {
     ChevronLeft,
     ChevronRight,
     Image,
-    FileText,
+    // FileText, // Removed - unused
     BarChart3,
     Monitor,
     Sliders,
     Home, // Added for Properties icon
-    TrendingUp, // Added for Statistics icon
+    // TrendingUp, // Removed - unused
     FileImage, // Added for Media Library icon
     Menu, // Added for Navigation icon
     Layers // Added for Pages icon
@@ -30,9 +30,6 @@ const navigation = [
     { name: 'Properties', href: '/admin/properties', icon: Home },
     { name: 'Featured', href: '/admin/featured', icon: Star },
     { name: 'Agents', href: '/admin/agents', icon: Users },
-    { name: 'Hero Sections', href: '/admin/heroes', icon: Image },
-    { name: 'Statistics', href: '/admin/statistics', icon: TrendingUp },
-    { name: 'Content Blocks', href: '/admin/content', icon: FileText },
     { name: 'Media Library', href: '/admin/media', icon: FileImage },
     { name: 'Navigation', href: '/admin/navigation', icon: Menu },
     { name: 'Site Config', href: '/admin/config', icon: Sliders },

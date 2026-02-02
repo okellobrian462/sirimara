@@ -50,16 +50,6 @@ export default async function Home() {
   // Fetch hero sections from CMS
   const heroSections = await fetchPageSections('home');
 
-  // Fetch section heading for property showcase
-  const supabase = await createClient();
-  const { data: sectionHeading } = await supabase
-    .from('content_blocks')
-    .select('*')
-    .eq('page', 'home')
-    .eq('block_type', 'section_heading')
-    .eq('is_active', true)
-    .single();
-
   return (
     <div className="min-h-screen bg-white">
       <Header />
@@ -74,7 +64,8 @@ export default async function Home() {
         featuredProperties={featuredProperties}
         propertyListings={propertyListings}
         categories={categories}
-        sectionHeading={sectionHeading}
+        propertyShowcaseTitle={config.property_showcase_title}
+        propertyShowcaseSubtitle={config.property_showcase_subtitle}
       />
 
       {/* Newsletter Section */}

@@ -1,4 +1,3 @@
-import AgentsHero from '@/components/agents/AgentsHero';
 import AgentsStats from '@/components/agents/AgentsStats';
 import AgentsInsider from '@/components/agents/AgentsInsider';
 import AgentsContact from '@/components/agents/AgentsContact';
@@ -14,9 +13,7 @@ export default async function AgentsPage() {
     return (
         <main className="min-h-screen bg-white">
             <Header />
-            <AgentsHero />
-
-            {/* Render CMS-managed tabs section */}
+            {/* Render CMS-managed sections (Hero, Tabs, etc.) */}
             {sections.map((section) => (
                 <SectionRenderer key={section.id} section={section} />
             ))}

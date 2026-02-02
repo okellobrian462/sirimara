@@ -1,18 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { createClient } from '@/lib/supabase/client';
+import { useRouter } from 'next/navigation';
 import { Save, Loader2 } from 'lucide-react';
-
-interface ConfigItem {
-    id: string;
-    key: string;
-    value: string | number | boolean | null | { [key: string]: unknown } | unknown[];
-    category: string;
-}
+import { getSiteConfig, updateSiteConfigBatch, SiteConfigItem } from '@/app/admin/actions/siteConfig';
 
 export default function SiteConfigPage() {
-    const [config, setConfig] = useState<ConfigItem[]>([]);
+    const router = useRouter();
+    const [config, setConfig] = useState<SiteConfigItem[]>([]);
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [message, setMessage] = useState('');
@@ -22,17 +17,12 @@ export default function SiteConfigPage() {
     }, []);
 
     async function fetchConfig() {
-        const supabase = createClient();
-        const { data, error } = await supabase
-            .from('site_config')
-            .select('*')
-            .order('category', { ascending: true });
+        const result = await getSiteConfig();
 
-        if (error) {
-            console.error('Error fetching config:', error);
-            setMessage('Error loading configuration');
+        if (result.success) {
+            setConfig(result.data);
         } else {
-            setConfig(data || []);
+            setMessage('Error loading configuration');
         }
         setLoading(false);
     }
@@ -40,28 +30,23 @@ export default function SiteConfigPage() {
     async function handleSave() {
         setSaving(true);
         setMessage('');
-        const supabase = createClient();
 
-        try {
-            for (const item of config) {
-                const { error } = await supabase
-                    .from('site_config')
-                    .update({
-                        value: item.value,
-                        updated_at: new Date().toISOString()
-                    })
-                    .eq('id', item.id);
+        const items = config.map(item => ({
+            id: item.id,
+            value: item.value
+        }));
 
-                if (error) throw error;
-            }
+        const result = await updateSiteConfigBatch(items);
+
+        if (result.success) {
             setMessage('Configuration saved successfully!');
+            router.refresh(); // Refresh to show updated data on main site
             setTimeout(() => setMessage(''), 3000);
-        } catch (error) {
-            console.error('Error saving config:', error);
+        } else {
             setMessage('Error saving configuration');
-        } finally {
-            setSaving(false);
         }
+
+        setSaving(false);
     }
 
     function updateValue(id: string, newValue: string) {
@@ -74,7 +59,7 @@ export default function SiteConfigPage() {
         if (!acc[item.category]) acc[item.category] = [];
         acc[item.category].push(item);
         return acc;
-    }, {} as Record<string, ConfigItem[]>);
+    }, {} as Record<string, SiteConfigItem[]>);
 
     if (loading) {
         return (
