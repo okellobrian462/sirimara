@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { GripVertical, Edit, Trash2, Eye, EyeOff } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { GripVertical, Edit, Trash2, Eye, EyeOff, AlertCircle } from 'lucide-react';
 import { deletePageSection, toggleSectionActive, reorderPageSections, PageSection } from '@/app/admin/actions/pageSections';
 
 interface SectionListProps {
@@ -12,32 +13,72 @@ interface SectionListProps {
 }
 
 export default function SectionList({ page, sections, onEdit, onUpdate }: SectionListProps) {
+    const router = useRouter();
     const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
+    const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
+    const [isSaving, setIsSaving] = useState(false);
 
-    const handleDragStart = (index: number) => {
+    const handleDragStart = (e: React.DragEvent, index: number) => {
         setDraggedIndex(index);
+        e.dataTransfer.effectAllowed = 'move';
+        // Add a ghost image or styling if desired
+    };
+
+    const handleDragEnter = (index: number) => {
+        if (draggedIndex === null) return;
+        setDragOverIndex(index);
     };
 
     const handleDragOver = (e: React.DragEvent, index: number) => {
         e.preventDefault();
-        if (draggedIndex === null || draggedIndex === index) return;
+        e.dataTransfer.dropEffect = 'move';
+    };
+
+    const handleDrop = async (e: React.DragEvent, targetIndex: number) => {
+        e.preventDefault();
+        if (draggedIndex === null || draggedIndex === targetIndex) {
+            setDraggedIndex(null);
+            setDragOverIndex(null);
+            return;
+        }
 
         const newSections = [...sections];
         const draggedSection = newSections[draggedIndex];
-        newSections.splice(draggedIndex, 1);
-        newSections.splice(index, 0, draggedSection);
 
-        setDraggedIndex(index);
-        onUpdate(newSections);
+        // Remove from old position
+        newSections.splice(draggedIndex, 1);
+        // Insert into new position
+        newSections.splice(targetIndex, 0, draggedSection);
+
+        // Update order_index property locally for immediate feedback
+        const reorderedSections = newSections.map((s, i) => ({
+            ...s,
+            order_index: i + 1
+        }));
+
+        onUpdate(reorderedSections);
+        setDraggedIndex(null);
+        setDragOverIndex(null);
+        setIsSaving(true);
+
+        try {
+            const sectionIds = reorderedSections.map(s => s.id!).filter(Boolean);
+            const result = await reorderPageSections(page, sectionIds);
+            if (!result.success) {
+                alert('Failed to save order: ' + result.error);
+                // Optionally revert state here if failure is critical
+            }
+            router.refresh();
+        } catch (error) {
+            console.error('Reorder error:', error);
+        } finally {
+            setIsSaving(false);
+        }
     };
 
-    const handleDragEnd = async () => {
-        if (draggedIndex !== null) {
-            // Save new order to database
-            const sectionIds = sections.map(s => s.id!).filter(Boolean);
-            await reorderPageSections(page, sectionIds);
-        }
+    const handleDragEnd = () => {
         setDraggedIndex(null);
+        setDragOverIndex(null);
     };
 
     const handleDelete = async (id: string) => {
@@ -46,6 +87,7 @@ export default function SectionList({ page, sections, onEdit, onUpdate }: Sectio
         const result = await deletePageSection(id);
         if (result.success) {
             onUpdate(sections.filter(s => s.id !== id));
+            router.refresh();
         } else {
             alert('Failed to delete section: ' + result.error);
         }
@@ -55,6 +97,7 @@ export default function SectionList({ page, sections, onEdit, onUpdate }: Sectio
         const result = await toggleSectionActive(id, !currentStatus);
         if (result.success && result.data) {
             onUpdate(sections.map(s => s.id === id ? result.data : s));
+            router.refresh();
         } else {
             alert('Failed to toggle section: ' + result.error);
         }
@@ -69,17 +112,31 @@ export default function SectionList({ page, sections, onEdit, onUpdate }: Sectio
         );
     }
 
+    // Check for duplicate order indexes (wonky data)
+    const hasOrderIssues = new Set(sections.map(s => s.order_index)).size !== sections.length;
+
     return (
         <div className="space-y-4">
+            {hasOrderIssues && (
+                <div className="flex items-center gap-2 p-4 bg-amber-50 text-amber-800 rounded-lg border border-amber-200 mb-4">
+                    <AlertCircle className="w-5 h-5" />
+                    <p className="text-sm">
+                        Duplicate order indexes detected. Drag items to fix the sequence.
+                    </p>
+                </div>
+            )}
+
             {sections.map((section, index) => (
                 <div
                     key={section.id}
                     draggable
-                    onDragStart={() => handleDragStart(index)}
+                    onDragStart={(e) => handleDragStart(e, index)}
                     onDragOver={(e) => handleDragOver(e, index)}
+                    onDragEnter={() => handleDragEnter(index)}
+                    onDrop={(e) => handleDrop(e, index)}
                     onDragEnd={handleDragEnd}
-                    className={`bg-white border rounded-lg p-6 transition-all ${draggedIndex === index ? 'opacity-50' : 'hover:shadow-md'
-                        } ${!section.is_active ? 'bg-gray-50 opacity-60' : ''}`}
+                    className={`bg-white border rounded-lg p-6 transition-all relative ${draggedIndex === index ? 'opacity-20 bg-gray-100' : 'hover:shadow-md'
+                        } ${dragOverIndex === index && draggedIndex !== index ? 'border-t-4 border-t-gray-900 pt-5' : ''} ${!section.is_active ? 'bg-gray-50 opacity-60' : ''}`}
                 >
                     <div className="flex items-start gap-4">
                         {/* Drag Handle */}
@@ -105,7 +162,12 @@ export default function SectionList({ page, sections, onEdit, onUpdate }: Sectio
                                         {section.title || section.subtitle || 'Untitled Section'}
                                     </h3>
                                 </div>
-                                <span className="text-sm text-gray-500">Order: {section.order_index}</span>
+                                <div className="flex flex-col items-end">
+                                    <span className="text-sm font-mono text-gray-500">Order: {section.order_index}</span>
+                                    {isSaving && draggedIndex === null && (
+                                        <span className="text-[10px] text-blue-500 animate-pulse">Saving...</span>
+                                    )}
+                                </div>
                             </div>
 
                             {section.content && (
@@ -114,7 +176,7 @@ export default function SectionList({ page, sections, onEdit, onUpdate }: Sectio
 
                             {section.media_url && (
                                 <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
-                                    <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded text-xs">
+                                    <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded text-xs shrink-0">
                                         {section.media_type === 'video' ? '🎥 Video' : '🖼️ Image'}
                                     </span>
                                     <span className="truncate max-w-md">{section.media_url}</span>
@@ -153,6 +215,13 @@ export default function SectionList({ page, sections, onEdit, onUpdate }: Sectio
                     </div>
                 </div>
             ))}
+
+            {isSaving && (
+                <div className="fixed bottom-8 right-8 bg-gray-900 text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-3 animate-in slide-in-from-bottom-4 duration-300">
+                    <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+                    <span className="text-sm font-medium">Updating section order...</span>
+                </div>
+            )}
         </div>
     );
 }

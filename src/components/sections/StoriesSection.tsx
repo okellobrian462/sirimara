@@ -1,12 +1,12 @@
 import type { PageSection } from '@/lib/content/fetchPageSections';
-import { fetchStoryItems } from '@/lib/content/fetchStoryItems';
+import type { StoryItem } from '@/lib/content/fetchStoryItems';
 
 interface StoriesSectionProps {
     section: PageSection;
+    items: StoryItem[];
 }
 
-export default async function StoriesSection({ section }: StoriesSectionProps) {
-    const stories = await fetchStoryItems(section.id!);
+export default function StoriesSection({ section, items }: StoriesSectionProps) {
 
     return (
         <section className="bg-white py-24 md:py-32 px-6">
@@ -18,7 +18,7 @@ export default async function StoriesSection({ section }: StoriesSectionProps) {
                 )}
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {stories.map((story) => (
+                    {items.map((story) => (
                         <div key={story.id} className="group cursor-pointer">
                             <div className="relative aspect-[4/5] overflow-hidden rounded-sm mb-6">
                                 {story.image_url ? (

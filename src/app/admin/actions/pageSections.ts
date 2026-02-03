@@ -111,19 +111,17 @@ export async function deletePageSection(id: string) {
 export async function reorderPageSections(page: string, sectionIds: string[]) {
     const supabase = await createClient();
 
-    // Update order_index for each section
-    const updates = sectionIds.map((id, index) => ({
-        id,
-        order_index: index + 1
-    }));
+    // Update order_index for each section individually to avoid NOT NULL constraint issues with upsert
+    for (let i = 0; i < sectionIds.length; i++) {
+        const { error } = await supabase
+            .from('page_sections')
+            .update({ order_index: i + 1 })
+            .eq('id', sectionIds[i]);
 
-    const { error } = await supabase
-        .from('page_sections')
-        .upsert(updates, { onConflict: 'id' });
-
-    if (error) {
-        console.error('Error reordering sections:', error);
-        return { success: false, error: error.message };
+        if (error) {
+            console.error(`Error reordering section ${sectionIds[i]}:`, error);
+            return { success: false, error: error.message };
+        }
     }
 
     revalidatePath(`/${page}`);

@@ -97,10 +97,10 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
             : (theme === 'dark' ? 'bg-white' : 'bg-transparent');
 
     const textColor = isSearchOpen || activeDropdown
-        ? 'text-[#181728]'
+        ? 'text-brand-primary'
         : isScrolled
-            ? (theme === 'dark' ? 'text-[#181728]' : 'text-white')
-            : (theme === 'dark' ? 'text-[#181728]' : 'text-white');
+            ? (theme === 'dark' ? 'text-brand-primary' : 'text-white')
+            : (theme === 'dark' ? 'text-brand-primary' : 'text-white');
 
     const dropdownTimeout = useRef<NodeJS.Timeout | null>(null);
 
@@ -152,7 +152,7 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
 
                                         {/* Dynamic Dropdown - Rendered from database config */}
                                         {item.has_dropdown && activeDropdown === item.label.toLowerCase() && item.dropdown_config && (
-                                            <div className="absolute top-[calc(100%+16px)] left-[-24px] w-[380px] bg-white shadow-2xl border border-gray-100 p-8 flex flex-col gap-6 text-[#181728] animate-in fade-in slide-in-from-top-2 duration-300">
+                                            <div className="absolute top-[calc(100%+16px)] left-[-24px] w-[380px] bg-white shadow-2xl border border-gray-100 p-8 flex flex-col gap-6 text-brand-primary animate-in fade-in slide-in-from-top-2 duration-300">
                                                 {item.dropdown_type === 'search' && (
                                                     <>
                                                         <div>
@@ -274,8 +274,8 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
                                     <button
                                         onClick={() => setActiveSearchTab('buy')}
                                         className={`text-xs font-bold tracking-[0.15em] uppercase pb-4 transition-all relative ${activeSearchTab === 'buy'
-                                            ? 'text-[#181728] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-[#181728]'
-                                            : 'text-gray-400 hover:text-[#181728]'
+                                            ? 'text-brand-primary after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-brand-primary'
+                                            : 'text-gray-400 hover:text-brand-primary'
                                             }`}
                                     >
                                         BUY
@@ -283,8 +283,8 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
                                     <button
                                         onClick={() => setActiveSearchTab('rent')}
                                         className={`text-xs font-bold tracking-[0.15em] uppercase pb-4 transition-all relative ${activeSearchTab === 'rent'
-                                            ? 'text-[#181728] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-[#181728]'
-                                            : 'text-gray-400 hover:text-[#181728]'
+                                            ? 'text-brand-primary after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-brand-primary'
+                                            : 'text-gray-400 hover:text-brand-primary'
                                             }`}
                                     >
                                         RENT
@@ -292,8 +292,8 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
                                     <button
                                         onClick={() => setActiveSearchTab('agents')}
                                         className={`text-xs font-bold tracking-[0.15em] uppercase pb-4 transition-all relative ${activeSearchTab === 'agents'
-                                            ? 'text-[#181728] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-[#181728]'
-                                            : 'text-gray-400 hover:text-[#181728]'
+                                            ? 'text-brand-primary after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-brand-primary'
+                                            : 'text-gray-400 hover:text-brand-primary'
                                             }`}
                                     >
                                         AGENTS
@@ -311,7 +311,7 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
                                             <div className="flex flex-col gap-4 items-start">
                                                 {activeSearchTab === 'buy' && (
                                                     <>
-                                                        <Link href="/search?type=buy" onClick={() => setIsSearchOpen(false)} className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#181728] hover:text-gray-500 transition-colors">
+                                                        <Link href="/search?type=buy" onClick={() => setIsSearchOpen(false)} className="text-[10px] font-bold tracking-[0.2em] uppercase text-brand-primary hover:text-gray-500 transition-colors">
                                                             Find all sales properties
                                                         </Link>
                                                         <Link href="/agents" onClick={() => setIsSearchOpen(false)} className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#181728] hover:text-gray-500 transition-colors">
@@ -342,7 +342,7 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
                                     ) : (
                                         /* Realtime Results */
                                         <div>
-                                            <div className="flex items-center gap-2 mb-4 text-[#181728] text-[10px] tracking-[0.2em] font-medium uppercase">
+                                            <div className="flex items-center gap-2 mb-4 text-brand-primary text-[10px] tracking-[0.2em] font-medium uppercase">
                                                 {activeSearchTab === 'agents' ? (
                                                     <>
                                                         <Search className="w-3 h-3" />
@@ -369,7 +369,7 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
                                                                 </div>
                                                             )}
                                                             <div className="flex flex-col md:flex-row md:items-baseline gap-1 md:gap-3">
-                                                                <span className="text-lg font-serif text-[#181728] group-hover:text-blue-900 transition-colors">
+                                                                <span className="text-lg font-serif text-brand-primary group-hover:text-blue-900 transition-colors">
                                                                     {result.primaryText}
                                                                 </span>
                                                                 {result.secondaryText && (
@@ -394,7 +394,7 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
                                 onClick={() => setIsSearchOpen(false)}
                                 className="p-2 hover:bg-gray-50 rounded-full transition-colors shrink-0"
                             >
-                                <X className="w-7 h-7 text-[#181728]" />
+                                <X className="w-7 h-7 text-brand-primary" />
                             </button>
                         </div>
                     </div>

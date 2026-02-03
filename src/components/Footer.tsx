@@ -15,29 +15,36 @@ export default async function Footer() {
     ]);
 
     // Extract config values with fallbacks
-    const contactPhone = config.contact_phone || '212.891.7000';
-    const contactEmail = config.contact_email || 'info@elliman.com';
-    const contactAddress = config.contact_address || '575 MADISON AVENUE, NEW YORK, NY 10022';
-    const socialFacebook = config.social_facebook || '#';
-    const socialTwitter = config.social_twitter || '#';
-    const socialInstagram = config.social_instagram || '#';
-    const socialLinkedin = config.social_linkedin || '#';
-    const siteName = config.site_name || 'DOUGLAS ELLIMAN REAL ESTATE';
+    const contactPhone = config.phone || '';
+    const contactEmail = config.email || '';
+    const contactAddress = config.contact_address || '';
+    const socialFacebook = config.facebook_url || '#';
+    const socialTwitter = config.twitter_url || '#';
+    const socialInstagram = config.instagram_url || '#';
+    const socialLinkedin = config.linkedin_url || '#';
+    const siteName = (config.company_name ?? 'DOUGLAS ELLIMAN REAL ESTATE').toUpperCase();
+
+    // Extract footer section titles
+    const footerTitles = config.footer_section_titles ?? {
+        company_title: 'Company',
+        resources_title: 'Resources',
+        portfolio_title: 'Brand Portfolio',
+        markets_title: 'Our Markets'
+    };
 
     const companyLinks = navigation.footer_company || [];
     const resourcesLinks = navigation.footer_resources || [];
     const portfolioLinks = navigation.footer_portfolio || [];
     const marketsLinks = navigation.footer_markets || [];
+    const legalLinks = navigation.footer_legal || [];
 
     return (
-        <footer className="bg-[#181728] text-white py-16">
+        <footer className="bg-brand-primary text-white py-16">
             <div className="px-6">
-
-
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
                     {/* Company Section */}
                     <div>
-                        <h3 className="text-sm tracking-widest uppercase mb-6">Company</h3>
+                        <h3 className="text-sm tracking-widest uppercase mb-6">{footerTitles.company_title}</h3>
                         <ul className="space-y-3 text-sm">
                             {companyLinks.map((link) => (
                                 <li key={link.id}>
@@ -49,7 +56,7 @@ export default async function Footer() {
 
                     {/* Resources Section */}
                     <div>
-                        <h3 className="text-sm tracking-widest uppercase mb-6">Resources</h3>
+                        <h3 className="text-sm tracking-widest uppercase mb-6">{footerTitles.resources_title}</h3>
                         <ul className="space-y-3 text-sm">
                             {resourcesLinks.map((link) => (
                                 <li key={link.id}>
@@ -61,7 +68,7 @@ export default async function Footer() {
 
                     {/* Brand Portfolio Section */}
                     <div>
-                        <h3 className="text-sm tracking-widest uppercase mb-6">Brand Portfolio</h3>
+                        <h3 className="text-sm tracking-widest uppercase mb-6">{footerTitles.portfolio_title}</h3>
                         <ul className="space-y-3 text-sm">
                             {portfolioLinks.map((link) => (
                                 <li key={link.id}>
@@ -73,13 +80,20 @@ export default async function Footer() {
                 </div>
 
                 {/* Our Markets Expandable Section */}
-                <FooterMarkets markets={marketsLinks} />
+                <FooterMarkets markets={marketsLinks} title={footerTitles.markets_title} />
 
                 {/* Bottom Footer */}
                 <div className="border-t border-white/20 pt-8">
                     <div className="flex flex-wrap gap-6 text-xs mb-6 uppercase tracking-wider">
-                        <a href="#" className="hover:opacity-80 transition-opacity">Terms</a>
-                        <a href="#" className="hover:opacity-80 transition-opacity">Privacy</a>
+                        {legalLinks.slice(0, 2).map((link) => (
+                            <Link
+                                key={link.id}
+                                href={link.url}
+                                className="hover:opacity-80 transition-opacity"
+                            >
+                                {link.label}
+                            </Link>
+                        ))}
                     </div>
 
                     <div className="flex gap-6 mb-8">
@@ -105,9 +119,9 @@ export default async function Footer() {
                         </a>
                     </div>
 
-                    {/* Legal Document Links - Now CMS-managed */}
+                    {/* Legal Document Links */}
                     <div className="mb-8 space-y-2">
-                        {(navigation.footer_legal || []).map((link) => (
+                        {legalLinks.slice(2).map((link) => (
                             <a
                                 key={link.id}
                                 href={link.url}
@@ -120,21 +134,25 @@ export default async function Footer() {
                         ))}
                     </div>
 
-                    <p className="text-xs text-gray-400 leading-relaxed mb-4 uppercase">
-                        {config.footer_disclaimer_1 || 'The Source of the Displayed Data is Either the Property Owner or Public Record Provided by Non-Governmental Third Parties. It is Believed to be Reliable but Not Guaranteed. For Colorado Viewers, Information About Non-Commercial Properties is Provided Exclusively for Your Personal, Non-Commercial Use.'}
-                    </p>
+                    {config.footer_disclaimer_1 && (
+                        <p className="text-xs text-gray-400 leading-relaxed mb-4 uppercase">
+                            {config.footer_disclaimer_1}
+                        </p>
+                    )}
 
                     <p className="text-xs text-gray-400 leading-relaxed mb-4">
-                        {contactAddress}. {contactPhone} © 2025 {siteName}.
-                        {config.footer_disclaimer_2 || ' EQUAL EMPLOYMENT OPPORTUNITY PROVIDER. ALL MATERIAL PRESENTED HEREIN IS INTENDED FOR INFORMATION PURPOSES ONLY. WHILE THIS INFORMATION IS BELIEVED TO BE CORRECT, IT IS REPRESENTED SUBJECT TO ERRORS, OMISSIONS, CHANGES, OR WITHDRAWAL WITHOUT NOTICE. ALL PROPERTY INFORMATION, INCLUDING, BUT NOT LIMITED TO SQUARE FOOTAGE, ROOM COUNT, NUMBER OF BEDROOMS, AND THE SCHOOL DISTRICT IN PROPERTY LISTINGS SHOULD BE VERIFIED BY YOUR OWN ATTORNEY, ARCHITECT, OR ZONING EXPERT. EQUAL HOUSING OPPORTUNITY. LISTING DATA REFRESHED ON NOV 28 2025 AT 11:12 PM.'}
+                        {contactAddress && `${contactAddress}. `}{contactPhone && `${contactPhone} `}© {new Date().getFullYear()} {siteName}.
+                        {config.footer_disclaimer_2 && ` ${config.footer_disclaimer_2}`}
                     </p>
 
-                    <p className="text-xs text-gray-400 leading-relaxed mb-4">
-                        {config.footer_disclaimer_3 || 'DOUGLAS ELLIMAN IS A LICENSED REAL ESTATE BROKER IN CALIFORNIA WITH LICENSE # 01947727, COLORADO WITH LICENSE # EC100053892, CONNECTICUT WITH LICENSE # REB.0314827, THE DISTRICT OF COLUMBIA WITH LICENSE # REO40000160, FLORIDA WITH LICENSE # CQ1020232, MARYLAND WITH LICENSE # 645270, MASSACHUSETTS WITH LICENSE # 422764, NEVADA WITH LICENSE # 1454643, NEW JERSEY WITH LICENSE # 0572105, NEW YORK WITH LICENSE # 10991211812, TEXAS WITH LICENSE # 9008706, AND VIRGINIA WITH LICENSE # 0226035659.'}
-                    </p>
+                    {config.footer_disclaimer_3 && (
+                        <p className="text-xs text-gray-400 leading-relaxed mb-4">
+                            {config.footer_disclaimer_3}
+                        </p>
+                    )}
 
                     <p className="text-xs text-gray-400">
-                        {config.footer_powered_by || 'POWERED BY PURLIN.AI'}
+                        {config.footer_powered_by ?? 'POWERED BY PURLIN.AI'}
                     </p>
                 </div>
             </div>

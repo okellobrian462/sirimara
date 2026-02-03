@@ -225,6 +225,7 @@ CREATE TABLE IF NOT EXISTS tabs_items (
   description TEXT,
   image_url TEXT,
   order_index INTEGER NOT NULL,
+  layout_config JSONB DEFAULT '{}'::jsonb,
   is_active BOOLEAN DEFAULT true,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -237,6 +238,7 @@ CREATE TABLE IF NOT EXISTS stories_items (
   category TEXT DEFAULT 'INSIDER',
   url TEXT, -- Optional link
   sort_order INTEGER DEFAULT 0,
+  layout_config JSONB DEFAULT '{}'::jsonb,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 

@@ -20,7 +20,8 @@ import {
     // TrendingUp, // Removed - unused
     FileImage, // Added for Media Library icon
     Menu, // Added for Navigation icon
-    Layers // Added for Pages icon
+    Layers, // Added for Pages icon
+    Palette // Added for Theme icon
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -32,6 +33,7 @@ const navigation = [
     { name: 'Agents', href: '/admin/agents', icon: Users },
     { name: 'Media Library', href: '/admin/media', icon: FileImage },
     { name: 'Navigation', href: '/admin/navigation', icon: Menu },
+    { name: 'Theme', href: '/admin/theme', icon: Palette },
     { name: 'Site Config', href: '/admin/config', icon: Sliders },
     { name: 'Subscribers', href: '/admin/subscribers', icon: Mail },
     { name: 'Settings', href: '/admin/settings', icon: Settings },

@@ -1,5 +1,6 @@
 import type { PageSection } from '@/lib/content/fetchPageSections';
 import { fetchTabItems } from '@/lib/content/fetchTabItems';
+import { fetchStoryItems } from '@/lib/content/fetchStoryItems';
 import HeroSection from './HeroSection';
 import StatsSection from './StatsSection';
 import QuoteSection from './QuoteSection';
@@ -11,6 +12,14 @@ import SalesSearchSection from './SalesSearchSection';
 import RentalsSearchSection from './RentalsSearchSection';
 import DevelopmentsGridSection from './DevelopmentsGridSection';
 import LogosSection from './LogosSection';
+import PropertyShowcaseSection from './PropertyShowcaseSection';
+import NewsletterSection from './NewsletterSection';
+import WoeStorySection from './WoeStorySection';
+import WoeBannerSection from './WoeBannerSection';
+import WoeModulesSection from './WoeModulesSection';
+import LeadershipHeroSection from './LeadershipHeroSection';
+import LeaderTilesSection from './LeaderTilesSection';
+import AccordionSection from './AccordionSection';
 
 interface SectionRendererProps {
     section: PageSection;
@@ -21,8 +30,14 @@ interface SectionRendererProps {
  * This is the core component that makes the CMS system work
  */
 export default async function SectionRenderer({ section }: SectionRendererProps) {
-    // Fetch tabs if this is a tabs section
-    const tabs = section.section_type === 'tabs' ? await fetchTabItems(section.id!) : [];
+    // Fetch common sub-items if applicable
+    const tabs = (['tabs', 'woe_banner', 'leadership_tiles', 'accordion'].includes(section.section_type))
+        ? await fetchTabItems(section.id!)
+        : [];
+
+    const stories = (['stories', 'woe_modules'].includes(section.section_type))
+        ? await fetchStoryItems(section.id!)
+        : [];
 
     switch (section.section_type) {
         case 'hero':
@@ -38,7 +53,7 @@ export default async function SectionRenderer({ section }: SectionRendererProps)
         case 'tabs':
             return <TabsSection section={section} tabs={tabs} />;
         case 'stories':
-            return <StoriesSection section={section} />;
+            return <StoriesSection section={section} items={stories} />;
         case 'property_search_sales':
             return <SalesSearchSection section={section} />;
         case 'property_search_rentals':
@@ -47,6 +62,22 @@ export default async function SectionRenderer({ section }: SectionRendererProps)
             return <DevelopmentsGridSection section={section} />;
         case 'logo_grid':
             return <LogosSection section={section} />;
+        case 'property_showcase':
+            return <PropertyShowcaseSection section={section} />;
+        case 'newsletter':
+            return <NewsletterSection section={section} />;
+        case 'woe_story':
+            return <WoeStorySection section={section} />;
+        case 'woe_banner':
+            return <WoeBannerSection section={section} items={tabs} />;
+        case 'woe_modules':
+            return <WoeModulesSection section={section} items={stories} />;
+        case 'leadership_hero':
+            return <LeadershipHeroSection section={section} />;
+        case 'leadership_tiles':
+            return <LeaderTilesSection section={section} leaders={tabs} />;
+        case 'accordion':
+            return <AccordionSection section={section} items={tabs} />;
         default:
             console.warn(`Unknown section type: ${section.section_type}`);
             return null;

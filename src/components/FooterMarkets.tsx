@@ -12,9 +12,10 @@ interface NavigationItem {
 
 interface FooterMarketsProps {
     markets: NavigationItem[];
+    title?: string;
 }
 
-export default function FooterMarkets({ markets }: FooterMarketsProps) {
+export default function FooterMarkets({ markets, title = "OUR MARKETS" }: FooterMarketsProps) {
     const [marketsExpanded, setMarketsExpanded] = useState(false);
 
     if (markets.length === 0) return null;
@@ -26,7 +27,7 @@ export default function FooterMarkets({ markets }: FooterMarketsProps) {
                 className="flex items-center gap-3 text-sm tracking-widest uppercase hover:opacity-80 transition-opacity"
             >
                 <span className="text-2xl">{marketsExpanded ? '−' : '+'}</span>
-                OUR MARKETS
+                {title}
             </button>
             {marketsExpanded && (
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 text-sm">

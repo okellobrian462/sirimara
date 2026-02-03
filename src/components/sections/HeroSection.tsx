@@ -53,15 +53,15 @@ export default function HeroSection({ section }: HeroSectionProps) {
 
             {/* Content */}
             <div className={`relative z-10 ${alignmentClass} text-white px-6 ${variant === 'home' ? 'max-w-none' : 'max-w-5xl mx-auto'}`}>
+                {section.title && (
+                    <h1 className={`${variant === 'home' ? 'text-[40px] tracking-[0.25rem]' : 'text-3xl md:text-5xl lg:text-6xl font-light tracking-[0.05em]'} uppercase leading-[1.2] mb-4`}>
+                        {section.title}
+                    </h1>
+                )}
                 {section.subtitle && (
                     <p className="text-xs md:text-sm font-bold tracking-[0.3em] uppercase mb-8 opacity-90">
                         {section.subtitle}
                     </p>
-                )}
-                {section.title && (
-                    <h1 className={`${variant === 'home' ? 'text-[40px] tracking-[0.25rem]' : 'text-3xl md:text-5xl lg:text-6xl font-light tracking-[0.05em]'} uppercase leading-[1.2] mb-8`}>
-                        {section.title}
-                    </h1>
                 )}
                 {section.content && (
                     <p className="text-lg md:text-xl font-light max-w-2xl mx-auto opacity-90 mb-12">

@@ -214,7 +214,7 @@ export default function SectionForm({ page, section, templates, onClose, onUpdat
                             </div>
                         </div>
 
-                        {/* CTAs */}
+                        {/* Primary CTAs */}
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-sm font-medium mb-2">Primary CTA Text</label>
@@ -234,6 +234,30 @@ export default function SectionForm({ page, section, templates, onClose, onUpdat
                                     onChange={(e) => handleChange('cta_primary_link', e.target.value)}
                                     className="w-full border border-gray-300 rounded-lg px-4 py-2"
                                     placeholder="/link"
+                                />
+                            </div>
+                        </div>
+
+                        {/* Secondary CTAs */}
+                        <div className="grid grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-sm font-medium mb-2">Secondary CTA Text</label>
+                                <input
+                                    type="text"
+                                    value={formData.cta_secondary_text || ''}
+                                    onChange={(e) => handleChange('cta_secondary_text', e.target.value)}
+                                    className="w-full border border-gray-300 rounded-lg px-4 py-2"
+                                    placeholder="Learn More"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium mb-2">Secondary CTA Link</label>
+                                <input
+                                    type="text"
+                                    value={formData.cta_secondary_link || ''}
+                                    onChange={(e) => handleChange('cta_secondary_link', e.target.value)}
+                                    className="w-full border border-gray-300 rounded-lg px-4 py-2"
+                                    placeholder="/learn-more"
                                 />
                             </div>
                         </div>

@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-interface BannerItem {
+export interface BannerItem {
     label: string;
     title: string;
     ctaText: string;

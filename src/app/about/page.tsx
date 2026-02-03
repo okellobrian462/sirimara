@@ -2,7 +2,6 @@
 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import CookieConsent from '@/components/CookieConsent';
 import { fetchPageSections } from '@/lib/content/fetchPageSections';
 import SectionRenderer from '@/components/sections/SectionRenderer';
 
@@ -20,7 +19,6 @@ export default async function About() {
             ))}
 
             <Footer />
-            <CookieConsent />
         </div>
     );
 }

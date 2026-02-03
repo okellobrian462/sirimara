@@ -37,7 +37,10 @@ INSERT INTO site_config (key, value, category) VALUES
   ('footer_disclaimer_1', '"The Source of the Displayed Data is Either the Property Owner or Public Record Provided by Non-Governmental Third Parties. It is Believed to be Reliable but Not Guaranteed. For Colorado Viewers, Information About Non-Commercial Properties is Provided Exclusively for Your Personal, Non-Commercial Use."', 'legal'),
   ('footer_disclaimer_2', '" EQUAL EMPLOYMENT OPPORTUNITY PROVIDER. ALL MATERIAL PRESENTED HEREIN IS INTENDED FOR INFORMATION PURPOSES ONLY. WHILE THIS INFORMATION IS BELIEVED TO BE CORRECT, IT IS REPRESENTED SUBJECT TO ERRORS, OMISSIONS, CHANGES, OR WITHDRAWAL WITHOUT NOTICE. ALL PROPERTY INFORMATION, INCLUDING, BUT NOT LIMITED TO SQUARE FOOTAGE, ROOM COUNT, NUMBER OF BEDROOMS, AND THE SCHOOL DISTRICT IN PROPERTY LISTINGS SHOULD BE VERIFIED BY YOUR OWN ATTORNEY, ARCHITECT, OR ZONING EXPERT. EQUAL HOUSING OPPORTUNITY. LISTING DATA REFRESHED ON NOV 28 2025 AT 11:12 PM."', 'legal'),
   ('footer_disclaimer_3', '"DOUGLAS ELLIMAN IS A LICENSED REAL ESTATE BROKER IN CALIFORNIA WITH LICENSE # 01947727, COLORADO WITH LICENSE # EC100053892, CONNECTICUT WITH LICENSE # REB.0314827, THE DISTRICT OF COLUMBIA WITH LICENSE # REO40000160, FLORIDA WITH LICENSE # CQ1020232, MARYLAND WITH LICENSE # 645270, MASSACHUSETTS WITH LICENSE # 422764, NEVADA WITH LICENSE # 1454643, NEW JERSEY WITH LICENSE # 0572105, NEW YORK WITH LICENSE # 10991211812, TEXAS WITH LICENSE # 9008706, AND VIRGINIA WITH LICENSE # 0226035659."', 'legal'),
-  ('footer_powered_by', '"POWERED BY PURLIN.AI"', 'legal')
+  ('footer_powered_by', '"POWERED BY PURLIN.AI"', 'legal'),
+  ('contact_address', '"575 MADISON AVENUE, NEW YORK, NY 10022"', 'contact'),
+  ('footer_section_titles', '{"company_title": "Company", "resources_title": "Resources", "portfolio_title": "Brand Portfolio", "markets_title": "Our Markets"}', 'content'),
+  ('theme_colors', '{"primary": "#181728", "primary_hover": "#252438", "accent": "#8B5CF6"}', 'theme')
 ON CONFLICT (key) DO NOTHING;
 
 -- ============================================
@@ -246,16 +249,18 @@ INSERT INTO navigation_items (menu_location, label, url, order_index, is_active)
 
 -- Footer Legal
 INSERT INTO navigation_items (menu_location, label, url, order_index, is_active, opens_in_new_tab) VALUES
-('footer_legal', 'NYS Housing Discrimination Disclosure Notice & Form', 'https://www.elliman.com/pdf/nys-housing-discrimination-disclosure.pdf', 1, true, true),
-('footer_legal', 'NYS Standard Operating Procedure', 'https://www.elliman.com/pdf/nys-standard-operating-procedure.pdf', 2, true, true),
-('footer_legal', 'NYS Tenants'' Rights to Reasonable Accommodations for Persons with Disabilities', 'https://www.elliman.com/pdf/nys-tenants-rights.pdf', 3, true, true),
-('footer_legal', 'California Consumer Privacy Act Notice', 'https://www.elliman.com/pdf/california-ccpa-notice.pdf', 4, true, true),
-('footer_legal', 'Texas Consumer Protection Notice', 'https://www.elliman.com/pdf/texas-consumer-protection.pdf', 5, true, true),
-('footer_legal', 'Texas Real Estate Commission Information About Brokerage Services', 'https://www.elliman.com/pdf/texas-trec-brokerage-services.pdf', 6, true, true),
-('footer_legal', 'Text of New York City Human Rights Law', 'https://www.elliman.com/pdf/nyc-human-rights-law.pdf', 7, true, true),
-('footer_legal', 'New York City Commission on Human Rights', 'https://www.nyc.gov/site/cchr/index.page', 8, true, true),
-('footer_legal', 'NYC Source of Income Discrimination Information', 'https://www.elliman.com/pdf/nyc-source-income-discrimination.pdf', 9, true, true),
-('footer_legal', 'NYC Source of Income Discrimination Tenant FAQs', 'https://www.elliman.com/pdf/nyc-source-income-tenant-faqs.pdf', 10, true, true);
+('footer_legal', 'Terms', '#', 1, true, false),
+('footer_legal', 'Privacy', '#', 2, true, false),
+('footer_legal', 'NYS Housing Discrimination Disclosure Notice & Form', 'https://www.elliman.com/pdf/nys-housing-discrimination-disclosure.pdf', 3, true, true),
+('footer_legal', 'NYS Standard Operating Procedure', 'https://www.elliman.com/pdf/nys-standard-operating-procedure.pdf', 4, true, true),
+('footer_legal', 'NYS Tenants'' Rights to Reasonable Accommodations for Persons with Disabilities', 'https://www.elliman.com/pdf/nys-tenants-rights.pdf', 5, true, true),
+('footer_legal', 'California Consumer Privacy Act Notice', 'https://www.elliman.com/pdf/california-ccpa-notice.pdf', 6, true, true),
+('footer_legal', 'Texas Consumer Protection Notice', 'https://www.elliman.com/pdf/texas-consumer-protection.pdf', 7, true, true),
+('footer_legal', 'Texas Real Estate Commission Information About Brokerage Services', 'https://www.elliman.com/pdf/texas-trec-brokerage-services.pdf', 8, true, true),
+('footer_legal', 'Text of New York City Human Rights Law', 'https://www.elliman.com/pdf/nyc-human-rights-law.pdf', 9, true, true),
+('footer_legal', 'New York City Commission on Human Rights', 'https://www.nyc.gov/site/cchr/index.page', 10, true, true),
+('footer_legal', 'NYC Source of Income Discrimination Information', 'https://www.elliman.com/pdf/nyc-source-income-discrimination.pdf', 11, true, true),
+('footer_legal', 'NYC Source of Income Discrimination Tenant FAQs', 'https://www.elliman.com/pdf/nyc-source-income-tenant-faqs.pdf', 12, true, true);
 
 
 -- ============================================
@@ -273,7 +278,15 @@ INSERT INTO component_templates (name, component_type, description, default_conf
   ('tabs_spotlight', 'tabs', 'Interactive tabs section with image switching', '{"layout": "side-by-side", "image_position": "right", "show_gradient": true}'::jsonb),
   ('property_search', 'property_search_sales', 'Full property search interface with map and filters', '{"show_map": true, "initial_view": "list"}'::jsonb),
   ('development_grid', 'development_grid', 'Grid of new developments', '{"columns": 4}'::jsonb),
-  ('logo_grid', 'logo_grid', 'Grid of brand logos', '{"background_color": "#F8F8F8"}'::jsonb)
+  ('logo_grid', 'logo_grid', 'Grid of brand logos', '{"background_color": "#F8F8F8"}'::jsonb),
+  ('property_showcase', 'property_showcase', 'Property showcase with category tabs', '{"show_tabs": true, "max_properties": 4}'::jsonb),
+  ('newsletter', 'newsletter', 'Newsletter signup section', '{"layout": "horizontal"}'::jsonb),
+  ('woe_full_bleed', 'woe_story', 'Full bleed story with video/image background', '{"variant": "story"}'::jsonb),
+  ('woe_grouped_banner', 'woe_banner', 'Two-column grouped banner section', '{}'::jsonb),
+  ('woe_market_modules', 'woe_modules', 'Grid of featured publications', '{}'::jsonb),
+  ('leadership_hero', 'leadership_hero', 'Leadership page hero with scroll indicator', '{}'::jsonb),
+  ('leader_tile_row', 'leadership_tiles', 'Large leadership image and bio tiles', '{"reversed": false}'::jsonb),
+  ('regional_accordion', 'accordion', 'Accordion section for regional content', '{}'::jsonb)
 ON CONFLICT (name) DO NOTHING;
 
 -- ============================================
@@ -322,6 +335,137 @@ VALUES ('home', 'hero', 'EXPERIENCE UNPARALLELED SERVICE', NULL, 'EXPLORE EXCLUS
 -- Hero 3
 INSERT INTO page_sections (page, section_type, title, content, cta_primary_text, cta_primary_link, media_url, media_type, layout_config, order_index, background_color, text_color, template_id)
 VALUES ('home', 'hero', 'FIND YOUR DREAM HOME', NULL, 'VIEW PROPERTIES', '/search', 'https://ext.same-assets.com/2757429726/2776369223.jpeg', 'image', '{"height": "screen", "overlay_opacity": 30, "text_alignment": "center", "show_scroll_indicator": false, "variant": "default"}'::jsonb, 3, '#000000', '#FFFFFF', (SELECT id FROM component_templates WHERE name = 'hero_fullscreen'));
+
+-- Property Showcase
+INSERT INTO page_sections (page, section_type, title, subtitle, cta_primary_text, cta_primary_link, layout_config, order_index, background_color, text_color, template_id)
+VALUES ('home', 'property_showcase', 'THE NEXT MOVE IS YOURS', 'Local Experts, Global Reach', 'View All Listings', '/sales', '{"show_tabs": true, "max_properties": 4}'::jsonb, 4, '#181728', '#FFFFFF', (SELECT id FROM component_templates WHERE name = 'property_showcase'));
+
+-- Newsletter
+INSERT INTO page_sections (page, section_type, title, subtitle, layout_config, order_index, background_color, text_color, template_id)
+VALUES ('home', 'newsletter', 'The latest in luxury property, lifestyle & culture, curated just for you.', 'ENTER YOUR EMAIL', '{"layout": "horizontal"}'::jsonb, 5, '#181728', '#FFFFFF', (SELECT id FROM component_templates WHERE name = 'newsletter'));
+
+
+-- EXCLUSIVES PAGE
+-- Hero
+INSERT INTO page_sections (page, section_type, title, subtitle, content, media_url, media_type, layout_config, order_index, background_color, text_color, template_id)
+VALUES ('exclusives', 'hero', 'Douglas Elliman Exclusives', 'EXCLUSIVES', 'View our curated collection of premier properties.', 'https://ext.same-assets.com/2757429726/2803648720.jpeg', 'image', '{"height": "60vh", "overlay_opacity": 40, "text_alignment": "center", "variant": "default"}'::jsonb, 1, '#181728', '#FFFFFF', (SELECT id FROM component_templates WHERE name = 'hero_80vh'));
+
+-- Search
+INSERT INTO page_sections (page, section_type, title, layout_config, order_index, template_id)
+VALUES ('exclusives', 'property_search_sales', 'Find Your Exclusive Home', '{"show_map": true, "initial_view": "grid"}'::jsonb, 2, (SELECT id FROM component_templates WHERE name = 'property_search'));
+
+-- WORLD OF ELLIMAN
+-- Hero
+INSERT INTO page_sections (id, page, section_type, title, subtitle, media_url, media_type, layout_config, order_index, background_color, text_color, template_id)
+VALUES ('80000000-0000-0000-0000-000000000001', 'world-of-elliman', 'woe_story', 'elliman', 'Get immersed in the places, people, and lifestyles that inspire our world.', 'https://res.cloudinary.com/dk92v0fkk/video/upload/v1720626100/staging/lr2gqm9cktkmncz9xs5r.mp4', 'video', '{"variant": "hero", "label": "The world of "}'::jsonb, 1, '#000000', '#FFFFFF', (SELECT id FROM component_templates WHERE name = 'woe_full_bleed'));
+
+-- Equine Life
+INSERT INTO page_sections (id, page, section_type, title, subtitle, media_url, media_type, cta_primary_text, cta_primary_link, layout_config, order_index, background_color, text_color, template_id)
+VALUES ('80000000-0000-0000-0000-000000000002', 'world-of-elliman', 'woe_story', 'LIVING THE EQUINE LIFE', 'At Home with Horses', 'https://res.cloudinary.com/dk92v0fkk/video/upload/v1730914999/staging-test/dgx2uoymxfoj06t9eq3n.mp4', 'video', 'WHERE TO ROAM', '/world-of-elliman/living-the-equine-life', '{"variant": "story", "label": "At Home with Horses"}'::jsonb, 2, '#000000', '#FFFFFF', (SELECT id FROM component_templates WHERE name = 'woe_full_bleed'));
+
+-- Impact
+INSERT INTO page_sections (id, page, section_type, title, order_index, template_id)
+VALUES ('80000000-0000-0000-0000-000000000003', 'world-of-elliman', 'woe_banner', 'Making An Impact', 3, (SELECT id FROM component_templates WHERE name = 'woe_grouped_banner'));
+
+INSERT INTO tabs_items (section_id, title, description, image_url, order_index)
+VALUES 
+  ('80000000-0000-0000-0000-000000000003', 'THE RIDE FOR LOVE', 'Making An Impact', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1730937945/staging-test/svju8ywnjrwgvzm7qcf7.webp', 1),
+  ('80000000-0000-0000-0000-000000000003', 'THE DRIVING FORCE', 'An Eye for Detail', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1730941028/staging-test/zomzhqs6iw3iilkbizvd.webp', 2);
+
+-- Freedom
+INSERT INTO page_sections (id, page, section_type, title, subtitle, media_url, media_type, cta_primary_text, cta_primary_link, layout_config, order_index, background_color, text_color, template_id)
+VALUES ('80000000-0000-0000-0000-000000000004', 'world-of-elliman', 'woe_story', 'FINDING FREEDOM', 'Life At Sea', 'https://res.cloudinary.com/dk92v0fkk/video/upload/v1730922184/staging-test/r5mwvpfrszic6p564rzj.mp4', 'video', 'SET YOUR COURSE', '/world-of-elliman/finding-freedom', '{"variant": "story", "label": "Life At Sea"}'::jsonb, 4, '#000000', '#FFFFFF', (SELECT id FROM component_templates WHERE name = 'woe_full_bleed'));
+
+-- Aspen
+INSERT INTO page_sections (id, page, section_type, title, subtitle, media_url, media_type, cta_primary_text, cta_primary_link, layout_config, order_index, background_color, text_color, template_id)
+VALUES ('80000000-0000-0000-0000-000000000005', 'world-of-elliman', 'woe_story', 'THE CALL OF ASPEN', 'Making Moves ', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1730944030/staging-test/tmwrauyo2pma3fhnocdg.webp', 'image', 'hit the slopes', '/world-of-elliman/the-call-of-aspen', '{"variant": "story", "label": "Making Moves "}'::jsonb, 5, '#000000', '#FFFFFF', (SELECT id FROM component_templates WHERE name = 'woe_full_bleed'));
+
+-- Market Modules
+INSERT INTO page_sections (id, page, section_type, title, subtitle, order_index, template_id)
+VALUES ('80000000-0000-0000-0000-000000000006', 'world-of-elliman', 'woe_modules', 'FEATURED PUBLICATIONS', 'Discover our latest curated stories.', 6, (SELECT id FROM component_templates WHERE name = 'woe_market_modules'));
+
+INSERT INTO stories_items (section_id, title, image_url, category, url, sort_order)
+VALUES
+  ('80000000-0000-0000-0000-000000000006', 'ELLIMAN MAGAZINE', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1737654654/production/qgevgchdh6kyemffd58v.jpg', 'INSIDER', '/elliman-magazine', 1),
+  ('80000000-0000-0000-0000-000000000006', 'EQUESTRIAN MAGAZINE', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1753809337/production/pn7iqfezdagcejexbklp.jpg', 'INSIDER', '/equestrian-magazine', 2),
+  ('80000000-0000-0000-0000-000000000006', 'VICINITY UPPER EAST SIDE', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1743602943/production/wg7lok4hyiaxse4lf6ja.jpg', 'INSIDER', '/vicinity-magazine', 3),
+  ('80000000-0000-0000-0000-000000000006', 'VICINITY THE NORTH FORK', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1744905781/production/lucliw2ltwgbs3rd5bqk.jpg', 'INSIDER', '/nfvicinity-magazine', 4);
+
+-- LEADERSHIP PAGE
+-- Hero
+INSERT INTO page_sections (id, page, section_type, title, subtitle, content, media_url, media_type, order_index, background_color, text_color, template_id)
+VALUES ('90000000-0000-0000-0000-000000000001', 'leadership', 'leadership_hero', 'Real Estate is a People Business First', 'Our Leadership', 'While innovation drives success for our agents and partners, relationships and thoughtful leadership are the most essential.', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1766097063/production/myfyhtalqjqjhtcmxiuk.jpg', 'image', 1, '#181728', '#FFFFFF', (SELECT id FROM component_templates WHERE name = 'leadership_hero'));
+
+-- Top Leadership Tiles
+INSERT INTO page_sections (id, page, section_type, title, subtitle, order_index, template_id)
+VALUES ('90000000-0000-0000-0000-000000000002', 'leadership', 'leadership_tiles', 'Principals', NULL, 2, (SELECT id FROM component_templates WHERE name = 'leader_tile_row'));
+
+INSERT INTO tabs_items (section_id, title, description, image_url, order_index, layout_config)
+VALUES 
+  ('90000000-0000-0000-0000-000000000002', 'Michael S. Liebowitz', 'President and Chief Executive Officer', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1740419107/production/hpzxerrwbliqrzaogane.png', 1, '{"reversed": false}'::jsonb),
+  ('90000000-0000-0000-0000-000000000002', 'Susan de França', 'President & Chief Executive Officer - DE Development Marketing', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1734999307/production/ri0ouilkicfcv6k9okhf.png', 2, '{"reversed": true}'::jsonb);
+
+-- Regional Accordions
+INSERT INTO page_sections (id, page, section_type, title, order_index, template_id)
+VALUES ('90000000-0000-0000-0000-000000000003', 'leadership', 'accordion', 'Regional Leadership', 3, (SELECT id FROM component_templates WHERE name = 'regional_accordion'));
+
+INSERT INTO tabs_items (section_id, title, description, order_index)
+VALUES 
+  ('90000000-0000-0000-0000-000000000003', 'Executive Leadership', 'Leadership details coming soon for this region.', 1),
+  ('90000000-0000-0000-0000-000000000003', 'New York City', 'Leadership details coming soon for this region.', 2),
+  ('90000000-0000-0000-0000-000000000003', 'Long Island, Hamptons & North Fork', 'Leadership details coming soon for this region.', 3),
+  ('90000000-0000-0000-0000-000000000003', 'Westchester & New England', 'Leadership details coming soon for this region.', 4),
+  ('90000000-0000-0000-0000-000000000003', 'Mid-Atlantic', 'Leadership details coming soon for this region.', 5),
+  ('90000000-0000-0000-0000-000000000003', 'New Jersey', 'Leadership details coming soon for this region.', 6),
+  ('90000000-0000-0000-0000-000000000003', 'Florida', 'Leadership details coming soon for this region.', 7),
+  ('90000000-0000-0000-0000-000000000003', 'California', 'Leadership details coming soon for this region.', 8),
+  ('90000000-0000-0000-0000-000000000003', 'Colorado', 'Leadership details coming soon for this region.', 9),
+  ('90000000-0000-0000-0000-000000000003', 'Texas', 'Leadership details coming soon for this region.', 10),
+  ('90000000-0000-0000-0000-000000000003', 'Nevada', 'Leadership details coming soon for this region.', 11);
+
+-- AGENTS PAGE REFACTOR
+-- Hero (Already exist or add if missing)
+INSERT INTO page_sections (page, section_type, title, subtitle, content, media_url, media_type, layout_config, order_index, background_color, text_color, template_id)
+VALUES ('agents', 'hero', 'PARTNER WITH THE BEST', 'OUR AGENTS', 'Our agents are more than just transaction managers—they are your advisors, local experts, and trusted advocates.', 'https://res.cloudinary.com/dk92v0fkk/video/upload/v1727313545/staging/if0tunyrf2dsgrf6eeec.mp4', 'video', '{"height": "screen", "overlay_opacity": 40, "text_alignment": "center", "variant": "default"}'::jsonb, 1, '#000000', '#FFFFFF', (SELECT id FROM component_templates WHERE name = 'hero_fullscreen'));
+
+-- Join Tabs
+DO $$
+DECLARE
+  section_id UUID;
+BEGIN
+  INSERT INTO page_sections (page, section_type, title, subtitle, layout_config, order_index, background_color, text_color, template_id)
+  VALUES ('agents', 'tabs', 'THE DOUGLAS ELLIMAN ADVANTAGE', 'JOIN OUR NETWORK', '{"layout": "side-by-side", "image_position": "right", "show_gradient": true}'::jsonb, 2, '#FFFFFF', '#181728', (SELECT id FROM component_templates WHERE name = 'tabs_spotlight'))
+  RETURNING id INTO section_id;
+
+  INSERT INTO tabs_items (section_id, title, description, image_url, order_index)
+  VALUES 
+    (section_id, 'Unrivaled Support', 'Industry-leading educational training and comprehensive technical support.', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1734999307/production/ri0ouilkicfcv6k9okhf.png', 1),
+    (section_id, 'Global Presence', 'Access to an international network of qualified buyers and premier properties.', 'https://ext.same-assets.com/2757429726/2803648720.jpeg', 2),
+    (section_id, 'Cutting-Edge Tools', 'Exclusive digital platforms and marketing resources to drive your business.', 'https://ext.same-assets.com/2757429726/2776369223.jpeg', 3);
+END $$;
+
+-- Stats
+INSERT INTO page_sections (page, section_type, title, subtitle, content, layout_config, order_index, background_color, text_color, template_id)
+VALUES ('agents', 'stats', 'OUR NETWORK IS YOUR ADVANTAGE', NULL, 'With thousands of exceptional agents across key luxury markets, we deliver unparalleled service and expertise.', '{"columns": 3, "show_border": true, "show_intro_text": true, "stats_category": "company"}'::jsonb, 3, '#FFFFFF', '#181728', (SELECT id FROM component_templates WHERE name = 'stats_3column'));
+
+-- Insider (Stories)
+DO $$
+DECLARE
+  section_id UUID;
+BEGIN
+  INSERT INTO page_sections (page, section_type, title, subtitle, order_index, template_id)
+  VALUES ('agents', 'stories', 'ELLIMAN INSIDER', 'THE LATEST STORIES', 4, (SELECT id FROM component_templates WHERE name = 'logo_grid')) -- Reusing for grid or create stories template
+  RETURNING id INTO section_id;
+
+  INSERT INTO stories_items (section_id, title, image_url, category, url, sort_order)
+  VALUES
+    (section_id, 'The Future of Real Estate', 'https://ext.same-assets.com/2757429726/2803648720.jpeg', 'INSIDER', '/insider/future', 1),
+    (section_id, 'How to Master the Market', 'https://ext.same-assets.com/2757429726/2776369223.jpeg', 'GUIDE', '/insider/guide', 2);
+END $$;
+
+-- Contact
+INSERT INTO page_sections (page, section_type, title, content, cta_primary_text, cta_primary_link, layout_config, order_index, background_color, text_color, template_id)
+VALUES ('agents', 'contact', 'READY TO TAKE THE NEXT STEP?', 'Connect with us to learn more about joining the Douglas Elliman family.', 'SPEAK WITH US', 'tel:1-800-ELLIMAN', '{"layout": "horizontal", "show_intro_text": true}'::jsonb, 5, '#181728', '#FFFFFF', (SELECT id FROM component_templates WHERE name = 'contact_dual_cta'));
 
 
 -- SELL PAGE

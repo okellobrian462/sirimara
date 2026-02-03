@@ -24,14 +24,24 @@ export const metadata: Metadata = {
 
 import { SearchProvider } from "@/context/SearchContext";
 import { ModalProvider } from "@/context/ModalContext";
+import CookieConsent from "@/components/CookieConsent";
+import ThemeProvider from "@/components/ThemeProvider";
+import { fetchSiteConfig } from "@/lib/content/fetchSiteConfig";
 
 // ...
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const config = await fetchSiteConfig();
+  const themeColors = config.theme_colors || {
+    primary: '#181728',
+    primary_hover: '#252438',
+    accent: '#8B5CF6'
+  };
+
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
       <head>
@@ -41,9 +51,13 @@ export default function RootLayout({
         />
       </head>
       <body suppressHydrationWarning className="antialiased">
+        <ThemeProvider colors={themeColors} />
         <SearchProvider>
           <ModalProvider>
-            <ClientBody>{children}</ClientBody>
+            <ClientBody>
+              {children}
+              <CookieConsent />
+            </ClientBody>
           </ModalProvider>
         </SearchProvider>
       </body>

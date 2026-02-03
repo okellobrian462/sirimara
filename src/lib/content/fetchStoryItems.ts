@@ -6,6 +6,7 @@ export interface StoryItem {
     image_url: string;
     category: string;
     url?: string;
+    layout_config?: Record<string, unknown>;
 }
 
 export async function fetchStoryItems(sectionId: string): Promise<StoryItem[]> {

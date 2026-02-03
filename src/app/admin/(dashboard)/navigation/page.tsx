@@ -21,6 +21,7 @@ const MENU_LOCATIONS = [
     { value: 'footer_resources', label: 'Footer - Resources' },
     { value: 'footer_portfolio', label: 'Footer - Brand Portfolio' },
     { value: 'footer_markets', label: 'Footer - Our Markets' },
+    { value: 'footer_legal', label: 'Footer - Legal' },
 ];
 
 export default function NavigationPage() {

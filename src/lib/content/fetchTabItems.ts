@@ -9,6 +9,7 @@ export interface TabItem {
     description: string | null;
     image_url: string | null;
     order_index: number;
+    layout_config?: Record<string, unknown>;
     is_active: boolean;
 }
 

@@ -1,21 +1,24 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import ExclusivesHero from '@/components/exclusives/ExclusivesHero';
-import ExclusivesFilterBar from '@/components/exclusives/ExclusivesFilterBar';
-import ExclusivesGrid from '@/components/exclusives/ExclusivesGrid';
+import { fetchPageSections } from '@/lib/content/fetchPageSections';
+import SectionRenderer from '@/components/sections/SectionRenderer';
 
 export const metadata = {
     title: 'Luxury Homes for Sale & Real Estate | Douglas Elliman',
     description: 'View luxury homes for sale. Find your dream property at Elliman.com',
 }
 
-export default function ExclusivesPage() {
+export default async function ExclusivesPage() {
+    const sections = await fetchPageSections('exclusives');
+
     return (
         <main className="min-h-screen bg-white">
             <Header />
-            <ExclusivesHero />
-            <ExclusivesFilterBar />
-            <ExclusivesGrid />
+
+            {sections?.map((section) => (
+                <SectionRenderer key={section.id} section={section} />
+            ))}
+
             <Footer />
         </main>
     );
