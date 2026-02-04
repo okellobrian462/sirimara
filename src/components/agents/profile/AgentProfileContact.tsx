@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 
 interface AgentProfileContactProps {
     name: string;
@@ -72,7 +73,7 @@ export default function AgentProfileContact({ name }: AgentProfileContactProps) 
                                 className="mt-1 w-4 h-4 rounded border-gray-300 text-[#181728]"
                             />
                             <label htmlFor="sms-consent" className="text-xs text-gray-500 leading-relaxed">
-                                By checking this box, you consent to receive sms/text messages from Douglas Elliman Real Estate. Reply STOP to opt-out anytime. <a href="/privacy-policy" className="underline hover:text-[#181728]">Privacy Policy</a>
+                                By checking this box, you consent to receive sms/text messages from Douglas Elliman Real Estate. Reply STOP to opt-out anytime. <Link href="/privacy-policy" className="underline hover:text-[#181728]">Privacy Policy</Link>
                             </label>
                         </div>
                     </div>

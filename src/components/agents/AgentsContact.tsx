@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 export default function AgentsContact() {
     return (
@@ -73,7 +74,7 @@ export default function AgentsContact() {
                             className="mt-1 w-4 h-4 rounded border-gray-600 bg-transparent"
                         />
                         <label htmlFor="sms-consent" className="text-xs text-gray-400 leading-relaxed">
-                            By checking this box, you consent to receive sms/text messages from Douglas Elliman Real Estate. Reply STOP to opt-out anytime. <a href="/privacy-policy" className="underline hover:text-white">Privacy Policy</a>
+                            By checking this box, you consent to receive sms/text messages from Douglas Elliman Real Estate. Reply STOP to opt-out anytime. <Link href="/privacy-policy" className="underline hover:text-white">Privacy Policy</Link>
                         </label>
                     </div>
 

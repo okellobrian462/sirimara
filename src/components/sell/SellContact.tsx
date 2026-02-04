@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 
 export default function SellContact() {
     return (
@@ -74,7 +75,7 @@ export default function SellContact() {
                             </div>
                             <span className="text-[10px] md:text-xs text-gray-400 leading-relaxed uppercase tracking-widest font-bold">
                                 By checking this box, you consent to receive sms/text messages from Douglas Elliman Real Estate. Reply STOP to opt-out anytime.
-                                <a href="/privacy-policy" className="ml-2 text-white underline hover:opacity-70 transition-opacity">Privacy Policy</a>
+                                <Link href="/privacy-policy" className="ml-2 text-white underline hover:opacity-70 transition-opacity">Privacy Policy</Link>
                             </span>
                         </label>
                     </div>
