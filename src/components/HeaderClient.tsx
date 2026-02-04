@@ -32,9 +32,10 @@ interface HeaderClientProps {
     mainNav: NavigationItem[];
     secondaryNav: NavigationItem[];
     logoSvg?: string | null;
+    logoImage?: string | null;
 }
 
-export default function HeaderClient({ theme = 'light', isScrolled: externalIsScrolled, mainNav, secondaryNav, logoSvg }: HeaderClientProps) {
+export default function HeaderClient({ theme = 'light', isScrolled: externalIsScrolled, mainNav, secondaryNav, logoSvg, logoImage }: HeaderClientProps) {
     const { isSearchOpen, setIsSearchOpen, searchQuery, setSearchQuery } = useSearch();
     const [internalIsScrolled, setInternalIsScrolled] = useState(false);
     const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
@@ -196,7 +197,13 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
                         {/* Logo Section */}
                         <div className={`absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 ${textColor} transition-colors duration-300`}>
                             <Link href="/">
-                                {logoSvg ? (
+                                {logoImage ? (
+                                    <img
+                                        src={logoImage}
+                                        alt="Douglas Elliman"
+                                        className={`${isScrolled ? 'h-8' : 'h-10'} w-auto transition-all duration-300 object-contain`}
+                                    />
+                                ) : logoSvg ? (
                                     <div
                                         className={`${isScrolled ? 'h-8' : 'h-10'} w-auto transition-all duration-300 [&>svg]:h-full [&>svg]:w-auto [&>svg]:fill-current`}
                                         dangerouslySetInnerHTML={{ __html: logoSvg }}

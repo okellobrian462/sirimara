@@ -14,12 +14,14 @@ import DevelopmentsGridSection from './DevelopmentsGridSection';
 import LogosSection from './LogosSection';
 import PropertyShowcaseSection from './PropertyShowcaseSection';
 import NewsletterSection from './NewsletterSection';
+import NewsletterArticleSection from './NewsletterArticleSection';
 import WoeStorySection from './WoeStorySection';
 import WoeBannerSection from './WoeBannerSection';
 import WoeModulesSection from './WoeModulesSection';
 import LeadershipHeroSection from './LeadershipHeroSection';
 import LeaderTilesSection from './LeaderTilesSection';
 import AccordionSection from './AccordionSection';
+import LegalSection from './LegalSection';
 
 interface SectionRendererProps {
     section: PageSection;
@@ -66,18 +68,22 @@ export default async function SectionRenderer({ section }: SectionRendererProps)
             return <PropertyShowcaseSection section={section} />;
         case 'newsletter':
             return <NewsletterSection section={section} />;
+        case 'newsletter_article':
+            return <NewsletterArticleSection section={section} />;
         case 'woe_story':
             return <WoeStorySection section={section} />;
         case 'woe_banner':
             return <WoeBannerSection section={section} items={tabs} />;
         case 'woe_modules':
-            return <WoeModulesSection section={section} items={stories} />;
+            return <WoeModulesSection section={section} items={stories} />; // We'll reuse this for the gallery
         case 'leadership_hero':
             return <LeadershipHeroSection section={section} />;
         case 'leadership_tiles':
             return <LeaderTilesSection section={section} leaders={tabs} />;
         case 'accordion':
             return <AccordionSection section={section} items={tabs} />;
+        case 'legal':
+            return <LegalSection section={section} />;
         default:
             console.warn(`Unknown section type: ${section.section_type}`);
             return null;

@@ -1,7 +1,10 @@
 'use client';
 
-import { X, Check } from 'lucide-react';
+import { X, Check, Loader2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { getContactConfig } from '@/app/actions/config';
+import { submitForm } from '@/app/actions/contact';
 
 interface ConnectModalProps {
     isOpen: boolean;
@@ -10,17 +13,57 @@ interface ConnectModalProps {
 
 export default function ConnectModal({ isOpen, onClose }: ConnectModalProps) {
     const [isVisible, setIsVisible] = useState(false);
+    const [config, setConfig] = useState({ phone: '1-800-ELLIMAN', email: 'INFO@ELLIMAN.COM' });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
     useEffect(() => {
         if (isOpen) {
             setIsVisible(true);
             document.body.style.overflow = 'hidden';
+            // Fetch config when modal opens
+            getContactConfig().then(data => {
+                setConfig({
+                    phone: data.phone || '1-800-ELLIMAN',
+                    email: (data.email || 'INFO@ELLIMAN.COM').toUpperCase()
+                });
+            });
         } else {
-            const timer = setTimeout(() => setIsVisible(false), 500); // Wait for animation
+            const timer = setTimeout(() => {
+                setIsVisible(false);
+                setSubmitStatus('idle'); // Reset status on close
+            }, 500);
             document.body.style.overflow = 'unset';
             return () => clearTimeout(timer);
         }
     }, [isOpen]);
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+        setSubmitStatus('idle');
+
+        const formData = new FormData(e.currentTarget);
+        const data = {
+            firstName: formData.get('firstName'),
+            lastName: formData.get('lastName'),
+            email: formData.get('email'),
+            phone: formData.get('phone'),
+            message: formData.get('message'),
+            consent: formData.get('consent') === 'on'
+        };
+
+        const result = await submitForm('contact', data);
+
+        setIsSubmitting(false);
+        if (result.success) {
+            setSubmitStatus('success');
+            // Optional: Close modal after success
+            // setTimeout(onClose, 2000);
+        } else {
+            setSubmitStatus('error');
+        }
+    };
 
     if (!isVisible && !isOpen) return null;
 
@@ -36,7 +79,6 @@ export default function ConnectModal({ isOpen, onClose }: ConnectModalProps) {
             <div
                 className={`relative w-full md:w-[500px] h-full bg-white shadow-2xl flex flex-col transform transition-transform duration-500 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
             >
-                {/* Header */}
                 {/* Header */}
                 <div className="relative flex items-center justify-center p-6 border-b border-gray-100">
                     <h2 className="text-sm tracking-[0.2em] uppercase font-medium text-[#181728]">Connect</h2>
@@ -54,83 +96,114 @@ export default function ConnectModal({ isOpen, onClose }: ConnectModalProps) {
                     <div className="flex items-start gap-6 mb-12">
                         <div className="w-20 h-20 rounded-full border border-gray-200 p-2 flex items-center justify-center shrink-0">
                             <span className="text-3xl font-serif text-gray-300">DE</span>
-                            {/* Placeholder for logo if image fails/missing */}
                         </div>
                         <div>
                             <h3 className="text-xl font-serif text-[#181728] mb-2">Douglas Elliman</h3>
                             <div className="space-y-1">
-                                <a href="tel:8003554626" className="flex items-center gap-2 text-xs tracking-widest uppercase hover:opacity-70 transition-opacity text-gray-600">
+                                <a href={`tel:${config.phone.replace(/[^0-9]/g, '')}`} className="flex items-center gap-2 text-xs tracking-widest uppercase hover:opacity-70 transition-opacity text-gray-600">
                                     <span className="w-4"><i className="fas fa-phone"></i></span>
-                                    800.ELLIMAN
+                                    {config.phone}
                                 </a>
-                                <a href="mailto:info@elliman.com" className="flex items-center gap-2 text-xs tracking-widest uppercase hover:opacity-70 transition-opacity text-gray-600">
+                                <a href={`mailto:${config.email.toLowerCase()}`} className="flex items-center gap-2 text-xs tracking-widest uppercase hover:opacity-70 transition-opacity text-gray-600">
                                     <span className="w-4"><i className="fas fa-envelope"></i></span>
-                                    INFO@ELLIMAN.COM
+                                    {config.email}
                                 </a>
                             </div>
                         </div>
                     </div>
 
                     {/* Form */}
-                    <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
-                        <div>
-                            <h4 className="text-2xl font-serif text-[#181728] mb-8">Send a message</h4>
-
-                            <div className="space-y-6">
-                                <div className="border-b border-gray-300 py-2">
-                                    <input
-                                        type="text"
-                                        placeholder="First Name"
-                                        className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-[#181728] p-0"
-                                    />
-                                </div>
-                                <div className="border-b border-gray-300 py-2">
-                                    <input
-                                        type="text"
-                                        placeholder="Last Name"
-                                        className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-[#181728] p-0"
-                                    />
-                                </div>
-                                <div className="border-b border-gray-300 py-2">
-                                    <input
-                                        type="email"
-                                        placeholder="Email"
-                                        className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-[#181728] p-0"
-                                    />
-                                </div>
-                                <div className="border-b border-gray-300 py-2">
-                                    <input
-                                        type="tel"
-                                        placeholder="Phone (optional)"
-                                        className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-[#181728] p-0"
-                                    />
-                                </div>
-                                <div className="border-b border-gray-300 py-2">
-                                    <input
-                                        type="text"
-                                        placeholder="Message (optional)"
-                                        className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-[#181728] p-0"
-                                    />
-                                </div>
+                    {submitStatus === 'success' ? (
+                        <div className="text-center py-12">
+                            <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <Check className="w-8 h-8" />
                             </div>
+                            <h4 className="text-2xl font-serif text-[#181728] mb-4">Message Sent</h4>
+                            <p className="text-gray-500 mb-8">Thank you for contacting us. We will get back to you shortly.</p>
+                            <button onClick={onClose} className="px-8 py-3 bg-[#100B28] text-white uppercase text-xs tracking-widest rounded-full hover:bg-opacity-90 transition-all">
+                                Close
+                            </button>
                         </div>
+                    ) : (
+                        <form className="space-y-8" onSubmit={handleSubmit}>
+                            <div>
+                                <h4 className="text-2xl font-serif text-[#181728] mb-8">Send a message</h4>
 
-                        {/* Checkbox */}
-                        <label className="flex items-start gap-4 cursor-pointer group">
-                            <div className="relative flex items-center justify-center shrink-0">
-                                <input type="checkbox" className="peer w-5 h-5 border border-gray-300 rounded-sm checked:bg-[#181728] checked:border-[#181728] appearance-none transition-colors" defaultChecked />
-                                <Check className="absolute w-3 h-3 text-white opacity-0 peer-checked:opacity-100 pointer-events-none" />
+                                <div className="space-y-6">
+                                    <div className="border-b border-gray-300 py-2">
+                                        <input
+                                            name="firstName"
+                                            type="text"
+                                            placeholder="First Name"
+                                            className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-[#181728] p-0"
+                                            required
+                                        />
+                                    </div>
+                                    <div className="border-b border-gray-300 py-2">
+                                        <input
+                                            name="lastName"
+                                            type="text"
+                                            placeholder="Last Name"
+                                            className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-[#181728] p-0"
+                                            required
+                                        />
+                                    </div>
+                                    <div className="border-b border-gray-300 py-2">
+                                        <input
+                                            name="email"
+                                            type="email"
+                                            placeholder="Email"
+                                            className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-[#181728] p-0"
+                                            required
+                                        />
+                                    </div>
+                                    <div className="border-b border-gray-300 py-2">
+                                        <input
+                                            name="phone"
+                                            type="tel"
+                                            placeholder="Phone (optional)"
+                                            className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-[#181728] p-0"
+                                        />
+                                    </div>
+                                    <div className="border-b border-gray-300 py-2">
+                                        <input
+                                            name="message"
+                                            type="text"
+                                            placeholder="Message (optional)"
+                                            className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-[#181728] p-0"
+                                        />
+                                    </div>
+                                </div>
                             </div>
-                            <p className="text-xs text-gray-500 leading-relaxed">
-                                By checking this box, you consent to receive sms/text messages from Douglas Elliman Real Estate. Reply STOP to opt-out anytime. <a href="#" className="underline hover:text-[#181728]">Privacy Policy</a>
-                            </p>
-                        </label>
 
-                        {/* Submit */}
-                        <button className="w-full py-4 bg-[#100B28] text-white hover:bg-[#100B28]/90 transition-colors uppercase text-sm tracking-widest rounded-full">
-                            Submit
-                        </button>
-                    </form>
+                            {/* Checkbox */}
+                            <label className="flex items-start gap-4 cursor-pointer group">
+                                <div className="relative flex items-center justify-center shrink-0">
+                                    <input name="consent" type="checkbox" className="peer w-5 h-5 border border-gray-300 rounded-sm checked:bg-[#181728] checked:border-[#181728] appearance-none transition-colors" defaultChecked />
+                                    <Check className="absolute w-3 h-3 text-white opacity-0 peer-checked:opacity-100 pointer-events-none" />
+                                </div>
+                                <p className="text-xs text-gray-500 leading-relaxed">
+                                    By checking this box, you consent to receive sms/text messages from Douglas Elliman Real Estate. Reply STOP to opt-out anytime. <Link href="/privacy-policy" className="underline hover:text-[#181728]">Privacy Policy</Link>
+                                </p>
+                            </label>
+
+                            {/* Submit */}
+                            <button
+                                disabled={isSubmitting}
+                                className="w-full py-4 bg-[#100B28] text-white hover:bg-[#100B28]/90 transition-colors uppercase text-sm tracking-widest rounded-full flex items-center justify-center gap-2 disabled:opacity-70"
+                            >
+                                {isSubmitting ? (
+                                    <>
+                                        <Loader2 className="w-4 h-4 animate-spin" />
+                                        Sending...
+                                    </>
+                                ) : 'Submit'}
+                            </button>
+                            {submitStatus === 'error' && (
+                                <p className="text-red-500 text-xs text-center">Something went wrong. Please try again.</p>
+                            )}
+                        </form>
+                    )}
                 </div>
             </div>
         </div>

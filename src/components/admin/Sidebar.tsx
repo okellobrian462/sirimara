@@ -21,13 +21,16 @@ import {
     FileImage, // Added for Media Library icon
     Menu, // Added for Navigation icon
     Layers, // Added for Pages icon
-    Palette // Added for Theme icon
+    Palette, // Added for Theme icon
+    BarChart2, // Added for Statistics icon
+    Newspaper // Added for Newsletters icon
 } from 'lucide-react';
 import { useState } from 'react';
 
 const navigation = [
     { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
     { name: 'Pages', href: '/admin/pages', icon: Layers },
+    { name: 'Newsletters', href: '/admin/newsletters', icon: Newspaper },
     { name: 'Properties', href: '/admin/properties', icon: Home },
     { name: 'Featured', href: '/admin/featured', icon: Star },
     { name: 'Agents', href: '/admin/agents', icon: Users },
@@ -35,6 +38,7 @@ const navigation = [
     { name: 'Navigation', href: '/admin/navigation', icon: Menu },
     { name: 'Theme', href: '/admin/theme', icon: Palette },
     { name: 'Site Config', href: '/admin/config', icon: Sliders },
+    { name: 'Statistics', href: '/admin/statistics', icon: BarChart2 },
     { name: 'Subscribers', href: '/admin/subscribers', icon: Mail },
     { name: 'Settings', href: '/admin/settings', icon: Settings },
 ];

@@ -150,6 +150,7 @@ export default function SectionForm({ page, section, templates, onClose, onUpdat
                                 <option value="quote">Quote</option>
                                 <option value="banner">Banner</option>
                                 <option value="contact">Contact</option>
+                                <option value="legal">Legal Content</option>
                             </select>
                         </div>
 
@@ -183,8 +184,8 @@ export default function SectionForm({ page, section, templates, onClose, onUpdat
                             <textarea
                                 value={formData.content || ''}
                                 onChange={(e) => handleChange('content', e.target.value)}
-                                className="w-full border border-gray-300 rounded-lg px-4 py-2 min-h-[100px]"
-                                placeholder="Section content"
+                                className={`w-full border border-gray-300 rounded-lg px-4 py-2 ${formData.section_type === 'legal' ? 'min-h-[400px] font-mono text-sm' : 'min-h-[100px]'}`}
+                                placeholder="Section content (supports HTML)"
                             />
                         </div>
 

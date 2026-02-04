@@ -1,57 +1,47 @@
 'use client';
 
 import type { PageSection } from '@/lib/content/fetchPageSections';
+import { ArrowRight } from 'lucide-react';
 
 interface NewsletterSectionProps {
     section: PageSection;
 }
 
 export default function NewsletterSection({ section }: NewsletterSectionProps) {
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const formData = new FormData(e.currentTarget);
-        const email = formData.get('email') as string;
-
-        // TODO: Implement newsletter subscription logic
-        console.log('Newsletter subscription:', email);
-    };
+    const { title, subtitle, background_color = '#181728', text_color = '#FFFFFF' } = section;
 
     return (
         <section
-            className="py-20"
-            style={{ backgroundColor: section.background_color || '#181728' }}
+            className="py-20 px-6 md:px-12"
+            style={{
+                backgroundColor: background_color,
+                color: text_color
+            }}
         >
-            <div className="px-6">
-                <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
-                    {section.title && (
-                        <h2
-                            className="text-3xl md:text-4xl"
-                            style={{
-                                fontFamily: 'Sainte Colombe, serif',
-                                color: section.text_color || '#FFFFFF'
-                            }}
-                        >
-                            {section.title}
+            <div className="container mx-auto max-w-7xl">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 className="text-3xl md:text-4xl font-serif mb-4 leading-tight">
+                            {title || "The latest in luxury"}
                         </h2>
-                    )}
-                    <form onSubmit={handleSubmit} className="relative w-full md:w-auto md:min-w-[400px]">
+                        {subtitle && (
+                            <p className="text-sm md:text-base font-light tracking-wide opacity-80 uppercase">
+                                {subtitle}
+                            </p>
+                        )}
+                    </div>
+
+                    <form className="relative" onSubmit={(e) => e.preventDefault()}>
                         <input
                             type="email"
-                            name="email"
-                            placeholder={section.subtitle || 'ENTER YOUR EMAIL'}
-                            required
-                            className="w-full bg-transparent border-2 rounded-full px-6 py-4 text-sm tracking-widest focus:outline-none focus:ring-2 focus:ring-white/50"
-                            style={{
-                                borderColor: section.text_color || '#FFFFFF',
-                                color: section.text_color || '#FFFFFF'
-                            }}
+                            placeholder="EMAIL ADDRESS"
+                            className="w-full bg-transparent border-b border-white/30 py-4 px-0 text-white placeholder-white/50 focus:outline-none focus:border-white transition-colors uppercase tracking-widest text-sm"
                         />
                         <button
                             type="submit"
-                            className="absolute right-4 top-1/2 -translate-y-1/2 hover:opacity-80 transition-opacity"
-                            style={{ color: section.text_color || '#FFFFFF' }}
+                            className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center gap-2 hover:opacity-70 transition-opacity uppercase tracking-widest text-xs"
                         >
-                            →
+                            Subscribe <ArrowRight className="w-4 h-4" />
                         </button>
                     </form>
                 </div>

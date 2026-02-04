@@ -12,7 +12,8 @@ const PAGES = [
     { id: 'about', name: 'About Us', icon: FileText, path: '/about' },
     { id: 'sell', name: 'Sell', icon: ShoppingBag, path: '/sell' },
     { id: 'agents', name: 'Agents', icon: Users, path: '/agents' },
-    { id: 'world-of-elliman', name: 'World of Elliman', icon: Globe, path: '/world-of-elliman' },
+    { id: 'terms-of-service', name: 'Terms of Service', icon: FileText, path: '/terms-of-service' },
+    { id: 'privacy-policy', name: 'Privacy Policy', icon: FileText, path: '/privacy-policy' },
 ];
 
 export default function PagesPage() {

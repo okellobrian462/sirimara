@@ -18,6 +18,7 @@ export default async function Header({ theme = 'light', isScrolled }: HeaderProp
 
     const config = await fetchSiteConfig();
     const logoSvg = config.logo_header_svg || null;
+    const logoImage = config.logo_image_url || null;
 
     return (
         <HeaderClient
@@ -26,6 +27,7 @@ export default async function Header({ theme = 'light', isScrolled }: HeaderProp
             mainNav={mainNav}
             secondaryNav={secondaryNav}
             logoSvg={logoSvg}
+            logoImage={logoImage}
         />
     );
 }

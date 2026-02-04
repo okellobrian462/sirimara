@@ -30,6 +30,7 @@ INSERT INTO site_config (key, value, category) VALUES
   ('default_meta_title', '"Douglas Elliman | Luxury Real Estate"', 'seo'),
   ('default_meta_description', '"Leaders in luxury real estate with exceptional agents in key markets worldwide."', 'seo'),
   ('logo_header_svg', '""', 'branding'),
+  ('logo_image_url', '""', 'branding'),
   ('newsletter_text', '"The latest in luxury property, lifestyle & culture, curated just for you."', 'content'),
   ('newsletter_placeholder', '"ENTER YOUR EMAIL"', 'content'),
   ('property_showcase_title', '"THE NEXT MOVE IS YOURS"', 'content'),
@@ -182,7 +183,7 @@ ON CONFLICT (slug) DO UPDATE SET
 
 -- Header Main
 INSERT INTO navigation_items (menu_location, label, url, order_index, is_active, has_dropdown, dropdown_type, dropdown_config) VALUES
-('header_main', 'BUY', '/sales/new-york-ny', 1, true, true, 'search', '{
+('header_main', 'BUY', '/sales', 1, true, true, 'search', '{
   "search_placeholder": "Enter location, address, ZIP...",
   "search_type": "buy",
   "quick_links": [
@@ -191,7 +192,7 @@ INSERT INTO navigation_items (menu_location, label, url, order_index, is_active,
     {"label": "Find Commercial Properties", "url": "/sales/home-types=commercial-office"}
   ]
 }'::jsonb),
-('header_main', 'RENT', '/rentals/new-york-ny', 2, true, true, 'search', '{
+('header_main', 'RENT', '/rentals', 2, true, true, 'search', '{
   "search_placeholder": "Enter location, address, ZIP...",
   "search_type": "rent",
   "quick_links": [
