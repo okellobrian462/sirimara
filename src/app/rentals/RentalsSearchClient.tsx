@@ -72,11 +72,11 @@ export default function RentalsSearchClient({
                 </div>
             )}
 
-            {/* Sticky Container */}
-            <div className="sticky top-0 z-40 bg-white h-screen flex flex-col">
-                {/* Search Bar */}
-                <div className="border-b border-gray-200 shadow-sm bg-white shrink-0">
-                    <div className="w-full px-6 py-4">
+            {/* Main Content Area */}
+            <div className="min-h-screen bg-white">
+                {/* Sticky Search Bar */}
+                <div className="sticky top-0 z-40 bg-white border-b border-gray-200 shadow-sm">
+                    <div className="w-full px-6 py-4 container mx-auto max-w-7xl">
                         <div className="flex items-center gap-4">
                             <div className="flex-1 bg-white border border-gray-300 rounded px-4 py-3 flex items-center gap-2 shadow-sm">
                                 <input
@@ -99,79 +99,60 @@ export default function RentalsSearchClient({
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    {/* Filters */}
-                    <SearchFilters
-                        filters={filters}
-                        onFilterChange={setFilters}
-                        totalResults={listings.length}
-                        filteredResults={filteredListings.length}
-                    />
+                        {/* Filters in the same container */}
+                        <div className="mt-4">
+                            <SearchFilters
+                                filters={filters}
+                                onFilterChange={setFilters}
+                                totalResults={listings.length}
+                                filteredResults={filteredListings.length}
+                            />
+                        </div>
+                    </div>
                 </div>
 
-                {/* Split Content - Fills remaining height */}
-                <div className="flex flex-1 overflow-hidden">
-                    {/* Listings Grid */}
-                    <div className="w-full lg:w-3/5 overflow-y-auto p-6 bg-white">
-                        <div className="flex justify-between items-end mb-6">
-                            <div>
-                                <h1 className="text-2xl font-serif text-[#181728] mb-1">
-                                    Luxury listings for rent in New York City
-                                </h1>
-                                <p className="text-xs text-gray-500 uppercase tracking-widest font-medium">
-                                    {filteredListings.length} of {listings.length} Homes
-                                </p>
-                            </div>
-                            <div className="flex items-center gap-6 text-[10px] font-bold tracking-[0.2em] text-[#181728] uppercase">
-                                <div className="flex items-center gap-2 opacity-50 cursor-not-allowed">
-                                    <span>Compare</span>
-                                    <div className="w-8 h-4 bg-gray-200 rounded-full relative">
-                                        <div className="absolute left-1 top-1 w-2 h-2 bg-white rounded-full shadow-sm" />
-                                    </div>
-                                </div>
-                                <div className="flex items-center gap-2 cursor-pointer">
-                                    Featured Image: Default
-                                </div>
-                                <div className="flex items-center gap-2 cursor-pointer">
-                                    Sort By: DE Exclusives
-                                </div>
-                            </div>
+                {/* Listings Grid - Full Width */}
+                <div className="w-full px-6 py-8 container mx-auto max-w-7xl">
+                    <div className="flex justify-between items-end mb-6">
+                        <div>
+                            <h1 className="text-2xl font-serif text-[#181728] mb-1">
+                                Luxury listings for rent in New York City
+                            </h1>
+                            <p className="text-xs text-gray-500 uppercase tracking-widest font-medium">
+                                {filteredListings.length} of {listings.length} Homes
+                            </p>
                         </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-10">
-                            {filteredListings.map((listing) => (
-                                <ListingCard
-                                    key={listing.id}
-                                    listing={listing}
-                                    onFavorite={(id) => console.log("Favorited:", id)}
-                                    onClick={(id) => {
-                                        const listing = listings.find((l) => l.id === id);
-                                        if (listing) {
-                                            router.push(`/listing/${listing.slug}`);
-                                        }
-                                    }}
-                                />
-                            ))}
+                        <div className="flex items-center gap-6 text-[10px] font-bold tracking-[0.2em] text-[#181728] uppercase">
+                            <div className="flex items-center gap-2 opacity-50 cursor-not-allowed">
+                                <span>Compare</span>
+                                <div className="w-8 h-4 bg-gray-200 rounded-full relative">
+                                    <div className="absolute left-1 top-1 w-2 h-2 bg-white rounded-full shadow-sm" />
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-2 cursor-pointer">
+                                Featured Image: Default
+                            </div>
+                            <div className="flex items-center gap-2 cursor-pointer">
+                                Sort By: DE Exclusives
+                            </div>
                         </div>
                     </div>
 
-                    {/* Map Column */}
-                    <div className="hidden lg:block w-2/5 bg-[#EAE8E4] relative overflow-hidden">
-                        {googleMapsApiKey ? (
-                            <PropertyMap
-                                listings={filteredListings}
-                                apiKey={googleMapsApiKey}
-                                onMarkerClick={(listing) =>
-                                    console.log("Marker clicked:", listing)
-                                }
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
+                        {filteredListings.map((listing) => (
+                            <ListingCard
+                                key={listing.id}
+                                listing={listing}
+                                onFavorite={(id) => console.log("Favorited:", id)}
+                                onClick={(id) => {
+                                    const listing = listings.find((l) => l.id === id);
+                                    if (listing) {
+                                        router.push(`/listing/${listing.slug}`);
+                                    }
+                                }}
                             />
-                        ) : (
-                            <PropertyMap
-                                listings={filteredListings}
-                                apiKey="" // Placeholder handles empty key
-                            />
-                        )}
+                        ))}
                     </div>
                 </div>
             </div>

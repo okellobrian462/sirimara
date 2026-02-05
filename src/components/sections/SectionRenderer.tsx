@@ -15,6 +15,7 @@ import LogosSection from './LogosSection';
 import PropertyShowcaseSection from './PropertyShowcaseSection';
 import NewsletterSection from './NewsletterSection';
 import NewsletterArticleSection from './NewsletterArticleSection';
+import AgentsGridSection from './AgentsGridSection';
 import WoeStorySection from './WoeStorySection';
 import WoeBannerSection from './WoeBannerSection';
 import WoeModulesSection from './WoeModulesSection';
@@ -70,6 +71,8 @@ export default async function SectionRenderer({ section }: SectionRendererProps)
             return <NewsletterSection section={section} />;
         case 'newsletter_article':
             return <NewsletterArticleSection section={section} />;
+        case 'agents_grid':
+            return <AgentsGridSection section={section} />;
         case 'woe_story':
             return <WoeStorySection section={section} />;
         case 'woe_banner':

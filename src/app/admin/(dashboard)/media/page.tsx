@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { Upload, Trash2, Copy, Loader2, Image as ImageIcon, Video } from 'lucide-react';
-import ImageUpload from '@/components/admin/ImageUpload';
+import MediaUpload from '@/components/admin/MediaUpload';
 
 interface MediaItem {
     id: string;
@@ -127,10 +127,14 @@ export default function MediaLibraryPage() {
                 {showUpload && (
                     <div className="mb-8 bg-white rounded-lg border border-gray-200 p-6">
                         <h2 className="text-lg font-semibold mb-4">Upload New Media</h2>
-                        <ImageUpload
+                        <MediaUpload
                             bucket="property-images"
                             onUpload={handleUploadComplete}
                             currentImage=""
+                            acceptedFileTypes="image/*,video/mp4,video/quicktime,video/webm"
+                            label="Upload Media"
+                            description="Click or drag to upload (Images or Videos, Max 50MB)"
+                            videoBucket="videos"
                         />
                     </div>
                 )}

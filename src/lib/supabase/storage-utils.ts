@@ -1,6 +1,6 @@
 import { createClient } from './client';
 
-export type StorageBucket = 'property-images' | 'agent-photos' | 'agent-images';
+export type StorageBucket = 'property-images' | 'agent-photos' | 'agent-images' | 'videos';
 
 /**
  * Uploads a file to a specific Supabase Storage bucket
