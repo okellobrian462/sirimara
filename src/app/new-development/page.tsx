@@ -5,8 +5,8 @@ import { fetchPageSections } from '@/lib/content/fetchPageSections';
 import SectionRenderer from '@/components/sections/SectionRenderer';
 
 export const metadata = {
-    title: 'New Development | Douglas Elliman',
-    description: 'Discover the world’s most inspired new developments with Douglas Elliman.'
+    title: 'New Development | Sirimara',
+    description: 'Discover the world’s most inspired new developments with Sirimara.'
 };
 
 export default async function NewDevelopmentPage() {

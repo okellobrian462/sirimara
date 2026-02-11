@@ -1,7 +1,13 @@
-'use client';
 import Link from 'next/link';
+import { useSiteConfig } from '@/context/SiteConfigContext';
 
 export default function SellContact() {
+    const config = useSiteConfig();
+    const siteName = config.company_name || 'Sirimara';
+
+    const contactPhone = config.phone || '800.ELLIMAN';
+    const contactEmail = config.email || 'INFO@ELLIMAN.COM';
+
     return (
         <section className="bg-[#181728] text-white py-24 md:py-32 px-6">
             <div className="container mx-auto max-w-4xl text-center">
@@ -10,12 +16,12 @@ export default function SellContact() {
                 </h2>
 
                 <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 mb-20 text-sm font-bold tracking-[0.2em] uppercase">
-                    <a href="tel:18003554686" className="hover:opacity-70 transition-opacity">
-                        800.ELLIMAN
+                    <a href={`tel:${contactPhone.replace(/[^0-9]/g, '')}`} className="hover:opacity-70 transition-opacity">
+                        {contactPhone}
                     </a>
                     <span className="hidden md:block w-2 h-2 bg-white/20 rounded-full" />
-                    <a href="mailto:info@elliman.com" className="hover:opacity-70 transition-opacity">
-                        INFO@ELLIMAN.COM
+                    <a href={`mailto:${contactEmail.toLowerCase()}`} className="hover:opacity-70 transition-opacity">
+                        {contactEmail}
                     </a>
                 </div>
 
@@ -74,9 +80,10 @@ export default function SellContact() {
                                 </div>
                             </div>
                             <span className="text-[10px] md:text-xs text-gray-400 leading-relaxed uppercase tracking-widest font-bold">
-                                By checking this box, you consent to receive sms/text messages from Douglas Elliman Real Estate. Reply STOP to opt-out anytime.
+                                By checking this box, you consent to receive sms/text messages from {siteName}. Reply STOP to opt-out anytime.
                                 <Link href="/privacy-policy" className="ml-2 text-white underline hover:opacity-70 transition-opacity">Privacy Policy</Link>
                             </span>
+
                         </label>
                     </div>
 

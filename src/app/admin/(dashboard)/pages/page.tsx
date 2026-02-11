@@ -1,6 +1,19 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { Home, FileText, ShoppingBag, Users, Globe } from 'lucide-react';
+import {
+    Home,
+    FileText,
+    ShoppingBag,
+    Users,
+    Globe,
+    Search,
+    Key,
+    Award,
+    Building2,
+    TrendingUp,
+    Star,
+    Mail
+} from 'lucide-react';
 
 export const metadata: Metadata = {
     title: 'Page Manager | Admin',
@@ -9,9 +22,17 @@ export const metadata: Metadata = {
 
 const PAGES = [
     { id: 'home', name: 'Homepage', icon: Home, path: '/' },
+    { id: 'sales', name: 'Sales', icon: Search, path: '/sales' },
+    { id: 'rentals', name: 'Rentals', icon: Key, path: '/rentals' },
     { id: 'about', name: 'About Us', icon: FileText, path: '/about' },
     { id: 'sell', name: 'Sell', icon: ShoppingBag, path: '/sell' },
     { id: 'agents', name: 'Agents', icon: Users, path: '/agents' },
+    { id: 'leadership', name: 'Leadership', icon: Award, path: '/leadership' },
+    { id: 'new-development', name: 'New Development', icon: Building2, path: '/new-development' },
+    { id: 'world-of-sirimara', name: 'World of Sirimara', icon: Globe, path: '/world-of-sirimara' },
+    { id: 'valuation', name: 'Valuation', icon: TrendingUp, path: '/valuation' },
+    { id: 'exclusives', name: 'Exclusives', icon: Star, path: '/exclusives' },
+    { id: 'newsletters', name: 'Newsletters', icon: Mail, path: '/newsletters' },
     { id: 'terms-of-service', name: 'Terms of Service', icon: FileText, path: '/terms-of-service' },
     { id: 'privacy-policy', name: 'Privacy Policy', icon: FileText, path: '/privacy-policy' },
 ];

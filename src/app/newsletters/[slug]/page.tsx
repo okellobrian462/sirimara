@@ -14,8 +14,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     if (!newsletter) return {};
 
     return {
-        title: `${newsletter.title} | Douglas Elliman`,
-        description: newsletter.description || `Read ${newsletter.title} on Douglas Elliman.`,
+        title: `${newsletter.title} | Sirimara`,
+        description: newsletter.description || `Read ${newsletter.title} on Sirimara.`,
     };
 }
 

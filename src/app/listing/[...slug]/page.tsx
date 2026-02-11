@@ -2,7 +2,8 @@ import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { Camera, Map as MapIcon, ChevronLeft, ChevronRight, Calculator, Plus } from 'lucide-react';
+import ImageCarousel from '@/components/listing/ImageCarousel';
+import { Plus } from 'lucide-react';
 
 export default async function ListingDetailPage({ params }: { params: Promise<{ slug: string[] }> }) {
     const resolvedParams = await params;
@@ -50,9 +51,9 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
         beds: property.bedrooms ? `${property.bedrooms} BR` : "",
         baths: property.bathrooms ? `${property.bathrooms} BA${property.half_baths ? `, ${property.half_baths} HALF BA` : ''}` : "",
         sqft: property.sqft ? `Approx. ${property.sqft.toLocaleString()} SF` : '',
-        image: property.images?.[0] || 'https://images.unsplash.com/photo-1600596542815-27b88eae2b30?auto=format&fit=crop&w=1200&q=80',
+        images: property.images || [],
         agent: {
-            name: agent ? `${agent.first_name} ${agent.last_name}` : 'Douglas Elliman Agent',
+            name: agent ? `${agent.first_name} ${agent.last_name}` : 'Sirimara Agent',
             image: agent?.photo_url || 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=256&q=80',
             phone: agent?.phone || '212.891.7000',
             title: agent?.title || 'Licensed Real Estate Salesperson'
@@ -64,33 +65,7 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
             <Header theme="dark" />
 
             {/* Image Hero Section */}
-            <section className="relative w-full h-[60vh] md:h-[85vh] group overflow-hidden bg-gray-100">
-                <img
-                    src={data.image}
-                    alt={data.address}
-                    className="w-full h-full object-cover"
-                />
-
-                {/* Image Nav Arrows */}
-                <button className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center bg-white/90 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity">
-                    <ChevronLeft className="w-6 h-6 text-[#181728]" />
-                </button>
-                <button className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center bg-white/90 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity">
-                    <ChevronRight className="w-6 h-6 text-[#181728]" />
-                </button>
-
-                {/* Floating Buttons */}
-                <div className="absolute bottom-10 left-10 flex gap-4">
-                    <button className="flex items-center gap-3 px-6 py-3 bg-white text-[#181728] rounded-full shadow-md text-xs font-semibold tracking-widest uppercase hover:bg-gray-50 transition-colors">
-                        <Camera className="w-4 h-4" />
-                        Photos
-                    </button>
-                    <button className="flex items-center gap-3 px-6 py-3 bg-white text-[#181728] rounded-full shadow-md text-xs font-semibold tracking-widest uppercase hover:bg-gray-50 transition-colors">
-                        <MapIcon className="w-4 h-4" />
-                        Map
-                    </button>
-                </div>
-            </section>
+            <ImageCarousel images={data.images} address={data.address} />
 
             {/* Property Info Container */}
             <section className="bg-[#F8F8F8] py-20">
@@ -148,10 +123,10 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
                     {/* Exclusive Badge */}
                     <div className="flex justify-center items-center gap-3 mt-12 opacity-60">
                         <div className="w-4 h-4 rounded-full border border-[#181728] flex items-center justify-center text-[10px] font-bold">
-                            DE
+                            SM
                         </div>
                         <span className="text-[10px] tracking-[0.2em] font-semibold uppercase text-[#181728]">
-                            Douglas Elliman Exclusive
+                            Sirimara Exclusive
                         </span>
                     </div>
                 </div>
@@ -175,7 +150,7 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
                         <h4 className="text-lg font-sans text-[#181728] mb-2">{data.agent.name}</h4>
                         <p className="text-sm text-gray-500 mb-1">{data.agent.phone}</p>
                         <p className="text-sm text-gray-500 mb-1">{data.agent.title}</p>
-                        <p className="text-sm text-gray-400 mb-8">DOUGLAS ELLIMAN REAL ESTATE</p>
+                        <p className="text-sm text-gray-400 mb-8 uppercase">SIRIMARA REAL ESTATE</p>
 
                         <button className="px-12 py-4 bg-[#100B28] text-white rounded-full text-xs font-semibold tracking-widest uppercase hover:bg-[#100B28]/90 transition-colors">
                             Connect

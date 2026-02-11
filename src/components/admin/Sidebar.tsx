@@ -26,6 +26,8 @@ import {
     Newspaper // Added for Newsletters icon
 } from 'lucide-react';
 import { useState } from 'react';
+import { useSiteConfig } from '@/context/SiteConfigContext';
+
 
 const navigation = [
     { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
@@ -44,7 +46,10 @@ const navigation = [
 ];
 
 export default function Sidebar() {
+    const config = useSiteConfig();
+    const siteName = config.company_name || 'Sirimara';
     const pathname = usePathname();
+
     const [collapsed, setCollapsed] = useState(false);
 
     return (
@@ -55,10 +60,11 @@ export default function Sidebar() {
             {/* Logo */}
             <div className="h-16 flex items-center justify-between px-6 border-b border-gray-200">
                 {!collapsed && (
-                    <h1 className="text-xl font-light tracking-[0.2em] text-[#181728]">
-                        ELLIMAN
+                    <h1 className="text-xl font-light tracking-[0.2em] text-[#181728] uppercase">
+                        {siteName}
                     </h1>
                 )}
+
                 <button
                     onClick={() => setCollapsed(!collapsed)}
                     className="p-2 rounded-lg hover:bg-gray-50 text-gray-400 hover:text-gray-900 transition-colors"

@@ -22,7 +22,8 @@ export default async function Footer() {
     const socialTwitter = config.twitter_url || '#';
     const socialInstagram = config.instagram_url || '#';
     const socialLinkedin = config.linkedin_url || '#';
-    const siteName = (config.company_name ?? 'DOUGLAS ELLIMAN REAL ESTATE').toUpperCase();
+    const siteName = (config.company_name ?? 'Sirimara Real Estate').toUpperCase();
+
 
     // Extract footer section titles
     const footerTitles = config.footer_section_titles ?? {

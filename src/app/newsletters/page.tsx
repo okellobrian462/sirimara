@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 export const metadata = {
-    title: 'Newsletters | Douglas Elliman',
+    title: 'Newsletters | Sirimara',
     description: 'Explore our latest insights, magazines, and market reports.',
 };
 

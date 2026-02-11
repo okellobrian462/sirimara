@@ -41,6 +41,7 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
         year_built: '',
         category: '',
         is_featured: false,
+        listing_type: 'sale',
     });
 
     useEffect(() => {
@@ -75,6 +76,7 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
                         year_built: data.year_built?.toString() || '',
                         category: data.category || '',
                         is_featured: data.is_featured || false,
+                        listing_type: data.listing_type || 'sale',
                     });
                     setImages(data.images || []);
                 }
@@ -416,6 +418,22 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
                                 <option value="farm-ranch">Farm & Ranch</option>
                                 <option value="just-listed">Just Listed</option>
                                 <option value="under-2-million">Under $2 Million</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Listing Type *
+                            </label>
+                            <select
+                                name="listing_type"
+                                value={formData.listing_type}
+                                onChange={handleChange}
+                                required
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white"
+                            >
+                                <option value="sale">For Sale</option>
+                                <option value="rent">For Rent</option>
                             </select>
                         </div>
                     </div>

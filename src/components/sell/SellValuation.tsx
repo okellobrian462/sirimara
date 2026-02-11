@@ -1,6 +1,8 @@
-'use client';
+import { useSiteConfig } from '@/context/SiteConfigContext';
 
 export default function SellValuation() {
+    const config = useSiteConfig();
+    const siteName = config.company_name || 'Sirimara';
     return (
         <section className="relative h-[500px] flex items-center justify-center overflow-hidden">
             {/* Background Image */}
@@ -21,7 +23,7 @@ export default function SellValuation() {
                     Get an initial in-depth market analysis of your home to start a conversation.
                 </p>
                 <a
-                    href="https://homevaluation.elliman.com/DouglasElliman"
+                    href="https://homevaluation.sirimara.com/Sirimara"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block px-12 py-4 bg-white text-[#181728] rounded-full text-xs font-bold tracking-[0.2em] uppercase hover:bg-opacity-90 transition-opacity"

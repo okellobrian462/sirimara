@@ -1,6 +1,6 @@
 -- Update Terms of Service Content
 UPDATE page_sections
-SET content = '<p>Welcome to Douglas Elliman. By accessing our website, you agree to these legal terms.</p>
+SET content = '<p>Welcome to Sirimara. By accessing our website, you agree to these legal terms.</p>
 <h3>1. Acceptance of Terms</h3>
 <p>By using our services, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.</p>
 <h3>2. Use of Services</h3>
@@ -13,7 +13,7 @@ WHERE page = 'terms-of-service' AND section_type = 'legal';
 
 -- Update Privacy Policy Content
 UPDATE page_sections
-SET content = '<p>Your privacy is important to us. It is Douglas Elliman''s policy to respect your privacy regarding any information we may collect from you across our website.</p>
+SET content = '<p>Your privacy is important to us. It is Sirimara''s policy to respect your privacy regarding any information we may collect from you across our website.</p>
 <h3>1. Information We Collect</h3>
 <p>We only ask for personal information when we truly need it to provide a service to you. We collect it by fair and lawful means, with your knowledge and consent.</p>
 <h3>2. How We Use Information</h3>

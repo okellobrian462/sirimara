@@ -12,12 +12,19 @@ interface RentalsSearchClientProps {
     listings: Listing[];
     googleMapsApiKey: string;
     hideHero?: boolean;
+    heroData?: {
+        title?: string | null;
+        subtitle?: string | null;
+        background_color?: string | null;
+        text_color?: string | null;
+    };
 }
 
 export default function RentalsSearchClient({
     listings,
     googleMapsApiKey,
     hideHero = false,
+    heroData,
 }: RentalsSearchClientProps) {
     const [filters, setFilters] = useState<FilterState>({
         goal: "rental",
@@ -62,12 +69,18 @@ export default function RentalsSearchClient({
         <>
             {/* Hero Section */}
             {!hideHero && (
-                <div className="bg-[#4d525c] pt-28 pb-16 text-center px-6">
-                    <h2 className="text-white text-3xl md:text-4xl font-light tracking-[0.15em] mb-4 font-serif">
-                        FIND YOUR FAVORITE PLACE TO BE
+                <div
+                    className="pt-28 pb-16 text-center px-6"
+                    style={{
+                        backgroundColor: heroData?.background_color || '#4d525c',
+                        color: heroData?.text_color || '#FFFFFF'
+                    }}
+                >
+                    <h2 className="text-3xl md:text-4xl font-light tracking-[0.15em] mb-4 font-serif uppercase">
+                        {heroData?.title || 'FIND YOUR FAVORITE PLACE TO BE'}
                     </h2>
-                    <p className="text-white/90 text-sm tracking-wide font-light">
-                        We are experts in the luxury rental market.
+                    <p className="text-sm tracking-wide font-light opacity-90">
+                        {heroData?.subtitle || 'We are experts in the luxury rental market.'}
                     </p>
                 </div>
             )}
@@ -116,9 +129,6 @@ export default function RentalsSearchClient({
                 <div className="w-full px-6 py-8 container mx-auto max-w-7xl">
                     <div className="flex justify-between items-end mb-6">
                         <div>
-                            <h1 className="text-2xl font-serif text-[#181728] mb-1">
-                                Luxury listings for rent in New York City
-                            </h1>
                             <p className="text-xs text-gray-500 uppercase tracking-widest font-medium">
                                 {filteredListings.length} of {listings.length} Homes
                             </p>
@@ -134,7 +144,7 @@ export default function RentalsSearchClient({
                                 Featured Image: Default
                             </div>
                             <div className="flex items-center gap-2 cursor-pointer">
-                                Sort By: DE Exclusives
+                                Sort By: Sirimara Exclusives
                             </div>
                         </div>
                     </div>

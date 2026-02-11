@@ -2,8 +2,15 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useSiteConfig } from '@/context/SiteConfigContext';
 
 export default function AgentsContact() {
+    const config = useSiteConfig();
+    const siteName = config.company_name || 'Sirimara';
+
+    const contactPhone = config.phone || '800.ELLIMAN';
+    const contactEmail = config.email || 'info@sirimara.com';
+
     return (
         <section className="bg-[#181728] py-20 md:py-32 px-6 text-white">
             <div className="container mx-auto max-w-4xl">
@@ -12,11 +19,11 @@ export default function AgentsContact() {
                 </h2>
 
                 <div className="flex justify-center gap-12 mb-16 text-sm tracking-[0.2em] font-bold uppercase">
-                    <a href="tel:18003554626" className="hover:opacity-70 transition-opacity">
-                        800.ELLIMAN
+                    <a href={`tel:${contactPhone.replace(/[^0-9]/g, '')}`} className="hover:opacity-70 transition-opacity">
+                        {contactPhone}
                     </a>
-                    <a href="mailto:info@elliman.com" className="hover:opacity-70 transition-opacity">
-                        info@elliman.com
+                    <a href={`mailto:${contactEmail.toLowerCase()}`} className="hover:opacity-70 transition-opacity">
+                        {contactEmail}
                     </a>
                 </div>
 
@@ -74,8 +81,9 @@ export default function AgentsContact() {
                             className="mt-1 w-4 h-4 rounded border-gray-600 bg-transparent"
                         />
                         <label htmlFor="sms-consent" className="text-xs text-gray-400 leading-relaxed">
-                            By checking this box, you consent to receive sms/text messages from Douglas Elliman Real Estate. Reply STOP to opt-out anytime. <Link href="/privacy-policy" className="underline hover:text-white">Privacy Policy</Link>
+                            By checking this box, you consent to receive sms/text messages from {siteName}. Reply STOP to opt-out anytime. <Link href="/privacy-policy" className="underline hover:text-white">Privacy Policy</Link>
                         </label>
+
                     </div>
 
                     {/* Submit Button */}

@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 
 export default function AgentProfileValuation() {
     return (
@@ -19,9 +20,12 @@ export default function AgentProfileValuation() {
                 <p className="text-lg font-light mb-12 max-w-2xl mx-auto">
                     Get an initial in-depth market analysis of your home to start a conversation.
                 </p>
-                <button className="px-12 py-4 border border-white rounded-full text-xs font-bold tracking-[0.2em] uppercase hover:bg-white hover:text-[#181728] transition-colors">
+                <Link
+                    href="/valuation"
+                    className="inline-block px-12 py-4 border border-white rounded-full text-xs font-bold tracking-[0.2em] uppercase hover:bg-white hover:text-[#181728] transition-colors"
+                >
                     Get Started
-                </button>
+                </Link>
             </div>
         </section>
     );

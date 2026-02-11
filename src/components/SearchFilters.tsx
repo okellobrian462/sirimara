@@ -194,11 +194,6 @@ export default function SearchFilters({
                     <SlidersHorizontal className="w-3 h-3" />
                 </button>
             </div>
-
-            <div className="flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] text-[#181728] uppercase cursor-pointer hover:opacity-70">
-                <span>View: Map and List</span>
-                <ChevronDown className="w-3 h-3" />
-            </div>
         </div>
     );
 }

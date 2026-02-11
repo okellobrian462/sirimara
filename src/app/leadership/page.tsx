@@ -5,7 +5,7 @@ import { fetchPageSections } from '@/lib/content/fetchPageSections';
 import SectionRenderer from '@/components/sections/SectionRenderer';
 
 export const metadata = {
-    title: 'Our Leadership | Douglas Elliman',
+    title: 'Our Leadership | Sirimara',
     description: 'Real Estate is a People Business First. Relationships and thoughtful leadership are the most essential.'
 };
 

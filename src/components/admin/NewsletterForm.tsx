@@ -7,6 +7,8 @@ import { useForm } from 'react-hook-form';
 import dynamic from 'next/dynamic';
 import { Loader2, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import { useSiteConfig } from '@/context/SiteConfigContext';
+
 
 // Dynamic import for ReactQuill to avoid SSR issues
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
@@ -26,7 +28,10 @@ interface Props {
 }
 
 export default function NewsletterForm({ newsletter }: Props) {
+    const config = useSiteConfig();
+    const magazineName = config.magazine_name || 'Magazine';
     const router = useRouter();
+
     const [content, setContent] = useState(newsletter?.content || '');
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -108,8 +113,9 @@ export default function NewsletterForm({ newsletter }: Props) {
                             <input
                                 {...register('title', { required: 'Title is required' })}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-black focus:border-black outline-none transition-all"
-                                placeholder="e.g. Elliman Magazine Spring 2025"
+                                placeholder={`e.g. ${magazineName} Spring 2025`}
                             />
+
                             {errors.title && <p className="text-red-500 text-xs mt-1">{errors.title.message as string}</p>}
                         </div>
 

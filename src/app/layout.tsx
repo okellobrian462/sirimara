@@ -14,16 +14,23 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Douglas Elliman | Luxury Real Estate and Homes for Sale",
-  description: "Browse our wide range of luxury homes for sale and rent. Contact our real estate agents to find your dream home.",
-  icons: {
-    icon: "https://ext.same-assets.com/2757429726/4046794085.svg",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const config = await fetchSiteConfig();
+  const siteName = config.company_name || "Sirimara";
+
+  return {
+    title: `${siteName} | Luxury Real Estate and Homes for Sale`,
+    description: `Browse our wide range of luxury homes for sale and rent. Contact our real estate agents to find your dream home with ${siteName}.`,
+    icons: {
+      icon: "https://ext.same-assets.com/2757429726/4046794085.svg",
+    },
+  };
+}
+
 
 import { SearchProvider } from "@/context/SearchContext";
 import { ModalProvider } from "@/context/ModalContext";
+import { SiteConfigProvider } from "@/context/SiteConfigContext";
 import CookieConsent from "@/components/CookieConsent";
 import ThemeProvider from "@/components/ThemeProvider";
 import { fetchSiteConfig } from "@/lib/content/fetchSiteConfig";
@@ -52,14 +59,16 @@ export default async function RootLayout({
       </head>
       <body suppressHydrationWarning className="antialiased">
         <ThemeProvider colors={themeColors} />
-        <SearchProvider>
-          <ModalProvider>
-            <ClientBody>
-              {children}
-              <CookieConsent />
-            </ClientBody>
-          </ModalProvider>
-        </SearchProvider>
+        <SiteConfigProvider config={config}>
+          <SearchProvider>
+            <ModalProvider>
+              <ClientBody>
+                {children}
+                <CookieConsent />
+              </ClientBody>
+            </ModalProvider>
+          </SearchProvider>
+        </SiteConfigProvider>
       </body>
     </html>
   );

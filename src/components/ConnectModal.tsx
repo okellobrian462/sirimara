@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { getContactConfig } from '@/app/actions/config';
 import { submitForm } from '@/app/actions/contact';
+import { useSiteConfig } from '@/context/SiteConfigContext';
 
 interface ConnectModalProps {
     isOpen: boolean;
@@ -12,10 +13,14 @@ interface ConnectModalProps {
 }
 
 export default function ConnectModal({ isOpen, onClose }: ConnectModalProps) {
+    const config = useSiteConfig();
+    const siteName = config.company_name || 'Sirimara';
+
     const [isVisible, setIsVisible] = useState(false);
-    const [config, setConfig] = useState({ phone: '1-800-ELLIMAN', email: 'INFO@ELLIMAN.COM' });
+    const [contactConfig, setContactConfig] = useState({ phone: '1-800-SIRIMARA', email: 'INFO@SIRIMARA.COM' });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
 
     useEffect(() => {
         if (isOpen) {
@@ -23,11 +28,12 @@ export default function ConnectModal({ isOpen, onClose }: ConnectModalProps) {
             document.body.style.overflow = 'hidden';
             // Fetch config when modal opens
             getContactConfig().then(data => {
-                setConfig({
-                    phone: data.phone || '1-800-ELLIMAN',
-                    email: (data.email || 'INFO@ELLIMAN.COM').toUpperCase()
+                setContactConfig({
+                    phone: data.phone || '1-800-SIRIMARA',
+                    email: (data.email || 'INFO@SIRIMARA.COM').toUpperCase()
                 });
             });
+
         } else {
             const timer = setTimeout(() => {
                 setIsVisible(false);
@@ -95,21 +101,22 @@ export default function ConnectModal({ isOpen, onClose }: ConnectModalProps) {
                     {/* Agent Info */}
                     <div className="flex items-start gap-6 mb-12">
                         <div className="w-20 h-20 rounded-full border border-gray-200 p-2 flex items-center justify-center shrink-0">
-                            <span className="text-3xl font-serif text-gray-300">DE</span>
+                            <span className="text-3xl font-serif text-gray-300">SM</span>
                         </div>
                         <div>
-                            <h3 className="text-xl font-serif text-[#181728] mb-2">Douglas Elliman</h3>
+                            <h3 className="text-xl font-serif text-[#181728] mb-2">{siteName}</h3>
                             <div className="space-y-1">
-                                <a href={`tel:${config.phone.replace(/[^0-9]/g, '')}`} className="flex items-center gap-2 text-xs tracking-widest uppercase hover:opacity-70 transition-opacity text-gray-600">
+                                <a href={`tel:${contactConfig.phone.replace(/[^0-9]/g, '')}`} className="flex items-center gap-2 text-xs tracking-widest uppercase hover:opacity-70 transition-opacity text-gray-600">
                                     <span className="w-4"><i className="fas fa-phone"></i></span>
-                                    {config.phone}
+                                    {contactConfig.phone}
                                 </a>
-                                <a href={`mailto:${config.email.toLowerCase()}`} className="flex items-center gap-2 text-xs tracking-widest uppercase hover:opacity-70 transition-opacity text-gray-600">
+                                <a href={`mailto:${contactConfig.email.toLowerCase()}`} className="flex items-center gap-2 text-xs tracking-widest uppercase hover:opacity-70 transition-opacity text-gray-600">
                                     <span className="w-4"><i className="fas fa-envelope"></i></span>
-                                    {config.email}
+                                    {contactConfig.email}
                                 </a>
                             </div>
                         </div>
+
                     </div>
 
                     {/* Form */}
@@ -183,8 +190,9 @@ export default function ConnectModal({ isOpen, onClose }: ConnectModalProps) {
                                     <Check className="absolute w-3 h-3 text-white opacity-0 peer-checked:opacity-100 pointer-events-none" />
                                 </div>
                                 <p className="text-xs text-gray-500 leading-relaxed">
-                                    By checking this box, you consent to receive sms/text messages from Douglas Elliman Real Estate. Reply STOP to opt-out anytime. <Link href="/privacy-policy" className="underline hover:text-[#181728]">Privacy Policy</Link>
+                                    By checking this box, you consent to receive sms/text messages from {siteName}. Reply STOP to opt-out anytime. <Link href="/privacy-policy" className="underline hover:text-[#181728]">Privacy Policy</Link>
                                 </p>
+
                             </label>
 
                             {/* Submit */}

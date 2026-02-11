@@ -4,9 +4,14 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { Lock, Mail } from 'lucide-react';
+import { useSiteConfig } from '@/context/SiteConfigContext';
+
 
 export default function AdminLoginPage() {
+    const config = useSiteConfig();
+    const siteName = config.company_name || 'Sirimara';
     const router = useRouter();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -67,9 +72,10 @@ export default function AdminLoginPage() {
             <div className="relative w-full max-w-md">
                 {/* Logo/Brand */}
                 <div className="text-center mb-12">
-                    <h1 className="text-4xl font-light tracking-[0.3em] text-white mb-3">
-                        ELLIMAN
+                    <h1 className="text-4xl font-light tracking-[0.3em] text-white mb-3 uppercase">
+                        {siteName}
                     </h1>
+
                     <div className="w-16 h-px bg-white/40 mx-auto mb-6" />
                     <p className="text-white/60 text-sm tracking-widest uppercase">
                         Admin Portal
@@ -95,7 +101,7 @@ export default function AdminLoginPage() {
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
                                     className="w-full bg-white/5 border border-white/10 rounded-xl pl-12 pr-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-transparent transition-all"
-                                    placeholder="admin@elliman.com"
+                                    placeholder="admin@sirimara.com"
                                 />
                             </div>
                         </div>
@@ -148,10 +154,11 @@ export default function AdminLoginPage() {
 
                 {/* Bottom Text */}
                 <div className="mt-8 text-center">
-                    <p className="text-white/30 text-xs tracking-widest">
-                        © 2025 DOUGLAS ELLIMAN
+                    <p className="text-white/30 text-xs tracking-widest uppercase">
+                        © {new Date().getFullYear()} {siteName}
                     </p>
                 </div>
+
             </div>
         </div>
     );

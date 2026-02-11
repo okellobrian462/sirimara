@@ -1,11 +1,17 @@
 'use client';
 import Link from 'next/link';
+import { useSiteConfig } from '@/context/SiteConfigContext';
 
 interface AgentProfileContactProps {
     name: string;
 }
 
 export default function AgentProfileContact({ name }: AgentProfileContactProps) {
+    const config = useSiteConfig();
+    const siteName = config.company_name || 'Sirimara';
+
+    const platformName = config.platform_name || 'Sirimara';
+
     return (
         <section className="bg-[#FAF9F5] py-20 md:py-32 px-6">
             <div className="container mx-auto max-w-4xl">
@@ -63,7 +69,7 @@ export default function AgentProfileContact({ name }: AgentProfileContactProps) 
                                 className="mt-1 w-4 h-4 rounded border-gray-300 text-[#181728]"
                             />
                             <label htmlFor="marketing-consent" className="text-xs text-gray-500 leading-relaxed">
-                                Join {name.split(' ')[0]} on Elliman Inspirations – your personalized, AI-powered platform that unlocks the full potential of property search and collaboration.
+                                Join {name.split(' ')[0]} on {platformName} – your personalized, AI-powered platform that unlocks the full potential of property search and collaboration.
                             </label>
                         </div>
                         <div className="flex items-start gap-4">
@@ -73,7 +79,7 @@ export default function AgentProfileContact({ name }: AgentProfileContactProps) 
                                 className="mt-1 w-4 h-4 rounded border-gray-300 text-[#181728]"
                             />
                             <label htmlFor="sms-consent" className="text-xs text-gray-500 leading-relaxed">
-                                By checking this box, you consent to receive sms/text messages from Douglas Elliman Real Estate. Reply STOP to opt-out anytime. <Link href="/privacy-policy" className="underline hover:text-[#181728]">Privacy Policy</Link>
+                                By checking this box, you consent to receive sms/text messages from {siteName}. Reply STOP to opt-out anytime. <Link href="/privacy-policy" className="underline hover:text-[#181728]">Privacy Policy</Link>
                             </label>
                         </div>
                     </div>

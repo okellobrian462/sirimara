@@ -116,10 +116,6 @@ export default function HeroSection({ section }: HeroSectionProps) {
                                 <Link href="/agents" className="hover:opacity-80 transition-opacity">Agents</Link>
                             </nav>
                         </div>
-                        <nav className="hidden md:flex gap-8 uppercase text-sm tracking-wider">
-                            <Link href="/new-development" className="hover:opacity-80 transition-opacity">New Development</Link>
-                            <Link href="/world-of-elliman" className="hover:opacity-80 transition-opacity">World of Elliman</Link>
-                        </nav>
                     </div>
                 </div>
             )}

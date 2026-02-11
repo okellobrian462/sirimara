@@ -1,6 +1,8 @@
 import RentalsSearchClient from "@/app/rentals/RentalsSearchClient";
 import type { PageSection } from "@/lib/content/fetchPageSections";
 import { createClient } from "@/lib/supabase/server";
+import { fetchSiteConfig } from "@/lib/content/fetchSiteConfig";
+
 import type { Listing } from "@/lib/types/listing";
 import type { Property } from "@/types/database.types";
 
@@ -10,6 +12,9 @@ interface RentalsSearchSectionProps {
 
 export default async function RentalsSearchSection({ section }: RentalsSearchSectionProps) {
     const supabase = await createClient();
+    const config = await fetchSiteConfig();
+    const siteName = (config.company_name || 'Sirimara').toUpperCase();
+
 
     const { data: properties } = await supabase
         .from("properties")
@@ -32,8 +37,9 @@ export default async function RentalsSearchSection({ section }: RentalsSearchSec
         halfBaths: p.half_baths || 0,
         sqft: p.sqft ?? null,
         images: p.images || [],
-        status: "DOUGLAS ELLIMAN EXCLUSIVE",
+        status: `${siteName} EXCLUSIVE`,
         badge: p.badge_text || null,
+
         latitude: p.latitude || 40.7128,
         longitude: p.longitude || -74.0060,
         exclusive: p.is_exclusive || false,
@@ -45,7 +51,12 @@ export default async function RentalsSearchSection({ section }: RentalsSearchSec
         <RentalsSearchClient
             listings={listings}
             googleMapsApiKey={googleMapsApiKey}
-            hideHero={true} // New prop we need to add to the client
+            heroData={{
+                title: section.title,
+                subtitle: section.subtitle,
+                background_color: section.background_color,
+                text_color: section.text_color
+            }}
         />
     );
 }

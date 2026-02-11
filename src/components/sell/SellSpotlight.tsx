@@ -1,30 +1,39 @@
-'use client';
-
 import { useState } from 'react';
-
-const TABS = [
-    {
-        id: 'press',
-        title: 'THE POWER OF OUR PRESS',
-        description: 'By all measures, Douglas Elliman is one of the leading names in real estate news with over 15 billion mentions worldwide.',
-        image: 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1727313622/staging/fsevbcxzzll7gegyk6ml.webp'
-    },
-    {
-        id: 'magazine',
-        title: 'Elliman magazine',
-        description: 'We feature bespoke stories about your property alongside cultural and lifestyle stories to build trust with potential sellers.',
-        image: 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1739296414/production/nauvsrs45yyj7cu5vqli.jpg'
-    },
-    {
-        id: 'social',
-        title: 'SOCIAL REACH',
-        description: 'Our curated social channels deliver more than 367 million impressions annually, giving your listing the visibility it deserves.',
-        image: 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1727313673/staging/gbbwcg4rcys9vbtduwiu.webp'
-    }
-];
+import { useSiteConfig } from '@/context/SiteConfigContext';
 
 export default function SellSpotlight() {
-    const [activeTab, setActiveTab] = useState(TABS[0]);
+    const config = useSiteConfig();
+    const siteName = config.company_name || 'Sirimara';
+    const magazineName = config.magazine_name || 'Sirimara Magazine';
+
+    const [activeTab, setActiveTab] = useState({
+        id: 'press',
+        title: 'THE POWER OF OUR PRESS',
+        description: `By all measures, ${siteName} is one of the leading names in real estate news with over 15 billion mentions worldwide.`,
+        image: 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1727313622/staging/fsevbcxzzll7gegyk6ml.webp'
+    });
+
+    const tabs = [
+        {
+            id: 'press',
+            title: 'THE POWER OF OUR PRESS',
+            description: `By all measures, ${siteName} is one of the leading names in real estate news with over 15 billion mentions worldwide.`,
+            image: 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1727313622/staging/fsevbcxzzll7gegyk6ml.webp'
+        },
+        {
+            id: 'magazine',
+            title: magazineName,
+            description: `We feature bespoke stories about your property alongside cultural and lifestyle stories to build trust with potential sellers.`,
+            image: 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1739296414/production/nauvsrs45yyj7cu5vqli.jpg'
+        },
+        {
+            id: 'social',
+            title: 'SOCIAL REACH',
+            description: 'Our curated social channels deliver more than 367 million impressions annually, giving your listing the visibility it deserves.',
+            image: 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1727313673/staging/gbbwcg4rcys9vbtduwiu.webp'
+        }
+    ];
+
 
     return (
         <section className="bg-[#181728] text-white py-24 md:py-32 px-6 overflow-hidden">
@@ -41,7 +50,7 @@ export default function SellSpotlight() {
                 <div className="flex flex-col lg:flex-row gap-16 items-start">
                     {/* Tabs List */}
                     <div className="w-full lg:w-1/2 space-y-12">
-                        {TABS.map((tab) => (
+                        {tabs.map((tab) => (
                             <div
                                 key={tab.id}
                                 className={`cursor-pointer transition-all duration-500 border-l-2 pl-8 py-2 ${activeTab.id === tab.id ? 'border-white opacity-100' : 'border-white/10 opacity-30 hover:opacity-100'

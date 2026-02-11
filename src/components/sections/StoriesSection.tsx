@@ -1,5 +1,7 @@
 import type { PageSection } from '@/lib/content/fetchPageSections';
 import type { StoryItem } from '@/lib/content/fetchStoryItems';
+import { useSiteConfig } from '@/context/SiteConfigContext';
+
 
 interface StoriesSectionProps {
     section: PageSection;
@@ -7,6 +9,9 @@ interface StoriesSectionProps {
 }
 
 export default function StoriesSection({ section, items }: StoriesSectionProps) {
+    const config = useSiteConfig();
+    const platformName = config.platform_name || 'Sirimara Inspirations';
+
 
     return (
         <section className="bg-white py-24 md:py-32 px-6">
@@ -39,10 +44,11 @@ export default function StoriesSection({ section, items }: StoriesSectionProps) 
                                         <div className="flex items-center gap-2 mb-4">
                                             {story.category === 'INSIDER' && (
                                                 <img
-                                                    src="https://www.elliman.com/images/ellimanInsiderLogo.svg"
-                                                    alt="Elliman Insider"
+                                                    src="https://www.sirimara.com/images/ellimanInsiderLogo.svg"
+                                                    alt={platformName}
                                                     className="h-4 brightness-100 invert"
                                                 />
+
                                             )}
                                             {/* Text fallback for other categories */}
                                             {story.category !== 'INSIDER' && (

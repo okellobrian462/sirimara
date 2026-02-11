@@ -4,10 +4,16 @@ import { Check, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import Link from 'next/link';
 import { submitForm } from '@/app/actions/contact';
+import { useSiteConfig } from '@/context/SiteConfigContext';
+
 
 export default function ValuationForm() {
+    const config = useSiteConfig();
+    const siteName = config.company_name || 'Sirimara';
+
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -137,8 +143,9 @@ export default function ValuationForm() {
                     <Check className="absolute w-3 h-3 text-white opacity-0 peer-checked:opacity-100 pointer-events-none" />
                 </div>
                 <p className="text-xs text-gray-500 leading-relaxed">
-                    By checking this box, you consent to receive sms/text messages from Douglas Elliman Real Estate. Reply STOP to opt-out anytime. <Link href="/privacy-policy" className="underline hover:text-[#181728]">Privacy Policy</Link>
+                    By checking this box, you consent to receive sms/text messages from {siteName}. Reply STOP to opt-out anytime. <Link href="/privacy-policy" className="underline hover:text-[#181728]">Privacy Policy</Link>
                 </p>
+
             </label>
 
             <button

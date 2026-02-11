@@ -26,12 +26,12 @@ CREATE POLICY "Admin write access" ON newsletters FOR ALL USING (
 INSERT INTO newsletters (title, slug, cover_image_url, category, order_index, content)
 VALUES 
 (
-  'Elliman Magazine', 
-  'elliman-magazine', 
+  'Sirimara Magazine', 
+  'sirimara-magazine', 
   'https://res.cloudinary.com/dk92v0fkk/image/upload/v1737654654/production/qgevgchdh6kyemffd58v.jpg', 
   'MAGAZINE',
   1,
-  '<p>The Spring/Summer 2025 issue of Elliman Magazine explores the intersection of art, design, and real estate.</p><h3>Featured Stories</h3><ul><li>The Art of Living: Inside the homes of top collectors</li><li>Design Trends: What''s next in luxury interiors</li><li>Market Report: Global real estate outlook</li></ul>'
+  '<p>The Spring/Summer 2025 issue of Sirimara Magazine explores the intersection of art, design, and real estate.</p><h3>Featured Stories</h3><ul><li>The Art of Living: Inside the homes of top collectors</li><li>Design Trends: What''s next in luxury interiors</li><li>Market Report: Global real estate outlook</li></ul>'
 ),
 (
   'Equestrian Magazine', 
@@ -70,23 +70,23 @@ WHERE menu_location = 'header_secondary' AND label = 'WORLD OF ELLIMAN';
 
 UPDATE navigation_items
 SET label = 'Newsletters', url = '/newsletters'
-WHERE menu_location = 'footer_resources' AND label = 'World of Elliman';
+WHERE menu_location = 'footer_resources' AND label = 'World of Sirimara';
 
 
 -- 4. Cleanup Old Sections
 -- Delete WOE sections
 DELETE FROM page_sections 
-WHERE page = 'world-of-elliman' 
+WHERE page = 'world-of-sirimara' 
 AND section_type IN ('woe_story', 'woe_banner');
 
 -- We can also delete the 'woe_modules' section if we are going to use a custom page at /newsletters
 -- But maybe let's keep it as legacy or delete it to be clean.
 -- Since I'm creating a dedicated /newsletters page file, I don't need the CMS page section anymore.
 DELETE FROM page_sections
-WHERE page = 'world-of-elliman' AND section_type = 'woe_modules';
+WHERE page = 'world-of-sirimara' AND section_type = 'woe_modules';
 
 
 -- 5. Add Metadata
 INSERT INTO page_meta (page_path, title, description)
-VALUES ('/newsletters', 'Newsletters | Douglas Elliman', 'Explore our latest insights, magazines, and market reports.')
+VALUES ('/newsletters', 'Newsletters | Sirimara', 'Explore our latest insights, magazines, and market reports.')
 ON CONFLICT (page_path) DO UPDATE SET title = EXCLUDED.title;

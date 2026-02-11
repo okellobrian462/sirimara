@@ -5,8 +5,9 @@ import { Search, X, MapPin, Crosshair } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSearch } from '@/context/SearchContext';
-import DouglasEllimanLogo from '@/components/icons/DouglasEllimanLogo';
+import SirimaraLogo from '@/components/icons/SirimaraLogo';
 import UnifiedSearch from '@/components/search/UnifiedSearch';
+import { useSiteConfig } from '@/context/SiteConfigContext';
 
 interface SearchResult {
     id: string;
@@ -37,10 +38,15 @@ interface HeaderClientProps {
 
 export default function HeaderClient({ theme = 'light', isScrolled: externalIsScrolled, mainNav, secondaryNav, logoSvg, logoImage }: HeaderClientProps) {
     const { isSearchOpen, setIsSearchOpen, searchQuery, setSearchQuery } = useSearch();
+    const config = useSiteConfig();
     const [internalIsScrolled, setInternalIsScrolled] = useState(false);
     const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
     const [activeSearchTab, setActiveSearchTab] = useState<'buy' | 'rent' | 'agents'>('buy');
     const router = useRouter();
+
+    const siteName = config.company_name || 'Sirimara';
+    const siteNameUpper = siteName.toUpperCase();
+
 
     useEffect(() => {
         const timeoutId = setTimeout(async () => {
@@ -159,11 +165,12 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
                                                         <div>
                                                             <h4 className="text-[10px] font-bold tracking-[0.2em] mb-4 uppercase text-gray-500">
                                                                 {item.dropdown_config.search_type === 'agents'
-                                                                    ? 'FIND AN ELLIMAN AGENT'
+                                                                    ? `FIND A ${siteNameUpper} AGENT`
                                                                     : item.dropdown_config.search_type === 'rent'
                                                                         ? 'FIND YOUR NEXT RENTAL PROPERTY'
                                                                         : 'FIND YOUR NEXT PROPERTY'}
                                                             </h4>
+
                                                             <UnifiedSearch
                                                                 searchType={(item.dropdown_config.search_type as 'buy' | 'rent' | 'agents') || 'buy'}
                                                                 placeholder={item.dropdown_config.search_placeholder as string}
@@ -200,16 +207,17 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
                                 {logoImage ? (
                                     <img
                                         src={logoImage}
-                                        alt="Douglas Elliman"
+                                        alt={siteName}
                                         className={`${isScrolled ? 'h-8' : 'h-10'} w-auto transition-all duration-300 object-contain`}
                                     />
+
                                 ) : logoSvg ? (
                                     <div
                                         className={`${isScrolled ? 'h-8' : 'h-10'} w-auto transition-all duration-300 [&>svg]:h-full [&>svg]:w-auto [&>svg]:fill-current`}
                                         dangerouslySetInnerHTML={{ __html: logoSvg }}
                                     />
                                 ) : (
-                                    <DouglasEllimanLogo className={`${isScrolled ? 'h-8' : 'h-10'} w-auto transition-all duration-300`} />
+                                    <SirimaraLogo className={`${isScrolled ? 'h-8' : 'h-10'} w-auto transition-all duration-300`} />
                                 )}
 
                             </Link>
@@ -322,7 +330,7 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
                                                             Find all sales properties
                                                         </Link>
                                                         <Link href="/agents" onClick={() => setIsSearchOpen(false)} className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#181728] hover:text-gray-500 transition-colors">
-                                                            Find an Elliman agent
+                                                            Find a {siteName} agent
                                                         </Link>
                                                         <Link href="/search?type=buy&category=commercial" onClick={() => setIsSearchOpen(false)} className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#181728] hover:text-gray-500 transition-colors">
                                                             Find commercial properties
@@ -335,8 +343,9 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
                                                             Find all rental properties
                                                         </Link>
                                                         <Link href="/agents" onClick={() => setIsSearchOpen(false)} className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#181728] hover:text-gray-500 transition-colors">
-                                                            Find an Elliman agent
+                                                            Find a {siteName} agent
                                                         </Link>
+
                                                     </>
                                                 )}
                                                 {activeSearchTab === 'agents' && (

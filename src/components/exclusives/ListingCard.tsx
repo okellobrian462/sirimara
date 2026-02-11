@@ -1,6 +1,8 @@
 'use client';
 
 import { Heart } from 'lucide-react';
+import { useSiteConfig } from '@/context/SiteConfigContext';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
@@ -22,6 +24,9 @@ interface ListingCardProps {
 }
 
 export default function ListingCard({ listing }: ListingCardProps) {
+    const config = useSiteConfig();
+    const siteName = config.company_name || 'Sirimara';
+
     return (
         <div className="w-full h-full flex flex-col">
             <div className="relative aspect-[4/3] bg-gray-100 overflow-hidden mb-4 group">
@@ -70,14 +75,16 @@ export default function ListingCard({ listing }: ListingCardProps) {
                 <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-100">
                     <div className="flex items-center gap-2">
                         <img
-                            src="https://www.elliman.com/images/de-master-logo.png"
-                            alt="DE Logo"
+                            src="https://www.sirimara.com/images/de-master-logo.png"
+                            alt={`${siteName} Logo`}
                             className="h-4 opacity-50"
                         />
+
                     </div>
                     <span className="text-[10px] font-bold tracking-widest uppercase text-gray-400">
-                        douglas elliman exclusive
+                        {siteName} exclusive
                     </span>
+
                 </div>
             </div>
         </div>

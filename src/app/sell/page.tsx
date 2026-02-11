@@ -4,8 +4,8 @@ import { fetchPageSections } from '@/lib/content/fetchPageSections';
 import SectionRenderer from '@/components/sections/SectionRenderer';
 
 export const metadata = {
-    title: 'Sell Your Home or Property | Douglas Elliman',
-    description: 'Ready to sell? Douglas Elliman connects sellers with qualified buyers through expert strategies and a global network. Start your selling journey today.',
+    title: 'Sell Your Home or Property | Sirimara',
+    description: 'Ready to sell? Sirimara connects sellers with qualified buyers through expert strategies and a global network. Start your selling journey today.',
 }
 
 export default async function SellPage() {

@@ -19,15 +19,15 @@ ON CONFLICT (id) DO NOTHING;
 -- ============================================
 
 INSERT INTO site_config (key, value, category) VALUES
-  ('company_name', '"Douglas Elliman"', 'branding'),
+  ('company_name', '"Sirimara"', 'branding'),
   ('tagline', '"Leaders in Luxury Real Estate"', 'branding'),
   ('phone', '"1-800-ELLIMAN"', 'contact'),
-  ('email', '"info@elliman.com"', 'contact'),
+  ('email', '"info@sirimara.com"', 'contact'),
   ('facebook_url', '"https://facebook.com/douglaselliman"', 'social'),
   ('instagram_url', '"https://instagram.com/douglaselliman"', 'social'),
-  ('twitter_url', '"https://twitter.com/elliman"', 'social'),
-  ('linkedin_url', '"https://linkedin.com/company/douglas-elliman"', 'social'),
-  ('default_meta_title', '"Douglas Elliman | Luxury Real Estate"', 'seo'),
+  ('twitter_url', '"https://twitter.com/sirimara"', 'social'),
+  ('linkedin_url', '"https://linkedin.com/company/douglas-sirimara"', 'social'),
+  ('default_meta_title', '"Sirimara | Luxury Real Estate"', 'seo'),
   ('default_meta_description', '"Leaders in luxury real estate with exceptional agents in key markets worldwide."', 'seo'),
   ('logo_header_svg', '""', 'branding'),
   ('logo_image_url', '""', 'branding'),
@@ -188,7 +188,7 @@ INSERT INTO navigation_items (menu_location, label, url, order_index, is_active,
   "search_type": "buy",
   "quick_links": [
     {"label": "Find All Sales Properties", "url": "/sales"},
-    {"label": "Find an Elliman Agent", "url": "/agents"},
+    {"label": "Find an Sirimara Agent", "url": "/agents"},
     {"label": "Find Commercial Properties", "url": "/sales/home-types=commercial-office"}
   ]
 }'::jsonb),
@@ -197,7 +197,7 @@ INSERT INTO navigation_items (menu_location, label, url, order_index, is_active,
   "search_type": "rent",
   "quick_links": [
     {"label": "Find All Rental Properties", "url": "/rentals"},
-    {"label": "Find an Elliman Agent", "url": "/agents"},
+    {"label": "Find an Sirimara Agent", "url": "/agents"},
     {"label": "Find Commercial Properties", "url": "/sales/home-types=commercial-office"}
   ]
 }'::jsonb),
@@ -213,7 +213,7 @@ INSERT INTO navigation_items (menu_location, label, url, order_index, is_active,
 -- Header Secondary
 INSERT INTO navigation_items (menu_location, label, url, order_index, is_active) VALUES
 ('header_secondary', 'NEW DEVELOPMENT', '/new-development', 1, true),
-('header_secondary', 'WORLD OF ELLIMAN', '/world-of-elliman', 2, true);
+('header_secondary', 'WORLD OF ELLIMAN', '/world-of-sirimara', 2, true);
 
 -- Footer Company
 INSERT INTO navigation_items (menu_location, label, url, order_index, is_active) VALUES
@@ -224,8 +224,8 @@ INSERT INTO navigation_items (menu_location, label, url, order_index, is_active)
 
 -- Footer Resources
 INSERT INTO navigation_items (menu_location, label, url, order_index, is_active) VALUES
-('footer_resources', 'World of Elliman', '/world-of-elliman', 1, true),
-('footer_resources', 'Elliman Exclusives', '#', 2, true);
+('footer_resources', 'World of Sirimara', '/world-of-sirimara', 1, true),
+('footer_resources', 'Sirimara Exclusives', '#', 2, true);
 
 -- Footer Brand Portfolio
 INSERT INTO navigation_items (menu_location, label, url, order_index, is_active) VALUES
@@ -252,16 +252,16 @@ INSERT INTO navigation_items (menu_location, label, url, order_index, is_active)
 INSERT INTO navigation_items (menu_location, label, url, order_index, is_active, opens_in_new_tab) VALUES
 ('footer_legal', 'Terms', '#', 1, true, false),
 ('footer_legal', 'Privacy', '#', 2, true, false),
-('footer_legal', 'NYS Housing Discrimination Disclosure Notice & Form', 'https://www.elliman.com/pdf/nys-housing-discrimination-disclosure.pdf', 3, true, true),
-('footer_legal', 'NYS Standard Operating Procedure', 'https://www.elliman.com/pdf/nys-standard-operating-procedure.pdf', 4, true, true),
-('footer_legal', 'NYS Tenants'' Rights to Reasonable Accommodations for Persons with Disabilities', 'https://www.elliman.com/pdf/nys-tenants-rights.pdf', 5, true, true),
-('footer_legal', 'California Consumer Privacy Act Notice', 'https://www.elliman.com/pdf/california-ccpa-notice.pdf', 6, true, true),
-('footer_legal', 'Texas Consumer Protection Notice', 'https://www.elliman.com/pdf/texas-consumer-protection.pdf', 7, true, true),
-('footer_legal', 'Texas Real Estate Commission Information About Brokerage Services', 'https://www.elliman.com/pdf/texas-trec-brokerage-services.pdf', 8, true, true),
-('footer_legal', 'Text of New York City Human Rights Law', 'https://www.elliman.com/pdf/nyc-human-rights-law.pdf', 9, true, true),
+('footer_legal', 'NYS Housing Discrimination Disclosure Notice & Form', 'https://www.sirimara.com/pdf/nys-housing-discrimination-disclosure.pdf', 3, true, true),
+('footer_legal', 'NYS Standard Operating Procedure', 'https://www.sirimara.com/pdf/nys-standard-operating-procedure.pdf', 4, true, true),
+('footer_legal', 'NYS Tenants'' Rights to Reasonable Accommodations for Persons with Disabilities', 'https://www.sirimara.com/pdf/nys-tenants-rights.pdf', 5, true, true),
+('footer_legal', 'California Consumer Privacy Act Notice', 'https://www.sirimara.com/pdf/california-ccpa-notice.pdf', 6, true, true),
+('footer_legal', 'Texas Consumer Protection Notice', 'https://www.sirimara.com/pdf/texas-consumer-protection.pdf', 7, true, true),
+('footer_legal', 'Texas Real Estate Commission Information About Brokerage Services', 'https://www.sirimara.com/pdf/texas-trec-brokerage-services.pdf', 8, true, true),
+('footer_legal', 'Text of New York City Human Rights Law', 'https://www.sirimara.com/pdf/nyc-human-rights-law.pdf', 9, true, true),
 ('footer_legal', 'New York City Commission on Human Rights', 'https://www.nyc.gov/site/cchr/index.page', 10, true, true),
-('footer_legal', 'NYC Source of Income Discrimination Information', 'https://www.elliman.com/pdf/nyc-source-income-discrimination.pdf', 11, true, true),
-('footer_legal', 'NYC Source of Income Discrimination Tenant FAQs', 'https://www.elliman.com/pdf/nyc-source-income-tenant-faqs.pdf', 12, true, true);
+('footer_legal', 'NYC Source of Income Discrimination Information', 'https://www.sirimara.com/pdf/nyc-source-income-discrimination.pdf', 11, true, true),
+('footer_legal', 'NYC Source of Income Discrimination Tenant FAQs', 'https://www.sirimara.com/pdf/nyc-source-income-tenant-faqs.pdf', 12, true, true);
 
 
 -- ============================================
@@ -305,7 +305,7 @@ VALUES ('about', 'stats', NULL, 'Our legacy is built on a proven track record of
 
 -- Quote
 INSERT INTO page_sections (page, section_type, content, layout_config, order_index, background_color, text_color, template_id)
-VALUES ('about', 'quote', 'We are number one in the luxury markets we serve because we understand the high-net-worth mindset and we are where our clients want to be.', '{"text_alignment": "center", "show_quotation_marks": true, "author": "Michael S. Liebowitz", "author_title": "President and Chief Executive Officer, Douglas Elliman Inc."}'::jsonb, 3, '#181728', '#FFFFFF', (SELECT id FROM component_templates WHERE name = 'quote_centered'));
+VALUES ('about', 'quote', 'We are number one in the luxury markets we serve because we understand the high-net-worth mindset and we are where our clients want to be.', '{"text_alignment": "center", "show_quotation_marks": true, "author": "Michael S. Liebowitz", "author_title": "President and Chief Executive Officer, Sirimara Inc."}'::jsonb, 3, '#181728', '#FFFFFF', (SELECT id FROM component_templates WHERE name = 'quote_centered'));
 
 -- Recruitment Banner
 INSERT INTO page_sections (page, section_type, title, content, media_url, media_type, cta_primary_text, cta_primary_link, layout_config, order_index, background_color, text_color, template_id)
@@ -313,7 +313,7 @@ VALUES ('about', 'banner', 'We Invest in Agents Who Challenge The Status Quo', '
 
 -- Leadership Banner
 INSERT INTO page_sections (page, section_type, title, subtitle, content, media_url, media_type, layout_config, order_index, background_color, text_color, is_active)
-VALUES ('about', 'banner', NULL, NULL, 'Michael S. Liebowitz, President and Chief Executive Officer, Douglas Elliman Inc.', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1740173304/production/z1bfssrmigigijef52uj.jpg', 'image', '{"height": "auto", "overlay_opacity": 0, "text_alignment": "left", "show_caption": true, "caption_position": "bottom-left"}'::jsonb, 5, '#FFFFFF', '#000000', true);
+VALUES ('about', 'banner', NULL, NULL, 'Michael S. Liebowitz, President and Chief Executive Officer, Sirimara Inc.', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1740173304/production/z1bfssrmigigijef52uj.jpg', 'image', '{"height": "auto", "overlay_opacity": 0, "text_alignment": "left", "show_caption": true, "caption_position": "bottom-left"}'::jsonb, 5, '#FFFFFF', '#000000', true);
 
 -- Market Makers Banner
 INSERT INTO page_sections (page, section_type, title, content, media_url, media_type, cta_primary_text, cta_primary_link, layout_config, order_index, background_color, text_color, template_id)
@@ -321,7 +321,7 @@ VALUES ('about', 'banner', 'We Are Market Makers', 'We focus our expertise on th
 
 -- Contact
 INSERT INTO page_sections (page, section_type, title, content, cta_primary_text, cta_primary_link, cta_secondary_text, cta_secondary_link, layout_config, order_index, background_color, text_color, template_id)
-VALUES ('about', 'contact', 'Ready to Connect?', 'Let our exceptional team guide you.', 'Call 1.800.ELLIMAN', 'tel:1-800-ELLIMAN', 'info@elliman.com', 'mailto:info@elliman.com', '{"layout": "horizontal", "show_intro_text": true}'::jsonb, 7, '#181728', '#FFFFFF', (SELECT id FROM component_templates WHERE name = 'contact_dual_cta'));
+VALUES ('about', 'contact', 'Ready to Connect?', 'Let our exceptional team guide you.', 'Call 1.800.ELLIMAN', 'tel:1-800-ELLIMAN', 'info@sirimara.com', 'mailto:info@sirimara.com', '{"layout": "horizontal", "show_intro_text": true}'::jsonb, 7, '#181728', '#FFFFFF', (SELECT id FROM component_templates WHERE name = 'contact_dual_cta'));
 
 
 -- HOME PAGE
@@ -349,7 +349,7 @@ VALUES ('home', 'newsletter', 'The latest in luxury property, lifestyle & cultur
 -- EXCLUSIVES PAGE
 -- Hero
 INSERT INTO page_sections (page, section_type, title, subtitle, content, media_url, media_type, layout_config, order_index, background_color, text_color, template_id)
-VALUES ('exclusives', 'hero', 'Douglas Elliman Exclusives', 'EXCLUSIVES', 'View our curated collection of premier properties.', 'https://ext.same-assets.com/2757429726/2803648720.jpeg', 'image', '{"height": "60vh", "overlay_opacity": 40, "text_alignment": "center", "variant": "default"}'::jsonb, 1, '#181728', '#FFFFFF', (SELECT id FROM component_templates WHERE name = 'hero_80vh'));
+VALUES ('exclusives', 'hero', 'Sirimara Exclusives', 'EXCLUSIVES', 'View our curated collection of premier properties.', 'https://ext.same-assets.com/2757429726/2803648720.jpeg', 'image', '{"height": "60vh", "overlay_opacity": 40, "text_alignment": "center", "variant": "default"}'::jsonb, 1, '#181728', '#FFFFFF', (SELECT id FROM component_templates WHERE name = 'hero_80vh'));
 
 -- Search
 INSERT INTO page_sections (page, section_type, title, layout_config, order_index, template_id)
@@ -358,15 +358,15 @@ VALUES ('exclusives', 'property_search_sales', 'Find Your Exclusive Home', '{"sh
 -- WORLD OF ELLIMAN
 -- Hero
 INSERT INTO page_sections (id, page, section_type, title, subtitle, media_url, media_type, layout_config, order_index, background_color, text_color, template_id)
-VALUES ('80000000-0000-0000-0000-000000000001', 'world-of-elliman', 'woe_story', 'elliman', 'Get immersed in the places, people, and lifestyles that inspire our world.', 'https://res.cloudinary.com/dk92v0fkk/video/upload/v1720626100/staging/lr2gqm9cktkmncz9xs5r.mp4', 'video', '{"variant": "hero", "label": "The world of "}'::jsonb, 1, '#000000', '#FFFFFF', (SELECT id FROM component_templates WHERE name = 'woe_full_bleed'));
+VALUES ('80000000-0000-0000-0000-000000000001', 'world-of-sirimara', 'woe_story', 'sirimara', 'Get immersed in the places, people, and lifestyles that inspire our world.', 'https://res.cloudinary.com/dk92v0fkk/video/upload/v1720626100/staging/lr2gqm9cktkmncz9xs5r.mp4', 'video', '{"variant": "hero", "label": "The world of "}'::jsonb, 1, '#000000', '#FFFFFF', (SELECT id FROM component_templates WHERE name = 'woe_full_bleed'));
 
 -- Equine Life
 INSERT INTO page_sections (id, page, section_type, title, subtitle, media_url, media_type, cta_primary_text, cta_primary_link, layout_config, order_index, background_color, text_color, template_id)
-VALUES ('80000000-0000-0000-0000-000000000002', 'world-of-elliman', 'woe_story', 'LIVING THE EQUINE LIFE', 'At Home with Horses', 'https://res.cloudinary.com/dk92v0fkk/video/upload/v1730914999/staging-test/dgx2uoymxfoj06t9eq3n.mp4', 'video', 'WHERE TO ROAM', '/world-of-elliman/living-the-equine-life', '{"variant": "story", "label": "At Home with Horses"}'::jsonb, 2, '#000000', '#FFFFFF', (SELECT id FROM component_templates WHERE name = 'woe_full_bleed'));
+VALUES ('80000000-0000-0000-0000-000000000002', 'world-of-sirimara', 'woe_story', 'LIVING THE EQUINE LIFE', 'At Home with Horses', 'https://res.cloudinary.com/dk92v0fkk/video/upload/v1730914999/staging-test/dgx2uoymxfoj06t9eq3n.mp4', 'video', 'WHERE TO ROAM', '/world-of-sirimara/living-the-equine-life', '{"variant": "story", "label": "At Home with Horses"}'::jsonb, 2, '#000000', '#FFFFFF', (SELECT id FROM component_templates WHERE name = 'woe_full_bleed'));
 
 -- Impact
 INSERT INTO page_sections (id, page, section_type, title, order_index, template_id)
-VALUES ('80000000-0000-0000-0000-000000000003', 'world-of-elliman', 'woe_banner', 'Making An Impact', 3, (SELECT id FROM component_templates WHERE name = 'woe_grouped_banner'));
+VALUES ('80000000-0000-0000-0000-000000000003', 'world-of-sirimara', 'woe_banner', 'Making An Impact', 3, (SELECT id FROM component_templates WHERE name = 'woe_grouped_banner'));
 
 INSERT INTO tabs_items (section_id, title, description, image_url, order_index)
 VALUES 
@@ -375,19 +375,19 @@ VALUES
 
 -- Freedom
 INSERT INTO page_sections (id, page, section_type, title, subtitle, media_url, media_type, cta_primary_text, cta_primary_link, layout_config, order_index, background_color, text_color, template_id)
-VALUES ('80000000-0000-0000-0000-000000000004', 'world-of-elliman', 'woe_story', 'FINDING FREEDOM', 'Life At Sea', 'https://res.cloudinary.com/dk92v0fkk/video/upload/v1730922184/staging-test/r5mwvpfrszic6p564rzj.mp4', 'video', 'SET YOUR COURSE', '/world-of-elliman/finding-freedom', '{"variant": "story", "label": "Life At Sea"}'::jsonb, 4, '#000000', '#FFFFFF', (SELECT id FROM component_templates WHERE name = 'woe_full_bleed'));
+VALUES ('80000000-0000-0000-0000-000000000004', 'world-of-sirimara', 'woe_story', 'FINDING FREEDOM', 'Life At Sea', 'https://res.cloudinary.com/dk92v0fkk/video/upload/v1730922184/staging-test/r5mwvpfrszic6p564rzj.mp4', 'video', 'SET YOUR COURSE', '/world-of-sirimara/finding-freedom', '{"variant": "story", "label": "Life At Sea"}'::jsonb, 4, '#000000', '#FFFFFF', (SELECT id FROM component_templates WHERE name = 'woe_full_bleed'));
 
 -- Aspen
 INSERT INTO page_sections (id, page, section_type, title, subtitle, media_url, media_type, cta_primary_text, cta_primary_link, layout_config, order_index, background_color, text_color, template_id)
-VALUES ('80000000-0000-0000-0000-000000000005', 'world-of-elliman', 'woe_story', 'THE CALL OF ASPEN', 'Making Moves ', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1730944030/staging-test/tmwrauyo2pma3fhnocdg.webp', 'image', 'hit the slopes', '/world-of-elliman/the-call-of-aspen', '{"variant": "story", "label": "Making Moves "}'::jsonb, 5, '#000000', '#FFFFFF', (SELECT id FROM component_templates WHERE name = 'woe_full_bleed'));
+VALUES ('80000000-0000-0000-0000-000000000005', 'world-of-sirimara', 'woe_story', 'THE CALL OF ASPEN', 'Making Moves ', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1730944030/staging-test/tmwrauyo2pma3fhnocdg.webp', 'image', 'hit the slopes', '/world-of-sirimara/the-call-of-aspen', '{"variant": "story", "label": "Making Moves "}'::jsonb, 5, '#000000', '#FFFFFF', (SELECT id FROM component_templates WHERE name = 'woe_full_bleed'));
 
 -- Market Modules
 INSERT INTO page_sections (id, page, section_type, title, subtitle, order_index, template_id)
-VALUES ('80000000-0000-0000-0000-000000000006', 'world-of-elliman', 'woe_modules', 'FEATURED PUBLICATIONS', 'Discover our latest curated stories.', 6, (SELECT id FROM component_templates WHERE name = 'woe_market_modules'));
+VALUES ('80000000-0000-0000-0000-000000000006', 'world-of-sirimara', 'woe_modules', 'FEATURED PUBLICATIONS', 'Discover our latest curated stories.', 6, (SELECT id FROM component_templates WHERE name = 'woe_market_modules'));
 
 INSERT INTO stories_items (section_id, title, image_url, category, url, sort_order)
 VALUES
-  ('80000000-0000-0000-0000-000000000006', 'ELLIMAN MAGAZINE', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1737654654/production/qgevgchdh6kyemffd58v.jpg', 'INSIDER', '/elliman-magazine', 1),
+  ('80000000-0000-0000-0000-000000000006', 'ELLIMAN MAGAZINE', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1737654654/production/qgevgchdh6kyemffd58v.jpg', 'INSIDER', '/sirimara-magazine', 1),
   ('80000000-0000-0000-0000-000000000006', 'EQUESTRIAN MAGAZINE', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1753809337/production/pn7iqfezdagcejexbklp.jpg', 'INSIDER', '/equestrian-magazine', 2),
   ('80000000-0000-0000-0000-000000000006', 'VICINITY UPPER EAST SIDE', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1743602943/production/wg7lok4hyiaxse4lf6ja.jpg', 'INSIDER', '/vicinity-magazine', 3),
   ('80000000-0000-0000-0000-000000000006', 'VICINITY THE NORTH FORK', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1744905781/production/lucliw2ltwgbs3rd5bqk.jpg', 'INSIDER', '/nfvicinity-magazine', 4);
@@ -466,7 +466,7 @@ END $$;
 
 -- Contact
 INSERT INTO page_sections (page, section_type, title, content, cta_primary_text, cta_primary_link, layout_config, order_index, background_color, text_color, template_id)
-VALUES ('agents', 'contact', 'READY TO TAKE THE NEXT STEP?', 'Connect with us to learn more about joining the Douglas Elliman family.', 'SPEAK WITH US', 'tel:1-800-ELLIMAN', '{"layout": "horizontal", "show_intro_text": true}'::jsonb, 5, '#181728', '#FFFFFF', (SELECT id FROM component_templates WHERE name = 'contact_dual_cta'));
+VALUES ('agents', 'contact', 'READY TO TAKE THE NEXT STEP?', 'Connect with us to learn more about joining the Sirimara family.', 'SPEAK WITH US', 'tel:1-800-ELLIMAN', '{"layout": "horizontal", "show_intro_text": true}'::jsonb, 5, '#181728', '#FFFFFF', (SELECT id FROM component_templates WHERE name = 'contact_dual_cta'));
 
 
 -- SELL PAGE
@@ -496,8 +496,8 @@ BEGIN
   RETURNING id INTO section_id;
 
   INSERT INTO tabs_items (section_id, title, description, image_url, order_index) VALUES
-    (section_id, 'THE POWER OF OUR PRESS', 'By all measures, Douglas Elliman is one of the leading names in real estate news with over 15 billion mentions worldwide.', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1727313622/staging/fsevbcxzzll7gegyk6ml.webp', 1),
-    (section_id, 'Elliman magazine', 'We feature bespoke stories about your property alongside cultural and lifestyle stories to build trust with potential sellers.', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1739296414/production/nauvsrs45yyj7cu5vqli.jpg', 2),
+    (section_id, 'THE POWER OF OUR PRESS', 'By all measures, Sirimara is one of the leading names in real estate news with over 15 billion mentions worldwide.', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1727313622/staging/fsevbcxzzll7gegyk6ml.webp', 1),
+    (section_id, 'Sirimara magazine', 'We feature bespoke stories about your property alongside cultural and lifestyle stories to build trust with potential sellers.', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1739296414/production/nauvsrs45yyj7cu5vqli.jpg', 2),
     (section_id, 'SOCIAL REACH', 'Our curated social channels deliver more than 367 million impressions annually, giving your listing the visibility it deserves.', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1727313673/staging/gbbwcg4rcys9vbtduwiu.webp', 3);
 END $$;
 
@@ -512,7 +512,7 @@ BEGIN
 
   INSERT INTO stories_items (section_id, title, image_url, category, sort_order) VALUES
   (section_id, 'Stephanie Bo Li Represents Buyer in Record-Setting Sale in Connecticut', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1738661172/production/htebpzevs038je1q7upw.jpg', 'INSIDER', 10),
-  (section_id, 'Elliman’s Patricia Vance Helps Buyer Snag Aman New York Penthouse in Record Deal', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1738658928/production/dn5vu5ygsufsrvju51nb.jpg', 'INSIDER', 20),
+  (section_id, 'Sirimara’s Patricia Vance Helps Buyer Snag Aman New York Penthouse in Record Deal', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1738658928/production/dn5vu5ygsufsrvju51nb.jpg', 'INSIDER', 20),
   (section_id, 'Four-Property Compound on Miami’s La Gorce Island Sells for Record-Breaking $122M', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1739293162/production/cc2ayll3ggr8ntqi0kei.jpg', 'INSIDER', 30);
 END $$;
 
@@ -559,7 +559,7 @@ VALUES ('rentals', 'property_search_rentals', 'Rentals Search', 2, (SELECT id FR
 -- NEW DEVELOPMENT PAGE
 -- Hero
 INSERT INTO page_sections (page, section_type, title, subtitle, media_url, media_type, layout_config, order_index, background_color, text_color, template_id)
-VALUES ('new-development', 'hero', 'NEW DEVELOPMENT', 'Discover the world''s most inspired new developments with Douglas Elliman.', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1733498188/production/s5xv552j7o6j5q4z5z5g.jpg', 'image', '{"height": "screen", "overlay_opacity": 20, "text_alignment": "center", "show_scroll_indicator": true}'::jsonb, 1, '#181728', '#FFFFFF', (SELECT id FROM component_templates WHERE name = 'hero_fullscreen'));
+VALUES ('new-development', 'hero', 'NEW DEVELOPMENT', 'Discover the world''s most inspired new developments with Sirimara.', 'https://res.cloudinary.com/dk92v0fkk/image/upload/v1733498188/production/s5xv552j7o6j5q4z5z5g.jpg', 'image', '{"height": "screen", "overlay_opacity": 20, "text_alignment": "center", "show_scroll_indicator": true}'::jsonb, 1, '#181728', '#FFFFFF', (SELECT id FROM component_templates WHERE name = 'hero_fullscreen'));
 
 -- Stats
 INSERT INTO site_statistics (label, value, sublabel, category, order_index) VALUES

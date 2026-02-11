@@ -14,7 +14,7 @@ export async function getContactConfig(): Promise<ContactConfig> {
     ]);
 
     return {
-        phone: phone || '1-800-ELLIMAN',
-        email: email || 'info@elliman.com'
+        phone: phone || '1-800-SIRIMARA',
+        email: email || 'info@sirimara.com'
     };
 }

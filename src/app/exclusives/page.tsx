@@ -4,8 +4,8 @@ import { fetchPageSections } from '@/lib/content/fetchPageSections';
 import SectionRenderer from '@/components/sections/SectionRenderer';
 
 export const metadata = {
-    title: 'Luxury Homes for Sale & Real Estate | Douglas Elliman',
-    description: 'View luxury homes for sale. Find your dream property at Elliman.com',
+    title: 'Luxury Homes for Sale & Real Estate | Sirimara',
+    description: 'View luxury homes for sale. Find your dream property at Sirimara.com',
 }
 
 export default async function ExclusivesPage() {

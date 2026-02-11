@@ -1,4 +1,4 @@
-# Elliman Admin Panel Setup Guide
+# Sirimara Admin Panel Setup Guide
 
 ## Prerequisites
 - Node.js installed
@@ -36,14 +36,14 @@ After running the schema, you need to create an admin user:
 
 1. In Supabase dashboard, go to Authentication > Users
 2. Click "Add user" > "Create new user"
-3. Enter email and password (e.g., `admin@elliman.com` / `your-secure-password`)
+3. Enter email and password (e.g., `admin@sirimara.com` / `your-secure-password`)
 4. Click "Create user"
 5. Copy the user ID from the users table
 6. Go back to SQL Editor and run:
 
 ```sql
 INSERT INTO admin_users (id, email, full_name, role)
-VALUES ('YOUR_USER_ID_HERE', 'admin@elliman.com', 'Admin User', 'super_admin');
+VALUES ('YOUR_USER_ID_HERE', 'admin@sirimara.com', 'Admin User', 'super_admin');
 ```
 
 Replace `YOUR_USER_ID_HERE` with the actual user ID you copied.

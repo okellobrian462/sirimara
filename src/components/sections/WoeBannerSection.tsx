@@ -1,8 +1,8 @@
 import React from 'react';
-import GroupedBanner from '../world-of-elliman/GroupedBanner';
+import GroupedBanner from '../world-of-sirimara/GroupedBanner';
 import type { PageSection } from '@/lib/content/fetchPageSections';
 import type { TabItem } from '@/lib/content/fetchTabItems';
-import type { BannerItem } from '../world-of-elliman/GroupedBanner';
+import type { BannerItem } from '../world-of-sirimara/GroupedBanner';
 
 interface WoeBannerSectionProps {
     section: PageSection;
@@ -15,7 +15,7 @@ export default function WoeBannerSection({ section, items }: WoeBannerSectionPro
         label: tab.description || '',
         title: tab.title,
         ctaText: 'WHY WE RIDE', // Default or from config
-        ctaLink: '/world-of-elliman', // Default or from config
+        ctaLink: '/world-of-sirimara', // Default or from config
         imageUrl: tab.image_url || ''
     }));
 

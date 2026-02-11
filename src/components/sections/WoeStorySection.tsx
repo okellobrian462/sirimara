@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import FullBleedStory from '../world-of-elliman/FullBleedStory';
+import FullBleedStory from '../world-of-sirimara/FullBleedStory';
 import type { PageSection } from '@/lib/content/fetchPageSections';
 
 interface WoeStorySectionProps {
