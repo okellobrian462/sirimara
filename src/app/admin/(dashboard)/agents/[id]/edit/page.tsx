@@ -493,22 +493,45 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                 <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6 shadow-sm">
                     <h2 className="text-lg font-medium text-gray-900 mb-4">Profile Image</h2>
 
-                    <ImageUpload
-                        bucket="agent-images"
-                        onUpload={setProfileImage}
-                        currentImage={profileImage}
-                        description="Upload agent profile photo (JPG, PNG, WEBP)"
-                    />
-
-                    {profileImage && (
-                        <div className="mt-4">
-                            <img
-                                src={profileImage}
-                                alt="Profile preview"
-                                className="w-32 h-32 object-cover rounded-lg border border-gray-200"
+                    <div className="space-y-4">
+                        <div className="space-y-2">
+                            <label className="block text-xs font-medium text-gray-700 mb-1">
+                                Upload From Computer
+                            </label>
+                            <ImageUpload
+                                bucket="agent-photos"
+                                onUpload={setProfileImage}
+                                currentImage={profileImage}
+                                description="Upload agent profile photo (JPG, PNG, WEBP)"
                             />
                         </div>
-                    )}
+
+                        <div className="space-y-2">
+                            <label className="block text-xs font-medium text-gray-700 mb-1">
+                                Or Paste Image URL
+                            </label>
+                            <input
+                                type="url"
+                                value={profileImage}
+                                onChange={(e) => setProfileImage(e.target.value)}
+                                placeholder="https://..."
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            />
+                        </div>
+
+                        {profileImage && (
+                            <div className="mt-4 pt-4 border-t border-gray-100">
+                                <label className="block text-xs font-medium text-gray-700 mb-2">
+                                    Preview
+                                </label>
+                                <img
+                                    src={profileImage}
+                                    alt="Profile preview"
+                                    className="w-32 h-32 object-cover rounded-lg border border-gray-200"
+                                />
+                            </div>
+                        )}
+                    </div>
                 </div>
 
                 <div className="flex gap-4">

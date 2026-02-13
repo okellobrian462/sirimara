@@ -31,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
 import { SearchProvider } from "@/context/SearchContext";
 import { ModalProvider } from "@/context/ModalContext";
 import { SiteConfigProvider } from "@/context/SiteConfigContext";
-import CookieConsent from "@/components/CookieConsent";
+
 import ThemeProvider from "@/components/ThemeProvider";
 import { fetchSiteConfig } from "@/lib/content/fetchSiteConfig";
 
@@ -64,7 +64,7 @@ export default async function RootLayout({
             <ModalProvider>
               <ClientBody>
                 {children}
-                <CookieConsent />
+
               </ClientBody>
             </ModalProvider>
           </SearchProvider>

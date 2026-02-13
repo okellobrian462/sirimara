@@ -49,7 +49,7 @@ ON CONFLICT (key) DO NOTHING;
 -- ============================================
 
 INSERT INTO admin_users (id, email, full_name, role)
-VALUES ('47838213-c39c-4135-9d1a-a924307c77d6', 'admin@ellliman.com', 'Admin User', 'super_admin')
+VALUES ('742c31bf-d94b-45d2-906a-8de86a6d8954', 'admin@sirimara.com', 'Admin User', 'super_admin')
 ON CONFLICT (id) DO UPDATE SET
   role = 'super_admin';
 
