@@ -3,7 +3,9 @@ import { notFound } from "next/navigation";
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ImageCarousel from '@/components/listing/ImageCarousel';
+import Link from 'next/link';
 import { Plus } from 'lucide-react';
+import ConnectButton from '@/components/listing/ConnectButton';
 
 export default async function ListingDetailPage({ params }: { params: Promise<{ slug: string[] }> }) {
     const resolvedParams = await params;
@@ -152,9 +154,7 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
                         <p className="text-sm text-gray-500 mb-1">{data.agent.title}</p>
                         <p className="text-sm text-gray-400 mb-8 uppercase">SIRIMARA REAL ESTATE</p>
 
-                        <button className="px-12 py-4 bg-[#100B28] text-white rounded-full text-xs font-semibold tracking-widest uppercase hover:bg-[#100B28]/90 transition-colors">
-                            Connect
-                        </button>
+                        <ConnectButton />
                     </div>
                 </div>
             </section>
