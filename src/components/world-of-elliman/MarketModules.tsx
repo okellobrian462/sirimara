@@ -34,7 +34,7 @@ const publications: Publication[] = [
 
 export default function MarketModules() {
     return (
-        <section className="w-full min-h-screen snap-start bg-white flex flex-col justify-center items-center py-20 px-4 md:px-16 text-[#181728]">
+        <section className="w-full min-h-screen snap-start bg-white flex flex-col justify-center items-center py-20 px-4 md:px-16 text-brand-dark">
             <div className="w-full max-w-7xl">
                 <div className="text-center mb-16">
                     <h2 className="text-4xl md:text-5xl font-light uppercase tracking-[0.1em] mb-4">
@@ -59,7 +59,7 @@ export default function MarketModules() {
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                 />
                             </div>
-                            <h3 className="text-center text-sm md:text-base font-medium tracking-[0.2em] uppercase text-[#181728] group-hover:text-gray-600 transition-colors">
+                            <h3 className="text-center text-sm md:text-base font-medium tracking-[0.2em] uppercase text-brand-dark group-hover:text-gray-600 transition-colors">
                                 {pub.title}
                             </h3>
                         </Link>

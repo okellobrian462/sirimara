@@ -2,7 +2,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AgentProfileHero from '@/components/agents/profile/AgentProfileHero';
 import AgentProfileNav from '@/components/agents/profile/AgentProfileNav';
-import AgentProfileBio from '@/components/agents/profile/AgentProfileBio';
+import AgentProfileTabsContent from '@/components/agents/profile/AgentProfileTabsContent';
 import AgentProfileValuation from '@/components/agents/profile/AgentProfileValuation';
 import AgentProfileContact from '@/components/agents/profile/AgentProfileContact';
 import { createClient } from '@/lib/supabase/server';
@@ -52,7 +52,8 @@ export default async function AgentProfilePage(props: PageProps) {
         email: agentData.email,
         image: agentData.photo_url || '',
         bio: agentData.bio || '',
-        social: agentData.social_links || {}
+        social: agentData.social_links || {},
+        profile_data: agentData.profile_data || {}
     };
 
     return (
@@ -60,7 +61,7 @@ export default async function AgentProfilePage(props: PageProps) {
             <Header />
             <AgentProfileHero agent={agent} />
             <AgentProfileNav />
-            <AgentProfileBio name={agent.name} bio={agent.bio} />
+            <AgentProfileTabsContent name={agent.name} bio={agent.bio} profileData={agent.profile_data} />
             <AgentProfileValuation />
             <AgentProfileContact name={agent.name} />
             <Footer />

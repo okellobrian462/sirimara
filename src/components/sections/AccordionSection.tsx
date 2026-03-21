@@ -18,7 +18,7 @@ export default function AccordionSection({ section, items }: AccordionSectionPro
     };
 
     return (
-        <section className="bg-[#181728]">
+        <section className="bg-brand-dark">
             <div className="container mx-auto px-6 py-20 lg:py-32">
                 <div className="max-w-6xl mx-auto">
                     {items.map((item, index) => {

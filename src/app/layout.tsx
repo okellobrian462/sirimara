@@ -44,7 +44,7 @@ export default async function RootLayout({
 }>) {
   const config = await fetchSiteConfig();
   const themeColors = config.theme_colors || {
-    primary: '#181728',
+    primary: 'var(--brand-dark)',
     primary_hover: '#252438',
     accent: '#8B5CF6'
   };

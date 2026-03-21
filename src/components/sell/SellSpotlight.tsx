@@ -36,7 +36,7 @@ export default function SellSpotlight() {
 
 
     return (
-        <section className="bg-[#181728] text-white py-24 md:py-32 px-6 overflow-hidden">
+        <section className="bg-brand-dark text-white py-24 md:py-32 px-6 overflow-hidden">
             <div className="container mx-auto max-w-6xl">
                 <div className="mb-20">
                     <h2 className="text-3xl md:text-5xl font-sans font-light tracking-[0.1em] uppercase mb-6">

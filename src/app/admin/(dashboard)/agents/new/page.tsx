@@ -26,6 +26,11 @@ export default function NewAgentPage() {
         twitter: '',
         instagram: '',
         is_active: true,
+        profile_intro: '',
+        profile_experience: '',
+        profile_capabilities: '',
+        profile_admissions: '',
+        profile_qualifications: '',
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -78,7 +83,14 @@ export default function NewAgentPage() {
                     twitter: formData.twitter,
                     instagram: formData.instagram
                 },
-                is_active: formData.is_active
+                is_active: formData.is_active,
+                profile_data: {
+                    intro: formData.profile_intro,
+                    experience: formData.profile_experience,
+                    capabilities: formData.profile_capabilities.split('\n').map(s => s.trim()).filter(Boolean),
+                    admissions: formData.profile_admissions.split('\n').map(s => s.trim()).filter(Boolean),
+                    academic_qualifications: formData.profile_qualifications.split('\n').map(s => s.trim()).filter(Boolean),
+                }
             };
 
             const { error: insertError } = await supabase
@@ -108,7 +120,7 @@ export default function NewAgentPage() {
                     <ArrowLeft className="w-4 h-4" />
                     Back to Agents
                 </Link>
-                <h1 className="text-3xl font-light tracking-[0.15em] text-[#181728] mb-2">
+                <h1 className="text-3xl font-light tracking-[0.15em] text-gray-900 mb-2">
                     ADD NEW AGENT
                 </h1>
                 <p className="text-gray-500">
@@ -141,7 +153,7 @@ export default function NewAgentPage() {
                                         value={formData.first_name}
                                         onChange={handleChange}
                                         required
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                                     />
                                 </div>
                                 <div>
@@ -154,7 +166,7 @@ export default function NewAgentPage() {
                                         value={formData.last_name}
                                         onChange={handleChange}
                                         required
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                                     />
                                 </div>
                                 <div className="md:col-span-2">
@@ -167,7 +179,7 @@ export default function NewAgentPage() {
                                         value={formData.title}
                                         onChange={handleChange}
                                         placeholder="e.g. Senior Broker"
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                                     />
                                 </div>
                                 <div>
@@ -180,7 +192,7 @@ export default function NewAgentPage() {
                                         value={formData.email}
                                         onChange={handleChange}
                                         required
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                                     />
                                 </div>
                                 <div>
@@ -192,7 +204,7 @@ export default function NewAgentPage() {
                                         name="phone"
                                         value={formData.phone}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                                     />
                                 </div>
                                 <div className="md:col-span-2">
@@ -204,8 +216,88 @@ export default function NewAgentPage() {
                                         value={formData.bio}
                                         onChange={handleChange}
                                         rows={4}
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                                     />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Extended Profile Data for Tabs */}
+                        <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+                            <h2 className="text-lg font-medium text-gray-900 mb-4">Extended Profile (Tabs)</h2>
+                            <p className="text-sm text-gray-500 mb-6">These fields populate the Experience, Capabilities, and Credentials tabs.</p>
+
+                            <div className="space-y-6">
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        Intro Paragraph
+                                    </label>
+                                    <textarea
+                                        name="profile_intro"
+                                        value={formData.profile_intro}
+                                        onChange={handleChange}
+                                        rows={2}
+                                        placeholder="E.g., Halima has expertise in commercial transactions..."
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        Experience Text
+                                    </label>
+                                    <textarea
+                                        name="profile_experience"
+                                        value={formData.profile_experience}
+                                        onChange={handleChange}
+                                        rows={5}
+                                        placeholder="Detailed block of text describing experience..."
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                                    />
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Capabilities (1 per line)
+                                        </label>
+                                        <textarea
+                                            name="profile_capabilities"
+                                            value={formData.profile_capabilities}
+                                            onChange={handleChange}
+                                            rows={5}
+                                            placeholder="Corporate Law&#10;Islamic Banking&#10;Family law"
+                                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 whitespace-pre"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Admissions (1 per line)
+                                        </label>
+                                        <textarea
+                                            name="profile_admissions"
+                                            value={formData.profile_admissions}
+                                            onChange={handleChange}
+                                            rows={5}
+                                            placeholder="Advocate of the High Court of Kenya"
+                                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 whitespace-pre"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Academic Qualifications (1 per line)
+                                        </label>
+                                        <textarea
+                                            name="profile_qualifications"
+                                            value={formData.profile_qualifications}
+                                            onChange={handleChange}
+                                            rows={5}
+                                            placeholder="Master of Laws (Distinction)...&#10;Bachelor of Laws..."
+                                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 whitespace-pre"
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -219,7 +311,7 @@ export default function NewAgentPage() {
                                     value={specialtyInput}
                                     onChange={(e) => setSpecialtyInput(e.target.value)}
                                     placeholder="Add specialty (e.g. Luxury, Condos)"
-                                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                                     onKeyDown={(e) => {
                                         if (e.key === 'Enter') {
                                             e.preventDefault();
@@ -230,7 +322,7 @@ export default function NewAgentPage() {
                                 <button
                                     type="button"
                                     onClick={handleAddSpecialty}
-                                    className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+                                    className="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors"
                                 >
                                     <Plus className="w-5 h-5" />
                                 </button>
@@ -238,12 +330,12 @@ export default function NewAgentPage() {
 
                             <div className="flex flex-wrap gap-2">
                                 {formData.specialties.map((specialty, index) => (
-                                    <span key={index} className="inline-flex items-center gap-1 px-3 py-1 bg-purple-50 text-purple-700 rounded-full border border-purple-100 text-sm">
+                                    <span key={index} className="inline-flex items-center gap-1 px-3 py-1 bg-orange-50 text-orange-700 rounded-full border border-orange-100 text-sm">
                                         {specialty}
                                         <button
                                             type="button"
                                             onClick={() => handleRemoveSpecialty(specialty)}
-                                            className="hover:text-purple-900"
+                                            className="hover:text-orange-900"
                                         >
                                             <X className="w-3 h-3" />
                                         </button>
@@ -304,7 +396,7 @@ export default function NewAgentPage() {
                                         value={photoUrl}
                                         onChange={(e) => setPhotoUrl(e.target.value)}
                                         placeholder="https://..."
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
                                     />
                                 </div>
                             </div>
@@ -324,7 +416,7 @@ export default function NewAgentPage() {
                                         value={formData.linkedin}
                                         onChange={handleChange}
                                         placeholder="LinkedIn Profile URL"
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
                                     />
                                 </div>
                                 <div>
@@ -337,7 +429,7 @@ export default function NewAgentPage() {
                                         value={formData.twitter}
                                         onChange={handleChange}
                                         placeholder="Twitter Profile URL"
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
                                     />
                                 </div>
                                 <div>
@@ -350,7 +442,7 @@ export default function NewAgentPage() {
                                         value={formData.instagram}
                                         onChange={handleChange}
                                         placeholder="Instagram Profile URL"
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
                                     />
                                 </div>
                             </div>
@@ -367,7 +459,7 @@ export default function NewAgentPage() {
                                         onChange={handleChange}
                                         className="sr-only peer"
                                     />
-                                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-purple-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-600"></div>
+                                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
                                 </label>
                             </div>
                             <p className="mt-2 text-xs text-gray-500">
@@ -381,7 +473,7 @@ export default function NewAgentPage() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+                        className="px-6 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
                     >
                         {loading ? 'Creating...' : 'Create Agent'}
                     </button>

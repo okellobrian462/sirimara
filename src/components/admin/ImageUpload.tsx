@@ -96,7 +96,7 @@ export default function ImageUpload({
                     border-2 border-dashed rounded-xl p-8
                     transition-all duration-200
                     flex flex-col items-center justify-center text-center
-                    ${uploading ? 'bg-gray-50 border-gray-300' : 'bg-white border-gray-200 hover:border-purple-400 hover:bg-purple-50/30'}
+                    ${uploading ? 'bg-gray-50 border-gray-300' : 'bg-white border-gray-200 hover:border-orange-400 hover:bg-orange-50/30'}
                     ${error ? 'border-red-300 bg-red-50/30' : ''}
                 `}
             >
@@ -111,7 +111,7 @@ export default function ImageUpload({
 
                 {uploading ? (
                     <div className="space-y-3">
-                        <Loader2 className="w-10 h-10 text-purple-600 animate-spin mx-auto" />
+                        <Loader2 className="w-10 h-10 text-orange-600 animate-spin mx-auto" />
                         <p className="text-sm font-medium text-gray-700">Uploading...</p>
                     </div>
                 ) : currentImage ? (
@@ -125,8 +125,8 @@ export default function ImageUpload({
                     </div>
                 ) : (
                     <>
-                        <div className="w-12 h-12 rounded-full bg-purple-50 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                            <Upload className="w-6 h-6 text-purple-600" />
+                        <div className="w-12 h-12 rounded-full bg-orange-50 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <Upload className="w-6 h-6 text-orange-600" />
                         </div>
                         <h4 className="text-sm font-semibold text-gray-900">{label}</h4>
                         <p className="text-xs text-gray-500 mt-1">{description}</p>

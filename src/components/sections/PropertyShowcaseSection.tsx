@@ -76,7 +76,7 @@ export default function PropertyShowcaseSection({ section }: PropertyShowcaseSec
 
     if (loading) {
         return (
-            <section className="bg-[#181728] py-20">
+            <section className="bg-brand-dark py-20">
                 <div className="px-6 text-center text-white">
                     <p>Loading properties...</p>
                 </div>
@@ -85,7 +85,7 @@ export default function PropertyShowcaseSection({ section }: PropertyShowcaseSec
     }
 
     return (
-        <section className="bg-[#181728] py-20">
+        <section className="bg-brand-dark py-20">
             <div className="px-6">
                 <div className="text-center text-white mb-12">
                     {section.subtitle && (

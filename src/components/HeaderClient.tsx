@@ -137,9 +137,9 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
                         {/* Left Section: Navigation */}
                         <div className={`flex items-center gap-8 ${textColor}`}>
                             <div className="flex items-center gap-4">
-                                <button onClick={() => setIsSearchOpen(true)} className="hover:opacity-80 p-2 -ml-2">
+                                <Link href="/search" className="hover:opacity-80 p-2 -ml-2">
                                     <Search className="w-5 h-5" />
-                                </button>
+                                </Link>
                             </div>
                             <nav className="hidden md:flex gap-6 text-xs tracking-widest font-medium h-full items-center">
                                 {mainNav.map((item) => (
@@ -329,27 +329,27 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
                                                         <Link href="/search?type=buy" onClick={() => setIsSearchOpen(false)} className="text-[10px] font-bold tracking-[0.2em] uppercase text-brand-primary hover:text-gray-500 transition-colors">
                                                             Find all sales properties
                                                         </Link>
-                                                        <Link href="/agents" onClick={() => setIsSearchOpen(false)} className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#181728] hover:text-gray-500 transition-colors">
+                                                        <Link href="/agents" onClick={() => setIsSearchOpen(false)} className="text-[10px] font-bold tracking-[0.2em] uppercase text-brand-dark hover:text-gray-500 transition-colors">
                                                             Find a {siteName} agent
                                                         </Link>
-                                                        <Link href="/search?type=buy&category=commercial" onClick={() => setIsSearchOpen(false)} className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#181728] hover:text-gray-500 transition-colors">
+                                                        <Link href="/search?type=buy&category=commercial" onClick={() => setIsSearchOpen(false)} className="text-[10px] font-bold tracking-[0.2em] uppercase text-brand-dark hover:text-gray-500 transition-colors">
                                                             Find commercial properties
                                                         </Link>
                                                     </>
                                                 )}
                                                 {activeSearchTab === 'rent' && (
                                                     <>
-                                                        <Link href="/search?type=rent" onClick={() => setIsSearchOpen(false)} className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#181728] hover:text-gray-500 transition-colors">
+                                                        <Link href="/search?type=rent" onClick={() => setIsSearchOpen(false)} className="text-[10px] font-bold tracking-[0.2em] uppercase text-brand-dark hover:text-gray-500 transition-colors">
                                                             Find all rental properties
                                                         </Link>
-                                                        <Link href="/agents" onClick={() => setIsSearchOpen(false)} className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#181728] hover:text-gray-500 transition-colors">
+                                                        <Link href="/agents" onClick={() => setIsSearchOpen(false)} className="text-[10px] font-bold tracking-[0.2em] uppercase text-brand-dark hover:text-gray-500 transition-colors">
                                                             Find a {siteName} agent
                                                         </Link>
 
                                                     </>
                                                 )}
                                                 {activeSearchTab === 'agents' && (
-                                                    <Link href="/agents" onClick={() => setIsSearchOpen(false)} className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#181728] hover:text-gray-500 transition-colors">
+                                                    <Link href="/agents" onClick={() => setIsSearchOpen(false)} className="text-[10px] font-bold tracking-[0.2em] uppercase text-brand-dark hover:text-gray-500 transition-colors">
                                                         Browse all agents
                                                     </Link>
                                                 )}

@@ -59,16 +59,22 @@ export default function TabsSection({ section, tabs }: TabsSectionProps) {
                         {tabs.map((tab) => (
                             <div
                                 key={tab.id}
-                                className={`cursor-pointer transition-all duration-500 border-l-2 pl-8 py-2 ${activeTab.id === tab.id
-                                    ? 'border-white opacity-100'
-                                    : 'border-white/10 opacity-30 hover:opacity-100'
-                                    }`}
-                                onClick={() => setActiveTab(tab)}
+                                className={`transition-all duration-500 py-2 ${
+                                    tabs.length > 1 
+                                        ? `cursor-pointer border-l-2 pl-8 ${activeTab.id === tab.id ? 'border-white opacity-100' : 'border-white/10 opacity-30 hover:opacity-100'}`
+                                        : 'opacity-100'
+                                }`}
+                                onClick={() => tabs.length > 1 && setActiveTab(tab)}
                             >
-                                <h3 className="text-xl md:text-2xl font-sans font-light tracking-[0.1em] uppercase mb-4">
+                                {tabs.length === 1 && section.subtitle && (
+                                    <p className="text-[#ff7e00] text-sm font-medium tracking-wider mb-2">
+                                        {section.subtitle}
+                                    </p>
+                                )}
+                                <h3 className="text-3xl md:text-4xl font-sans font-light uppercase mb-6 text-current">
                                     {tab.title}
                                 </h3>
-                                <p className="text-sm md:text-base text-gray-400 font-light leading-relaxed max-w-md">
+                                <p className="text-sm md:text-base text-current opacity-70 font-light leading-relaxed max-w-md">
                                     {tab.description}
                                 </p>
                             </div>
@@ -87,8 +93,8 @@ export default function TabsSection({ section, tabs }: TabsSectionProps) {
                                 />
                                 {showGradient && (
                                     <div className={`absolute inset-0 bg-gradient-to-r ${imagePosition === 'right'
-                                        ? 'from-[#181728] via-transparent to-transparent'
-                                        : 'from-transparent via-transparent to-[#181728]'
+                                        ? 'from-brand-dark via-transparent to-transparent'
+                                        : 'from-transparent via-transparent to-brand-dark'
                                         } md:w-1/2`} />
                                 )}
                             </>

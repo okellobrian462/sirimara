@@ -13,7 +13,7 @@ export default async function LeadershipPage() {
     const sections = await fetchPageSections('leadership');
 
     return (
-        <main className="min-h-screen bg-[#181728]">
+        <main className="min-h-screen bg-brand-dark">
             <Header />
 
             {sections.map((section) => (

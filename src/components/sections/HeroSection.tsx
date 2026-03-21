@@ -114,6 +114,7 @@ export default function HeroSection({ section }: HeroSectionProps) {
                                 <Link href="/rentals" className="hover:opacity-80 transition-opacity">Rent</Link>
                                 <Link href="/sell" className="hover:opacity-80 transition-opacity">Sell</Link>
                                 <Link href="/agents" className="hover:opacity-80 transition-opacity">Agents</Link>
+                                <Link href="/property-management" className="hover:opacity-80 transition-opacity">Property Management</Link>
                             </nav>
                         </div>
                     </div>

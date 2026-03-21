@@ -30,7 +30,7 @@ export default function AdminHeader({ userEmail }: AdminHeaderProps) {
     return (
         <header className="h-16 bg-white/80 backdrop-blur-md border-b border-gray-200 flex items-center justify-between px-6 sticky top-0 z-30">
             <div className="flex items-center gap-4">
-                <h2 className="text-lg font-light tracking-[0.15em] text-[#181728]">
+                <h2 className="text-lg font-light tracking-[0.15em] text-gray-900">
                     ADMIN DASHBOARD
                 </h2>
             </div>

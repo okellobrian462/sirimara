@@ -57,7 +57,7 @@ export default function DeleteConfirmModal({
 
                     {/* Content */}
                     <div className="mb-6">
-                        <h3 className="text-xl font-light tracking-wide text-[#181728] mb-2">
+                        <h3 className="text-xl font-light tracking-wide text-gray-900 mb-2">
                             {title}
                         </h3>
                         <p className="text-gray-600 text-sm">

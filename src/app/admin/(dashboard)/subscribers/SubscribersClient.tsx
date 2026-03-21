@@ -75,7 +75,7 @@ export default function SubscribersClient({ subscribers }: SubscribersClientProp
         <div className="p-8">
             <div className="flex items-center justify-between mb-8">
                 <div>
-                    <h1 className="text-3xl font-light tracking-[0.15em] text-[#181728] mb-2">
+                    <h1 className="text-3xl font-light tracking-[0.15em] text-gray-900 mb-2">
                         SUBSCRIBERS
                     </h1>
                     <p className="text-gray-500">
@@ -100,13 +100,13 @@ export default function SubscribersClient({ subscribers }: SubscribersClientProp
                         placeholder="Search by email..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                        className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                     />
                 </div>
                 <select
                     value={statusFilter}
                     onChange={(e) => setStatusFilter(e.target.value)}
-                    className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white"
+                    className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white"
                 >
                     <option value="all">All Status</option>
                     <option value="active">Active</option>
@@ -139,7 +139,7 @@ export default function SubscribersClient({ subscribers }: SubscribersClientProp
                                 <tr key={sub.id} className="hover:bg-gray-50 transition-colors">
                                     <td className="px-6 py-4">
                                         <div className="flex items-center gap-3">
-                                            <div className="p-2 bg-purple-50 text-purple-600 rounded-lg">
+                                            <div className="p-2 bg-orange-50 text-orange-600 rounded-lg">
                                                 <Mail className="w-4 h-4" />
                                             </div>
                                             <span className="text-sm font-medium text-gray-900">

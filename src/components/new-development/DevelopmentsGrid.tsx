@@ -30,7 +30,7 @@ export default function DevelopmentsGrid() {
         <section id="developments" className="bg-[#F8F8F8] py-24 md:py-32">
             <div className="container mx-auto px-6">
                 <div className="max-w-4xl mx-auto text-center mb-16">
-                    <h2 className="text-3xl md:text-5xl font-light tracking-tight text-[#181728] mb-6 uppercase">
+                    <h2 className="text-3xl md:text-5xl font-light tracking-tight text-brand-dark mb-6 uppercase">
                         WE TRANSFORM SKYLINES AND SHAPE CULTURE
                     </h2>
                     <p className="text-lg text-gray-500 font-light mb-10 max-w-2xl mx-auto">
@@ -38,7 +38,7 @@ export default function DevelopmentsGrid() {
                     </p>
                     <Link
                         href="/sales/new-development"
-                        className="inline-block bg-[#181728] text-white text-xs font-bold tracking-[0.2em] py-5 px-10 rounded-full hover:bg-gray-800 transition-colors uppercase"
+                        className="inline-block bg-brand-dark text-white text-xs font-bold tracking-[0.2em] py-5 px-10 rounded-full hover:bg-gray-800 transition-colors uppercase"
                     >
                         EXPLORE current developments
                     </Link>

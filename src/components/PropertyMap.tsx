@@ -23,10 +23,10 @@ export default function PropertyMap({
             />
 
             {/* Simulated Markers (Static dots for visual effect) */}
-            <div className="absolute top-1/4 left-1/4 w-3 h-3 bg-[#181728] rounded-full ring-4 ring-white shadow-lg cursor-pointer hover:scale-110 transition-transform"></div>
-            <div className="absolute top-1/2 left-1/2 w-3 h-3 bg-[#181728] rounded-full ring-4 ring-white shadow-lg cursor-pointer hover:scale-110 transition-transform"></div>
-            <div className="absolute bottom-1/3 right-1/4 w-3 h-3 bg-[#181728] rounded-full ring-4 ring-white shadow-lg cursor-pointer hover:scale-110 transition-transform"></div>
-            <div className="absolute top-1/3 right-1/3 w-3 h-3 bg-[#181728] rounded-full ring-4 ring-white shadow-lg cursor-pointer hover:scale-110 transition-transform"></div>
+            <div className="absolute top-1/4 left-1/4 w-3 h-3 bg-brand-dark rounded-full ring-4 ring-white shadow-lg cursor-pointer hover:scale-110 transition-transform"></div>
+            <div className="absolute top-1/2 left-1/2 w-3 h-3 bg-brand-dark rounded-full ring-4 ring-white shadow-lg cursor-pointer hover:scale-110 transition-transform"></div>
+            <div className="absolute bottom-1/3 right-1/4 w-3 h-3 bg-brand-dark rounded-full ring-4 ring-white shadow-lg cursor-pointer hover:scale-110 transition-transform"></div>
+            <div className="absolute top-1/3 right-1/3 w-3 h-3 bg-brand-dark rounded-full ring-4 ring-white shadow-lg cursor-pointer hover:scale-110 transition-transform"></div>
 
             {/* Fake Controls for realism */}
             <div className="absolute bottom-6 right-6 flex flex-col gap-2">

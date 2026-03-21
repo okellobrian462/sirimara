@@ -39,7 +39,7 @@ export default async function NewsletterDetailPage({ params }: Props) {
                                 {newsletter.category}
                             </p>
                         )}
-                        <h1 className="text-3xl md:text-5xl font-serif mb-6 text-[#181728] uppercase tracking-wide leading-tight">
+                        <h1 className="text-3xl md:text-5xl font-serif mb-6 text-brand-dark uppercase tracking-wide leading-tight">
                             {newsletter.title}
                         </h1>
                         {newsletter.published_date && (
@@ -54,7 +54,7 @@ export default async function NewsletterDetailPage({ params }: Props) {
                     </div>
 
                     <div
-                        className="prose prose-lg max-w-none prose-headings:font-serif prose-headings:font-normal prose-headings:text-[#181728] prose-p:font-light prose-p:leading-relaxed prose-p:text-gray-600 prose-a:text-[#181728] prose-a:underline hover:prose-a:opacity-70 transition-opacity prose-img:rounded-lg prose-img:w-full"
+                        className="prose prose-lg max-w-none prose-headings:font-serif prose-headings:font-normal prose-headings:text-brand-dark prose-p:font-light prose-p:leading-relaxed prose-p:text-gray-600 prose-a:text-brand-dark prose-a:underline hover:prose-a:opacity-70 transition-opacity prose-img:rounded-lg prose-img:w-full"
                         dangerouslySetInnerHTML={{ __html: newsletter.content || '' }}
                     />
                 </div>

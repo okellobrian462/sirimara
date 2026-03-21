@@ -26,7 +26,7 @@ export default function SellValuation() {
                     href="https://homevaluation.sirimara.com/Sirimara"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block px-12 py-4 bg-white text-[#181728] rounded-full text-xs font-bold tracking-[0.2em] uppercase hover:bg-opacity-90 transition-opacity"
+                    className="inline-block px-12 py-4 bg-white text-brand-dark rounded-full text-xs font-bold tracking-[0.2em] uppercase hover:bg-opacity-90 transition-opacity"
                 >
                     Get Started
                 </a>

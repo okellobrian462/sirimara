@@ -22,7 +22,7 @@ function LeaderTile({ name, title, image, reversed }: LeaderTileProps) {
                 />
             </div>
             <div className={`w-full md:w-1/2 flex flex-col justify-center p-8 md:p-12 lg:p-20 ${reversed ? 'items-start md:text-left' : 'items-start md:text-left'} bg-white`}>
-                <h2 className="text-3xl lg:text-4xl font-serif text-[#181728] mb-4">{name}</h2>
+                <h2 className="text-3xl lg:text-4xl font-serif text-brand-dark mb-4">{name}</h2>
                 <p className="text-sm lg:text-base text-gray-500 mb-8 max-w-md">{title}</p>
                 <button className="px-10 py-3 bg-[#100B28] text-white text-xs tracking-widest uppercase hover:bg-[#100B28]/90 transition-colors rounded-full font-medium">
                     See more
@@ -92,7 +92,7 @@ export default function LeadershipClient({ header, footer }: LeadershipClientPro
     };
 
     return (
-        <main className="min-h-screen bg-[#181728]">
+        <main className="min-h-screen bg-brand-dark">
             {header}
 
             {/* Hero Section */}
@@ -146,7 +146,7 @@ export default function LeadershipClient({ header, footer }: LeadershipClientPro
             </section>
 
             {/* Regional Accordions */}
-            <section className="bg-[#181728]">
+            <section className="bg-brand-dark">
                 <div className="container mx-auto px-6 py-20 lg:py-32">
                     <div className="max-w-6xl mx-auto">
                         {regions.map((region, index) => (

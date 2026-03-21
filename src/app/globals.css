@@ -26,9 +26,11 @@
     --radius: 0.5rem;
     
     /* Brand Theme Colors */
-    --brand-primary: #181728;
-    --brand-primary-hover: #252438;
-    --brand-accent: #8B5CF6;
+    --brand-primary: #FF7E00;
+    --brand-primary-hover: #CC6500;
+    --brand-accent: #FF7E00;
+    --brand-dark: #1A1A1A;
+    --brand-charcoal: #2D2D2D;
   }
 
   .dark {

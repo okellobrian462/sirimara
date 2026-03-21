@@ -80,7 +80,7 @@ export default function SearchClient() {
                 {/* Search Header */}
                 <div className="flex flex-col md:flex-row gap-6 items-start md:items-center justify-between mb-8">
                     <div>
-                        <h1 className="text-3xl font-serif text-[#181728] mb-2">
+                        <h1 className="text-3xl font-serif text-brand-dark mb-2">
                             {query ? `Results for "${query}"` : 'Search Properties'}
                         </h1>
                         <p className="text-gray-500 uppercase tracking-widest text-xs font-medium">
@@ -95,7 +95,7 @@ export default function SearchClient() {
                                 key={tab}
                                 onClick={() => handleTabChange(tab)}
                                 className={`px-6 py-2 text-xs font-bold uppercase tracking-widest rounded-md transition-all ${activeTab === tab
-                                    ? 'bg-white text-[#181728] shadow-sm'
+                                    ? 'bg-white text-brand-dark shadow-sm'
                                     : 'text-gray-500 hover:text-gray-900'
                                     }`}
                             >
@@ -214,7 +214,7 @@ export default function SearchClient() {
 
                             <div className="flex justify-between items-start">
                                 <div>
-                                    <h4 className="text-sm font-medium text-[#181728] truncate max-w-[200px]">
+                                    <h4 className="text-sm font-medium text-brand-dark truncate max-w-[200px]">
                                         {result.type === 'agent' ? result.title : result.title}
                                     </h4>
                                     <p className="text-xs text-gray-500 mt-1 uppercase tracking-wider">

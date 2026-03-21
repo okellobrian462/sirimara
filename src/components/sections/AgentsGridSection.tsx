@@ -15,7 +15,7 @@ export default async function AgentsGridSection({ section }: AgentsGridSectionPr
                 {section.title && (
                     <div className="text-center mb-16">
                         {/* Optional icon similar to newsletter page if desired, for now just title */}
-                        <h2 className="text-3xl md:text-5xl font-serif tracking-widest mb-4 uppercase text-[#181728]">
+                        <h2 className="text-3xl md:text-5xl font-serif tracking-widest mb-4 uppercase text-brand-dark">
                             {section.title}
                         </h2>
                         {section.subtitle && (
@@ -54,7 +54,7 @@ export default async function AgentsGridSection({ section }: AgentsGridSectionPr
                                         {agent.title}
                                     </p>
                                 )}
-                                <h3 className="text-xl font-serif text-[#181728] uppercase group-hover:opacity-70 transition-opacity">
+                                <h3 className="text-xl font-serif text-brand-dark uppercase group-hover:opacity-70 transition-opacity">
                                     {agent.first_name} {agent.last_name}
                                 </h3>
                             </div>

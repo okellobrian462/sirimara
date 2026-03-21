@@ -142,7 +142,7 @@ export default function FeaturedClient({ initialFeatured }: FeaturedClientProps)
         <div className="p-8">
             <div className="flex items-center justify-between mb-8">
                 <div>
-                    <h1 className="text-3xl font-light tracking-[0.15em] text-[#181728] mb-2">
+                    <h1 className="text-3xl font-light tracking-[0.15em] text-gray-900 mb-2">
                         FEATURED PROPERTIES
                     </h1>
                     <p className="text-gray-500">
@@ -151,7 +151,7 @@ export default function FeaturedClient({ initialFeatured }: FeaturedClientProps)
                 </div>
                 <button
                     onClick={() => setIsAddModalOpen(true)}
-                    className="flex items-center gap-2 px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors shadow-sm"
+                    className="flex items-center gap-2 px-6 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors shadow-sm"
                 >
                     <Plus className="w-5 h-5" />
                     Add Property
@@ -236,7 +236,7 @@ export default function FeaturedClient({ initialFeatured }: FeaturedClientProps)
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     autoFocus
-                                    className="w-full pl-9 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+                                    className="w-full pl-9 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-sm"
                                 />
                             </div>
                         </div>
@@ -268,14 +268,14 @@ export default function FeaturedClient({ initialFeatured }: FeaturedClientProps)
                                                 <div className="w-12 h-12 bg-gray-100 rounded border border-gray-200" />
                                             )}
                                             <div className="flex-1 min-w-0">
-                                                <h3 className="text-sm font-medium text-gray-900 truncate group-hover:text-purple-600">
+                                                <h3 className="text-sm font-medium text-gray-900 truncate group-hover:text-orange-600">
                                                     {property.title}
                                                 </h3>
                                                 <p className="text-xs text-gray-500 truncate">
                                                     {property.city} • ${property.price?.toLocaleString()}
                                                 </p>
                                             </div>
-                                            <Plus className="w-4 h-4 text-gray-300 group-hover:text-purple-600" />
+                                            <Plus className="w-4 h-4 text-gray-300 group-hover:text-orange-600" />
                                         </button>
                                     ))}
                                 </div>

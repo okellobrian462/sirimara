@@ -17,7 +17,7 @@ export default function LogosSection({ section }: LogosSectionProps) {
             style={{ backgroundColor: backgroundColor }}
         >
             <div className="container mx-auto px-6 text-center">
-                <h2 className="text-2xl md:text-4xl font-light tracking-tight text-[#181728] mb-12 uppercase italic">
+                <h2 className="text-2xl md:text-4xl font-light tracking-tight text-brand-dark mb-12 uppercase italic">
                     {title}
                 </h2>
                 <div className="flex flex-wrap justify-center items-center gap-12 opacity-50 grayscale hover:grayscale-0 transition-all duration-700">

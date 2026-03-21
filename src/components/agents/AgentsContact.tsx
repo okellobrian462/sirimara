@@ -12,7 +12,7 @@ export default function AgentsContact() {
     const contactEmail = config.email || 'info@sirimara.com';
 
     return (
-        <section className="bg-[#181728] py-20 md:py-32 px-6 text-white">
+        <section className="bg-brand-dark py-20 md:py-32 px-6 text-white">
             <div className="container mx-auto max-w-4xl">
                 <h2 className="text-3xl md:text-5xl font-sans font-light tracking-[0.1em] uppercase mb-12 text-center">
                     MAKE YOUR NEXT MOVE
@@ -90,7 +90,7 @@ export default function AgentsContact() {
                     <div className="text-center pt-8">
                         <button
                             type="submit"
-                            className="px-12 py-4 bg-white text-[#181728] rounded-full text-xs font-bold tracking-[0.2em] uppercase hover:bg-gray-100 transition-colors"
+                            className="px-12 py-4 bg-white text-brand-dark rounded-full text-xs font-bold tracking-[0.2em] uppercase hover:bg-gray-100 transition-colors"
                         >
                             Connect Now
                         </button>

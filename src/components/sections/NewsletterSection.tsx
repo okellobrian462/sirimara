@@ -8,7 +8,7 @@ interface NewsletterSectionProps {
 }
 
 export default function NewsletterSection({ section }: NewsletterSectionProps) {
-    const { title, subtitle, background_color = '#181728', text_color = '#FFFFFF' } = section;
+    const { title, subtitle, background_color = 'var(--brand-dark)', text_color = '#FFFFFF' } = section;
 
     return (
         <section

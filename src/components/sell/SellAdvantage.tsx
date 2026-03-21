@@ -20,7 +20,7 @@ export default function SellAdvantage() {
                 <p className="text-lg md:text-xl font-light mb-12 max-w-2xl mx-auto opacity-90">
                     Our agents have the knowledge, experience, and professional network to price, promote and put your property in front of the most highly qualified buyers.
                 </p>
-                <button className="px-12 py-4 border border-white rounded-full text-xs font-bold tracking-[0.2em] uppercase hover:bg-white hover:text-[#181728] transition-all duration-300">
+                <button className="px-12 py-4 border border-white rounded-full text-xs font-bold tracking-[0.2em] uppercase hover:bg-white hover:text-brand-dark transition-all duration-300">
                     FIND AN AGENT
                 </button>
             </div>

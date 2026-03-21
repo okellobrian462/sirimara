@@ -29,7 +29,7 @@ export default async function NewsletterGalleryPage() {
                                 className="object-contain"
                             />
                         </div>
-                        <h1 className="text-3xl md:text-5xl font-serif tracking-widest mb-4 uppercase text-[#181728]">
+                        <h1 className="text-3xl md:text-5xl font-serif tracking-widest mb-4 uppercase text-brand-dark">
                             NEWSLETTERS
                         </h1>
                         <p className="text-gray-500 font-light text-lg tracking-wide">
@@ -64,7 +64,7 @@ export default async function NewsletterGalleryPage() {
                                     <p className="text-xs font-medium tracking-[0.2em] text-gray-400 uppercase mb-2">
                                         {newsletter.category}
                                     </p>
-                                    <h3 className="text-xl font-serif text-[#181728] uppercase group-hover:opacity-70 transition-opacity">
+                                    <h3 className="text-xl font-serif text-brand-dark uppercase group-hover:opacity-70 transition-opacity">
                                         {newsletter.title}
                                     </h3>
                                 </div>

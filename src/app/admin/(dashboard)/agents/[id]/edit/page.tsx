@@ -39,6 +39,11 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
         featured_order: 0,
         specialties: [] as string[],
         languages: [] as string[],
+        profile_intro: '',
+        profile_experience: '',
+        profile_capabilities: '',
+        profile_admissions: '',
+        profile_qualifications: '',
     });
 
     useEffect(() => {
@@ -70,6 +75,11 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                         featured_order: data.featured_order || 0,
                         specialties: data.specialties || [],
                         languages: data.languages || [],
+                        profile_intro: data.profile_data?.intro || '',
+                        profile_experience: data.profile_data?.experience || '',
+                        profile_capabilities: (data.profile_data?.capabilities || []).join('\n'),
+                        profile_admissions: (data.profile_data?.admissions || []).join('\n'),
+                        profile_qualifications: (data.profile_data?.academic_qualifications || []).join('\n'),
                     });
                     setProfileImage(data.profile_image || '');
                 }
@@ -139,9 +149,26 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
         try {
             const supabase = createClient();
 
+            // Extract profile fields from formData
+            const { 
+                profile_intro, 
+                profile_experience, 
+                profile_capabilities, 
+                profile_admissions, 
+                profile_qualifications, 
+                ...restFormData 
+            } = formData;
+
             const agentData = {
-                ...formData,
+                ...restFormData,
                 profile_image: profileImage,
+                profile_data: {
+                    intro: profile_intro,
+                    experience: profile_experience,
+                    capabilities: profile_capabilities.split('\n').map(s => s.trim()).filter(Boolean),
+                    admissions: profile_admissions.split('\n').map(s => s.trim()).filter(Boolean),
+                    academic_qualifications: profile_qualifications.split('\n').map(s => s.trim()).filter(Boolean),
+                }
             };
 
             const { error: updateError } = await supabase
@@ -182,7 +209,7 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                     <ArrowLeft className="w-4 h-4" />
                     Back to Agents
                 </Link>
-                <h1 className="text-3xl font-light tracking-[0.15em] text-[#181728] mb-2">
+                <h1 className="text-3xl font-light tracking-[0.15em] text-gray-900 mb-2">
                     EDIT AGENT
                 </h1>
                 <p className="text-gray-500">
@@ -212,7 +239,7 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                                 value={formData.name}
                                 onChange={handleChange}
                                 required
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                             />
                         </div>
 
@@ -226,7 +253,7 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                                 value={formData.title}
                                 onChange={handleChange}
                                 placeholder="e.g., Licensed Associate Real Estate Broker"
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                             />
                         </div>
 
@@ -239,7 +266,7 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                                 name="license"
                                 value={formData.license}
                                 onChange={handleChange}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                             />
                         </div>
 
@@ -253,7 +280,7 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                                 value={formData.phone}
                                 onChange={handleChange}
                                 required
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                             />
                         </div>
 
@@ -267,7 +294,7 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                                 value={formData.email}
                                 onChange={handleChange}
                                 required
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                             />
                         </div>
 
@@ -280,7 +307,7 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                                 name="address"
                                 value={formData.address}
                                 onChange={handleChange}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                             />
                         </div>
 
@@ -293,14 +320,94 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                                 value={formData.bio}
                                 onChange={handleChange}
                                 rows={4}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                             />
                         </div>
                     </div>
                 </div>
 
+                {/* Extended Profile Data for Tabs */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6 shadow-sm">
+                    <h2 className="text-lg font-medium text-gray-900 mb-4">Extended Profile (Tabs)</h2>
+                    <p className="text-sm text-gray-500 mb-6">These fields populate the Experience, Capabilities, and Credentials tabs.</p>
+
+                    <div className="space-y-6">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Intro Paragraph
+                            </label>
+                            <textarea
+                                name="profile_intro"
+                                value={formData.profile_intro}
+                                onChange={handleChange}
+                                rows={2}
+                                placeholder="E.g., Halima has expertise in commercial transactions..."
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Experience Text
+                            </label>
+                            <textarea
+                                name="profile_experience"
+                                value={formData.profile_experience}
+                                onChange={handleChange}
+                                rows={5}
+                                placeholder="Detailed block of text describing experience..."
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                            />
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Capabilities (1 per line)
+                                </label>
+                                <textarea
+                                    name="profile_capabilities"
+                                    value={formData.profile_capabilities}
+                                    onChange={handleChange}
+                                    rows={5}
+                                    placeholder="Corporate Law&#10;Islamic Banking&#10;Family law"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 whitespace-pre"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Admissions (1 per line)
+                                </label>
+                                <textarea
+                                    name="profile_admissions"
+                                    value={formData.profile_admissions}
+                                    onChange={handleChange}
+                                    rows={5}
+                                    placeholder="Advocate of the High Court of Kenya"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 whitespace-pre"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Academic Qualifications (1 per line)
+                                </label>
+                                <textarea
+                                    name="profile_qualifications"
+                                    value={formData.profile_qualifications}
+                                    onChange={handleChange}
+                                    rows={5}
+                                    placeholder="Master of Laws (Distinction)...&#10;Bachelor of Laws..."
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 whitespace-pre"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 {/* Featured Section */}
-                <div className="bg-purple-50 rounded-xl border border-purple-200 p-6 mb-6">
+                <div className="bg-orange-50 rounded-xl border border-orange-200 p-6 mb-6">
                     <h2 className="text-lg font-medium text-gray-900 mb-4">Featured Agent</h2>
 
                     <div className="space-y-4">
@@ -311,7 +418,7 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                                 name="is_featured"
                                 checked={formData.is_featured}
                                 onChange={handleChange}
-                                className="w-4 h-4 text-purple-600 rounded focus:ring-purple-500"
+                                className="w-4 h-4 text-orange-600 rounded focus:ring-orange-500"
                             />
                             <label htmlFor="is_featured" className="text-sm font-medium text-gray-700">
                                 Mark as Featured Agent
@@ -329,7 +436,7 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                                     value={formData.featured_order}
                                     onChange={handleChange}
                                     min="0"
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                                 />
                                 <p className="mt-1 text-xs text-gray-500">
                                     Lower numbers appear first
@@ -355,12 +462,12 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                                     onChange={(e) => setSpecialtyInput(e.target.value)}
                                     onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddSpecialty())}
                                     placeholder="e.g., Luxury Homes, Condos"
-                                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                                 />
                                 <button
                                     type="button"
                                     onClick={handleAddSpecialty}
-                                    className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+                                    className="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700"
                                 >
                                     <Plus className="w-5 h-5" />
                                 </button>
@@ -369,13 +476,13 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                                 {formData.specialties.map((specialty) => (
                                     <span
                                         key={specialty}
-                                        className="inline-flex items-center gap-1 px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm"
+                                        className="inline-flex items-center gap-1 px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-sm"
                                     >
                                         {specialty}
                                         <button
                                             type="button"
                                             onClick={() => handleRemoveSpecialty(specialty)}
-                                            className="hover:text-purple-900"
+                                            className="hover:text-orange-900"
                                         >
                                             <X className="w-3 h-3" />
                                         </button>
@@ -395,12 +502,12 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                                     onChange={(e) => setLanguageInput(e.target.value)}
                                     onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddLanguage())}
                                     placeholder="e.g., English, Spanish"
-                                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                                 />
                                 <button
                                     type="button"
                                     onClick={handleAddLanguage}
-                                    className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+                                    className="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700"
                                 >
                                     <Plus className="w-5 h-5" />
                                 </button>
@@ -441,7 +548,7 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                                 value={formData.facebook}
                                 onChange={handleChange}
                                 placeholder="https://facebook.com/..."
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                             />
                         </div>
 
@@ -455,7 +562,7 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                                 value={formData.instagram}
                                 onChange={handleChange}
                                 placeholder="https://instagram.com/..."
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                             />
                         </div>
 
@@ -469,7 +576,7 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                                 value={formData.twitter}
                                 onChange={handleChange}
                                 placeholder="https://twitter.com/..."
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                             />
                         </div>
 
@@ -483,7 +590,7 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                                 value={formData.linkedin}
                                 onChange={handleChange}
                                 placeholder="https://linkedin.com/in/..."
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                             />
                         </div>
                     </div>
@@ -515,7 +622,7 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                                 value={profileImage}
                                 onChange={(e) => setProfileImage(e.target.value)}
                                 placeholder="https://..."
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
                             />
                         </div>
 
@@ -538,7 +645,7 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+                        className="px-6 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
                     >
                         {loading ? 'Saving...' : 'Save Changes'}
                     </button>

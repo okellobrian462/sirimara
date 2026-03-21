@@ -41,7 +41,7 @@ export default async function Page({ params }: Props) {
     }
 
     return (
-        <div className="min-h-screen bg-[#181728]">
+        <div className="min-h-screen bg-brand-dark">
             <Header />
 
             {/* Render sections from CMS */}

@@ -3,6 +3,7 @@ import { fetchNavigationByLocations } from '@/lib/content/fetchNavigation';
 import Link from 'next/link';
 import FooterMarkets from '@/components/FooterMarkets';
 import FooterLink from '@/components/FooterLink';
+import FooterNewsletter from '@/components/FooterNewsletter';
 
 export default async function Footer() {
     const config = await fetchSiteConfig();
@@ -23,7 +24,8 @@ export default async function Footer() {
     const socialInstagram = config.instagram_url || '#';
     const socialLinkedin = config.linkedin_url || '#';
     const siteName = (config.company_name ?? 'Sirimara Real Estate').toUpperCase();
-
+    const mapEmbedUrl = config.google_maps_embed_url || '';
+    const keepingUpTitle = config.footer_keepingup_title || 'Keep up to date with Sirimara Realty';
 
     // Extract footer section titles
     const footerTitles = config.footer_section_titles ?? {
@@ -40,43 +42,69 @@ export default async function Footer() {
     const legalLinks = navigation.footer_legal || [];
 
     return (
-        <footer className="bg-brand-primary text-white py-16">
+        <footer className="bg-brand-primary text-white pt-16 pb-8">
             <div className="px-6">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
-                    {/* Company Section */}
-                    <div>
-                        <h3 className="text-sm tracking-widest uppercase mb-6">{footerTitles.company_title}</h3>
-                        <ul className="space-y-3 text-sm">
-                            {companyLinks.map((link) => (
-                                <li key={link.id}>
-                                    <FooterLink link={link} />
-                                </li>
-                            ))}
-                        </ul>
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16 items-start">
+                    
+                    {/* Newsletter Card - Spans 4 columns */}
+                    <div className="md:col-span-4 h-full min-h-[280px]">
+                        <FooterNewsletter title={keepingUpTitle} />
                     </div>
 
-                    {/* Resources Section */}
-                    <div>
-                        <h3 className="text-sm tracking-widest uppercase mb-6">{footerTitles.resources_title}</h3>
-                        <ul className="space-y-3 text-sm">
-                            {resourcesLinks.map((link) => (
-                                <li key={link.id}>
-                                    <FooterLink link={link} />
+                    {/* Navigation Links - Spans 4 columns (2 each) */}
+                    <div className="md:col-span-4 grid grid-cols-2 gap-8">
+                        {/* Company Section */}
+                        <div className="space-y-6">
+                            <h3 className="text-sm font-bold tracking-[0.2em] uppercase text-white/80">{footerTitles.company_title}</h3>
+                            <ul className="space-y-4 text-xs font-bold tracking-[0.1em] uppercase text-white hover:[&_a]:opacity-70 transition-opacity">
+                                {companyLinks.map((link) => (
+                                    <li key={link.id}>
+                                        <FooterLink link={link} />
+                                    </li>
+                                ))}
+                                {/* Re-map resources here for simpler 2-col visual stack */}
+                                {resourcesLinks.map((link) => (
+                                    <li key={link.id}>
+                                        <FooterLink link={link} />
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        {/* Brand Portfolio Section */}
+                        <div className="space-y-6">
+                            <h3 className="text-sm font-bold tracking-[0.2em] uppercase text-white/80">{footerTitles.portfolio_title}</h3>
+                            <ul className="space-y-4 text-xs font-bold tracking-[0.1em] uppercase text-white hover:[&_a]:opacity-70 transition-opacity">
+                                {portfolioLinks.map((link) => (
+                                    <li key={link.id}>
+                                        <FooterLink link={link} />
+                                    </li>
+                                ))}
+                                <li>
+                                    <div className="mt-8 mb-6 text-sm font-bold tracking-[0.2em] uppercase text-white/80 uppercase">Contact Us</div>
                                 </li>
-                            ))}
-                        </ul>
+                            </ul>
+                        </div>
                     </div>
 
-                    {/* Brand Portfolio Section */}
-                    <div>
-                        <h3 className="text-sm tracking-widest uppercase mb-6">{footerTitles.portfolio_title}</h3>
-                        <ul className="space-y-3 text-sm">
-                            {portfolioLinks.map((link) => (
-                                <li key={link.id}>
-                                    <FooterLink link={link} />
-                                </li>
-                            ))}
-                        </ul>
+                    {/* Location Map Embed - Spans 4 columns */}
+                    <div className="md:col-span-4 h-full min-h-[280px] flex flex-col">
+                        <h3 className="text-sm font-bold tracking-[0.2em] uppercase text-white/80 mb-6">Location</h3>
+                        <div className="bg-gray-800 flex-1 relative w-full overflow-hidden">
+                            {mapEmbedUrl ? (
+                                <iframe 
+                                    src={mapEmbedUrl} 
+                                    className="absolute inset-0 w-full h-full border-0" 
+                                    allowFullScreen 
+                                    loading="lazy" 
+                                    referrerPolicy="no-referrer-when-downgrade"
+                                />
+                            ) : (
+                                <div className="absolute inset-0 flex items-center justify-center text-gray-500 text-sm p-4 text-center">
+                                    Map embed URL not configured in CMS
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
 

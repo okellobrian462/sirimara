@@ -54,7 +54,7 @@ export default function SearchFilters({
                 <div className="relative">
                     <button
                         onClick={() => toggleDropdown("goal")}
-                        className={`flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase transition-opacity ${activeDropdown === "goal" ? "opacity-100" : "text-[#181728] hover:opacity-70"}`}
+                        className={`flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase transition-opacity ${activeDropdown === "goal" ? "opacity-100" : "text-brand-dark hover:opacity-70"}`}
                     >
                         {filters.goal === 'sale' ? 'For Sale' : 'For Rent'}
                         <ChevronDown className={`w-3 h-3 transition-transform ${activeDropdown === "goal" ? "rotate-180" : ""}`} />
@@ -83,7 +83,7 @@ export default function SearchFilters({
                 <div className="relative">
                     <button
                         onClick={() => toggleDropdown("price")}
-                        className={`flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase transition-opacity ${activeDropdown === "price" ? "opacity-100" : "text-[#181728] hover:opacity-70"}`}
+                        className={`flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase transition-opacity ${activeDropdown === "price" ? "opacity-100" : "text-brand-dark hover:opacity-70"}`}
                     >
                         Price
                         <ChevronDown className={`w-3 h-3 transition-transform ${activeDropdown === "price" ? "rotate-180" : ""}`} />
@@ -116,7 +116,7 @@ export default function SearchFilters({
                             <div className="text-right">
                                 <button
                                     onClick={() => setActiveDropdown(null)}
-                                    className="text-[10px] font-bold uppercase tracking-widest text-[#181728] hover:underline"
+                                    className="text-[10px] font-bold uppercase tracking-widest text-brand-dark hover:underline"
                                 >
                                     Done
                                 </button>
@@ -129,7 +129,7 @@ export default function SearchFilters({
                 <div className="relative">
                     <button
                         onClick={() => toggleDropdown("beds")}
-                        className={`flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase transition-opacity ${activeDropdown === "beds" ? "opacity-100" : "text-[#181728] hover:opacity-70"}`}
+                        className={`flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase transition-opacity ${activeDropdown === "beds" ? "opacity-100" : "text-brand-dark hover:opacity-70"}`}
                     >
                         Bed / Bath
                         <ChevronDown className={`w-3 h-3 transition-transform ${activeDropdown === "beds" ? "rotate-180" : ""}`} />
@@ -144,7 +144,7 @@ export default function SearchFilters({
                                             key={num}
                                             onClick={() => updateFilter("beds", filters.beds === num ? null : num)}
                                             className={`w-10 h-10 rounded-full text-xs font-medium flex items-center justify-center transition-colors ${filters.beds === num
-                                                ? "bg-[#181728] text-white"
+                                                ? "bg-brand-dark text-white"
                                                 : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                                                 }`}
                                         >
@@ -161,7 +161,7 @@ export default function SearchFilters({
                                             key={num}
                                             onClick={() => updateFilter("baths", filters.baths === num ? null : num)}
                                             className={`w-10 h-10 rounded-full text-xs font-medium flex items-center justify-center transition-colors ${filters.baths === num
-                                                ? "bg-[#181728] text-white"
+                                                ? "bg-brand-dark text-white"
                                                 : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                                                 }`}
                                         >
@@ -173,7 +173,7 @@ export default function SearchFilters({
                             <div className="text-right">
                                 <button
                                     onClick={() => setActiveDropdown(null)}
-                                    className="text-[10px] font-bold uppercase tracking-widest text-[#181728] hover:underline"
+                                    className="text-[10px] font-bold uppercase tracking-widest text-brand-dark hover:underline"
                                 >
                                     Done
                                 </button>
@@ -189,7 +189,7 @@ export default function SearchFilters({
                 </button>
 
                 {/* All Filters Button */}
-                <button className="flex items-center gap-2 px-8 py-3 border border-gray-300 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase text-[#181728] hover:bg-gray-50 transition-colors ml-4">
+                <button className="flex items-center gap-2 px-8 py-3 border border-gray-300 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase text-brand-dark hover:bg-gray-50 transition-colors ml-4">
                     All Filters
                     <SlidersHorizontal className="w-3 h-3" />
                 </button>

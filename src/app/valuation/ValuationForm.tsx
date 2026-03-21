@@ -50,7 +50,7 @@ export default function ValuationForm() {
                 <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
                     <Check className="w-8 h-8" />
                 </div>
-                <h4 className="text-2xl font-serif text-[#181728] mb-4">Request Received</h4>
+                <h4 className="text-2xl font-serif text-brand-dark mb-4">Request Received</h4>
                 <p className="text-gray-500 mb-8 max-w-md mx-auto">
                     Thank you for your interest. One of our experts will review your property details and contact you shortly with a comprehensive market analysis.
                 </p>
@@ -64,14 +64,14 @@ export default function ValuationForm() {
     return (
         <form className="space-y-8" onSubmit={handleSubmit}>
             <div>
-                <h4 className="text-xl font-serif text-[#181728] mb-6">Property Details</h4>
+                <h4 className="text-xl font-serif text-brand-dark mb-6">Property Details</h4>
                 <div className="space-y-6">
                     <div className="border-b border-gray-300 py-2">
                         <input
                             name="address"
                             type="text"
                             placeholder="Property Address"
-                            className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-[#181728] p-0 outline-none"
+                            className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-brand-dark p-0 outline-none"
                             required
                         />
                     </div>
@@ -80,14 +80,14 @@ export default function ValuationForm() {
                             name="unit"
                             type="text"
                             placeholder="Unit / Apt (Optional)"
-                            className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-[#181728] p-0 outline-none"
+                            className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-brand-dark p-0 outline-none"
                         />
                     </div>
                 </div>
             </div>
 
             <div>
-                <h4 className="text-xl font-serif text-[#181728] mb-6">Contact Information</h4>
+                <h4 className="text-xl font-serif text-brand-dark mb-6">Contact Information</h4>
                 <div className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="border-b border-gray-300 py-2">
@@ -95,7 +95,7 @@ export default function ValuationForm() {
                                 name="firstName"
                                 type="text"
                                 placeholder="First Name"
-                                className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-[#181728] p-0 outline-none"
+                                className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-brand-dark p-0 outline-none"
                                 required
                             />
                         </div>
@@ -104,7 +104,7 @@ export default function ValuationForm() {
                                 name="lastName"
                                 type="text"
                                 placeholder="Last Name"
-                                className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-[#181728] p-0 outline-none"
+                                className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-brand-dark p-0 outline-none"
                                 required
                             />
                         </div>
@@ -114,7 +114,7 @@ export default function ValuationForm() {
                             name="email"
                             type="email"
                             placeholder="Email"
-                            className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-[#181728] p-0 outline-none"
+                            className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-brand-dark p-0 outline-none"
                             required
                         />
                     </div>
@@ -123,7 +123,7 @@ export default function ValuationForm() {
                             name="phone"
                             type="tel"
                             placeholder="Phone"
-                            className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-[#181728] p-0 outline-none"
+                            className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-brand-dark p-0 outline-none"
                         />
                     </div>
                     <div className="border-b border-gray-300 py-2">
@@ -131,7 +131,7 @@ export default function ValuationForm() {
                             name="details"
                             placeholder="Additional Details (Optional)"
                             rows={3}
-                            className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-[#181728] p-0 outline-none resize-none"
+                            className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-brand-dark p-0 outline-none resize-none"
                         />
                     </div>
                 </div>
@@ -139,11 +139,11 @@ export default function ValuationForm() {
 
             <label className="flex items-start gap-4 cursor-pointer group">
                 <div className="relative flex items-center justify-center shrink-0 mt-1">
-                    <input name="consent" type="checkbox" className="peer w-5 h-5 border border-gray-300 rounded-sm checked:bg-[#181728] checked:border-[#181728] appearance-none transition-colors" defaultChecked />
+                    <input name="consent" type="checkbox" className="peer w-5 h-5 border border-gray-300 rounded-sm checked:bg-brand-dark checked:border-brand-dark appearance-none transition-colors" defaultChecked />
                     <Check className="absolute w-3 h-3 text-white opacity-0 peer-checked:opacity-100 pointer-events-none" />
                 </div>
                 <p className="text-xs text-gray-500 leading-relaxed">
-                    By checking this box, you consent to receive sms/text messages from {siteName}. Reply STOP to opt-out anytime. <Link href="/privacy-policy" className="underline hover:text-[#181728]">Privacy Policy</Link>
+                    By checking this box, you consent to receive sms/text messages from {siteName}. Reply STOP to opt-out anytime. <Link href="/privacy-policy" className="underline hover:text-brand-dark">Privacy Policy</Link>
                 </p>
 
             </label>

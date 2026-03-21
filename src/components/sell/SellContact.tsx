@@ -9,7 +9,7 @@ export default function SellContact() {
     const contactEmail = config.email || 'INFO@ELLIMAN.COM';
 
     return (
-        <section className="bg-[#181728] text-white py-24 md:py-32 px-6">
+        <section className="bg-brand-dark text-white py-24 md:py-32 px-6">
             <div className="container mx-auto max-w-4xl text-center">
                 <h2 className="text-3xl md:text-5xl font-sans font-light tracking-[0.1em] uppercase mb-16">
                     SELL WITH US
@@ -76,7 +76,7 @@ export default function SellContact() {
                                     className="peer sr-only"
                                 />
                                 <div className="w-5 h-5 border border-white/20 peer-checked:bg-white peer-checked:border-white transition-all rounded-sm flex items-center justify-center">
-                                    <div className="w-2 h-2 bg-[#181728] opacity-0 peer-checked:opacity-100" />
+                                    <div className="w-2 h-2 bg-brand-dark opacity-0 peer-checked:opacity-100" />
                                 </div>
                             </div>
                             <span className="text-[10px] md:text-xs text-gray-400 leading-relaxed uppercase tracking-widest font-bold">
@@ -88,7 +88,7 @@ export default function SellContact() {
                     </div>
 
                     <div className="text-center pt-12">
-                        <button className="px-16 py-4 bg-white text-[#181728] rounded-full text-xs font-bold tracking-[0.2em] uppercase hover:bg-opacity-90 transition-opacity">
+                        <button className="px-16 py-4 bg-white text-brand-dark rounded-full text-xs font-bold tracking-[0.2em] uppercase hover:bg-opacity-90 transition-opacity">
                             Connect now
                         </button>
                     </div>

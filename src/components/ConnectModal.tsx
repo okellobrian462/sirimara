@@ -87,12 +87,12 @@ export default function ConnectModal({ isOpen, onClose }: ConnectModalProps) {
             >
                 {/* Header */}
                 <div className="relative flex items-center justify-center p-6 border-b border-gray-100">
-                    <h2 className="text-sm tracking-[0.2em] uppercase font-medium text-[#181728]">Connect</h2>
+                    <h2 className="text-sm tracking-[0.2em] uppercase font-medium text-brand-dark">Connect</h2>
                     <button
                         onClick={onClose}
                         className="absolute right-6 p-2 hover:bg-gray-100 rounded-full transition-colors"
                     >
-                        <X className="w-6 h-6 text-[#181728]" />
+                        <X className="w-6 h-6 text-brand-dark" />
                     </button>
                 </div>
 
@@ -104,7 +104,7 @@ export default function ConnectModal({ isOpen, onClose }: ConnectModalProps) {
                             <span className="text-3xl font-serif text-gray-300">SM</span>
                         </div>
                         <div>
-                            <h3 className="text-xl font-serif text-[#181728] mb-2">{siteName}</h3>
+                            <h3 className="text-xl font-serif text-brand-dark mb-2">{siteName}</h3>
                             <div className="space-y-1">
                                 <a href={`tel:${contactConfig.phone.replace(/[^0-9]/g, '')}`} className="flex items-center gap-2 text-xs tracking-widest uppercase hover:opacity-70 transition-opacity text-gray-600">
                                     <span className="w-4"><i className="fas fa-phone"></i></span>
@@ -125,7 +125,7 @@ export default function ConnectModal({ isOpen, onClose }: ConnectModalProps) {
                             <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
                                 <Check className="w-8 h-8" />
                             </div>
-                            <h4 className="text-2xl font-serif text-[#181728] mb-4">Message Sent</h4>
+                            <h4 className="text-2xl font-serif text-brand-dark mb-4">Message Sent</h4>
                             <p className="text-gray-500 mb-8">Thank you for contacting us. We will get back to you shortly.</p>
                             <button onClick={onClose} className="px-8 py-3 bg-[#100B28] text-white uppercase text-xs tracking-widest rounded-full hover:bg-opacity-90 transition-all">
                                 Close
@@ -134,7 +134,7 @@ export default function ConnectModal({ isOpen, onClose }: ConnectModalProps) {
                     ) : (
                         <form className="space-y-8" onSubmit={handleSubmit}>
                             <div>
-                                <h4 className="text-2xl font-serif text-[#181728] mb-8">Send a message</h4>
+                                <h4 className="text-2xl font-serif text-brand-dark mb-8">Send a message</h4>
 
                                 <div className="space-y-6">
                                     <div className="border-b border-gray-300 py-2">
@@ -142,7 +142,7 @@ export default function ConnectModal({ isOpen, onClose }: ConnectModalProps) {
                                             name="firstName"
                                             type="text"
                                             placeholder="First Name"
-                                            className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-[#181728] p-0"
+                                            className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-brand-dark p-0"
                                             required
                                         />
                                     </div>
@@ -151,7 +151,7 @@ export default function ConnectModal({ isOpen, onClose }: ConnectModalProps) {
                                             name="lastName"
                                             type="text"
                                             placeholder="Last Name"
-                                            className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-[#181728] p-0"
+                                            className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-brand-dark p-0"
                                             required
                                         />
                                     </div>
@@ -160,7 +160,7 @@ export default function ConnectModal({ isOpen, onClose }: ConnectModalProps) {
                                             name="email"
                                             type="email"
                                             placeholder="Email"
-                                            className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-[#181728] p-0"
+                                            className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-brand-dark p-0"
                                             required
                                         />
                                     </div>
@@ -169,7 +169,7 @@ export default function ConnectModal({ isOpen, onClose }: ConnectModalProps) {
                                             name="phone"
                                             type="tel"
                                             placeholder="Phone (optional)"
-                                            className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-[#181728] p-0"
+                                            className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-brand-dark p-0"
                                         />
                                     </div>
                                     <div className="border-b border-gray-300 py-2">
@@ -177,7 +177,7 @@ export default function ConnectModal({ isOpen, onClose }: ConnectModalProps) {
                                             name="message"
                                             type="text"
                                             placeholder="Message (optional)"
-                                            className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-[#181728] p-0"
+                                            className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-brand-dark p-0"
                                         />
                                     </div>
                                 </div>
@@ -186,11 +186,11 @@ export default function ConnectModal({ isOpen, onClose }: ConnectModalProps) {
                             {/* Checkbox */}
                             <label className="flex items-start gap-4 cursor-pointer group">
                                 <div className="relative flex items-center justify-center shrink-0">
-                                    <input name="consent" type="checkbox" className="peer w-5 h-5 border border-gray-300 rounded-sm checked:bg-[#181728] checked:border-[#181728] appearance-none transition-colors" defaultChecked />
+                                    <input name="consent" type="checkbox" className="peer w-5 h-5 border border-gray-300 rounded-sm checked:bg-brand-dark checked:border-brand-dark appearance-none transition-colors" defaultChecked />
                                     <Check className="absolute w-3 h-3 text-white opacity-0 peer-checked:opacity-100 pointer-events-none" />
                                 </div>
                                 <p className="text-xs text-gray-500 leading-relaxed">
-                                    By checking this box, you consent to receive sms/text messages from {siteName}. Reply STOP to opt-out anytime. <Link href="/privacy-policy" className="underline hover:text-[#181728]">Privacy Policy</Link>
+                                    By checking this box, you consent to receive sms/text messages from {siteName}. Reply STOP to opt-out anytime. <Link href="/privacy-policy" className="underline hover:text-brand-dark">Privacy Policy</Link>
                                 </p>
 
                             </label>

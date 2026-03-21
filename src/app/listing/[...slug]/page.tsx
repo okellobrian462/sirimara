@@ -4,8 +4,6 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ImageCarousel from '@/components/listing/ImageCarousel';
 import Link from 'next/link';
-import { Plus } from 'lucide-react';
-import ConnectButton from '@/components/listing/ConnectButton';
 
 export default async function ListingDetailPage({ params }: { params: Promise<{ slug: string[] }> }) {
     const resolvedParams = await params;
@@ -73,7 +71,7 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
             <section className="bg-[#F8F8F8] py-20">
                 <div className="container mx-auto px-6 max-w-5xl">
                     <div className="text-center space-y-4 mb-12">
-                        <h1 className="text-3xl md:text-[44px] font-sans font-normal tracking-[0.1em] text-[#181728] uppercase">
+                        <h1 className="text-3xl md:text-[44px] font-sans font-normal tracking-[0.1em] text-brand-dark uppercase">
                             {data.address}
                         </h1>
                         <p className="text-sm md:text-base tracking-[0.15em] text-gray-500 uppercase">
@@ -83,18 +81,15 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
                         <div className="w-12 h-[1px] bg-gray-400 mx-auto my-10"></div>
 
                         <div className="space-y-4">
-                            <h2 className="text-5xl md:text-[64px] font-sans font-normal text-[#181728]">
+                            <h2 className="text-5xl md:text-[64px] font-sans font-normal text-brand-dark">
                                 {data.price}
                             </h2>
-                            <button className="text-[10px] tracking-[0.2em] font-bold text-[#181728] uppercase border-b border-[#181728] pb-1 hover:opacity-70 transition-opacity">
-                                Estimate My Mortgage
-                            </button>
                         </div>
                     </div>
 
                     {/* Stats Divider Lines */}
                     <div className="w-full h-[1px] bg-gray-200"></div>
-                    <div className="flex flex-wrap justify-center items-center gap-x-12 md:gap-x-20 py-8 text-[#181728]">
+                    <div className="flex flex-wrap justify-center items-center gap-x-12 md:gap-x-20 py-8 text-brand-dark">
                         {data.beds && (
                             <div className="flex items-center gap-3 py-4">
                                 <svg className="w-6 h-6 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
@@ -124,51 +119,13 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
 
                     {/* Exclusive Badge */}
                     <div className="flex justify-center items-center gap-3 mt-12 opacity-60">
-                        <div className="w-4 h-4 rounded-full border border-[#181728] flex items-center justify-center text-[10px] font-bold">
+                        <div className="w-4 h-4 rounded-full border border-brand-dark flex items-center justify-center text-[10px] font-bold">
                             SM
                         </div>
-                        <span className="text-[10px] tracking-[0.2em] font-semibold uppercase text-[#181728]">
+                        <span className="text-[10px] tracking-[0.2em] font-semibold uppercase text-brand-dark">
                             Sirimara Exclusive
                         </span>
                     </div>
-                </div>
-            </section>
-
-            {/* Agent Section */}
-            <section className="bg-white py-20 border-t border-gray-100">
-                <div className="container mx-auto px-6 max-w-xl text-center">
-                    <h3 className="text-base tracking-[0.3em] uppercase text-[#181728] mb-12 font-medium">
-                        Get in touch with our agents
-                    </h3>
-
-                    <div className="bg-white border border-gray-50 shadow-sm p-8 flex flex-col items-center">
-                        <div className="w-40 h-40 mb-6 overflow-hidden">
-                            <img
-                                src={data.agent.image}
-                                alt={data.agent.name}
-                                className="w-full h-full object-cover"
-                            />
-                        </div>
-                        <h4 className="text-lg font-sans text-[#181728] mb-2">{data.agent.name}</h4>
-                        <p className="text-sm text-gray-500 mb-1">{data.agent.phone}</p>
-                        <p className="text-sm text-gray-500 mb-1">{data.agent.title}</p>
-                        <p className="text-sm text-gray-400 mb-8 uppercase">SIRIMARA REAL ESTATE</p>
-
-                        <ConnectButton />
-                    </div>
-                </div>
-            </section>
-
-            {/* Mortgage CTA Section */}
-            <section className="bg-[#F8F8F8] py-40 border-t border-gray-100">
-                <div className="container mx-auto px-6 text-center">
-                    <h2 className="text-3xl md:text-5xl font-sans font-normal tracking-[0.1em] text-[#181728] uppercase mb-10">
-                        Estimate My Mortgage
-                    </h2>
-                    <button className="flex justify-center items-center gap-3 mx-auto text-xs tracking-[0.2em] font-semibold uppercase text-[#181728] hover:opacity-70 transition-opacity">
-                        <Plus className="w-5 h-5" />
-                        Get Started
-                    </button>
                 </div>
             </section>
 

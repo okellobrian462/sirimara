@@ -37,7 +37,7 @@ export default function ServicesSection() {
         <section id="services" className="bg-white py-24 md:py-32">
             <div className="container mx-auto px-6">
                 <div className="max-w-4xl mx-auto text-center mb-16">
-                    <h2 className="text-3xl md:text-5xl font-light tracking-tight text-[#181728] mb-6 uppercase">
+                    <h2 className="text-3xl md:text-5xl font-light tracking-tight text-brand-dark mb-6 uppercase">
                         WE ARE PARTNERS THROUGHOUT <br /> THE ENTIRE PROCESS
                     </h2>
                     <p className="text-lg text-gray-500 font-light max-w-2xl mx-auto">
@@ -53,7 +53,7 @@ export default function ServicesSection() {
                                 key={service.id}
                                 onClick={() => setActiveTab(service.id)}
                                 className={`text-left py-6 px-8 transition-all duration-300 border-l-2 ${activeTab === service.id
-                                        ? 'border-[#181728] bg-gray-50'
+                                        ? 'border-brand-dark bg-gray-50'
                                         : 'border-gray-100 hover:border-gray-300 text-gray-400'
                                     }`}
                             >

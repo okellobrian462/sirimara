@@ -9,7 +9,7 @@ export default function AgentProfileBio({ name, bio }: AgentProfileBioProps) {
     return (
         <section className="bg-[#FAF9F5] py-20 px-6">
             <div className="container mx-auto max-w-4xl text-center md:text-left">
-                <h2 className="text-3xl md:text-4xl font-sans font-light tracking-[0.1em] uppercase mb-12 text-[#181728]">
+                <h2 className="text-3xl md:text-4xl font-sans font-light tracking-[0.1em] uppercase mb-12 text-brand-dark">
                     About {name.split(' ')[0]}
                 </h2>
 

@@ -6,7 +6,7 @@ export default async function SellStats() {
     const statsBlock = await fetchContentBlock('sell', 'stats_section');
 
     return (
-        <section className="bg-[#181728] text-white py-24 md:py-32 px-6">
+        <section className="bg-brand-dark text-white py-24 md:py-32 px-6">
             <div className="container mx-auto max-w-6xl">
                 {statsBlock && (
                     <div className="text-center mb-24 max-w-4xl mx-auto">
@@ -17,7 +17,7 @@ export default async function SellStats() {
                             {statsBlock.content}
                         </p>
                         {statsBlock.metadata?.cta_text && (
-                            <button className="px-12 py-4 border border-white rounded-full text-xs font-bold tracking-[0.2em] uppercase hover:bg-white hover:text-[#181728] transition-all duration-300">
+                            <button className="px-12 py-4 border border-white rounded-full text-xs font-bold tracking-[0.2em] uppercase hover:bg-white hover:text-brand-dark transition-all duration-300">
                                 {statsBlock.metadata.cta_text}
                             </button>
                         )}

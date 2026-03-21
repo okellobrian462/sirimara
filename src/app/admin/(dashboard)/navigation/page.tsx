@@ -178,7 +178,7 @@ export default function NavigationPage() {
         <div className="p-8">
             {/* Header */}
             <div className="mb-8">
-                <h1 className="text-3xl font-light tracking-[0.15em] text-[#181728] mb-2">
+                <h1 className="text-3xl font-light tracking-[0.15em] text-gray-900 mb-2">
                     NAVIGATION MANAGEMENT
                 </h1>
                 <p className="text-gray-500">
@@ -194,7 +194,7 @@ export default function NavigationPage() {
                             key={location.value}
                             onClick={() => setActiveTab(location.value)}
                             className={`px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${activeTab === location.value
-                                ? 'border-purple-600 text-purple-600'
+                                ? 'border-orange-600 text-orange-600'
                                 : 'border-transparent text-gray-500 hover:text-gray-700'
                                 }`}
                         >
@@ -208,7 +208,7 @@ export default function NavigationPage() {
             <div className="mb-6">
                 <button
                     onClick={() => openModal()}
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors"
                 >
                     <Plus className="w-4 h-4" />
                     Add Navigation Item
@@ -314,7 +314,7 @@ export default function NavigationPage() {
                                     value={formData.label}
                                     onChange={(e) => setFormData({ ...formData, label: e.target.value })}
                                     required
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                                 />
                             </div>
 
@@ -328,7 +328,7 @@ export default function NavigationPage() {
                                     onChange={(e) => setFormData({ ...formData, url: e.target.value })}
                                     required
                                     placeholder="/page or https://..."
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                                 />
                             </div>
 
@@ -338,7 +338,7 @@ export default function NavigationPage() {
                                     id="opens_in_new_tab"
                                     checked={formData.opens_in_new_tab}
                                     onChange={(e) => setFormData({ ...formData, opens_in_new_tab: e.target.checked })}
-                                    className="w-4 h-4 text-purple-600 rounded focus:ring-purple-500"
+                                    className="w-4 h-4 text-orange-600 rounded focus:ring-orange-500"
                                 />
                                 <label htmlFor="opens_in_new_tab" className="text-sm font-medium text-gray-700">
                                     Open in new tab
@@ -351,7 +351,7 @@ export default function NavigationPage() {
                                     id="is_active"
                                     checked={formData.is_active}
                                     onChange={(e) => setFormData({ ...formData, is_active: e.target.checked })}
-                                    className="w-4 h-4 text-purple-600 rounded focus:ring-purple-500"
+                                    className="w-4 h-4 text-orange-600 rounded focus:ring-orange-500"
                                 />
                                 <label htmlFor="is_active" className="text-sm font-medium text-gray-700">
                                     Active
@@ -361,7 +361,7 @@ export default function NavigationPage() {
                             <div className="flex gap-3 pt-4">
                                 <button
                                     type="submit"
-                                    className="flex-1 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+                                    className="flex-1 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors"
                                 >
                                     {editingItem ? 'Update' : 'Create'}
                                 </button>

@@ -58,6 +58,8 @@ const config: Config = {
                     primary: 'var(--brand-primary)',
                     'primary-hover': 'var(--brand-primary-hover)',
                     accent: 'var(--brand-accent)',
+                    dark: 'var(--brand-dark)',
+                    charcoal: 'var(--brand-charcoal)',
                 }
             },
             borderRadius: {

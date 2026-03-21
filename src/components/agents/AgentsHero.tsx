@@ -29,10 +29,10 @@ export default function AgentsHero() {
                         <input
                             type="text"
                             placeholder="Enter agent name, state or office address"
-                            className="w-full bg-transparent border-none py-4 px-6 text-[#181728] placeholder:text-gray-400 focus:outline-none text-lg md:text-xl font-light"
+                            className="w-full bg-transparent border-none py-4 px-6 text-brand-dark placeholder:text-gray-400 focus:outline-none text-lg md:text-xl font-light"
                         />
                         <button className="p-4 hover:opacity-70 transition-opacity">
-                            <Search className="w-6 h-6 text-[#181728]" />
+                            <Search className="w-6 h-6 text-brand-dark" />
                         </button>
                     </div>
                 </div>

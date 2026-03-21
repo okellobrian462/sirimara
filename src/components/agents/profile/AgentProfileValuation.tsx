@@ -22,7 +22,7 @@ export default function AgentProfileValuation() {
                 </p>
                 <Link
                     href="/valuation"
-                    className="inline-block px-12 py-4 border border-white rounded-full text-xs font-bold tracking-[0.2em] uppercase hover:bg-white hover:text-[#181728] transition-colors"
+                    className="inline-block px-12 py-4 border border-white rounded-full text-xs font-bold tracking-[0.2em] uppercase hover:bg-white hover:text-brand-dark transition-colors"
                 >
                     Get Started
                 </Link>

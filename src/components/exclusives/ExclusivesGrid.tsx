@@ -137,7 +137,7 @@ export default function ExclusivesGrid() {
                         <ChevronLeft className="w-4 h-4" />
                     </button>
 
-                    <div className="flex items-center gap-4 text-sm font-bold tracking-widest text-[#181728]">
+                    <div className="flex items-center gap-4 text-sm font-bold tracking-widest text-brand-dark">
                         <button className="w-8 h-8 flex items-center justify-center rounded-full border border-black">1</button>
                         <button className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-400">2</button>
                         <button className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-400">3</button>

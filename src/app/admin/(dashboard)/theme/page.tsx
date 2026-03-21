@@ -12,7 +12,7 @@ interface ThemeColors {
 
 export default function ThemePage() {
     const [colors, setColors] = useState<ThemeColors>({
-        primary: '#181728',
+        primary: '#111827',
         primary_hover: '#252438',
         accent: '#8B5CF6'
     });
@@ -51,7 +51,7 @@ export default function ThemePage() {
 
     function handleReset() {
         setColors({
-            primary: '#181728',
+            primary: '#111827',
             primary_hover: '#252438',
             accent: '#8B5CF6'
         });
@@ -70,8 +70,8 @@ export default function ThemePage() {
             {/* Header */}
             <div className="mb-8">
                 <div className="flex items-center gap-3 mb-2">
-                    <Palette className="w-8 h-8 text-purple-600" />
-                    <h1 className="text-3xl font-light tracking-[0.15em] text-[#181728]">
+                    <Palette className="w-8 h-8 text-orange-600" />
+                    <h1 className="text-3xl font-light tracking-[0.15em] text-gray-900">
                         THEME SETTINGS
                     </h1>
                 </div>
@@ -104,7 +104,7 @@ export default function ThemePage() {
                                     value={colors.primary}
                                     onChange={(e) => setColors({ ...colors, primary: e.target.value })}
                                     className="w-full px-4 py-2 border border-gray-300 rounded-lg font-mono text-sm"
-                                    placeholder="#181728"
+                                    placeholder='#111827'
                                 />
                             </div>
                         </div>
@@ -189,7 +189,7 @@ export default function ThemePage() {
                     <button
                         onClick={handleSave}
                         disabled={saving}
-                        className="flex-1 px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors font-medium disabled:opacity-50"
+                        className="flex-1 px-6 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors font-medium disabled:opacity-50"
                     >
                         {saving ? 'Saving...' : 'Save Changes'}
                     </button>

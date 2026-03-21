@@ -62,7 +62,7 @@ export default async function AdminDashboard() {
             value: stats.propertiesCount,
             icon: TrendingUp,
             href: '/admin/properties',
-            color: 'bg-purple-500',
+            color: 'bg-orange-500',
         },
     ];
 
@@ -70,7 +70,7 @@ export default async function AdminDashboard() {
         <div className="p-8">
             {/* Header */}
             <div className="mb-8">
-                <h1 className="text-3xl font-light tracking-[0.15em] text-[#181728] mb-2">
+                <h1 className="text-3xl font-light tracking-[0.15em] text-gray-900 mb-2">
                     DASHBOARD OVERVIEW
                 </h1>
                 <p className="text-gray-500">
@@ -87,8 +87,8 @@ export default async function AdminDashboard() {
                         className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md transition-all group"
                     >
                         <div className="flex items-center justify-between mb-4">
-                            <div className={`${stat.color === 'bg-purple-500' ? 'bg-purple-100' : stat.color + '/10'} p-3 rounded-lg`}>
-                                <stat.icon className={`w-6 h-6 ${stat.color === 'bg-purple-500' ? 'text-purple-600' : 'text-gray-600'}`} />
+                            <div className={`${stat.color === 'bg-orange-500' ? 'bg-orange-100' : stat.color + '/10'} p-3 rounded-lg`}>
+                                <stat.icon className={`w-6 h-6 ${stat.color === 'bg-orange-500' ? 'text-orange-600' : 'text-gray-600'}`} />
                             </div>
                         </div>
                         <div>
@@ -106,7 +106,7 @@ export default async function AdminDashboard() {
             {/* Recent Properties */}
             <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
                 <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
-                    <h2 className="text-lg font-light tracking-[0.15em] text-[#181728]">
+                    <h2 className="text-lg font-light tracking-[0.15em] text-gray-900">
                         RECENT PROPERTIES
                     </h2>
                 </div>
@@ -173,9 +173,9 @@ export default async function AdminDashboard() {
             <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
                 <Link
                     href="/admin/properties/new"
-                    className="bg-white border border-gray-200 text-[#181728] rounded-xl p-6 hover:shadow-md hover:border-purple-200 transition-all group"
+                    className="bg-white border border-gray-200 text-gray-900 rounded-xl p-6 hover:shadow-md hover:border-orange-200 transition-all group"
                 >
-                    <h3 className="text-lg font-light tracking-wide mb-2 group-hover:text-purple-600 transition-colors">Add New Property</h3>
+                    <h3 className="text-lg font-light tracking-wide mb-2 group-hover:text-orange-600 transition-colors">Add New Property</h3>
                     <p className="text-gray-500 text-sm">
                         Create a new property listing
                     </p>
@@ -183,9 +183,9 @@ export default async function AdminDashboard() {
 
                 <Link
                     href="/admin/featured"
-                    className="bg-white border border-gray-200 text-[#181728] rounded-xl p-6 hover:shadow-md hover:border-purple-200 transition-all group"
+                    className="bg-white border border-gray-200 text-gray-900 rounded-xl p-6 hover:shadow-md hover:border-orange-200 transition-all group"
                 >
-                    <h3 className="text-lg font-light tracking-wide mb-2 group-hover:text-purple-600 transition-colors">Manage Featured</h3>
+                    <h3 className="text-lg font-light tracking-wide mb-2 group-hover:text-orange-600 transition-colors">Manage Featured</h3>
                     <p className="text-gray-500 text-sm">
                         Update featured properties carousel
                     </p>
@@ -193,9 +193,9 @@ export default async function AdminDashboard() {
 
                 <Link
                     href="/admin/subscribers"
-                    className="bg-white border border-gray-200 text-[#181728] rounded-xl p-6 hover:shadow-md hover:border-purple-200 transition-all group"
+                    className="bg-white border border-gray-200 text-gray-900 rounded-xl p-6 hover:shadow-md hover:border-orange-200 transition-all group"
                 >
-                    <h3 className="text-lg font-light tracking-wide mb-2 group-hover:text-purple-600 transition-colors">View Subscribers</h3>
+                    <h3 className="text-lg font-light tracking-wide mb-2 group-hover:text-orange-600 transition-colors">View Subscribers</h3>
                     <p className="text-gray-500 text-sm">
                         Manage newsletter subscribers
                     </p>

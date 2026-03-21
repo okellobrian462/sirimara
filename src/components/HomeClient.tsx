@@ -79,7 +79,7 @@ export default function HomeClient({ featuredProperties, propertyListings, categ
             )}
 
             {/* Property Listings Section */}
-            <section className="bg-[#181728] py-20">
+            <section className="bg-brand-dark py-20">
                 <div className="px-6">
                     <div className="text-center text-white mb-12">
                         <p className="text-sm tracking-widest uppercase mb-4">

@@ -2,7 +2,7 @@
 
 export default function ExclusivesHero() {
     return (
-        <section className="bg-[#181728] text-white py-32 md:py-48 px-6 text-center">
+        <section className="bg-brand-dark text-white py-32 md:py-48 px-6 text-center">
             <h1 className="text-3xl md:text-5xl font-sans font-light tracking-[0.1em] uppercase mb-4">
                 YOUR NEXT HOME IS WAITING
             </h1>

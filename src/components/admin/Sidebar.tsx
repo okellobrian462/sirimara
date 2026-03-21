@@ -60,7 +60,7 @@ export default function Sidebar() {
             {/* Logo */}
             <div className="h-16 flex items-center justify-between px-6 border-b border-gray-200">
                 {!collapsed && (
-                    <h1 className="text-xl font-light tracking-[0.2em] text-[#181728] uppercase">
+                    <h1 className="text-xl font-light tracking-[0.2em] text-gray-900 uppercase">
                         {siteName}
                     </h1>
                 )}
@@ -88,12 +88,12 @@ export default function Sidebar() {
                             key={item.name}
                             href={item.href}
                             className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-all group ${isActive
-                                ? 'bg-purple-50 text-purple-600 shadow-sm'
+                                ? 'bg-orange-50 text-orange-600 shadow-sm'
                                 : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                                 }`}
                             title={collapsed ? item.name : undefined}
                         >
-                            <item.icon className={`w-5 h-5 flex-shrink-0 ${isActive ? 'text-purple-600' : 'text-gray-400 group-hover:text-gray-900'}`} />
+                            <item.icon className={`w-5 h-5 flex-shrink-0 ${isActive ? 'text-orange-600' : 'text-gray-400 group-hover:text-gray-900'}`} />
                             {!collapsed && (
                                 <span className="text-sm font-medium tracking-wide">
                                     {item.name}

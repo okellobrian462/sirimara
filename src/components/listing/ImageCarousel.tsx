@@ -42,14 +42,14 @@ export default function ImageCarousel({ images, address }: ImageCarouselProps) {
                         className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center bg-white/90 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white"
                         aria-label="Previous image"
                     >
-                        <ChevronLeft className="w-6 h-6 text-[#181728]" />
+                        <ChevronLeft className="w-6 h-6 text-brand-dark" />
                     </button>
                     <button
                         onClick={goToNext}
                         className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center bg-white/90 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white"
                         aria-label="Next image"
                     >
-                        <ChevronRight className="w-6 h-6 text-[#181728]" />
+                        <ChevronRight className="w-6 h-6 text-brand-dark" />
                     </button>
 
                     {/* Image Counter */}

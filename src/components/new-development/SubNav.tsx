@@ -19,7 +19,7 @@ export default function SubNav() {
                     <Link
                         key={link.label}
                         href={link.href}
-                        className="text-xs font-medium tracking-[0.15em] text-[#181728] hover:text-gray-500 transition-colors uppercase"
+                        className="text-xs font-medium tracking-[0.15em] text-brand-dark hover:text-gray-500 transition-colors uppercase"
                     >
                         {link.label}
                     </Link>

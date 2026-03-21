@@ -115,7 +115,7 @@ export default function NewPropertyPage() {
                     <ArrowLeft className="w-4 h-4" />
                     Back to Properties
                 </Link>
-                <h1 className="text-3xl font-light tracking-[0.15em] text-[#181728] mb-2">
+                <h1 className="text-3xl font-light tracking-[0.15em] text-gray-900 mb-2">
                     ADD NEW PROPERTY
                 </h1>
                 <p className="text-gray-500">
@@ -145,7 +145,7 @@ export default function NewPropertyPage() {
                                 value={formData.title}
                                 onChange={handleChange}
                                 required
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                                 placeholder="Luxury Penthouse with City Views"
                             />
                         </div>
@@ -160,7 +160,7 @@ export default function NewPropertyPage() {
                                 value={formData.slug}
                                 onChange={handleChange}
                                 required
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                                 placeholder="luxury-penthouse-city-views"
                             />
                             <p className="mt-1 text-sm text-gray-500">
@@ -178,7 +178,7 @@ export default function NewPropertyPage() {
                                 value={formData.city}
                                 onChange={handleChange}
                                 required
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                                 placeholder="New York"
                             />
                         </div>
@@ -192,7 +192,7 @@ export default function NewPropertyPage() {
                                 name="address"
                                 value={formData.address}
                                 onChange={handleChange}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                                 placeholder="123 Main Street"
                             />
                         </div>
@@ -206,7 +206,7 @@ export default function NewPropertyPage() {
                                 name="state"
                                 value={formData.state}
                                 onChange={handleChange}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                                 placeholder="NY"
                             />
                         </div>
@@ -220,7 +220,7 @@ export default function NewPropertyPage() {
                                 name="zip_code"
                                 value={formData.zip_code}
                                 onChange={handleChange}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                                 placeholder="10001"
                             />
                         </div>
@@ -241,7 +241,7 @@ export default function NewPropertyPage() {
                                 value={formData.bedrooms}
                                 onChange={handleChange}
                                 min="0"
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                             />
                         </div>
 
@@ -256,7 +256,7 @@ export default function NewPropertyPage() {
                                 onChange={handleChange}
                                 min="0"
                                 step="0.5"
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                             />
                         </div>
 
@@ -270,7 +270,7 @@ export default function NewPropertyPage() {
                                 value={formData.half_baths}
                                 onChange={handleChange}
                                 min="0"
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                             />
                         </div>
 
@@ -285,7 +285,7 @@ export default function NewPropertyPage() {
                                 onChange={handleChange}
                                 required
                                 min="0"
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                                 placeholder="1000000"
                             />
                         </div>
@@ -300,7 +300,7 @@ export default function NewPropertyPage() {
                                 value={formData.square_feet}
                                 onChange={handleChange}
                                 min="0"
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                             />
                         </div>
 
@@ -315,7 +315,7 @@ export default function NewPropertyPage() {
                                 onChange={handleChange}
                                 min="1800"
                                 max={new Date().getFullYear()}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                             />
                         </div>
 
@@ -327,7 +327,7 @@ export default function NewPropertyPage() {
                                 name="property_type"
                                 value={formData.property_type}
                                 onChange={handleChange}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white"
                             >
                                 <option value="">Select type</option>
                                 <option value="condo">Condo</option>
@@ -347,7 +347,7 @@ export default function NewPropertyPage() {
                                 value={formData.status}
                                 onChange={handleChange}
                                 required
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white"
                             >
                                 <option value="active">Active</option>
                                 <option value="pending">Pending</option>
@@ -364,7 +364,7 @@ export default function NewPropertyPage() {
                                 name="category"
                                 value={formData.category}
                                 onChange={handleChange}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white"
                             >
                                 <option value="">Select category</option>
                                 <option value="city-skylines">City Skylines</option>
@@ -384,7 +384,7 @@ export default function NewPropertyPage() {
                                 value={formData.listing_type}
                                 onChange={handleChange}
                                 required
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white"
                             >
                                 <option value="sale">For Sale</option>
                                 <option value="rent">For Rent</option>
@@ -401,7 +401,7 @@ export default function NewPropertyPage() {
                             value={formData.description}
                             onChange={handleChange}
                             rows={4}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                             placeholder="Describe the property..."
                         />
                     </div>
@@ -413,7 +413,7 @@ export default function NewPropertyPage() {
                                 name="is_featured"
                                 checked={formData.is_featured}
                                 onChange={handleChange}
-                                className="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
+                                className="w-4 h-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500"
                             />
                             <span className="text-sm font-medium text-gray-700">
                                 Featured Property
@@ -446,12 +446,12 @@ export default function NewPropertyPage() {
                                     value={imageInput}
                                     onChange={(e) => setImageInput(e.target.value)}
                                     placeholder="https://example.com/image.jpg"
-                                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                                 />
                                 <button
                                     type="button"
                                     onClick={handleAddImage}
-                                    className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors shrink-0"
+                                    className="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors shrink-0"
                                 >
                                     <Plus className="w-5 h-5" />
                                 </button>
@@ -488,7 +488,7 @@ export default function NewPropertyPage() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+                        className="px-6 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
                     >
                         {loading ? 'Creating...' : 'Create Property'}
                     </button>

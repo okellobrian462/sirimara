@@ -99,7 +99,7 @@ export default function RentalsSearchPage() {
                 </div>
 
                 {/* Filters */}
-                <div className="container mx-auto px-6 py-3 flex justify-between items-center text-xs font-semibold tracking-widest uppercase text-[#181728]">
+                <div className="container mx-auto px-6 py-3 flex justify-between items-center text-xs font-semibold tracking-widest uppercase text-brand-dark">
                     <div className="flex items-center gap-8">
                         <button className="flex items-center gap-2 hover:opacity-70">
                             For Rent <ChevronDown className="w-3 h-3" />
@@ -132,10 +132,10 @@ export default function RentalsSearchPage() {
                 <div className="w-full lg:w-3/5 overflow-y-auto p-6 bg-white">
                     <div className="flex justify-between items-end mb-6">
                         <div>
-                            <h1 className="text-2xl font-serif text-[#181728] mb-1">Luxury listings for rent in New York City</h1>
+                            <h1 className="text-2xl font-serif text-brand-dark mb-1">Luxury listings for rent in New York City</h1>
                             <p className="text-xs text-gray-500 uppercase tracking-widest font-medium">18 of 3,547 Homes</p>
                         </div>
-                        <div className="flex items-center gap-6 text-[10px] font-bold tracking-[0.2em] text-[#181728] uppercase">
+                        <div className="flex items-center gap-6 text-[10px] font-bold tracking-[0.2em] text-brand-dark uppercase">
                             <div className="flex items-center gap-2 opacity-50 cursor-not-allowed">
                                 <span>Compare</span>
                                 <div className="w-8 h-4 bg-gray-200 rounded-full relative">
@@ -180,11 +180,11 @@ export default function RentalsSearchPage() {
                                 <div>
                                     <div className="flex justify-between items-start mb-1">
                                         <div className="flex items-end gap-1">
-                                            <h2 className="text-2xl font-serif text-[#181728]">{listing.price}</h2>
+                                            <h2 className="text-2xl font-serif text-brand-dark">{listing.price}</h2>
                                             <span className="text-[10px] font-bold tracking-widest uppercase mb-1.5 text-gray-500">{listing.period}</span>
                                         </div>
                                     </div>
-                                    <p className="text-xs font-bold tracking-[0.1em] text-[#181728] uppercase mb-4">
+                                    <p className="text-xs font-bold tracking-[0.1em] text-brand-dark uppercase mb-4">
                                         {listing.address}, {listing.city}
                                     </p>
 
@@ -197,7 +197,7 @@ export default function RentalsSearchPage() {
                                     <div className="flex items-center justify-between border-t border-gray-100 pt-4">
                                         <div className="flex items-center gap-2">
                                             <div className="w-4 h-6 border bg-white flex items-center justify-center text-[6px] font-serif">DE</div>
-                                            <span className="text-[9px] font-bold tracking-[0.2em] text-[#181728] uppercase">{listing.status}</span>
+                                            <span className="text-[9px] font-bold tracking-[0.2em] text-brand-dark uppercase">{listing.status}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -209,7 +209,7 @@ export default function RentalsSearchPage() {
                 {/* Map Column */}
                 <div className="hidden lg:block w-2/5 bg-[#EAE8E4] relative overflow-hidden">
                     {/* Placeholder Logic for Map as seen in screenshot (Stylized outline) */}
-                    <svg className="w-full h-full absolute inset-0 text-[#181728]" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <svg className="w-full h-full absolute inset-0 text-brand-dark" viewBox="0 0 100 100" preserveAspectRatio="none">
                         {/* Abstract polygon representing a map area */}
                         <path
                             d="M60 20 L80 30 L85 50 L90 80 L70 90 L50 85 L40 60 Z"
@@ -223,8 +223,8 @@ export default function RentalsSearchPage() {
 
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                         <div className="bg-white/80 backdrop-blur px-6 py-4 shadow-lg text-center">
-                            <MapPin className="w-8 h-8 mx-auto mb-2 text-[#181728]" />
-                            <p className="text-xs font-bold tracking-widest uppercase text-[#181728]">Map View Interactive</p>
+                            <MapPin className="w-8 h-8 mx-auto mb-2 text-brand-dark" />
+                            <p className="text-xs font-bold tracking-widest uppercase text-brand-dark">Map View Interactive</p>
                         </div>
                     </div>
                 </div>

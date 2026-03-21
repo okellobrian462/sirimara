@@ -81,7 +81,7 @@ export default function AgentsClient({ agents }: AgentsClientProps) {
             {/* Header */}
             <div className="flex items-center justify-between mb-8">
                 <div>
-                    <h1 className="text-3xl font-light tracking-[0.15em] text-[#181728] mb-2">
+                    <h1 className="text-3xl font-light tracking-[0.15em] text-gray-900 mb-2">
                         AGENTS
                     </h1>
                     <p className="text-gray-500">
@@ -90,7 +90,7 @@ export default function AgentsClient({ agents }: AgentsClientProps) {
                 </div>
                 <Link
                     href="/admin/agents/new"
-                    className="flex items-center gap-2 px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors shadow-sm hover:shadow-md"
+                    className="flex items-center gap-2 px-6 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors shadow-sm hover:shadow-md"
                 >
                     <Plus className="w-5 h-5" />
                     Add Agent
@@ -106,13 +106,13 @@ export default function AgentsClient({ agents }: AgentsClientProps) {
                         placeholder="Search by name, email, or title..."
                         value={searchQuery}
                         onChange={(e) => handleSearchChange(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                        className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                     />
                 </div>
                 <select
                     value={statusFilter}
                     onChange={(e) => handleStatusChange(e.target.value)}
-                    className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white"
+                    className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent bg-white"
                 >
                     <option value="">All Status</option>
                     <option value="active">Active</option>
@@ -187,7 +187,7 @@ export default function AgentsClient({ agents }: AgentsClientProps) {
                                         {agent.specialties && agent.specialties.length > 0 && (
                                             <div className="flex gap-1 flex-wrap">
                                                 {agent.specialties.slice(0, 2).map((specialty, idx) => (
-                                                    <span key={idx} className="inline-flex px-1.5 py-0.5 text-[9px] font-medium bg-purple-50 text-purple-700 rounded border border-purple-100">
+                                                    <span key={idx} className="inline-flex px-1.5 py-0.5 text-[9px] font-medium bg-orange-50 text-orange-700 rounded border border-orange-100">
                                                         {specialty}
                                                     </span>
                                                 ))}
@@ -213,7 +213,7 @@ export default function AgentsClient({ agents }: AgentsClientProps) {
                                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <Link
                                             href={`/admin/agents/${agent.id}/edit`}
-                                            className="text-purple-600 hover:text-purple-900 mr-4 text-xs font-bold uppercase tracking-wider"
+                                            className="text-orange-600 hover:text-orange-900 mr-4 text-xs font-bold uppercase tracking-wider"
                                         >
                                             Edit
                                         </Link>
@@ -251,7 +251,7 @@ export default function AgentsClient({ agents }: AgentsClientProps) {
                     {!searchQuery && !statusFilter && (
                         <Link
                             href="/admin/agents/new"
-                            className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+                            className="inline-flex items-center gap-2 px-6 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors"
                         >
                             <Plus className="w-5 h-5" />
                             Add Your First Agent

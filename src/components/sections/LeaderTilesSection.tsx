@@ -25,7 +25,7 @@ export default function LeaderTilesSection({ section, leaders }: LeaderTilesSect
                                 />
                             </div>
                             <div className="w-full md:w-1/2 flex flex-col justify-center p-8 md:p-12 lg:p-20 bg-white items-start">
-                                <h2 className="text-3xl lg:text-4xl font-serif text-[#181728] mb-4">{leader.title}</h2>
+                                <h2 className="text-3xl lg:text-4xl font-serif text-brand-dark mb-4">{leader.title}</h2>
                                 <p className="text-sm lg:text-base text-gray-500 mb-8 max-w-md">{leader.description}</p>
                                 <button className="px-10 py-3 bg-[#100B28] text-white text-xs tracking-widest uppercase hover:bg-[#100B28]/90 transition-colors rounded-full font-medium">
                                     See more

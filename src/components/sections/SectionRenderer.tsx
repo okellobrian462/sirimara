@@ -23,6 +23,7 @@ import LeadershipHeroSection from './LeadershipHeroSection';
 import LeaderTilesSection from './LeaderTilesSection';
 import AccordionSection from './AccordionSection';
 import LegalSection from './LegalSection';
+import PropertyManagementIntroSection from './PropertyManagementIntroSection';
 
 interface SectionRendererProps {
     section: PageSection;
@@ -87,6 +88,8 @@ export default async function SectionRenderer({ section }: SectionRendererProps)
             return <AccordionSection section={section} items={tabs} />;
         case 'legal':
             return <LegalSection section={section} />;
+        case 'prop_mgmt_intro':
+            return <PropertyManagementIntroSection section={section} />;
         default:
             console.warn(`Unknown section type: ${section.section_type}`);
             return null;

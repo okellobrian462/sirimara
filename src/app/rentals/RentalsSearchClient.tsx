@@ -133,7 +133,7 @@ export default function RentalsSearchClient({
                                 {filteredListings.length} of {listings.length} Homes
                             </p>
                         </div>
-                        <div className="flex items-center gap-6 text-[10px] font-bold tracking-[0.2em] text-[#181728] uppercase">
+                        <div className="flex items-center gap-6 text-[10px] font-bold tracking-[0.2em] text-brand-dark uppercase">
                             <div className="flex items-center gap-2 opacity-50 cursor-not-allowed">
                                 <span>Compare</span>
                                 <div className="w-8 h-4 bg-gray-200 rounded-full relative">

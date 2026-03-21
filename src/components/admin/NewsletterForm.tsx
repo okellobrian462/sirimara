@@ -189,7 +189,7 @@ export default function NewsletterForm({ newsletter }: Props) {
                         <button
                             type="submit"
                             disabled={isSubmitting}
-                            className="flex items-center justify-center px-8 py-3 bg-[#181728] text-white rounded-md hover:bg-opacity-90 transition-all disabled:opacity-50 min-w-[150px]"
+                            className="flex items-center justify-center px-8 py-3 bg-gray-900 text-white rounded-md hover:bg-opacity-90 transition-all disabled:opacity-50 min-w-[150px]"
                         >
                             {isSubmitting ? (
                                 <Loader2 className="w-5 h-5 animate-spin" />

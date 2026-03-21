@@ -15,7 +15,7 @@ export default async function AdminNewslettersPage() {
                 </div>
                 <Link
                     href="/admin/newsletters/new"
-                    className="flex items-center gap-2 px-4 py-2 bg-[#181728] text-white rounded-lg hover:bg-opacity-90 transition-all text-sm uppercase tracking-wider"
+                    className="flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-opacity-90 transition-all text-sm uppercase tracking-wider"
                 >
                     <Plus className="w-4 h-4" />
                     Add Newsletter

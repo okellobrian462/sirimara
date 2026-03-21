@@ -124,7 +124,7 @@ export default function ListingCard({
             <div>
                 <div className="flex justify-between items-start mb-1">
                     <div className="flex items-end gap-1">
-                        <h2 className="text-2xl font-serif text-[#181728]">
+                        <h2 className="text-2xl font-serif text-brand-dark">
                             {listing.priceFormatted}
                         </h2>
                         {listing.listingType === "rental" && (
@@ -134,7 +134,7 @@ export default function ListingCard({
                         )}
                     </div>
                 </div>
-                <p className="text-xs font-bold tracking-[0.1em] text-[#181728] uppercase mb-4">
+                <p className="text-xs font-bold tracking-[0.1em] text-brand-dark uppercase mb-4">
                     {listing.address}, {listing.city}
                 </p>
 
@@ -151,7 +151,7 @@ export default function ListingCard({
                         <div className="w-4 h-6 border bg-white flex items-center justify-center text-[6px] font-serif">
                             DE
                         </div>
-                        <span className="text-[9px] font-bold tracking-[0.2em] text-[#181728] uppercase">
+                        <span className="text-[9px] font-bold tracking-[0.2em] text-brand-dark uppercase">
                             {listing.status}
                         </span>
                     </div>

@@ -57,7 +57,7 @@ export default function ListingCard({ listing }: ListingCardProps) {
                 <div className="flex justify-between items-start">
                     <div>
                         <p className="text-xl font-light mb-1">{listing.price}</p>
-                        <h3 className="text-sm font-bold tracking-widest uppercase text-[#181728]">
+                        <h3 className="text-sm font-bold tracking-widest uppercase text-brand-dark">
                             {listing.address}, <span className="text-gray-500">{listing.cityStateZip}</span>
                         </h3>
                     </div>

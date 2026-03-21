@@ -112,7 +112,7 @@ export default function SalesSearchPage() {
                 </div>
 
                 {/* Filter Toggles Row */}
-                <div className="container mx-auto px-6 py-3 flex justify-between items-center text-xs font-semibold tracking-widest uppercase text-[#181728]">
+                <div className="container mx-auto px-6 py-3 flex justify-between items-center text-xs font-semibold tracking-widest uppercase text-brand-dark">
                     <div className="flex items-center gap-8">
                         <button className="flex items-center gap-2 hover:opacity-70">
                             For Sale <ChevronDown className="w-3 h-3" />
@@ -145,10 +145,10 @@ export default function SalesSearchPage() {
                 <div className="w-full lg:w-3/5 overflow-y-auto p-6 bg-white">
                     <div className="flex justify-between items-end mb-6">
                         <div>
-                            <h1 className="text-2xl font-serif text-[#181728] mb-1">Luxury listings for sale in New York City</h1>
+                            <h1 className="text-2xl font-serif text-brand-dark mb-1">Luxury listings for sale in New York City</h1>
                             <p className="text-xs text-gray-500 uppercase tracking-widest font-medium">18 of 28,594 Homes</p>
                         </div>
-                        <div className="flex items-center gap-6 text-[10px] font-bold tracking-[0.2em] text-[#181728] uppercase">
+                        <div className="flex items-center gap-6 text-[10px] font-bold tracking-[0.2em] text-brand-dark uppercase">
                             <div className="flex items-center gap-2">
                                 <span>Compare</span>
                                 <div className="w-8 h-4 bg-gray-200 rounded-full relative cursor-pointer">
@@ -190,10 +190,10 @@ export default function SalesSearchPage() {
                                 {/* Info */}
                                 <div>
                                     <div className="flex justify-between items-start mb-1">
-                                        <h2 className="text-2xl font-serif text-[#181728]">{listing.price}</h2>
+                                        <h2 className="text-2xl font-serif text-brand-dark">{listing.price}</h2>
                                         <button><Heart className="w-5 h-5 text-gray-300 hover:text-red-500 transition-colors" /></button>
                                     </div>
-                                    <p className="text-xs font-bold tracking-[0.1em] text-[#181728] uppercase mb-4">
+                                    <p className="text-xs font-bold tracking-[0.1em] text-brand-dark uppercase mb-4">
                                         {listing.address}, {listing.city}
                                     </p>
 
@@ -206,7 +206,7 @@ export default function SalesSearchPage() {
                                     <div className="flex items-center justify-between border-t border-gray-100 pt-4">
                                         <div className="flex items-center gap-2">
                                             <div className="w-4 h-6 border bg-white flex items-center justify-center text-[6px] font-serif">DE</div>
-                                            <span className="text-[9px] font-bold tracking-[0.2em] text-[#181728] uppercase">{listing.status}</span>
+                                            <span className="text-[9px] font-bold tracking-[0.2em] text-brand-dark uppercase">{listing.status}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -229,13 +229,13 @@ export default function SalesSearchPage() {
                         </div>
 
                         {/* Simulated Map Pins */}
-                        <div className="absolute top-1/4 left-1/4 bg-[#181728] text-white text-[10px] px-2 py-1 rounded shadow-lg">
+                        <div className="absolute top-1/4 left-1/4 bg-brand-dark text-white text-[10px] px-2 py-1 rounded shadow-lg">
                             $85M
                         </div>
-                        <div className="absolute top-1/2 left-1/2 bg-[#181728] text-white text-[10px] px-2 py-1 rounded shadow-lg">
+                        <div className="absolute top-1/2 left-1/2 bg-brand-dark text-white text-[10px] px-2 py-1 rounded shadow-lg">
                             $64M
                         </div>
-                        <div className="absolute bottom-1/3 right-1/4 bg-[#181728] text-white text-[10px] px-2 py-1 rounded shadow-lg">
+                        <div className="absolute bottom-1/3 right-1/4 bg-brand-dark text-white text-[10px] px-2 py-1 rounded shadow-lg">
                             $29M
                         </div>
                     </div>

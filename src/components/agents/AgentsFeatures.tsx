@@ -27,7 +27,7 @@ export default function AgentsFeatures() {
     const [activeTab, setActiveTab] = useState(0);
 
     return (
-        <section className="bg-[#181728] py-20 md:py-32 text-white overflow-hidden">
+        <section className="bg-brand-dark py-20 md:py-32 text-white overflow-hidden">
             <div className="container mx-auto px-6">
                 <div className="flex flex-col md:flex-row gap-16 items-center">
                     {/* Left Side: Content */}
@@ -69,7 +69,7 @@ export default function AgentsFeatures() {
                                     className="w-full h-full object-cover"
                                 />
                                 {/* Gradient Overlay */}
-                                <div className="absolute inset-0 bg-gradient-to-r from-[#181728] via-transparent to-transparent md:w-1/2" />
+                                <div className="absolute inset-0 bg-gradient-to-r from-brand-dark via-transparent to-transparent md:w-1/2" />
                             </div>
                         ))}
                     </div>
