@@ -6,13 +6,13 @@ import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 const MOCK_LISTINGS = [
     {
         id: 1,
-        price: '$47,500,000',
-        address: '1025 N Starwood Rd',
-        cityStateZip: 'Aspen, CO',
+        price: 'KSh 475,000,000',
+        address: 'Riverside Drive',
+        cityStateZip: 'Nairobi, Kenya',
         beds: 7,
         baths: 12,
         halfBaths: 3,
-        sqft: '14,395',
+        sqft: '1,337 SQM',
         images: [
             'https://res.cloudinary.com/dk92v0fkk/image/upload/v1727313545/staging/if0tunyrf2dsgrf6eeec.webp',
             'https://res.cloudinary.com/dk92v0fkk/image/upload/v1727313622/staging/fsevbcxzzll7gegyk6ml.webp',
@@ -21,13 +21,13 @@ const MOCK_LISTINGS = [
     },
     {
         id: 2,
-        price: '$1,750,000',
-        address: '16 Island Ave 6E',
-        cityStateZip: 'Miami Beach, FL',
+        price: 'KSh 17,500,000',
+        address: 'Kilimani Estate',
+        cityStateZip: 'Nairobi, Kenya',
         beds: 1,
         baths: 1,
         halfBaths: 1,
-        sqft: '1,085',
+        sqft: '101 SQM',
         images: [
             'https://res.cloudinary.com/dk92v0fkk/image/upload/v1738661172/production/htebpzevs038je1q7upw.jpg',
             'https://res.cloudinary.com/dk92v0fkk/image/upload/v1738658928/production/dn5vu5ygsufsrvju51nb.jpg',
@@ -36,13 +36,13 @@ const MOCK_LISTINGS = [
     },
     {
         id: 3,
-        price: '$139,000',
-        address: '1004 Pennsylvania Ave 18',
-        cityStateZip: 'Miami Beach, FL',
+        price: 'KSh 1,390,000',
+        address: 'Ngong Road',
+        cityStateZip: 'Nairobi, Kenya',
         beds: 1,
         baths: 1,
         halfBaths: 0,
-        sqft: '850',
+        sqft: '79 SQM',
         images: [
             'https://res.cloudinary.com/dk92v0fkk/image/upload/v1720625904/staging/sqpw1fppqlcf6cokh69b.webp',
             'https://res.cloudinary.com/dk92v0fkk/image/upload/v1727313673/staging/gbbwcg4rcys9vbtduwiu.webp'
@@ -50,13 +50,13 @@ const MOCK_LISTINGS = [
     },
     {
         id: 4,
-        price: '$3,495,000',
-        address: '400 N Flagler Dr 1206',
-        cityStateZip: 'West Palm Beach, FL',
+        price: 'KSh 34,950,000',
+        address: 'Lavington Gardens',
+        cityStateZip: 'Nairobi, Kenya',
         beds: 3,
         baths: 2,
         halfBaths: 1,
-        sqft: '2,251',
+        sqft: '209 SQM',
         images: [
             'https://res.cloudinary.com/dk92v0fkk/image/upload/v1739296414/production/nauvsrs45yyj7cu5vqli.jpg',
             'https://res.cloudinary.com/dk92v0fkk/image/upload/v1727313545/staging/if0tunyrf2dsgrf6eeec.webp'
@@ -64,26 +64,26 @@ const MOCK_LISTINGS = [
     },
     {
         id: 5,
-        price: '$2,700,000',
-        address: '68 Three Mi Hbr Hog Crk Hwy',
-        cityStateZip: 'East Hampton, NY',
+        price: 'KSh 27,000,000',
+        address: 'Karen Estate',
+        cityStateZip: 'Nairobi, Kenya',
         beds: 4,
         baths: 3,
         halfBaths: 1,
-        sqft: '2,800',
+        sqft: '260 SQM',
         images: [
             'https://res.cloudinary.com/dk92v0fkk/image/upload/v1738658928/production/dn5vu5ygsufsrvju51nb.jpg'
         ]
     },
     {
         id: 6,
-        price: '$1,796,000',
-        address: '700 Lakeside Cir',
-        cityStateZip: 'North Palm Beach, FL',
+        price: 'KSh 17,960,000',
+        address: 'Westlands Business Park',
+        cityStateZip: 'Nairobi, Kenya',
         beds: 3,
         baths: 2,
         halfBaths: 0,
-        sqft: '1,941',
+        sqft: '180 SQM',
         images: [
             'https://res.cloudinary.com/dk92v0fkk/image/upload/v1732501450/staging-test/vrvgksmitdbeff170j1y.jpg'
         ]
@@ -99,7 +99,7 @@ export default function ExclusivesGrid() {
                 <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-8">
                     <div>
                         <h1 className="text-2xl font-sans font-light mb-1">
-                            Luxury listings for sale in United States of America
+                            Luxury listings for sale in Kenya
                         </h1>
                         <p className="text-xs text-gray-400 font-bold tracking-widest uppercase">
                             18 of 3,122 Homes
