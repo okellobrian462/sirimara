@@ -47,15 +47,15 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
     const data = {
         address: property.address || "Address Unavailable",
         location: `${property.city || ''}, ${property.state || ''} ${property.zip_code || ''}`.trim().toUpperCase(),
-        price: property.price ? `$${property.price.toLocaleString()}` : "Price Upon Request",
+        price: property.price ? `KSh ${property.price.toLocaleString()}` : "Price Upon Request",
         beds: property.bedrooms ? `${property.bedrooms} BR` : "",
         baths: property.bathrooms ? `${property.bathrooms} BA${property.half_baths ? `, ${property.half_baths} HALF BA` : ''}` : "",
-        sqft: property.sqft ? `Approx. ${property.sqft.toLocaleString()} SF` : '',
+        sqft: property.sqft ? `Approx. ${property.sqft.toLocaleString()} SQM` : '',
         images: property.images || [],
         agent: {
             name: agent ? `${agent.first_name} ${agent.last_name}` : 'Sirimara Agent',
             image: agent?.photo_url || 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=256&q=80',
-            phone: agent?.phone || '212.891.7000',
+            phone: agent?.phone || '+254 700 000000',
             title: agent?.title || 'Licensed Real Estate Salesperson'
         }
     };
@@ -117,15 +117,7 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
                     </div>
                     <div className="w-full h-[1px] bg-gray-200"></div>
 
-                    {/* Exclusive Badge */}
-                    <div className="flex justify-center items-center gap-3 mt-12 opacity-60">
-                        <div className="w-4 h-4 rounded-full border border-brand-dark flex items-center justify-center text-[10px] font-bold">
-                            SM
-                        </div>
-                        <span className="text-[10px] tracking-[0.2em] font-semibold uppercase text-brand-dark">
-                            Sirimara Exclusive
-                        </span>
-                    </div>
+
                 </div>
             </section>
 

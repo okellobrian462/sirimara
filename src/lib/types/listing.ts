@@ -21,13 +21,20 @@ export interface Listing {
 }
 
 export interface FilterState {
-    goal: "rental" | "sale";
+    goal: "rental" | "sale" | "sold";
     priceMin: number | null;
     priceMax: number | null;
     beds: number | null;
     baths: number | null;
     propertyTypes: string[];
     location: string;
+    features: string[];
+    parkingMin: number | null;
+    parkingMax: number | null;
+    sqftMin: number | null;
+    sqftMax: number | null;
+    yearBuiltMin: number | null;
+    yearBuiltMax: number | null;
 }
 
 export interface MapBounds {

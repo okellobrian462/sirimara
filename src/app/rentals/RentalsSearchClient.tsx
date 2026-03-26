@@ -18,6 +18,8 @@ interface RentalsSearchClientProps {
         background_color?: string | null;
         text_color?: string | null;
     };
+    propertyTypes: { id: string; name: string; slug: string }[];
+    features: { id: string; name: string; category: string }[];
 }
 
 export default function RentalsSearchClient({
@@ -25,6 +27,8 @@ export default function RentalsSearchClient({
     googleMapsApiKey,
     hideHero = false,
     heroData,
+    propertyTypes,
+    features,
 }: RentalsSearchClientProps) {
     const [filters, setFilters] = useState<FilterState>({
         goal: "rental",
@@ -33,7 +37,14 @@ export default function RentalsSearchClient({
         beds: null,
         baths: null,
         propertyTypes: [],
-        location: "New York City",
+        location: "Nairobi",
+        features: [],
+        parkingMin: null,
+        parkingMax: null,
+        sqftMin: null,
+        sqftMax: null,
+        yearBuiltMin: null,
+        yearBuiltMax: null,
     });
 
     const router = useRouter();
@@ -61,6 +72,16 @@ export default function RentalsSearchClient({
         // Bed/Bath check
         if (filters.beds && listing.beds < filters.beds) return false;
         if (filters.baths && listing.baths < filters.baths) return false;
+
+        // Property Type check
+        if (filters.propertyTypes.length > 0) {
+            // Note: This would need property type data in the listing
+            // For now, skipping as listings don't have type_id yet
+        }
+
+        // Square Feet check
+        if (filters.sqftMin && (listing.sqft === null || listing.sqft < filters.sqftMin)) return false;
+        if (filters.sqftMax && (listing.sqft === null || listing.sqft > filters.sqftMax)) return false;
 
         return true;
     });
@@ -120,6 +141,8 @@ export default function RentalsSearchClient({
                                 onFilterChange={setFilters}
                                 totalResults={listings.length}
                                 filteredResults={filteredListings.length}
+                                propertyTypes={propertyTypes}
+                                features={features}
                             />
                         </div>
                     </div>
@@ -144,7 +167,7 @@ export default function RentalsSearchClient({
                                 Featured Image: Default
                             </div>
                             <div className="flex items-center gap-2 cursor-pointer">
-                                Sort By: Sirimara Exclusives
+                                Sort By: Featured
                             </div>
                         </div>
                     </div>

@@ -27,6 +27,7 @@ const PAGES = [
     { id: 'about', name: 'About Us', icon: FileText, path: '/about' },
     { id: 'sell', name: 'Sell', icon: ShoppingBag, path: '/sell' },
     { id: 'agents', name: 'Agents', icon: Users, path: '/agents' },
+    { id: 'property-management', name: 'Property Management', icon: Building2, path: '/property-management' },
     { id: 'leadership', name: 'Leadership', icon: Award, path: '/leadership' },
     { id: 'new-development', name: 'New Development', icon: Building2, path: '/new-development' },
     { id: 'world-of-sirimara', name: 'World of Sirimara', icon: Globe, path: '/world-of-sirimara' },

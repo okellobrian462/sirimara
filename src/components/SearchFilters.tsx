@@ -4,12 +4,15 @@ import { useState, useRef, useEffect } from "react";
 import { ChevronDown, SlidersHorizontal, Check } from "lucide-react";
 import { useRouter } from "next/navigation";
 import type { FilterState } from "@/lib/types/listing";
+import AllFiltersModal from "./AllFiltersModal";
 
 interface SearchFiltersProps {
     filters: FilterState;
     onFilterChange: (filters: FilterState) => void;
     totalResults: number;
     filteredResults: number;
+    propertyTypes?: { id: string; name: string; slug: string }[];
+    features?: { id: string; name: string; category: string }[];
 }
 
 export default function SearchFilters({
@@ -17,9 +20,12 @@ export default function SearchFilters({
     onFilterChange,
     totalResults,
     filteredResults,
+    propertyTypes = [],
+    features = [],
 }: SearchFiltersProps) {
     const router = useRouter();
     const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const filtersRef = useRef<HTMLDivElement>(null);
 
     // Close dropdowns when clicking outside
@@ -37,9 +43,10 @@ export default function SearchFilters({
         setActiveDropdown(activeDropdown === name ? null : name);
     };
 
-    const handleGoalChange = (newGoal: "sale" | "rental") => {
+    const handleGoalChange = (newGoal: "sale" | "rental" | "sold") => {
         if (newGoal === "sale") router.push("/sales");
-        else router.push("/rentals");
+        else if (newGoal === "rental") router.push("/rentals");
+        else router.push("/sold");
         setActiveDropdown(null);
     };
 
@@ -189,11 +196,26 @@ export default function SearchFilters({
                 </button>
 
                 {/* All Filters Button */}
-                <button className="flex items-center gap-2 px-8 py-3 border border-gray-300 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase text-brand-dark hover:bg-gray-50 transition-colors ml-4">
+                <button
+                    onClick={() => setIsModalOpen(true)}
+                    className="flex items-center gap-2 px-8 py-3 border border-gray-300 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase text-brand-dark hover:bg-gray-50 transition-colors ml-4"
+                >
                     All Filters
                     <SlidersHorizontal className="w-3 h-3" />
                 </button>
             </div>
+
+            {/* All Filters Modal */}
+            <AllFiltersModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                filters={filters}
+                onFilterChange={onFilterChange}
+                filteredCount={filteredResults}
+                totalCount={totalResults}
+                propertyTypes={propertyTypes}
+                features={features}
+            />
         </div>
     );
 }

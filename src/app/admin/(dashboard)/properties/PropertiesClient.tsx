@@ -20,16 +20,24 @@ interface Property {
     status: string;
     is_featured: boolean;
     category: string | null;
+    category_id: string | null;
     images: string[];
+}
+
+interface Category {
+    id: string;
+    name: string;
+    slug: string;
 }
 
 interface PropertiesClientProps {
     properties: Property[];
+    categories: Category[];
 }
 
 const ITEMS_PER_PAGE = 15;
 
-export default function PropertiesClient({ properties }: PropertiesClientProps) {
+export default function PropertiesClient({ properties, categories }: PropertiesClientProps) {
     const [searchQuery, setSearchQuery] = useState('');
     const [statusFilter, setStatusFilter] = useState('');
     const [categoryFilter, setCategoryFilter] = useState('');
@@ -48,7 +56,7 @@ export default function PropertiesClient({ properties }: PropertiesClientProps) 
                 (property.address && property.address.toLowerCase().includes(searchQuery.toLowerCase()));
 
             const matchesStatus = statusFilter === '' || property.status === statusFilter;
-            const matchesCategory = categoryFilter === '' || property.category === categoryFilter;
+            const matchesCategory = categoryFilter === '' || property.category_id === categoryFilter;
 
             return matchesSearch && matchesStatus && matchesCategory;
         });
@@ -136,10 +144,9 @@ export default function PropertiesClient({ properties }: PropertiesClientProps) 
                     className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent bg-white"
                 >
                     <option value="">All Categories</option>
-                    <option value="city-skylines">City Skylines</option>
-                    <option value="water-views">Water Views</option>
-                    <option value="farm-ranch">Farm & Ranch</option>
-                    <option value="just-listed">Just Listed</option>
+                    {categories.map(cat => (
+                        <option key={cat.id} value={cat.id}>{cat.name}</option>
+                    ))}
                 </select>
             </div>
 
@@ -208,7 +215,7 @@ export default function PropertiesClient({ properties }: PropertiesClientProps) 
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="text-sm font-semibold text-gray-900">
-                                            ${property.price.toLocaleString()}
+                                            KSh {property.price.toLocaleString()}
                                         </div>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">

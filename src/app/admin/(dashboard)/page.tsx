@@ -146,7 +146,7 @@ export default async function AdminDashboard() {
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="text-sm text-gray-900 font-medium">
-                                            ${property.price.toLocaleString()}
+                                            KSh {property.price.toLocaleString()}
                                         </div>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">

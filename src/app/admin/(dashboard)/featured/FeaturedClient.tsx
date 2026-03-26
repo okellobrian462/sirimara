@@ -196,7 +196,7 @@ export default function FeaturedClient({ initialFeatured }: FeaturedClientProps)
                                     </p>
                                 </div>
                                 <div className="text-sm font-semibold text-gray-900">
-                                    ${item.property.price?.toLocaleString()}
+                                    KSh {item.property.price?.toLocaleString()}
                                 </div>
                                 <button
                                     onClick={() => handleRemove(item.id)}
@@ -272,7 +272,7 @@ export default function FeaturedClient({ initialFeatured }: FeaturedClientProps)
                                                     {property.title}
                                                 </h3>
                                                 <p className="text-xs text-gray-500 truncate">
-                                                    {property.city} • ${property.price?.toLocaleString()}
+                                                    {property.city} • KSh {property.price?.toLocaleString()}
                                                 </p>
                                             </div>
                                             <Plus className="w-4 h-4 text-gray-300 group-hover:text-orange-600" />

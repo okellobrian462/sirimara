@@ -143,7 +143,7 @@ export default function ListingCard({
                     <span>
                         {listing.baths} BA{listing.halfBaths > 0 ? `, ${listing.halfBaths} HALF BA` : ""}
                     </span>
-                    {listing.sqft && <span>{listing.sqft.toLocaleString()} SF</span>}
+                    {listing.sqft && <span>{listing.sqft.toLocaleString()} SQM</span>}
                 </div>
 
                 <div className="flex items-center justify-between border-t border-gray-100 pt-4">

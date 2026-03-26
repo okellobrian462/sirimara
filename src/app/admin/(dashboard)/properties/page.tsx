@@ -17,8 +17,25 @@ async function getProperties() {
     return properties || [];
 }
 
-export default async function PropertiesPage() {
-    const properties = await getProperties();
+async function getCategories() {
+    const supabase = await createClient();
 
-    return <PropertiesClient properties={properties} />;
+    const { data: categories, error } = await supabase
+        .from('property_categories')
+        .select('id, name, slug')
+        .eq('is_active', true)
+        .order('order_index', { ascending: true });
+
+    if (error) {
+        console.error('Error fetching categories:', error);
+        return [];
+    }
+
+    return categories || [];
+}
+
+export default async function PropertiesPage() {
+    const [properties, categories] = await Promise.all([getProperties(), getCategories()]);
+
+    return <PropertiesClient properties={properties} categories={categories} />;
 }

@@ -1,26 +1,38 @@
 'use client';
 
-import { useState, useEffect, use } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
+import { ArrowLeft, Upload, X, Plus } from 'lucide-react';
 import Link from 'next/link';
 import ImageUpload from '@/components/admin/ImageUpload';
-import { ArrowLeft, Upload, X, Plus } from 'lucide-react';
 
-interface EditPropertyPageProps {
-    params: Promise<{
-        id: string;
-    }>;
+interface TaxonomyOption {
+    id: string;
+    name: string;
+    slug: string;
 }
 
-export default function EditPropertyPage({ params }: EditPropertyPageProps) {
-    const { id } = use(params);
+interface PropertyFeature {
+    id: string;
+    name: string;
+    category: string;
+}
+
+export default function NewPropertyPage() {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
-    const [fetching, setFetching] = useState(true);
     const [error, setError] = useState('');
     const [images, setImages] = useState<string[]>([]);
     const [imageInput, setImageInput] = useState('');
+
+    // Taxonomy data from DB
+    const [categories, setCategories] = useState<TaxonomyOption[]>([]);
+    const [propertyTypes, setPropertyTypes] = useState<TaxonomyOption[]>([]);
+    const [contractTypes, setContractTypes] = useState<TaxonomyOption[]>([]);
+    const [features, setFeatures] = useState<PropertyFeature[]>([]);
+    const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
+    const [taxonomyLoading, setTaxonomyLoading] = useState(true);
 
     const [formData, setFormData] = useState({
         title: '',
@@ -44,78 +56,27 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
         is_featured: false,
     });
 
-    // Taxonomy state
-    const [categories, setCategories] = useState<{id: string; name: string}[]>([]);
-    const [propertyTypes, setPropertyTypes] = useState<{id: string; name: string}[]>([]);
-    const [contractTypes, setContractTypes] = useState<{id: string; name: string}[]>([]);
-    const [features, setFeatures] = useState<{id: string; name: string; category: string}[]>([]);
-    const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
-
+    // Fetch taxonomy data on mount
     useEffect(() => {
-        async function fetchData() {
-            try {
-                const supabase = createClient();
-                
-                // Fetch property
-                const { data, error } = await supabase
-                    .from('properties')
-                    .select(`*, property_feature_links(feature_id)`)
-                    .eq('id', id)
-                    .single();
+        async function fetchTaxonomy() {
+            const supabase = createClient();
+            
+            const [{ data: cats }, { data: types }, { data: contracts }, { data: feats }] = await Promise.all([
+                supabase.from('property_categories').select('id, name, slug').eq('is_active', true).order('order_index'),
+                supabase.from('property_types').select('id, name, slug').eq('is_active', true).order('order_index'),
+                supabase.from('property_contract_types').select('id, name, slug').eq('is_active', true).order('order_index'),
+                supabase.from('property_features').select('id, name, category').eq('is_active', true).order('category').order('name'),
+            ]);
 
-                if (error) throw error;
-
-                // Fetch taxonomy options
-                const [{ data: cats }, { data: types }, { data: contracts }, { data: feats }] = await Promise.all([
-                    supabase.from('property_categories').select('id, name').eq('is_active', true).order('order_index'),
-                    supabase.from('property_types').select('id, name').eq('is_active', true).order('order_index'),
-                    supabase.from('property_contract_types').select('id, name').eq('is_active', true).order('order_index'),
-                    supabase.from('property_features').select('id, name, category').eq('is_active', true).order('category').order('name'),
-                ]);
-
-                if (cats) setCategories(cats);
-                if (types) setPropertyTypes(types);
-                if (contracts) setContractTypes(contracts);
-                if (feats) setFeatures(feats);
-
-                if (data) {
-                    setFormData({
-                        title: data.title || '',
-                        slug: data.slug || '',
-                        city: data.city || '',
-                        address: data.address || '',
-                        state: data.state || '',
-                        zip_code: data.zip_code || '',
-                        bedrooms: data.bedrooms?.toString() || '',
-                        bathrooms: data.bathrooms?.toString() || '',
-                        half_baths: data.half_baths?.toString() || '0',
-                        price: data.price?.toString() || '',
-                        description: data.description || '',
-                        property_type_id: data.type_id || '',
-                        status: data.status || 'active',
-                        square_feet: data.square_feet?.toString() || '',
-                        lot_size: data.lot_size?.toString() || '',
-                        year_built: data.year_built?.toString() || '',
-                        category_id: data.category_id || '',
-                        contract_type_id: data.contract_type_id || '',
-                        is_featured: data.is_featured || false,
-                    });
-                    setImages(data.images || []);
-                    
-                    // Set selected features from property_feature_links
-                    const linkedFeatures = data.property_feature_links?.map((link: {feature_id: string}) => link.feature_id) || [];
-                    setSelectedFeatures(linkedFeatures);
-                }
-            } catch (err: unknown) {
-                const errorMessage = err instanceof Error ? err.message : 'Failed to fetch property';
-                setError(errorMessage);
-            } finally {
-                setFetching(false);
-            }
+            if (cats) setCategories(cats);
+            if (types) setPropertyTypes(types);
+            if (contracts) setContractTypes(contracts);
+            if (feats) setFeatures(feats);
+            setTaxonomyLoading(false);
         }
 
-        fetchData();
-    }, [id]);
+        fetchTaxonomy();
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value, type } = e.target;
@@ -125,6 +86,15 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
             setFormData(prev => ({ ...prev, [name]: checked }));
         } else {
             setFormData(prev => ({ ...prev, [name]: value }));
+
+            // Auto-generate slug from title
+            if (name === 'title' && !formData.slug) {
+                const slug = value
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]+/g, '-')
+                    .replace(/^-|-$/g, '');
+                setFormData(prev => ({ ...prev, slug }));
+            }
         }
     };
 
@@ -137,14 +107,6 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
 
     const handleRemoveImage = (index: number) => {
         setImages(prev => prev.filter((_, i) => i !== index));
-    };
-
-    const toggleFeature = (featureId: string) => {
-        setSelectedFeatures(prev => 
-            prev.includes(featureId) 
-                ? prev.filter(id => id !== featureId)
-                : [...prev, featureId]
-        );
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -167,43 +129,34 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
                 images,
             };
 
-            const { error: updateError } = await supabase
+            // Insert property
+            const { data: newProperty, error: insertError } = await supabase
                 .from('properties')
-                .update(propertyData)
-                .eq('id', id);
+                .insert([propertyData])
+                .select()
+                .single();
 
-            if (updateError) throw updateError;
+            if (insertError) throw insertError;
 
-            // Update feature links - delete existing and insert new
-            await supabase.from('property_feature_links').delete().eq('property_id', id);
-            
-            if (selectedFeatures.length > 0) {
+            // Insert feature links if property created and features selected
+            if (newProperty && selectedFeatures.length > 0) {
                 const featureLinks = selectedFeatures.map(featureId => ({
-                    property_id: id,
+                    property_id: newProperty.id,
                     feature_id: featureId,
                 }));
+                
                 await supabase.from('property_feature_links').insert(featureLinks);
             }
 
             router.push('/admin/properties');
             router.refresh();
         } catch (err: unknown) {
-            const errorMessage = err instanceof Error ? err.message : 'Failed to update property';
+            const errorMessage = err instanceof Error ? err.message : 'Failed to create property';
             setError(errorMessage);
         } finally {
             setLoading(false);
         }
     };
-
-    if (fetching) {
-        return (
-            <div className="p-8">
-                <div className="flex items-center justify-center py-12">
-                    <div className="text-gray-500">Loading property...</div>
-                </div>
-            </div>
-        );
-    }
 
     return (
         <div className="p-8">
@@ -211,16 +164,16 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
             <div className="mb-8">
                 <Link
                     href="/admin/properties"
-                    className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4 text-sm"
+                    className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"
                 >
                     <ArrowLeft className="w-4 h-4" />
                     Back to Properties
                 </Link>
                 <h1 className="text-3xl font-light tracking-[0.15em] text-gray-900 mb-2">
-                    EDIT PROPERTY
+                    ADD NEW PROPERTY
                 </h1>
                 <p className="text-gray-500">
-                    Update property listing details
+                    Create a new property listing
                 </p>
             </div>
 
@@ -247,6 +200,7 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
                                 onChange={handleChange}
                                 required
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                                placeholder="Luxury Penthouse with City Views"
                             />
                         </div>
 
@@ -261,7 +215,11 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
                                 onChange={handleChange}
                                 required
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                                placeholder="luxury-penthouse-city-views"
                             />
+                            <p className="mt-1 text-sm text-gray-500">
+                                URL-friendly version of the title
+                            </p>
                         </div>
 
                         <div>
@@ -275,6 +233,7 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
                                 onChange={handleChange}
                                 required
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                                placeholder="New York"
                             />
                         </div>
 
@@ -288,6 +247,7 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
                                 value={formData.address}
                                 onChange={handleChange}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                                placeholder="123 Main Street"
                             />
                         </div>
 
@@ -301,6 +261,7 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
                                 value={formData.state}
                                 onChange={handleChange}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                                placeholder="NY"
                             />
                         </div>
 
@@ -314,6 +275,7 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
                                 value={formData.zip_code}
                                 onChange={handleChange}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                                placeholder="10001"
                             />
                         </div>
                     </div>
@@ -378,6 +340,7 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
                                 required
                                 min="0"
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                                placeholder="1000000"
                             />
                         </div>
 
@@ -454,7 +417,7 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
                                 onChange={handleChange}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white"
                             >
-                                <option value="">Select contract</option>
+                                <option value="">Select contract type</option>
                                 {contractTypes.map(ct => (
                                     <option key={ct.id} value={ct.id}>{ct.name}</option>
                                 ))}
@@ -505,43 +468,14 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
                             onChange={handleChange}
                             rows={4}
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                            placeholder="Describe the property..."
                         />
                     </div>
-                </div>
-
-                {/* Features Section */}
-                {features.length > 0 && (
-                    <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6 shadow-sm">
-                        <h2 className="text-lg font-medium text-gray-900 mb-4">Features & Amenities</h2>
-                        {Object.entries(features.reduce((acc, feature) => {
-                            const cat = feature.category || 'general';
-                            if (!acc[cat]) acc[cat] = [];
-                            acc[cat].push(feature);
-                            return acc;
-                        }, {} as Record<string, typeof features>)).map(([category, categoryFeatures]) => (
-                            <div key={category} className="mb-4">
-                                <h3 className="text-sm font-medium text-gray-600 uppercase mb-2">{category}</h3>
-                                <div className="flex flex-wrap gap-2">
-                                    {categoryFeatures.map(feature => (
-                                        <button
-                                            key={feature.id}
-                                            type="button"
-                                            onClick={() => toggleFeature(feature.id)}
-                                            className={`px-3 py-1.5 rounded-full text-sm transition-colors ${
-                                                selectedFeatures.includes(feature.id)
-                                                    ? 'bg-orange-100 text-orange-700 border-2 border-orange-300'
-                                                    : 'bg-gray-100 text-gray-600 border-2 border-gray-200 hover:bg-gray-200'
-                                            }`}
-                                        >
-                                            {selectedFeatures.includes(feature.id) ? '✓ ' : ''}
-                                            {feature.name}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        ))}
+                                Featured Property
+                            </span>
+                        </label>
                     </div>
-                )}
+                </div>
 
                 <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6 shadow-sm">
                     <h2 className="text-lg font-medium text-gray-900 mb-6">Images</h2>
@@ -611,7 +545,7 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
                         disabled={loading}
                         className="px-6 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
                     >
-                        {loading ? 'Saving...' : 'Save Changes'}
+                        {loading ? 'Creating...' : 'Create Property'}
                     </button>
                     <Link
                         href="/admin/properties"
@@ -623,4 +557,5 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
             </form>
         </div>
     );
+
 }

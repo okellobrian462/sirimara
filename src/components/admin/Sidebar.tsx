@@ -12,18 +12,17 @@ import {
     ChevronLeft,
     ChevronRight,
     Image,
-    // FileText, // Removed - unused
     BarChart3,
     Monitor,
     Sliders,
-    Home, // Added for Properties icon
-    // TrendingUp, // Removed - unused
-    FileImage, // Added for Media Library icon
-    Menu, // Added for Navigation icon
-    Layers, // Added for Pages icon
-    Palette, // Added for Theme icon
-    BarChart2, // Added for Statistics icon
-    Newspaper // Added for Newsletters icon
+    Home,
+    FileImage,
+    Menu,
+    Layers,
+    Palette,
+    BarChart2,
+    Newspaper,
+    Tag // Added for Property Taxonomy icon
 } from 'lucide-react';
 import { useState } from 'react';
 import { useSiteConfig } from '@/context/SiteConfigContext';
@@ -34,6 +33,7 @@ const navigation = [
     { name: 'Pages', href: '/admin/pages', icon: Layers },
     { name: 'Newsletters', href: '/admin/newsletters', icon: Newspaper },
     { name: 'Properties', href: '/admin/properties', icon: Home },
+    { name: 'Property Taxonomy', href: '/admin/property-taxonomy', icon: Tag },
     { name: 'Featured', href: '/admin/featured', icon: Star },
     { name: 'Agents', href: '/admin/agents', icon: Users },
     { name: 'Media Library', href: '/admin/media', icon: FileImage },

@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict HAXtn9yGx5TGVT51B9D6sceIKF5VzBauxLfW8mrTeD7RLo2KMk37gMSNqWzmH3g
+\restrict N0gZUEU8d02k8U5KQVlmeSSljqZW6jRLDsk9rOPNa0nCzlbAGOb2WNMIQmkkBSa
 
 -- Dumped from database version 17.6
 -- Dumped by pg_dump version 18.3
@@ -4203,22 +4203,11 @@ COPY "auth"."instances" ("id", "uuid", "raw_base_config", "created_at", "updated
 --
 
 COPY "auth"."mfa_amr_claims" ("session_id", "created_at", "updated_at", "authentication_method", "id") FROM stdin;
-c50918a2-ad16-4654-af56-9b8f25130038	2026-02-11 06:56:48.968614+00	2026-02-11 06:56:48.968614+00	password	81ed2326-c5a5-4d62-a69c-d469341f4156
-92874bb7-6a19-4ee0-b055-0a2fc0d20ce0	2026-02-11 07:00:01.510715+00	2026-02-11 07:00:01.510715+00	password	04d694da-de17-45e6-b23b-ec87282f3425
-763c7f13-6216-4c37-99e9-739abf1cdf39	2026-02-11 10:44:14.247942+00	2026-02-11 10:44:14.247942+00	password	3227290b-a341-4bbb-bfc3-e7e116827e9f
-6b49c2c9-3303-432d-bedc-6b2c54638e6d	2026-02-12 14:16:41.629092+00	2026-02-12 14:16:41.629092+00	password	2f11d352-6786-43b5-a87e-c91db0af8498
-34808930-2a8d-4c31-8d78-86808bfe42da	2026-02-13 05:44:35.514573+00	2026-02-13 05:44:35.514573+00	password	3ee4c1c1-49dc-4bac-bd63-4272be256432
-2e3cd4e2-6152-4c2e-b24e-0b4644064cf9	2026-02-13 05:44:42.769572+00	2026-02-13 05:44:42.769572+00	password	59c00507-5846-46a3-a27c-ca20d8992a38
-99042183-54e5-4224-90f0-d8bcea6ddc18	2026-02-13 05:44:47.473118+00	2026-02-13 05:44:47.473118+00	password	af05497c-e6e2-42cc-bc40-30a044ee6968
-e52a6d77-c996-499f-a292-4a640c250664	2026-02-13 05:44:50.306633+00	2026-02-13 05:44:50.306633+00	password	4e2d2f99-cfa7-4304-af94-d7737ab41a78
-3f6ad363-92cf-4f2e-8923-53d3810e6d7b	2026-02-13 05:44:55.10088+00	2026-02-13 05:44:55.10088+00	password	c82924ae-f07e-4853-aeab-be8de8aa0f00
-190ed8f2-dd65-4078-a35d-49ce56622bda	2026-02-22 13:10:56.093525+00	2026-02-22 13:10:56.093525+00	password	31aba478-b82c-4cb5-ad38-2cb4a5956909
-a5348613-2268-4aab-b184-c75fd9b93f64	2026-03-02 09:07:21.874503+00	2026-03-02 09:07:21.874503+00	password	85efde0c-8045-4817-9063-b211842efe75
-ee448846-b594-439b-b78a-ea7f389cb5fc	2026-03-17 09:41:45.025857+00	2026-03-17 09:41:45.025857+00	password	273d3233-014b-4ae4-8c9d-dd95d9d72e08
-beb4528c-d637-4da2-aeda-b567611cb0b4	2026-03-18 05:39:46.465531+00	2026-03-18 05:39:46.465531+00	password	94eeaa30-e41b-46c4-bfb9-e8fae6fe96ec
-f62f180a-f165-4d2a-a707-d07ff471ef02	2026-03-18 05:40:32.182059+00	2026-03-18 05:40:32.182059+00	password	19219759-e4da-47b6-bcaa-e0581b4f07b5
-501efbf6-7ccc-4757-97ee-f4074e9e6a78	2026-03-21 00:01:44.496244+00	2026-03-21 00:01:44.496244+00	password	c51da423-c40e-43bb-b18a-e2c5075a6fac
-9facd5b7-ef31-43ad-9198-c34b5d226874	2026-03-21 01:48:44.216242+00	2026-03-21 01:48:44.216242+00	password	c734682c-d9a2-4e79-8bca-e9d730fef493
+85804b57-30ac-45b9-beb8-df57d81f5c46	2026-03-22 07:09:01.487329+00	2026-03-22 07:09:01.487329+00	password	339ce7eb-3757-49dc-b33c-10d07e8275a3
+e333f3c7-7f67-4ab3-a653-199157a8d546	2026-03-25 09:33:28.763823+00	2026-03-25 09:33:28.763823+00	password	c3385da4-386e-4d4a-957f-fc44e8b91482
+ff065f2f-5471-4ba5-9c6a-b6b1ff0811a8	2026-03-26 06:38:40.187931+00	2026-03-26 06:38:40.187931+00	password	68ef443c-7eac-4d06-bfbb-03401493bab9
+915bc0db-2037-4757-8822-1d74be743fb0	2026-03-26 06:38:48.503072+00	2026-03-26 06:38:48.503072+00	password	7f67d235-56eb-4b16-ac61-b9e986de7860
+3225e678-522b-41fd-a079-7eee283c9115	2026-03-26 08:11:46.15225+00	2026-03-26 08:11:46.15225+00	password	9ddf3a05-0d16-49c8-b34a-d91d218d54a2
 \.
 
 
@@ -4283,32 +4272,13 @@ COPY "auth"."one_time_tokens" ("id", "user_id", "token_type", "token_hash", "rel
 --
 
 COPY "auth"."refresh_tokens" ("instance_id", "id", "token", "user_id", "revoked", "created_at", "updated_at", "parent", "session_id") FROM stdin;
-00000000-0000-0000-0000-000000000000	97	chbxzciow46g	742c31bf-d94b-45d2-906a-8de86a6d8954	t	2026-02-11 07:00:01.467198+00	2026-02-11 11:22:21.923093+00	\N	92874bb7-6a19-4ee0-b055-0a2fc0d20ce0
-00000000-0000-0000-0000-000000000000	99	uckpwgsycog5	742c31bf-d94b-45d2-906a-8de86a6d8954	t	2026-02-11 10:44:14.226549+00	2026-02-11 11:54:33.698491+00	\N	763c7f13-6216-4c37-99e9-739abf1cdf39
-00000000-0000-0000-0000-000000000000	101	23vcfwngge6g	742c31bf-d94b-45d2-906a-8de86a6d8954	f	2026-02-11 11:54:33.716044+00	2026-02-11 11:54:33.716044+00	uckpwgsycog5	763c7f13-6216-4c37-99e9-739abf1cdf39
-00000000-0000-0000-0000-000000000000	102	3bsuzsckx4qc	742c31bf-d94b-45d2-906a-8de86a6d8954	t	2026-02-12 14:16:41.585596+00	2026-02-12 15:47:11.292326+00	\N	6b49c2c9-3303-432d-bedc-6b2c54638e6d
-00000000-0000-0000-0000-000000000000	103	ewkbf2awaliz	742c31bf-d94b-45d2-906a-8de86a6d8954	f	2026-02-12 15:47:11.315844+00	2026-02-12 15:47:11.315844+00	3bsuzsckx4qc	6b49c2c9-3303-432d-bedc-6b2c54638e6d
-00000000-0000-0000-0000-000000000000	104	4wioe56tq7ax	742c31bf-d94b-45d2-906a-8de86a6d8954	f	2026-02-13 05:44:35.464464+00	2026-02-13 05:44:35.464464+00	\N	34808930-2a8d-4c31-8d78-86808bfe42da
-00000000-0000-0000-0000-000000000000	105	5c6po3rq4ymk	742c31bf-d94b-45d2-906a-8de86a6d8954	f	2026-02-13 05:44:42.765872+00	2026-02-13 05:44:42.765872+00	\N	2e3cd4e2-6152-4c2e-b24e-0b4644064cf9
-00000000-0000-0000-0000-000000000000	106	5dptnyi2zbrn	742c31bf-d94b-45d2-906a-8de86a6d8954	f	2026-02-13 05:44:47.471657+00	2026-02-13 05:44:47.471657+00	\N	99042183-54e5-4224-90f0-d8bcea6ddc18
-00000000-0000-0000-0000-000000000000	107	33kxiitzvqzd	742c31bf-d94b-45d2-906a-8de86a6d8954	f	2026-02-13 05:44:50.305279+00	2026-02-13 05:44:50.305279+00	\N	e52a6d77-c996-499f-a292-4a640c250664
-00000000-0000-0000-0000-000000000000	108	dyr4l7q6tzsm	742c31bf-d94b-45d2-906a-8de86a6d8954	t	2026-02-13 05:44:55.098312+00	2026-02-13 07:07:03.978633+00	\N	3f6ad363-92cf-4f2e-8923-53d3810e6d7b
-00000000-0000-0000-0000-000000000000	109	emkhwm6qzgfc	742c31bf-d94b-45d2-906a-8de86a6d8954	f	2026-02-13 07:07:04.006025+00	2026-02-13 07:07:04.006025+00	dyr4l7q6tzsm	3f6ad363-92cf-4f2e-8923-53d3810e6d7b
-00000000-0000-0000-0000-000000000000	96	4srxh4cvafb6	742c31bf-d94b-45d2-906a-8de86a6d8954	t	2026-02-11 06:56:48.940835+00	2026-02-13 19:33:09.085267+00	\N	c50918a2-ad16-4654-af56-9b8f25130038
-00000000-0000-0000-0000-000000000000	110	rlcvfcuxokus	742c31bf-d94b-45d2-906a-8de86a6d8954	f	2026-02-13 19:33:09.105116+00	2026-02-13 19:33:09.105116+00	4srxh4cvafb6	c50918a2-ad16-4654-af56-9b8f25130038
-00000000-0000-0000-0000-000000000000	100	4vueb3qq6hzr	742c31bf-d94b-45d2-906a-8de86a6d8954	t	2026-02-11 11:22:21.945328+00	2026-02-13 19:53:49.907234+00	chbxzciow46g	92874bb7-6a19-4ee0-b055-0a2fc0d20ce0
-00000000-0000-0000-0000-000000000000	111	krxem3e5g4lt	742c31bf-d94b-45d2-906a-8de86a6d8954	f	2026-02-13 19:53:49.929313+00	2026-02-13 19:53:49.929313+00	4vueb3qq6hzr	92874bb7-6a19-4ee0-b055-0a2fc0d20ce0
-00000000-0000-0000-0000-000000000000	112	jcfaey4zhcc5	742c31bf-d94b-45d2-906a-8de86a6d8954	t	2026-02-22 13:10:56.044905+00	2026-02-22 14:32:16.618409+00	\N	190ed8f2-dd65-4078-a35d-49ce56622bda
-00000000-0000-0000-0000-000000000000	113	7e5annc76uoh	742c31bf-d94b-45d2-906a-8de86a6d8954	f	2026-02-22 14:32:16.644355+00	2026-02-22 14:32:16.644355+00	jcfaey4zhcc5	190ed8f2-dd65-4078-a35d-49ce56622bda
-00000000-0000-0000-0000-000000000000	114	svzvytnevamq	742c31bf-d94b-45d2-906a-8de86a6d8954	t	2026-03-02 09:07:21.825666+00	2026-03-02 10:05:39.295297+00	\N	a5348613-2268-4aab-b184-c75fd9b93f64
-00000000-0000-0000-0000-000000000000	115	fnwwi4tqk6l4	742c31bf-d94b-45d2-906a-8de86a6d8954	f	2026-03-02 10:05:39.323845+00	2026-03-02 10:05:39.323845+00	svzvytnevamq	a5348613-2268-4aab-b184-c75fd9b93f64
-00000000-0000-0000-0000-000000000000	116	ibge7t5ukmod	742c31bf-d94b-45d2-906a-8de86a6d8954	f	2026-03-17 09:41:44.956797+00	2026-03-17 09:41:44.956797+00	\N	ee448846-b594-439b-b78a-ea7f389cb5fc
-00000000-0000-0000-0000-000000000000	118	y4zmjdxf24po	742c31bf-d94b-45d2-906a-8de86a6d8954	f	2026-03-18 05:40:32.178578+00	2026-03-18 05:40:32.178578+00	\N	f62f180a-f165-4d2a-a707-d07ff471ef02
-00000000-0000-0000-0000-000000000000	117	lfxwiff6cvxa	742c31bf-d94b-45d2-906a-8de86a6d8954	t	2026-03-18 05:39:46.432743+00	2026-03-20 22:52:17.052201+00	\N	beb4528c-d637-4da2-aeda-b567611cb0b4
-00000000-0000-0000-0000-000000000000	119	tjnccerds2n7	742c31bf-d94b-45d2-906a-8de86a6d8954	f	2026-03-20 22:52:17.063392+00	2026-03-20 22:52:17.063392+00	lfxwiff6cvxa	beb4528c-d637-4da2-aeda-b567611cb0b4
-00000000-0000-0000-0000-000000000000	120	exheq2ert27p	742c31bf-d94b-45d2-906a-8de86a6d8954	t	2026-03-21 00:01:44.471526+00	2026-03-21 01:07:16.727625+00	\N	501efbf6-7ccc-4757-97ee-f4074e9e6a78
-00000000-0000-0000-0000-000000000000	121	rnc5iss3qqj2	742c31bf-d94b-45d2-906a-8de86a6d8954	f	2026-03-21 01:07:16.73811+00	2026-03-21 01:07:16.73811+00	exheq2ert27p	501efbf6-7ccc-4757-97ee-f4074e9e6a78
-00000000-0000-0000-0000-000000000000	122	3tckjxkqdhaa	742c31bf-d94b-45d2-906a-8de86a6d8954	f	2026-03-21 01:48:44.185262+00	2026-03-21 01:48:44.185262+00	\N	9facd5b7-ef31-43ad-9198-c34b5d226874
+00000000-0000-0000-0000-000000000000	125	cq5vcpk2wfg3	742c31bf-d94b-45d2-906a-8de86a6d8954	f	2026-03-22 07:09:01.482219+00	2026-03-22 07:09:01.482219+00	\N	85804b57-30ac-45b9-beb8-df57d81f5c46
+00000000-0000-0000-0000-000000000000	126	u5phdaceo7m5	742c31bf-d94b-45d2-906a-8de86a6d8954	f	2026-03-25 09:33:28.718294+00	2026-03-25 09:33:28.718294+00	\N	e333f3c7-7f67-4ab3-a653-199157a8d546
+00000000-0000-0000-0000-000000000000	127	g6yoycizf4es	742c31bf-d94b-45d2-906a-8de86a6d8954	f	2026-03-26 06:38:40.141611+00	2026-03-26 06:38:40.141611+00	\N	ff065f2f-5471-4ba5-9c6a-b6b1ff0811a8
+00000000-0000-0000-0000-000000000000	128	5oi2csachbbc	742c31bf-d94b-45d2-906a-8de86a6d8954	t	2026-03-26 06:38:48.500569+00	2026-03-26 08:03:48.588983+00	\N	915bc0db-2037-4757-8822-1d74be743fb0
+00000000-0000-0000-0000-000000000000	130	jc6dyc7pcctu	742c31bf-d94b-45d2-906a-8de86a6d8954	f	2026-03-26 08:11:46.147268+00	2026-03-26 08:11:46.147268+00	\N	3225e678-522b-41fd-a079-7eee283c9115
+00000000-0000-0000-0000-000000000000	129	d2odpzxyf42f	742c31bf-d94b-45d2-906a-8de86a6d8954	t	2026-03-26 08:03:48.619233+00	2026-03-26 09:56:35.523862+00	5oi2csachbbc	915bc0db-2037-4757-8822-1d74be743fb0
+00000000-0000-0000-0000-000000000000	131	jzkngncoqd4n	742c31bf-d94b-45d2-906a-8de86a6d8954	f	2026-03-26 09:56:35.555337+00	2026-03-26 09:56:35.555337+00	d2odpzxyf42f	915bc0db-2037-4757-8822-1d74be743fb0
 \.
 
 
@@ -4417,22 +4387,11 @@ COPY "auth"."schema_migrations" ("version") FROM stdin;
 --
 
 COPY "auth"."sessions" ("id", "user_id", "created_at", "updated_at", "factor_id", "aal", "not_after", "refreshed_at", "user_agent", "ip", "tag", "oauth_client_id", "refresh_token_hmac_key", "refresh_token_counter", "scopes") FROM stdin;
-beb4528c-d637-4da2-aeda-b567611cb0b4	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-03-18 05:39:46.387875+00	2026-03-20 22:52:17.565109+00	\N	aal1	\N	2026-03-20 22:52:17.56502	node	18.188.135.181	\N	\N	\N	\N	\N
-501efbf6-7ccc-4757-97ee-f4074e9e6a78	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-03-21 00:01:44.449693+00	2026-03-21 01:12:46.319365+00	\N	aal1	\N	2026-03-21 01:12:46.319262	node	18.191.119.172	\N	\N	\N	\N	\N
-9facd5b7-ef31-43ad-9198-c34b5d226874	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-03-21 01:48:44.153616+00	2026-03-21 01:48:44.153616+00	\N	aal1	\N	\N	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0	102.210.12.11	\N	\N	\N	\N	\N
-6b49c2c9-3303-432d-bedc-6b2c54638e6d	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-02-12 14:16:41.549939+00	2026-02-12 15:47:11.417743+00	\N	aal1	\N	2026-02-12 15:47:11.41765	Deno/2.3.1	3.71.111.29	\N	\N	\N	\N	\N
-34808930-2a8d-4c31-8d78-86808bfe42da	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-02-13 05:44:35.418237+00	2026-02-13 05:44:35.418237+00	\N	aal1	\N	\N	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0	197.248.133.3	\N	\N	\N	\N	\N
-2e3cd4e2-6152-4c2e-b24e-0b4644064cf9	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-02-13 05:44:42.763187+00	2026-02-13 05:44:42.763187+00	\N	aal1	\N	\N	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0	197.248.133.3	\N	\N	\N	\N	\N
-99042183-54e5-4224-90f0-d8bcea6ddc18	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-02-13 05:44:47.470447+00	2026-02-13 05:44:47.470447+00	\N	aal1	\N	\N	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0	197.248.133.3	\N	\N	\N	\N	\N
-e52a6d77-c996-499f-a292-4a640c250664	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-02-13 05:44:50.303534+00	2026-02-13 05:44:50.303534+00	\N	aal1	\N	\N	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0	197.248.133.3	\N	\N	\N	\N	\N
-3f6ad363-92cf-4f2e-8923-53d3810e6d7b	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-02-13 05:44:55.095227+00	2026-02-13 07:07:04.035371+00	\N	aal1	\N	2026-02-13 07:07:04.03526	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0	105.161.233.201	\N	\N	\N	\N	\N
-c50918a2-ad16-4654-af56-9b8f25130038	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-02-11 06:56:48.911919+00	2026-02-13 19:33:16.138766+00	\N	aal1	\N	2026-02-13 19:33:16.138025	node	105.161.213.221	\N	\N	\N	\N	\N
-763c7f13-6216-4c37-99e9-739abf1cdf39	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-02-11 10:44:14.18349+00	2026-02-11 11:54:35.823545+00	\N	aal1	\N	2026-02-11 11:54:35.823422	Deno/2.3.1	18.192.63.152	\N	\N	\N	\N	\N
-92874bb7-6a19-4ee0-b055-0a2fc0d20ce0	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-02-11 07:00:01.402685+00	2026-02-13 19:53:51.201189+00	\N	aal1	\N	2026-02-13 19:53:51.200118	node	3.144.97.250	\N	\N	\N	\N	\N
-190ed8f2-dd65-4078-a35d-49ce56622bda	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-02-22 13:10:55.998971+00	2026-02-22 14:32:21.329827+00	\N	aal1	\N	2026-02-22 14:32:21.329087	node	3.145.53.58	\N	\N	\N	\N	\N
-a5348613-2268-4aab-b184-c75fd9b93f64	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-03-02 09:07:21.786266+00	2026-03-02 10:05:39.361967+00	\N	aal1	\N	2026-03-02 10:05:39.361224	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0	197.248.133.3	\N	\N	\N	\N	\N
-ee448846-b594-439b-b78a-ea7f389cb5fc	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-03-17 09:41:44.905968+00	2026-03-17 09:41:44.905968+00	\N	aal1	\N	\N	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0	197.248.133.3	\N	\N	\N	\N	\N
-f62f180a-f165-4d2a-a707-d07ff471ef02	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-03-18 05:40:32.176167+00	2026-03-18 05:40:32.176167+00	\N	aal1	\N	\N	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0	102.205.237.234	\N	\N	\N	\N	\N
+85804b57-30ac-45b9-beb8-df57d81f5c46	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-03-22 07:09:01.479174+00	2026-03-22 07:09:01.479174+00	\N	aal1	\N	\N	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0	41.90.185.198	\N	\N	\N	\N	\N
+e333f3c7-7f67-4ab3-a653-199157a8d546	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-03-25 09:33:28.659902+00	2026-03-25 09:33:28.659902+00	\N	aal1	\N	\N	Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:136.0) Gecko/20100101 Firefox/136.0	197.237.123.236	\N	\N	\N	\N	\N
+ff065f2f-5471-4ba5-9c6a-b6b1ff0811a8	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-03-26 06:38:40.092838+00	2026-03-26 06:38:40.092838+00	\N	aal1	\N	\N	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36	197.232.71.138	\N	\N	\N	\N	\N
+3225e678-522b-41fd-a079-7eee283c9115	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-03-26 08:11:46.133758+00	2026-03-26 08:11:46.133758+00	\N	aal1	\N	\N	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0	102.210.12.11	\N	\N	\N	\N	\N
+915bc0db-2037-4757-8822-1d74be743fb0	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-03-26 06:38:48.498699+00	2026-03-26 09:57:16.558333+00	\N	aal1	\N	2026-03-26 09:57:16.558238	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36	197.232.71.138	\N	\N	\N	\N	\N
 \.
 
 
@@ -4457,8 +4416,8 @@ COPY "auth"."sso_providers" ("id", "resource_id", "created_at", "updated_at", "d
 --
 
 COPY "auth"."users" ("instance_id", "id", "aud", "role", "email", "encrypted_password", "email_confirmed_at", "invited_at", "confirmation_token", "confirmation_sent_at", "recovery_token", "recovery_sent_at", "email_change_token_new", "email_change", "email_change_sent_at", "last_sign_in_at", "raw_app_meta_data", "raw_user_meta_data", "is_super_admin", "created_at", "updated_at", "phone", "phone_confirmed_at", "phone_change", "phone_change_token", "phone_change_sent_at", "email_change_token_current", "email_change_confirm_status", "banned_until", "reauthentication_token", "reauthentication_sent_at", "is_sso_user", "deleted_at", "is_anonymous") FROM stdin;
+00000000-0000-0000-0000-000000000000	742c31bf-d94b-45d2-906a-8de86a6d8954	authenticated	authenticated	admin@sirimara.com	$2a$10$0MP2qJuZ5uSdi.LJrgfBeegaa8w/tJv8SZaR7DwRJ9Ya.zijbnGg6	2026-02-11 06:50:45.0383+00	\N		\N		\N			\N	2026-03-26 08:11:46.133649+00	{"provider": "email", "providers": ["email"]}	{"email_verified": true}	\N	2026-02-11 06:50:44.974934+00	2026-03-26 09:56:35.571376+00	\N	\N			\N		0	\N		\N	f	\N	f
 00000000-0000-0000-0000-000000000000	47838213-c39c-4135-9d1a-a924307c77d6	authenticated	authenticated	admin@ellliman.com	$2a$10$mhU7qgAggUnMvS4f.i.eTur3QkmT3DcswCMSVNSntFT/LLlpK1iEC	2025-12-22 08:05:20.344556+00	\N		\N		\N			\N	2026-02-11 10:01:49.852015+00	{"provider": "email", "providers": ["email"]}	{"email_verified": true}	\N	2025-12-22 08:05:20.321213+00	2026-02-11 10:01:49.908771+00	\N	\N			\N		0	\N		\N	f	\N	f
-00000000-0000-0000-0000-000000000000	742c31bf-d94b-45d2-906a-8de86a6d8954	authenticated	authenticated	admin@sirimara.com	$2a$10$0MP2qJuZ5uSdi.LJrgfBeegaa8w/tJv8SZaR7DwRJ9Ya.zijbnGg6	2026-02-11 06:50:45.0383+00	\N		\N		\N			\N	2026-03-21 01:48:44.153033+00	{"provider": "email", "providers": ["email"]}	{"email_verified": true}	\N	2026-02-11 06:50:44.974934+00	2026-03-21 01:48:44.212404+00	\N	\N			\N		0	\N		\N	f	\N	f
 \.
 
 
@@ -4483,7 +4442,7 @@ COPY "auth"."webauthn_credentials" ("id", "user_id", "credential_id", "public_ke
 --
 
 COPY "public"."admin_users" ("id", "email", "full_name", "role", "created_at", "last_login") FROM stdin;
-742c31bf-d94b-45d2-906a-8de86a6d8954	admin@sirimara.com	Admin User	super_admin	2026-02-11 06:56:28.175814+00	2026-03-21 01:48:44.681+00
+742c31bf-d94b-45d2-906a-8de86a6d8954	admin@sirimara.com	Admin User	super_admin	2026-02-11 06:56:28.175814+00	2026-03-26 08:11:44.798+00
 \.
 
 
@@ -4492,7 +4451,7 @@ COPY "public"."admin_users" ("id", "email", "full_name", "role", "created_at", "
 --
 
 COPY "public"."agents" ("id", "first_name", "last_name", "email", "phone", "bio", "photo_url", "title", "specialties", "social_links", "is_active", "created_at", "updated_at", "is_featured", "featured_order", "specialties_list", "languages", "search_vector", "profile_data") FROM stdin;
-2896715c-713b-42c2-8fc9-e4ce2e1e7962	Halima	Hussein	sirimararealty@gmail.com	+254 795 456 604		https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/agent-photos/jm3lu23snva_1771771195206.jpg	Agent	[]	{"twitter": "", "linkedin": "", "instagram": ""}	t	2026-02-22 14:40:04.742303+00	2026-03-21 01:19:00.035094+00	f	0	\N	\N	'agent':3B 'halima':1A 'hussein':2A	{}
+30000564-8fb7-4907-b63f-ea05cdad15c9	Halima 	Hussein	admin@sirimararealty.com	0712345678	Halima has expertise in commercial transactions and in energy, environmental and international trade issues with more than 10 years of post qualification legal experience. 	https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/agent-photos/tsp11p1irx7_1774507553844.jpg	Agent	[]	{"twitter": "", "linkedin": "", "instagram": ""}	t	2026-03-26 06:45:58.554026+00	2026-03-26 06:45:58.554026+00	f	0	\N	\N	'10':21C 'agent':3B 'commerci':8C 'energi':12C 'environment':13C 'experi':27C 'expertis':6C 'halima':1A,4C 'hussein':2A 'intern':15C 'issu':17C 'legal':26C 'post':24C 'qualif':25C 'trade':16C 'transact':9C 'year':22C	{"intro": "Halima has expertise in commercial transactions and in energy, environmental and international trade issues with more than 10 years of post qualification legal experience. ", "admissions": ["Advocate of the High Court of Kenya"], "experience": "Corporate Law Islamic Banking Policy making and legislative drafting Conveyancing Family law Energy and Infrastructure Employment Law Medical law Research & Consultancy Services", "capabilities": ["Corporate Law Islamic Banking Policy making and legislative drafting Conveyancing Family law Energy and Infrastructure Employment Law Medical law Research & Consultancy Services"], "academic_qualifications": ["Master of Laws in Energy and Natural Resources Law (Distinction), Queen Mary University of London, 2016.", "Post Graduate Diploma in Law (Distinction), Kenya School of Law Bar Qualifying Examinations, 2013.", "Bachelor of Laws (Hons), University of Nairobi, 2012."]}
 \.
 
 
@@ -4581,11 +4540,12 @@ c306b58d-1d75-4882-86cb-ea20ee3c3a82	footer_company	Contact Us	#contact	\N	4	t	\
 5351ae07-8db3-4b90-b8a2-fd3f2713dd70	header_secondary	INSIGHTS	/newsletters	\N	3	t	\N	\N	f	\N	f
 fed7c45d-6c46-4b04-931f-1810ea0f4e48	footer_resources	Insights	/newsletters	\N	1	t	\N	\N	f	\N	f
 b083e0ba-1133-4d70-a174-06b337268d94	footer_legal	Terms & Conditions	/terms-of-service	\N	1	t	\N	\N	f	\N	f
-ccb574d3-ce08-4df1-a133-6326f011f79f	header_main	BUY	/sales	\N	1	t	\N	\N	f	\N	f
-eeeda26b-563a-4db8-bee1-f99a67d23b98	header_main	RENT	/rentals	\N	2	t	\N	\N	f	\N	f
-f9a272e6-632b-42cc-9ec3-b2cf7a42a4c6	header_main	SELL	/sell	\N	3	t	\N	\N	f	\N	f
 98abb56c-5334-4b3a-8522-4437cecea55f	header_secondary	AGENTS	/agents	\N	1	t	\N	\N	f	\N	f
 7d863ebf-c927-4285-be25-16b41125a38c	header_secondary	PROPERTY MANAGEMENT	/property-management	\N	2	t	\N	\N	f	\N	f
+f9a272e6-632b-42cc-9ec3-b2cf7a42a4c6	header_main	SELL	/sell	\N	3	t	\N	\N	f	\N	f
+2f8b47d8-3d42-4240-8b36-e97a02cb242b	header_main	HOME	/	\N	2	t	\N	\N	f	\N	f
+26e365c6-3553-4af3-99c7-90d0154a35ac	header_main	BUY	/sales	\N	4	t	\N	\N	f	\N	f
+f30ac047-c7a1-492c-bfd0-5240ea7b900c	header_main	RENT	/rentals	\N	5	t	\N	\N	f	\N	f
 \.
 
 
@@ -4595,6 +4555,7 @@ f9a272e6-632b-42cc-9ec3-b2cf7a42a4c6	header_main	SELL	/sell	\N	3	t	\N	\N	f	\N	f
 
 COPY "public"."newsletter_subscribers" ("id", "email", "subscribed_at", "is_active", "unsubscribed_at") FROM stdin;
 fbbef617-3ab8-4c5e-a07c-ae17b2f472cf	admin@sirimara.com	2026-03-21 02:16:13.364425+00	t	\N
+bff8abbd-75cf-44f9-9a0b-8793da2e147f	okellobrian462@gmail.com	2026-03-21 15:28:53.045409+00	t	\N
 \.
 
 
@@ -4675,7 +4636,7 @@ c325fc25-1f1f-4f7f-88b6-1c290f6ddab2	privacy-policy	legal	PRIVACY POLICY		<h1>Te
 
 COPY "public"."properties" ("id", "title", "slug", "city", "address", "state", "zip_code", "bedrooms", "bathrooms", "half_baths", "price", "description", "property_type", "status", "square_feet", "lot_size", "year_built", "is_featured", "featured_order", "images", "amenities", "category", "created_at", "updated_at", "is_exclusive", "badge_text", "badge_expires_at", "listing_type", "neighborhood", "search_vector") FROM stdin;
 27d05fa2-1bc0-45c5-a443-067ff34dfbc8	Nakuru property=Elevate Your Property, Maximize Your Return.	nakuru-property	Nakuru	 Lanet Farm	Nakuru	00000	5	3.0	0	260.00	20 acres Lanet Farm: \n1. 5 bedroom main house, all ensuite, with lounge, dining & kitchen\n2. Guest house with lounge/dining room, and 1 bathroom\n3. Prime land used for farming ( maize, organic vegetables, avocados( & bee keeping.	house	active	123	\N	2006	f	\N	["https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/0syk62i722k9_1770295236848.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/mg5p423kjwn_1770295244542.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/g5zuhzy3i6i_1770295249795.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/s8pbdsxix2_1770295257278.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/im8fynvyzd_1770295263687.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/ehkx9oon206_1770295270133.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/gghkd5r7ymd_1770295284512.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/jrhhhy312sj_1770295292359.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/3dvdxzg23up_1770295298478.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/r3psdmbj4a8_1770295304524.jpeg"]	[]	farm-ranch	2026-02-05 12:41:50.996077+00	2026-02-05 12:41:50.996077+00	f	\N	\N	sale	\N	'00000':5C 'farm':2A 'lanet':1A 'nakuru':3A,4B
-06ce0936-1e8d-456c-8112-ce7be355076d	Nairobi Property-Karen 2728 sq ft commercial office:	karen-2728-sq-ft-commercial-office	Nairobi	Karen	Nairobi	00000	\N	2.0	0	400000.00	Karen 2728 sq ft commercial office:\n1. Top floor Office in Grade 1 Building along Ngong Road, with in-office kitchenette and bathrooms\n2. 2 Parkings included with Property\n3. Access to lush and well maintained gardens\n\nSale Price: Kshs 40M exclusive of VAT	apartment	active	2728	\N	2000	f	\N	["https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/rxvr7b3u3a_1770295519054.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/j9i10dnnizm_1770295527192.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/9b9q69kqji_1770295533051.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/chm46svf1np_1770295540933.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/26p58afg2ln_1770295549996.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/wg3a0p45wym_1770295556294.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/wda6xr4xb88_1770295561369.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/94knj8ghzv_1770295568993.jpeg"]	[]	city-skylines	2026-02-05 12:46:29.259228+00	2026-03-02 09:07:58.853397+00	f	\N	\N	rent	\N	'00000':4C 'karen':1A 'nairobi':2A,3B
+06ce0936-1e8d-456c-8112-ce7be355076d	Nairobi Property-Karen 2728 sq ft commercial office:	karen-2728-sq-ft-commercial-office	Nairobi	Karen	Nairobi	00000	\N	2.0	0	400000.00	Karen 2728 sq ft commercial office:\n1. Top floor Office in Grade 1 Building along Ngong Road, with in-office kitchenette and bathrooms\n2. 2 Parkings included with Property\n3. Access to lush and well maintained gardens\n\nSale Price: Kshs 40M exclusive of VAT	apartment	active	2728	\N	2000	t	\N	["https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/rxvr7b3u3a_1770295519054.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/j9i10dnnizm_1770295527192.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/9b9q69kqji_1770295533051.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/chm46svf1np_1770295540933.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/26p58afg2ln_1770295549996.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/wg3a0p45wym_1770295556294.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/wda6xr4xb88_1770295561369.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/94knj8ghzv_1770295568993.jpeg"]	[]	city-skylines	2026-02-05 12:46:29.259228+00	2026-03-26 09:57:52.129076+00	f	\N	\N	rent	\N	'00000':4C 'karen':1A 'nairobi':2A,3B
 \.
 
 
@@ -4991,6 +4952,7 @@ df700e21-8747-4900-be4b-dea1d51b7140	property-images	wda6xr4xb88_1770295561369.j
 93b4f6f5-6e53-4172-b0b4-5acb94c925b0	property-images	i7qdemgbsds_1770301997758.png	47838213-c39c-4135-9d1a-a924307c77d6	2026-02-05 14:33:22.769435+00	2026-02-05 14:33:22.769435+00	2026-02-05 14:33:22.769435+00	{"eTag": "\\"f6ff571f7d249c57b8e7167bdbcb6c7b\\"", "size": 3624570, "mimetype": "image/png", "cacheControl": "max-age=3600", "lastModified": "2026-02-05T14:33:23.000Z", "contentLength": 3624570, "httpStatusCode": 200}	39d20455-037f-4181-b0a4-0619ba571630	47838213-c39c-4135-9d1a-a924307c77d6	{}
 2b1546e7-81a7-4a6d-9c8e-91208ebdb1e8	videos	uey1aipcid_1770307812131.mp4	47838213-c39c-4135-9d1a-a924307c77d6	2026-02-05 16:10:44.153497+00	2026-02-05 16:10:44.153497+00	2026-02-05 16:10:44.153497+00	{"eTag": "\\"ad6782de6d46535be6fcb48dcda97111-8\\"", "size": 38792771, "mimetype": "video/mp4", "cacheControl": "max-age=3600", "lastModified": "2026-02-05T16:10:40.000Z", "contentLength": 38792771, "httpStatusCode": 200}	fcab5bb2-77af-4961-8de3-ff34d6885742	47838213-c39c-4135-9d1a-a924307c77d6	{}
 c4fc5512-88a8-4aa6-a297-c9bcc07758bf	agent-photos	jm3lu23snva_1771771195206.jpg	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-02-22 14:39:57.836817+00	2026-02-22 14:39:57.836817+00	2026-02-22 14:39:57.836817+00	{"eTag": "\\"3cb2d0e7b9e62cc96204c8e2fa385880\\"", "size": 31201, "mimetype": "image/jpeg", "cacheControl": "max-age=3600", "lastModified": "2026-02-22T14:39:58.000Z", "contentLength": 31201, "httpStatusCode": 200}	e6f1df23-3f5c-4a92-aef3-3731c67caabd	742c31bf-d94b-45d2-906a-8de86a6d8954	{}
+83160787-b0dc-4e67-bd58-cbd73ec02bd1	agent-photos	tsp11p1irx7_1774507553844.jpg	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-03-26 06:45:54.862765+00	2026-03-26 06:45:54.862765+00	2026-03-26 06:45:54.862765+00	{"eTag": "\\"3cb2d0e7b9e62cc96204c8e2fa385880\\"", "size": 31201, "mimetype": "image/jpeg", "cacheControl": "max-age=3600", "lastModified": "2026-03-26T06:45:55.000Z", "contentLength": 31201, "httpStatusCode": 200}	b284cc7d-89ec-4a1a-ba94-a7f0bc3658dd	742c31bf-d94b-45d2-906a-8de86a6d8954	{}
 \.
 
 
@@ -5039,7 +5001,7 @@ COPY "vault"."secrets" ("id", "name", "description", "secret", "key_id", "nonce"
 -- Name: refresh_tokens_id_seq; Type: SEQUENCE SET; Schema: auth; Owner: -
 --
 
-SELECT pg_catalog.setval('"auth"."refresh_tokens_id_seq"', 122, true);
+SELECT pg_catalog.setval('"auth"."refresh_tokens_id_seq"', 131, true);
 
 
 --
@@ -7284,5 +7246,5 @@ CREATE EVENT TRIGGER "pgrst_drop_watch" ON "sql_drop"
 -- PostgreSQL database dump complete
 --
 
-\unrestrict HAXtn9yGx5TGVT51B9D6sceIKF5VzBauxLfW8mrTeD7RLo2KMk37gMSNqWzmH3g
+\unrestrict N0gZUEU8d02k8U5KQVlmeSSljqZW6jRLDsk9rOPNa0nCzlbAGOb2WNMIQmkkBSa
 

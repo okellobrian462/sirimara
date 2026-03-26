@@ -19,19 +19,17 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
     const [loading, setLoading] = useState(false);
     const [fetching, setFetching] = useState(true);
     const [error, setError] = useState('');
-    const [profileImage, setProfileImage] = useState('');
+    const [photoUrl, setPhotoUrl] = useState('');
     const [specialtyInput, setSpecialtyInput] = useState('');
     const [languageInput, setLanguageInput] = useState('');
 
     const [formData, setFormData] = useState({
-        name: '',
+        first_name: '',
+        last_name: '',
         title: '',
-        license: '',
         phone: '',
         email: '',
-        address: '',
         bio: '',
-        facebook: '',
         instagram: '',
         twitter: '',
         linkedin: '',
@@ -60,17 +58,15 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
 
                 if (data) {
                     setFormData({
-                        name: data.name || '',
+                        first_name: data.first_name || '',
+                        last_name: data.last_name || '',
                         title: data.title || '',
-                        license: data.license || '',
                         phone: data.phone || '',
                         email: data.email || '',
-                        address: data.address || '',
                         bio: data.bio || '',
-                        facebook: data.facebook || '',
-                        instagram: data.instagram || '',
-                        twitter: data.twitter || '',
-                        linkedin: data.linkedin || '',
+                        instagram: data.social_links?.instagram || '',
+                        twitter: data.social_links?.twitter || '',
+                        linkedin: data.social_links?.linkedin || '',
                         is_featured: data.is_featured || false,
                         featured_order: data.featured_order || 0,
                         specialties: data.specialties || [],
@@ -81,7 +77,7 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                         profile_admissions: (data.profile_data?.admissions || []).join('\n'),
                         profile_qualifications: (data.profile_data?.academic_qualifications || []).join('\n'),
                     });
-                    setProfileImage(data.profile_image || '');
+                    setPhotoUrl(data.photo_url || '');
                 }
             } catch (err: unknown) {
                 const errorMessage = err instanceof Error ? err.message : 'Failed to fetch agent';
@@ -156,12 +152,20 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                 profile_capabilities, 
                 profile_admissions, 
                 profile_qualifications, 
+                instagram,
+                twitter,
+                linkedin,
                 ...restFormData 
             } = formData;
 
             const agentData = {
                 ...restFormData,
-                profile_image: profileImage,
+                photo_url: photoUrl,
+                social_links: {
+                    instagram,
+                    twitter,
+                    linkedin,
+                },
                 profile_data: {
                     intro: profile_intro,
                     experience: profile_experience,
@@ -233,14 +237,26 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                             <label className="block text-sm font-medium text-gray-700 mb-2">
                                 Full Name *
                             </label>
-                            <input
-                                type="text"
-                                name="name"
-                                value={formData.name}
-                                onChange={handleChange}
-                                required
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-                            />
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <input
+                                    type="text"
+                                    name="first_name"
+                                    value={formData.first_name}
+                                    onChange={handleChange}
+                                    required
+                                    placeholder="First name"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                                />
+                                <input
+                                    type="text"
+                                    name="last_name"
+                                    value={formData.last_name}
+                                    onChange={handleChange}
+                                    required
+                                    placeholder="Last name"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                                />
+                            </div>
                         </div>
 
                         <div>
@@ -253,19 +269,6 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                                 value={formData.title}
                                 onChange={handleChange}
                                 placeholder="e.g., Licensed Associate Real Estate Broker"
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-                            />
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                License Number
-                            </label>
-                            <input
-                                type="text"
-                                name="license"
-                                value={formData.license}
-                                onChange={handleChange}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                             />
                         </div>
@@ -294,19 +297,6 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                                 value={formData.email}
                                 onChange={handleChange}
                                 required
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-                            />
-                        </div>
-
-                        <div className="md:col-span-2">
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Office Address
-                            </label>
-                            <input
-                                type="text"
-                                name="address"
-                                value={formData.address}
-                                onChange={handleChange}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                             />
                         </div>
@@ -540,20 +530,6 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Facebook URL
-                            </label>
-                            <input
-                                type="url"
-                                name="facebook"
-                                value={formData.facebook}
-                                onChange={handleChange}
-                                placeholder="https://facebook.com/..."
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-                            />
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
                                 Instagram URL
                             </label>
                             <input
@@ -607,8 +583,8 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                             </label>
                             <ImageUpload
                                 bucket="agent-photos"
-                                onUpload={setProfileImage}
-                                currentImage={profileImage}
+                                onUpload={setPhotoUrl}
+                                currentImage={photoUrl}
                                 description="Upload agent profile photo (JPG, PNG, WEBP)"
                             />
                         </div>
@@ -619,20 +595,20 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                             </label>
                             <input
                                 type="url"
-                                value={profileImage}
-                                onChange={(e) => setProfileImage(e.target.value)}
+                                value={photoUrl}
+                                onChange={(e) => setPhotoUrl(e.target.value)}
                                 placeholder="https://..."
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
                             />
                         </div>
 
-                        {profileImage && (
+                        {photoUrl && (
                             <div className="mt-4 pt-4 border-t border-gray-100">
                                 <label className="block text-xs font-medium text-gray-700 mb-2">
                                     Preview
                                 </label>
                                 <img
-                                    src={profileImage}
+                                    src={photoUrl}
                                     alt="Profile preview"
                                     className="w-32 h-32 object-cover rounded-lg border border-gray-200"
                                 />

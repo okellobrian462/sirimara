@@ -15,12 +15,18 @@ export default async function SalesSearchSection({ section }: SalesSearchSection
     const config = await fetchSiteConfig();
     const siteName = (config.company_name || 'Sirimara').toUpperCase();
 
-
+    // Fetch properties with contract type "For Sale"
     const { data: properties } = await supabase
         .from("properties")
-        .select("*")
-        .eq("listing_type", "sale")
-        .eq("status", "active");
+        .select(`*, property_contract_types!inner(name, slug)`)
+        .eq("status", "active")
+        .or('name.eq.For Sale', { referencedTable: 'property_contract_types' });
+
+    // Fetch taxonomy data for filters
+    const [{ data: propertyTypes }, { data: features }] = await Promise.all([
+        supabase.from("property_types").select("id, name, slug").eq("is_active", true).order("order_index"),
+        supabase.from("property_features").select("id, name, category").eq("is_active", true).order("category").order("name"),
+    ]);
 
     const listings: Listing[] = ((properties as unknown as Property[]) || []).map((p: Property) => ({
         id: p.id,
@@ -30,7 +36,7 @@ export default async function SalesSearchSection({ section }: SalesSearchSection
         state: p.state || "",
         zip: p.zip_code || "",
         price: p.price,
-        priceFormatted: `$${p.price.toLocaleString()}`,
+        priceFormatted: `KSh ${p.price.toLocaleString()}`,
         listingType: "sale",
         beds: p.bedrooms || 0,
         baths: p.bathrooms || 0,
@@ -39,9 +45,8 @@ export default async function SalesSearchSection({ section }: SalesSearchSection
         images: p.images || [],
         status: `${siteName} EXCLUSIVE`,
         badge: p.badge_text || null,
-
-        latitude: p.latitude || 40.7128,
-        longitude: p.longitude || -74.0060,
+        latitude: p.latitude || -1.2921,
+        longitude: p.longitude || 36.8219,
         exclusive: p.is_exclusive || false,
     }));
 
@@ -57,6 +62,8 @@ export default async function SalesSearchSection({ section }: SalesSearchSection
                 background_color: section.background_color,
                 text_color: section.text_color
             }}
+            propertyTypes={propertyTypes || []}
+            features={features || []}
         />
     );
 }

@@ -1,6 +1,5 @@
 import type { PageSection } from '@/lib/content/fetchPageSections';
 import Link from 'next/link';
-import { Search } from 'lucide-react';
 import StartSearchButton from '@/components/StartSearchButton';
 import UnifiedSearch from '@/components/search/UnifiedSearch';
 
@@ -105,9 +104,6 @@ export default function HeroSection({ section }: HeroSectionProps) {
                 <div className="absolute bottom-0 left-0 right-0 z-20">
                     <div className="px-6 py-8 flex items-center justify-between text-white">
                         <div className="flex items-center gap-8">
-                            <button className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-                                <Search className="w-5 h-5" />
-                            </button>
                             <nav className="hidden md:flex gap-8 uppercase text-sm tracking-wider">
                                 <Link href="/sales" className="hover:opacity-80 transition-opacity">Buy</Link>
                                 <span>|</span>
