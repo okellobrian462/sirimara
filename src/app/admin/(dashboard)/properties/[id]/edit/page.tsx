@@ -34,7 +34,7 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
         half_baths: '0',
         price: '',
         description: '',
-        property_type_id: '',
+        type_id: '',
         status: 'active',
         square_feet: '',
         lot_size: '',
@@ -91,7 +91,7 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
                         half_baths: data.half_baths?.toString() || '0',
                         price: data.price?.toString() || '',
                         description: data.description || '',
-                        property_type_id: data.type_id || '',
+                        type_id: data.type_id || '',
                         status: data.status || 'active',
                         square_feet: data.square_feet?.toString() || '',
                         lot_size: data.lot_size?.toString() || '',
@@ -165,6 +165,9 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
                 lot_size: formData.lot_size ? parseFloat(formData.lot_size) : null,
                 year_built: formData.year_built ? parseInt(formData.year_built) : null,
                 images,
+                category_id: formData.category_id || null,
+                type_id: formData.type_id || null,
+                contract_type_id: formData.contract_type_id || null,
             };
 
             const { error: updateError } = await supabase
@@ -432,8 +435,8 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
                                 Property Type
                             </label>
                             <select
-                                name="property_type_id"
-                                value={formData.property_type_id}
+                                name="type_id"
+                                value={formData.type_id}
                                 onChange={handleChange}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white"
                             >

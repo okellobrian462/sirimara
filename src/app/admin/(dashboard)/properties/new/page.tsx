@@ -44,7 +44,7 @@ export default function NewPropertyPage() {
         half_baths: '0',
         price: '',
         description: '',
-        property_type_id: '',
+        type_id: '',
         status: 'active',
         square_feet: '',
         lot_size: '',
@@ -130,6 +130,9 @@ export default function NewPropertyPage() {
                 lot_size: formData.lot_size ? parseFloat(formData.lot_size) : null,
                 year_built: formData.year_built ? parseInt(formData.year_built) : null,
                 images,
+                category_id: formData.category_id || null,
+                type_id: formData.type_id || null,
+                contract_type_id: formData.contract_type_id || null,
             };
 
             const { data: newProperty, error: insertError } = await supabase
@@ -225,7 +228,7 @@ export default function NewPropertyPage() {
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">Property Type</label>
-                            <select name="property_type_id" value={formData.property_type_id} onChange={handleChange}
+                            <select name="type_id" value={formData.type_id} onChange={handleChange}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white">
                                 <option value="">Select type</option>
                                 {propertyTypes.map(type => <option key={type.id} value={type.id}>{type.name}</option>)}
