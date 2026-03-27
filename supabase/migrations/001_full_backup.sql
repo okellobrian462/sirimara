@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict N0gZUEU8d02k8U5KQVlmeSSljqZW6jRLDsk9rOPNa0nCzlbAGOb2WNMIQmkkBSa
+\restrict Hz1PDfu7MXJd4lk8fDNZYvc8Jn6SCSW1ghyQmXezHg44GuGWDgNAqnEARXb9dlr
 
 -- Dumped from database version 17.6
 -- Dumped by pg_dump version 18.3
@@ -52,6 +52,11 @@ DROP POLICY IF EXISTS "Public can view active properties" ON "public"."propertie
 DROP POLICY IF EXISTS "Public can view active page sections" ON "public"."page_sections";
 DROP POLICY IF EXISTS "Public can view active agents" ON "public"."agents";
 DROP POLICY IF EXISTS "Public can submit forms" ON "public"."form_submissions";
+DROP POLICY IF EXISTS "Enable read access for all users" ON "public"."property_types";
+DROP POLICY IF EXISTS "Enable read access for all users" ON "public"."property_features";
+DROP POLICY IF EXISTS "Enable read access for all users" ON "public"."property_feature_links";
+DROP POLICY IF EXISTS "Enable read access for all users" ON "public"."property_contract_types";
+DROP POLICY IF EXISTS "Enable read access for all users" ON "public"."property_categories";
 DROP POLICY IF EXISTS "Authenticated users can view admin users" ON "public"."admin_users";
 DROP POLICY IF EXISTS "Authenticated users can manage admin users" ON "public"."admin_users";
 DROP POLICY IF EXISTS "Anyone can subscribe to newsletter" ON "public"."newsletter_subscribers";
@@ -61,6 +66,11 @@ DROP POLICY IF EXISTS "Admins can manage tabs" ON "public"."tabs_items";
 DROP POLICY IF EXISTS "Admins can manage page sections" ON "public"."page_sections";
 DROP POLICY IF EXISTS "Admins can manage featured properties" ON "public"."featured_properties";
 DROP POLICY IF EXISTS "Admins can manage agents" ON "public"."agents";
+DROP POLICY IF EXISTS "Admins can do everything with property types" ON "public"."property_types";
+DROP POLICY IF EXISTS "Admins can do everything with property features" ON "public"."property_features";
+DROP POLICY IF EXISTS "Admins can do everything with property feature links" ON "public"."property_feature_links";
+DROP POLICY IF EXISTS "Admins can do everything with property contract types" ON "public"."property_contract_types";
+DROP POLICY IF EXISTS "Admins can do everything with property categories" ON "public"."property_categories";
 DROP POLICY IF EXISTS "Admins can do everything with properties" ON "public"."properties";
 DROP POLICY IF EXISTS "Admins access site_statistics" ON "public"."site_statistics";
 DROP POLICY IF EXISTS "Admins access site_config" ON "public"."site_config";
@@ -77,6 +87,11 @@ ALTER TABLE IF EXISTS ONLY "storage"."s3_multipart_uploads" DROP CONSTRAINT IF E
 ALTER TABLE IF EXISTS ONLY "storage"."objects" DROP CONSTRAINT IF EXISTS "objects_bucketId_fkey";
 ALTER TABLE IF EXISTS ONLY "public"."tabs_items" DROP CONSTRAINT IF EXISTS "tabs_items_section_id_fkey";
 ALTER TABLE IF EXISTS ONLY "public"."stories_items" DROP CONSTRAINT IF EXISTS "stories_items_section_id_fkey";
+ALTER TABLE IF EXISTS ONLY "public"."property_feature_links" DROP CONSTRAINT IF EXISTS "property_feature_links_property_id_fkey";
+ALTER TABLE IF EXISTS ONLY "public"."property_feature_links" DROP CONSTRAINT IF EXISTS "property_feature_links_feature_id_fkey";
+ALTER TABLE IF EXISTS ONLY "public"."properties" DROP CONSTRAINT IF EXISTS "properties_type_id_fkey";
+ALTER TABLE IF EXISTS ONLY "public"."properties" DROP CONSTRAINT IF EXISTS "properties_contract_type_id_fkey";
+ALTER TABLE IF EXISTS ONLY "public"."properties" DROP CONSTRAINT IF EXISTS "properties_category_id_fkey";
 ALTER TABLE IF EXISTS ONLY "public"."page_sections" DROP CONSTRAINT IF EXISTS "page_sections_template_id_fkey";
 ALTER TABLE IF EXISTS ONLY "public"."navigation_items" DROP CONSTRAINT IF EXISTS "navigation_items_parent_id_fkey";
 ALTER TABLE IF EXISTS ONLY "public"."media_library" DROP CONSTRAINT IF EXISTS "media_library_uploaded_by_fkey";
@@ -105,6 +120,10 @@ DROP TRIGGER IF EXISTS "protect_objects_delete" ON "storage"."objects";
 DROP TRIGGER IF EXISTS "protect_buckets_delete" ON "storage"."buckets";
 DROP TRIGGER IF EXISTS "enforce_bucket_name_length_trigger" ON "storage"."buckets";
 DROP TRIGGER IF EXISTS "tr_check_filters" ON "realtime"."subscription";
+DROP TRIGGER IF EXISTS "update_property_types_updated_at" ON "public"."property_types";
+DROP TRIGGER IF EXISTS "update_property_features_updated_at" ON "public"."property_features";
+DROP TRIGGER IF EXISTS "update_property_contract_types_updated_at" ON "public"."property_contract_types";
+DROP TRIGGER IF EXISTS "update_property_categories_updated_at" ON "public"."property_categories";
 DROP TRIGGER IF EXISTS "update_properties_updated_at" ON "public"."properties";
 DROP TRIGGER IF EXISTS "update_page_sections_updated_at" ON "public"."page_sections";
 DROP TRIGGER IF EXISTS "update_agents_updated_at" ON "public"."agents";
@@ -127,13 +146,27 @@ DROP INDEX IF EXISTS "public"."idx_site_statistics_category";
 DROP INDEX IF EXISTS "public"."idx_site_statistics_active";
 DROP INDEX IF EXISTS "public"."idx_site_config_key";
 DROP INDEX IF EXISTS "public"."idx_site_config_category";
+DROP INDEX IF EXISTS "public"."idx_property_types_slug";
+DROP INDEX IF EXISTS "public"."idx_property_types_active";
+DROP INDEX IF EXISTS "public"."idx_property_features_slug";
+DROP INDEX IF EXISTS "public"."idx_property_features_category";
+DROP INDEX IF EXISTS "public"."idx_property_features_active";
+DROP INDEX IF EXISTS "public"."idx_property_feature_links_property";
+DROP INDEX IF EXISTS "public"."idx_property_feature_links_feature";
+DROP INDEX IF EXISTS "public"."idx_property_contract_types_slug";
+DROP INDEX IF EXISTS "public"."idx_property_contract_types_active";
+DROP INDEX IF EXISTS "public"."idx_property_categories_slug";
+DROP INDEX IF EXISTS "public"."idx_property_categories_active";
+DROP INDEX IF EXISTS "public"."idx_properties_type_id";
 DROP INDEX IF EXISTS "public"."idx_properties_status";
 DROP INDEX IF EXISTS "public"."idx_properties_slug";
 DROP INDEX IF EXISTS "public"."idx_properties_search";
 DROP INDEX IF EXISTS "public"."idx_properties_price";
 DROP INDEX IF EXISTS "public"."idx_properties_listing_type";
 DROP INDEX IF EXISTS "public"."idx_properties_is_featured";
+DROP INDEX IF EXISTS "public"."idx_properties_contract_type_id";
 DROP INDEX IF EXISTS "public"."idx_properties_city";
+DROP INDEX IF EXISTS "public"."idx_properties_category_id";
 DROP INDEX IF EXISTS "public"."idx_properties_category";
 DROP INDEX IF EXISTS "public"."idx_page_sections_page";
 DROP INDEX IF EXISTS "public"."idx_page_sections_order";
@@ -224,6 +257,16 @@ ALTER TABLE IF EXISTS ONLY "public"."stories_items" DROP CONSTRAINT IF EXISTS "s
 ALTER TABLE IF EXISTS ONLY "public"."site_statistics" DROP CONSTRAINT IF EXISTS "site_statistics_pkey";
 ALTER TABLE IF EXISTS ONLY "public"."site_config" DROP CONSTRAINT IF EXISTS "site_config_pkey";
 ALTER TABLE IF EXISTS ONLY "public"."site_config" DROP CONSTRAINT IF EXISTS "site_config_key_key";
+ALTER TABLE IF EXISTS ONLY "public"."property_types" DROP CONSTRAINT IF EXISTS "property_types_slug_key";
+ALTER TABLE IF EXISTS ONLY "public"."property_types" DROP CONSTRAINT IF EXISTS "property_types_pkey";
+ALTER TABLE IF EXISTS ONLY "public"."property_features" DROP CONSTRAINT IF EXISTS "property_features_slug_key";
+ALTER TABLE IF EXISTS ONLY "public"."property_features" DROP CONSTRAINT IF EXISTS "property_features_pkey";
+ALTER TABLE IF EXISTS ONLY "public"."property_feature_links" DROP CONSTRAINT IF EXISTS "property_feature_links_property_id_feature_id_key";
+ALTER TABLE IF EXISTS ONLY "public"."property_feature_links" DROP CONSTRAINT IF EXISTS "property_feature_links_pkey";
+ALTER TABLE IF EXISTS ONLY "public"."property_contract_types" DROP CONSTRAINT IF EXISTS "property_contract_types_slug_key";
+ALTER TABLE IF EXISTS ONLY "public"."property_contract_types" DROP CONSTRAINT IF EXISTS "property_contract_types_pkey";
+ALTER TABLE IF EXISTS ONLY "public"."property_categories" DROP CONSTRAINT IF EXISTS "property_categories_slug_key";
+ALTER TABLE IF EXISTS ONLY "public"."property_categories" DROP CONSTRAINT IF EXISTS "property_categories_pkey";
 ALTER TABLE IF EXISTS ONLY "public"."properties" DROP CONSTRAINT IF EXISTS "properties_slug_key";
 ALTER TABLE IF EXISTS ONLY "public"."properties" DROP CONSTRAINT IF EXISTS "properties_pkey";
 ALTER TABLE IF EXISTS ONLY "public"."page_sections" DROP CONSTRAINT IF EXISTS "page_sections_pkey";
@@ -295,6 +338,12 @@ DROP TABLE IF EXISTS "public"."tabs_items";
 DROP TABLE IF EXISTS "public"."stories_items";
 DROP TABLE IF EXISTS "public"."site_statistics";
 DROP TABLE IF EXISTS "public"."site_config";
+DROP VIEW IF EXISTS "public"."properties_with_taxonomy";
+DROP TABLE IF EXISTS "public"."property_types";
+DROP TABLE IF EXISTS "public"."property_features";
+DROP TABLE IF EXISTS "public"."property_feature_links";
+DROP TABLE IF EXISTS "public"."property_contract_types";
+DROP TABLE IF EXISTS "public"."property_categories";
 DROP TABLE IF EXISTS "public"."properties";
 DROP TABLE IF EXISTS "public"."page_sections";
 DROP TABLE IF EXISTS "public"."page_meta";
@@ -1165,8 +1214,8 @@ CREATE FUNCTION "public"."update_updated_at_column"() RETURNS "trigger"
     LANGUAGE "plpgsql"
     AS $$
 BEGIN
-  NEW.updated_at = NOW();
-  RETURN NEW;
+    NEW.updated_at = NOW();
+    RETURN NEW;
 END;
 $$;
 
@@ -3841,8 +3890,184 @@ CREATE TABLE "public"."properties" (
     "listing_type" "text" DEFAULT 'sale'::"text",
     "neighborhood" "text",
     "search_vector" "tsvector",
+    "category_id" "uuid",
+    "type_id" "uuid",
+    "contract_type_id" "uuid",
     CONSTRAINT "properties_listing_type_check" CHECK (("listing_type" = ANY (ARRAY['sale'::"text", 'rent'::"text"])))
 );
+
+
+--
+-- Name: property_categories; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE "public"."property_categories" (
+    "id" "uuid" DEFAULT "extensions"."uuid_generate_v4"() NOT NULL,
+    "name" "text" NOT NULL,
+    "slug" "text" NOT NULL,
+    "description" "text",
+    "order_index" integer DEFAULT 0,
+    "is_active" boolean DEFAULT true,
+    "created_at" timestamp with time zone DEFAULT "now"(),
+    "updated_at" timestamp with time zone DEFAULT "now"()
+);
+
+
+--
+-- Name: TABLE "property_categories"; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE "public"."property_categories" IS 'Property categories for the Kenyan market (Commercial, Residential, etc.)';
+
+
+--
+-- Name: property_contract_types; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE "public"."property_contract_types" (
+    "id" "uuid" DEFAULT "extensions"."uuid_generate_v4"() NOT NULL,
+    "name" "text" NOT NULL,
+    "slug" "text" NOT NULL,
+    "description" "text",
+    "order_index" integer DEFAULT 0,
+    "is_active" boolean DEFAULT true,
+    "created_at" timestamp with time zone DEFAULT "now"(),
+    "updated_at" timestamp with time zone DEFAULT "now"()
+);
+
+
+--
+-- Name: TABLE "property_contract_types"; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE "public"."property_contract_types" IS 'Contract types: For Sale, To Let';
+
+
+--
+-- Name: property_feature_links; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE "public"."property_feature_links" (
+    "id" "uuid" DEFAULT "extensions"."uuid_generate_v4"() NOT NULL,
+    "property_id" "uuid" NOT NULL,
+    "feature_id" "uuid" NOT NULL,
+    "created_at" timestamp with time zone DEFAULT "now"()
+);
+
+
+--
+-- Name: TABLE "property_feature_links"; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE "public"."property_feature_links" IS 'Links properties to their features (many-to-many)';
+
+
+--
+-- Name: property_features; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE "public"."property_features" (
+    "id" "uuid" DEFAULT "extensions"."uuid_generate_v4"() NOT NULL,
+    "name" "text" NOT NULL,
+    "slug" "text" NOT NULL,
+    "description" "text",
+    "category" "text" DEFAULT 'general'::"text",
+    "order_index" integer DEFAULT 0,
+    "is_active" boolean DEFAULT true,
+    "created_at" timestamp with time zone DEFAULT "now"(),
+    "updated_at" timestamp with time zone DEFAULT "now"()
+);
+
+
+--
+-- Name: TABLE "property_features"; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE "public"."property_features" IS 'Property features/amenities (Swimming Pool, Gym, Parking, etc.)';
+
+
+--
+-- Name: property_types; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE "public"."property_types" (
+    "id" "uuid" DEFAULT "extensions"."uuid_generate_v4"() NOT NULL,
+    "name" "text" NOT NULL,
+    "slug" "text" NOT NULL,
+    "description" "text",
+    "order_index" integer DEFAULT 0,
+    "is_active" boolean DEFAULT true,
+    "created_at" timestamp with time zone DEFAULT "now"(),
+    "updated_at" timestamp with time zone DEFAULT "now"()
+);
+
+
+--
+-- Name: TABLE "property_types"; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE "public"."property_types" IS 'Property types for the Kenyan market (Apartments, House, Land, etc.)';
+
+
+--
+-- Name: properties_with_taxonomy; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW "public"."properties_with_taxonomy" AS
+ SELECT "p"."id",
+    "p"."title",
+    "p"."slug",
+    "p"."city",
+    "p"."address",
+    "p"."state",
+    "p"."zip_code",
+    "p"."bedrooms",
+    "p"."bathrooms",
+    "p"."half_baths",
+    "p"."price",
+    "p"."description",
+    "p"."property_type",
+    "p"."status",
+    "p"."square_feet",
+    "p"."lot_size",
+    "p"."year_built",
+    "p"."is_featured",
+    "p"."featured_order",
+    "p"."images",
+    "p"."amenities",
+    "p"."category",
+    "p"."created_at",
+    "p"."updated_at",
+    "p"."is_exclusive",
+    "p"."badge_text",
+    "p"."badge_expires_at",
+    "p"."listing_type",
+    "p"."neighborhood",
+    "p"."search_vector",
+    "p"."category_id",
+    "p"."type_id",
+    "p"."contract_type_id",
+    "pc"."name" AS "category_name",
+    "pc"."slug" AS "category_slug",
+    "pt"."name" AS "type_name",
+    "pt"."slug" AS "type_slug",
+    "pct"."name" AS "contract_type_name",
+    "pct"."slug" AS "contract_type_slug",
+    COALESCE(( SELECT "jsonb_agg"("jsonb_build_object"('id', "pf"."id", 'name', "pf"."name", 'slug', "pf"."slug", 'category', "pf"."category")) AS "jsonb_agg"
+           FROM ("public"."property_feature_links" "pfl"
+             JOIN "public"."property_features" "pf" ON (("pfl"."feature_id" = "pf"."id")))
+          WHERE (("pfl"."property_id" = "p"."id") AND ("pf"."is_active" = true))), '[]'::"jsonb") AS "features"
+   FROM ((("public"."properties" "p"
+     LEFT JOIN "public"."property_categories" "pc" ON (("p"."category_id" = "pc"."id")))
+     LEFT JOIN "public"."property_types" "pt" ON (("p"."type_id" = "pt"."id")))
+     LEFT JOIN "public"."property_contract_types" "pct" ON (("p"."contract_type_id" = "pct"."id")));
+
+
+--
+-- Name: VIEW "properties_with_taxonomy"; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON VIEW "public"."properties_with_taxonomy" IS 'Properties enriched with taxonomy data';
 
 
 --
@@ -4208,6 +4433,8 @@ e333f3c7-7f67-4ab3-a653-199157a8d546	2026-03-25 09:33:28.763823+00	2026-03-25 09
 ff065f2f-5471-4ba5-9c6a-b6b1ff0811a8	2026-03-26 06:38:40.187931+00	2026-03-26 06:38:40.187931+00	password	68ef443c-7eac-4d06-bfbb-03401493bab9
 915bc0db-2037-4757-8822-1d74be743fb0	2026-03-26 06:38:48.503072+00	2026-03-26 06:38:48.503072+00	password	7f67d235-56eb-4b16-ac61-b9e986de7860
 3225e678-522b-41fd-a079-7eee283c9115	2026-03-26 08:11:46.15225+00	2026-03-26 08:11:46.15225+00	password	9ddf3a05-0d16-49c8-b34a-d91d218d54a2
+0fa09b0b-0900-4cce-b5a2-51e35395f374	2026-03-26 10:51:07.693549+00	2026-03-26 10:51:07.693549+00	password	399c3d9c-d1a2-4b39-b14c-30fd7c0530ae
+01eafa72-2109-4b14-a5d5-0e4427080254	2026-03-27 08:27:20.94804+00	2026-03-27 08:27:20.94804+00	password	d329a01f-da6e-4828-8cd9-04e8ee398b3b
 \.
 
 
@@ -4272,13 +4499,22 @@ COPY "auth"."one_time_tokens" ("id", "user_id", "token_type", "token_hash", "rel
 --
 
 COPY "auth"."refresh_tokens" ("instance_id", "id", "token", "user_id", "revoked", "created_at", "updated_at", "parent", "session_id") FROM stdin;
+00000000-0000-0000-0000-000000000000	134	n27ejzmsgecc	742c31bf-d94b-45d2-906a-8de86a6d8954	t	2026-03-26 11:49:32.51867+00	2026-03-26 12:52:44.830159+00	vb6sja23bnb2	0fa09b0b-0900-4cce-b5a2-51e35395f374
+00000000-0000-0000-0000-000000000000	133	ior3vblfwicj	742c31bf-d94b-45d2-906a-8de86a6d8954	t	2026-03-26 11:32:33.902316+00	2026-03-26 13:32:21.578542+00	jzkngncoqd4n	915bc0db-2037-4757-8822-1d74be743fb0
+00000000-0000-0000-0000-000000000000	136	pucjxvh56wbk	742c31bf-d94b-45d2-906a-8de86a6d8954	t	2026-03-26 13:32:21.605695+00	2026-03-26 14:30:48.380534+00	ior3vblfwicj	915bc0db-2037-4757-8822-1d74be743fb0
+00000000-0000-0000-0000-000000000000	137	22go7e42br25	742c31bf-d94b-45d2-906a-8de86a6d8954	t	2026-03-26 14:30:48.411684+00	2026-03-27 05:07:37.358822+00	pucjxvh56wbk	915bc0db-2037-4757-8822-1d74be743fb0
+00000000-0000-0000-0000-000000000000	138	tmrnhuruz2ny	742c31bf-d94b-45d2-906a-8de86a6d8954	f	2026-03-27 05:07:37.39446+00	2026-03-27 05:07:37.39446+00	22go7e42br25	915bc0db-2037-4757-8822-1d74be743fb0
+00000000-0000-0000-0000-000000000000	135	jnuihrazjszg	742c31bf-d94b-45d2-906a-8de86a6d8954	t	2026-03-26 12:52:44.842499+00	2026-03-27 06:53:21.462354+00	n27ejzmsgecc	0fa09b0b-0900-4cce-b5a2-51e35395f374
+00000000-0000-0000-0000-000000000000	139	ik2k3w7eyf32	742c31bf-d94b-45d2-906a-8de86a6d8954	f	2026-03-27 06:53:21.470046+00	2026-03-27 06:53:21.470046+00	jnuihrazjszg	0fa09b0b-0900-4cce-b5a2-51e35395f374
+00000000-0000-0000-0000-000000000000	140	kucmfmxt7zts	742c31bf-d94b-45d2-906a-8de86a6d8954	f	2026-03-27 08:27:20.936585+00	2026-03-27 08:27:20.936585+00	\N	01eafa72-2109-4b14-a5d5-0e4427080254
 00000000-0000-0000-0000-000000000000	125	cq5vcpk2wfg3	742c31bf-d94b-45d2-906a-8de86a6d8954	f	2026-03-22 07:09:01.482219+00	2026-03-22 07:09:01.482219+00	\N	85804b57-30ac-45b9-beb8-df57d81f5c46
 00000000-0000-0000-0000-000000000000	126	u5phdaceo7m5	742c31bf-d94b-45d2-906a-8de86a6d8954	f	2026-03-25 09:33:28.718294+00	2026-03-25 09:33:28.718294+00	\N	e333f3c7-7f67-4ab3-a653-199157a8d546
 00000000-0000-0000-0000-000000000000	127	g6yoycizf4es	742c31bf-d94b-45d2-906a-8de86a6d8954	f	2026-03-26 06:38:40.141611+00	2026-03-26 06:38:40.141611+00	\N	ff065f2f-5471-4ba5-9c6a-b6b1ff0811a8
 00000000-0000-0000-0000-000000000000	128	5oi2csachbbc	742c31bf-d94b-45d2-906a-8de86a6d8954	t	2026-03-26 06:38:48.500569+00	2026-03-26 08:03:48.588983+00	\N	915bc0db-2037-4757-8822-1d74be743fb0
 00000000-0000-0000-0000-000000000000	130	jc6dyc7pcctu	742c31bf-d94b-45d2-906a-8de86a6d8954	f	2026-03-26 08:11:46.147268+00	2026-03-26 08:11:46.147268+00	\N	3225e678-522b-41fd-a079-7eee283c9115
 00000000-0000-0000-0000-000000000000	129	d2odpzxyf42f	742c31bf-d94b-45d2-906a-8de86a6d8954	t	2026-03-26 08:03:48.619233+00	2026-03-26 09:56:35.523862+00	5oi2csachbbc	915bc0db-2037-4757-8822-1d74be743fb0
-00000000-0000-0000-0000-000000000000	131	jzkngncoqd4n	742c31bf-d94b-45d2-906a-8de86a6d8954	f	2026-03-26 09:56:35.555337+00	2026-03-26 09:56:35.555337+00	d2odpzxyf42f	915bc0db-2037-4757-8822-1d74be743fb0
+00000000-0000-0000-0000-000000000000	131	jzkngncoqd4n	742c31bf-d94b-45d2-906a-8de86a6d8954	t	2026-03-26 09:56:35.555337+00	2026-03-26 11:32:33.883239+00	d2odpzxyf42f	915bc0db-2037-4757-8822-1d74be743fb0
+00000000-0000-0000-0000-000000000000	132	vb6sja23bnb2	742c31bf-d94b-45d2-906a-8de86a6d8954	t	2026-03-26 10:51:07.666784+00	2026-03-26 11:49:32.509179+00	\N	0fa09b0b-0900-4cce-b5a2-51e35395f374
 \.
 
 
@@ -4387,11 +4623,13 @@ COPY "auth"."schema_migrations" ("version") FROM stdin;
 --
 
 COPY "auth"."sessions" ("id", "user_id", "created_at", "updated_at", "factor_id", "aal", "not_after", "refreshed_at", "user_agent", "ip", "tag", "oauth_client_id", "refresh_token_hmac_key", "refresh_token_counter", "scopes") FROM stdin;
+915bc0db-2037-4757-8822-1d74be743fb0	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-03-26 06:38:48.498699+00	2026-03-27 05:07:42.545769+00	\N	aal1	\N	2026-03-27 05:07:42.545682	node	18.118.160.98	\N	\N	\N	\N	\N
+0fa09b0b-0900-4cce-b5a2-51e35395f374	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-03-26 10:51:07.630327+00	2026-03-27 06:53:37.316546+00	\N	aal1	\N	2026-03-27 06:53:37.31643	node	102.210.12.11	\N	\N	\N	\N	\N
+01eafa72-2109-4b14-a5d5-0e4427080254	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-03-27 08:27:20.908584+00	2026-03-27 08:27:20.908584+00	\N	aal1	\N	\N	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36	102.210.12.11	\N	\N	\N	\N	\N
 85804b57-30ac-45b9-beb8-df57d81f5c46	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-03-22 07:09:01.479174+00	2026-03-22 07:09:01.479174+00	\N	aal1	\N	\N	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0	41.90.185.198	\N	\N	\N	\N	\N
 e333f3c7-7f67-4ab3-a653-199157a8d546	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-03-25 09:33:28.659902+00	2026-03-25 09:33:28.659902+00	\N	aal1	\N	\N	Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:136.0) Gecko/20100101 Firefox/136.0	197.237.123.236	\N	\N	\N	\N	\N
 ff065f2f-5471-4ba5-9c6a-b6b1ff0811a8	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-03-26 06:38:40.092838+00	2026-03-26 06:38:40.092838+00	\N	aal1	\N	\N	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36	197.232.71.138	\N	\N	\N	\N	\N
 3225e678-522b-41fd-a079-7eee283c9115	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-03-26 08:11:46.133758+00	2026-03-26 08:11:46.133758+00	\N	aal1	\N	\N	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0	102.210.12.11	\N	\N	\N	\N	\N
-915bc0db-2037-4757-8822-1d74be743fb0	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-03-26 06:38:48.498699+00	2026-03-26 09:57:16.558333+00	\N	aal1	\N	2026-03-26 09:57:16.558238	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36	197.232.71.138	\N	\N	\N	\N	\N
 \.
 
 
@@ -4416,8 +4654,8 @@ COPY "auth"."sso_providers" ("id", "resource_id", "created_at", "updated_at", "d
 --
 
 COPY "auth"."users" ("instance_id", "id", "aud", "role", "email", "encrypted_password", "email_confirmed_at", "invited_at", "confirmation_token", "confirmation_sent_at", "recovery_token", "recovery_sent_at", "email_change_token_new", "email_change", "email_change_sent_at", "last_sign_in_at", "raw_app_meta_data", "raw_user_meta_data", "is_super_admin", "created_at", "updated_at", "phone", "phone_confirmed_at", "phone_change", "phone_change_token", "phone_change_sent_at", "email_change_token_current", "email_change_confirm_status", "banned_until", "reauthentication_token", "reauthentication_sent_at", "is_sso_user", "deleted_at", "is_anonymous") FROM stdin;
-00000000-0000-0000-0000-000000000000	742c31bf-d94b-45d2-906a-8de86a6d8954	authenticated	authenticated	admin@sirimara.com	$2a$10$0MP2qJuZ5uSdi.LJrgfBeegaa8w/tJv8SZaR7DwRJ9Ya.zijbnGg6	2026-02-11 06:50:45.0383+00	\N		\N		\N			\N	2026-03-26 08:11:46.133649+00	{"provider": "email", "providers": ["email"]}	{"email_verified": true}	\N	2026-02-11 06:50:44.974934+00	2026-03-26 09:56:35.571376+00	\N	\N			\N		0	\N		\N	f	\N	f
 00000000-0000-0000-0000-000000000000	47838213-c39c-4135-9d1a-a924307c77d6	authenticated	authenticated	admin@ellliman.com	$2a$10$mhU7qgAggUnMvS4f.i.eTur3QkmT3DcswCMSVNSntFT/LLlpK1iEC	2025-12-22 08:05:20.344556+00	\N		\N		\N			\N	2026-02-11 10:01:49.852015+00	{"provider": "email", "providers": ["email"]}	{"email_verified": true}	\N	2025-12-22 08:05:20.321213+00	2026-02-11 10:01:49.908771+00	\N	\N			\N		0	\N		\N	f	\N	f
+00000000-0000-0000-0000-000000000000	742c31bf-d94b-45d2-906a-8de86a6d8954	authenticated	authenticated	admin@sirimara.com	$2a$10$0MP2qJuZ5uSdi.LJrgfBeegaa8w/tJv8SZaR7DwRJ9Ya.zijbnGg6	2026-02-11 06:50:45.0383+00	\N		\N		\N			\N	2026-03-27 08:27:20.908431+00	{"provider": "email", "providers": ["email"]}	{"email_verified": true}	\N	2026-02-11 06:50:44.974934+00	2026-03-27 08:27:20.944006+00	\N	\N			\N		0	\N		\N	f	\N	f
 \.
 
 
@@ -4442,7 +4680,7 @@ COPY "auth"."webauthn_credentials" ("id", "user_id", "credential_id", "public_ke
 --
 
 COPY "public"."admin_users" ("id", "email", "full_name", "role", "created_at", "last_login") FROM stdin;
-742c31bf-d94b-45d2-906a-8de86a6d8954	admin@sirimara.com	Admin User	super_admin	2026-02-11 06:56:28.175814+00	2026-03-26 08:11:44.798+00
+742c31bf-d94b-45d2-906a-8de86a6d8954	admin@sirimara.com	Admin User	super_admin	2026-02-11 06:56:28.175814+00	2026-03-27 08:27:20.559+00
 \.
 
 
@@ -4451,7 +4689,7 @@ COPY "public"."admin_users" ("id", "email", "full_name", "role", "created_at", "
 --
 
 COPY "public"."agents" ("id", "first_name", "last_name", "email", "phone", "bio", "photo_url", "title", "specialties", "social_links", "is_active", "created_at", "updated_at", "is_featured", "featured_order", "specialties_list", "languages", "search_vector", "profile_data") FROM stdin;
-30000564-8fb7-4907-b63f-ea05cdad15c9	Halima 	Hussein	admin@sirimararealty.com	0712345678	Halima has expertise in commercial transactions and in energy, environmental and international trade issues with more than 10 years of post qualification legal experience. 	https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/agent-photos/tsp11p1irx7_1774507553844.jpg	Agent	[]	{"twitter": "", "linkedin": "", "instagram": ""}	t	2026-03-26 06:45:58.554026+00	2026-03-26 06:45:58.554026+00	f	0	\N	\N	'10':21C 'agent':3B 'commerci':8C 'energi':12C 'environment':13C 'experi':27C 'expertis':6C 'halima':1A,4C 'hussein':2A 'intern':15C 'issu':17C 'legal':26C 'post':24C 'qualif':25C 'trade':16C 'transact':9C 'year':22C	{"intro": "Halima has expertise in commercial transactions and in energy, environmental and international trade issues with more than 10 years of post qualification legal experience. ", "admissions": ["Advocate of the High Court of Kenya"], "experience": "Corporate Law Islamic Banking Policy making and legislative drafting Conveyancing Family law Energy and Infrastructure Employment Law Medical law Research & Consultancy Services", "capabilities": ["Corporate Law Islamic Banking Policy making and legislative drafting Conveyancing Family law Energy and Infrastructure Employment Law Medical law Research & Consultancy Services"], "academic_qualifications": ["Master of Laws in Energy and Natural Resources Law (Distinction), Queen Mary University of London, 2016.", "Post Graduate Diploma in Law (Distinction), Kenya School of Law Bar Qualifying Examinations, 2013.", "Bachelor of Laws (Hons), University of Nairobi, 2012."]}
+30000564-8fb7-4907-b63f-ea05cdad15c9	Halima.	Hussein	admin@sirimararealty.com	0712345678	Halima has expertise in commercial transactions and in energy, environmental and international trade issues with more than 10 years of post qualification legal experience. 	https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/agent-photos/tsp11p1irx7_1774507553844.jpg	Agent	[]	{"twitter": "", "linkedin": "", "instagram": ""}	t	2026-03-26 06:45:58.554026+00	2026-03-26 14:29:32.656969+00	f	0	\N	{}	'10':21C 'agent':3B 'commerci':8C 'energi':12C 'environment':13C 'experi':27C 'expertis':6C 'halima':1A,4C 'hussein':2A 'intern':15C 'issu':17C 'legal':26C 'post':24C 'qualif':25C 'trade':16C 'transact':9C 'year':22C	{"intro": "Halima has expertise in commercial transactions and in energy, environmental and international trade issues with more than 10 years of post qualification legal experience. ", "admissions": ["Advocate of the High Court of Kenya"], "experience": "Corporate Law Islamic Banking Policy making and legislative drafting Conveyancing Family law Energy and Infrastructure Employment Law Medical law Research & Consultancy Services", "capabilities": ["Corporate Law Islamic Banking Policy making and legislative drafting Conveyancing Family law Energy and Infrastructure Employment Law Medical law Research & Consultancy Services"], "academic_qualifications": ["Master of Laws in Energy and Natural Resources Law (Distinction), Queen Mary University of London, 2016.", "Post Graduate Diploma in Law (Distinction), Kenya School of Law Bar Qualifying Examinations, 2013.", "Bachelor of Laws (Hons), University of Nairobi, 2012."]}
 \.
 
 
@@ -4527,6 +4765,7 @@ a5f9d4c1-c798-4bb6-a5f4-dd2c223347ed	cq6m3faqs57_1770294369872.mp4	https://bbvro
 1b284ade-e301-42ea-ab11-c2944bac9f8f	uqyz5tocmm_1770301736841.png	https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/uqyz5tocmm_1770301736841.png	uqyz5tocmm_1770301736841.png	image	\N	\N	\N	\N	\N	2026-02-05 14:29:00.599895+00
 604f33bb-e9d1-4ee8-ae04-468c2ea59020	i7qdemgbsds_1770301997758.png	https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/i7qdemgbsds_1770301997758.png	i7qdemgbsds_1770301997758.png	image	\N	\N	\N	\N	\N	2026-02-05 14:33:23.148897+00
 1f321011-10be-4097-a881-e1a16f5db94c	uey1aipcid_1770307812131.mp4	https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/videos/uey1aipcid_1770307812131.mp4	uey1aipcid_1770307812131.mp4	video	\N	\N	\N	\N	\N	2026-02-05 16:10:44.691726+00
+b5db364e-4b1b-4fd7-a99e-574bb57f07b8	lev3aq4ufda_1774532231734.png	https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/lev3aq4ufda_1774532231734.png	lev3aq4ufda_1774532231734.png	image	\N	\N	\N	\N	\N	2026-03-26 13:37:13.663492+00
 \.
 
 
@@ -4593,12 +4832,10 @@ COPY "public"."page_sections" ("id", "page", "section_type", "title", "subtitle"
 a7b4aa65-ad47-4274-b45c-f441a96dddfe	home	hero	Discover Kenya’s Finest Addresses	Step into a world where elegance meets opportunity.	Our portfolio of luxury estates across Nairobi, Mombasa, and the Great Rift Valley offers more than homes—they are statements of prestige.	https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/videos/4ycqt45daeh_1770292806266.mp4	video	{"height": "screen", "variant": "home", "text_alignment": "center", "overlay_opacity": 20, "show_bottom_nav": true, "show_scroll_indicator": false}	START YOUR SEARCH	/search			#000000	#FFFFFF	1	t	140d90ad-2e77-4f50-82bd-34559cdf413e	2026-02-04 12:53:56.566012+00	2026-02-05 12:14:14.62212+00
 7c239c63-de7d-4cae-9532-6cb39fea91f7	about	stats			Sirimara realty is a unique  real estate company, with a team of five experts holding more than 20 years of experience and knowledge in both the legal and real estate fields.\n\nAt sirimara realty, we provide real estate services all under one roof, hinged upon the principles of transparency and integrity.		image	{"columns": 3, "show_border": true, "stats_category": "company", "show_intro_text": true}					#181728	#FFFFFF	2	t	951bf8bf-c247-4413-8f99-308c86a6d61e	2026-02-04 12:53:56.566012+00	2026-02-05 12:27:00.244289+00
 31d5ec75-f65d-436b-92df-e542df4f2f70	about	hero	We Are The Ultimate Destination Real Estate in Kenya	About Us		https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/videos/cq6m3faqs57_1770294369872.mp4	video	{"height": "80vh", "variant": "default", "text_alignment": "center", "overlay_opacity": 20, "show_scroll_indicator": true}					#181728	#FFFFFF	1	t	\N	2026-02-04 12:53:56.566012+00	2026-02-05 12:27:11.226109+00
-50aad805-5544-48c6-99b9-523633b3e8fa	home	hero	Property due diligence in Kenya, What's essential?	Kenya’s Luxury Real Estate Specialists"		https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/0njk1jp6cf7h_1770289831670.jpeg	image	{"height": "screen", "variant": "default", "text_alignment": "center", "overlay_opacity": 30, "show_scroll_indicator": false}	Learn More	/newsletter			#e65314	#db0606	5	t	45fe7b04-e602-4347-9b58-db19457ba4b2	2026-02-04 12:53:56.566012+00	2026-02-22 14:56:57.945295+00
 b0d67018-f54a-4ed8-bd43-499a24165e9f	about	banner	We Are Market Makers		We focus our expertise on the places that inspire and shape the future.	https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/in3mtsohk2_1770293861458.jpeg	image	{"height": "80vh", "cta_layout": "horizontal", "text_alignment": "center", "overlay_opacity": 30}	Explore Our Exclusive Properties	/sales			#181728	#FFFFFF	6	t	64770728-5f45-4650-96c6-6e9c5deaa8ff	2026-02-04 12:53:56.566012+00	2026-02-05 12:29:18.349745+00
-b5555555-5555-5555-5555-555555555555	property-management	tabs	\N	Our Value Add	\N	\N	\N	{"layout": "side-by-side", "show_gradient": false, "image_position": "right"}	\N	\N	\N	\N	#FFFFFF	#181728	4	t	\N	2026-03-21 00:36:15.403508+00	2026-03-21 00:51:41.294404+00
-b6666666-6666-6666-6666-666666666666	property-management	tabs	\N	Our Value Add	\N	\N	\N	{"layout": "side-by-side", "show_gradient": false, "image_position": "left"}	\N	\N	\N	\N	#F8F8F8	#181728	5	t	\N	2026-03-21 00:36:15.403508+00	2026-03-21 00:51:41.294404+00
 b7777777-7777-7777-7777-777777777777	property-management	tabs	\N	Our Value Add	\N	\N	\N	{"layout": "side-by-side", "show_gradient": false, "image_position": "right"}	\N	\N	\N	\N	#FFFFFF	#181728	6	t	\N	2026-03-21 00:36:15.403508+00	2026-03-21 00:51:41.294404+00
 9b314acd-a4c6-40e2-9465-72c633df9786	about	contact	Ready to Connect?		Let our exceptional team guide you.		image	{"layout": "horizontal", "show_intro_text": true}	Call SIRIMIARAREALTY	tel:+254795456604	info@sirimararealty.com	mailto:sirimararealty@gmail.com	#181728	#FFFFFF	7	t	f1c4aaee-3617-4df0-85b7-8e90265f248e	2026-02-04 12:53:56.566012+00	2026-03-21 01:19:00.035094+00
+50aad805-5544-48c6-99b9-523633b3e8fa	home	hero	Property due diligence in Kenya, What's essential?	Kenya’s Luxury Real Estate Specialists"		https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/0njk1jp6cf7h_1770289831670.jpeg	image	{"height": "screen", "variant": "default", "text_alignment": "center", "overlay_opacity": 30, "show_scroll_indicator": false}	Learn More	/newsletters			#e65314	#db0606	5	t	45fe7b04-e602-4347-9b58-db19457ba4b2	2026-02-04 12:53:56.566012+00	2026-03-26 13:54:46.810942+00
 6a16a57c-f06c-4fa3-bacd-f1c329ebdea2	sell	stats	THE NUMBERS SPEAK FOR THEMSELVES	\N	We deliver results that matter. Our proven track record and market expertise ensure your property gets the attention it deserves.	\N	\N	{"columns": 3, "show_border": true, "stats_category": "company", "show_intro_text": true}	VIEW OUR MARKET REPORTS	\N	\N	\N	#181728	#FFFFFF	2	t	951bf8bf-c247-4413-8f99-308c86a6d61e	2026-02-04 12:53:56.566012+00	2026-02-04 12:53:56.566012+00
 4ad8de9b-a927-448b-af23-a6f8eff2ab0f	sell	banner	OUR AGENT ADVANTAGE	\N	Our agents have the knowledge, experience, and professional network to price, promote and put your property in front of the most highly qualified buyers.	https://res.cloudinary.com/dk92v0fkk/image/upload/v1732501450/staging-test/vrvgksmitdbeff170j1y.jpg	image	{"height": "600px", "cta_layout": "horizontal", "text_alignment": "center", "overlay_opacity": 50}	FIND AN AGENT	/agents	\N	\N	#000000	#FFFFFF	3	t	64770728-5f45-4650-96c6-6e9c5deaa8ff	2026-02-04 12:53:56.566012+00	2026-02-04 12:53:56.566012+00
 4f5f27fb-b971-4508-ae03-c8058077a55d	sell	contact	GET YOUR HOME VALUATION	\N	Discover what your property is worth with a complimentary market analysis from our experts.	\N	\N	{"layout": "horizontal", "show_intro_text": true}	REQUEST A VALUATION	/valuation	\N	\N	#F8F8F8	#181728	10	t	f1c4aaee-3617-4df0-85b7-8e90265f248e	2026-02-04 12:53:56.566012+00	2026-02-04 12:53:56.566012+00
@@ -4609,24 +4846,23 @@ f827b256-f209-4650-8816-5b6c64b25a1c	new-development	stats	UNRIVALED EXPERTISE	\
 ce7aa924-295a-4627-9f18-12cbca6216a7	new-development	development_grid	WE TRANSFORM SKYLINES AND SHAPE CULTURE	\N	\N	\N	\N	{}	\N	\N	\N	\N	#FFFFFF	#000000	3	t	4d88d499-adcf-4b82-a5ce-4c2873fdd4cb	2026-02-04 12:53:56.566012+00	2026-02-04 12:53:56.566012+00
 1397227f-3893-4359-9cdb-89e9a00f93c7	new-development	tabs	WE ARE PARTNERS THROUGHOUT THE ENTIRE PROCESS	\N	Our team of experts provides the highest level of hands-on support at every turn.	\N	\N	{"layout": "side-by-side", "show_gradient": false, "image_position": "left"}	\N	\N	\N	\N	#FFFFFF	#181728	4	t	fbef6085-d8d3-4f3c-91e3-f297acfa1ad5	2026-02-04 12:53:56.566012+00	2026-02-04 12:53:56.566012+00
 e8ade329-c08b-45f6-bdb8-f1560eeea881	new-development	logo_grid	we are the choice of world-renowned brands	\N	\N	http://res.cloudinary.com/daeyhsq50/image/upload/v1710268136/notmplnhap56ym7pmg3r.png	\N	{"background_color": "#F8F8F8"}	\N	\N	\N	\N	#F8F8F8	#181728	5	t	accdd500-017f-41af-90f2-7542f57fb6b2	2026-02-04 12:53:56.566012+00	2026-02-04 12:53:56.566012+00
-70e6effa-20f5-4d38-afdf-f81060333db6	terms-of-service	hero	TERMS OF USE	DOUGLAS ELLIMAN	\N	https://res.cloudinary.com/dk92v0fkk/image/upload/v1727311016/staging/zkbtspvuvdutxii11lzk.webp	image	{"height": "60vh", "variant": "default", "text_alignment": "center", "overlay_opacity": 40}	\N	\N	\N	\N	#181728	#FFFFFF	1	t	45fe7b04-e602-4347-9b58-db19457ba4b2	2026-02-04 12:54:44.49988+00	2026-02-04 12:54:44.49988+00
 898ed1e1-1ec6-43dc-b080-6d8b45aec483	privacy-policy	hero	PRIVACY POLICY	DOUGLAS ELLIMAN	\N	https://res.cloudinary.com/dk92v0fkk/image/upload/v1727311016/staging/zkbtspvuvdutxii11lzk.webp	image	{"height": "60vh", "variant": "default", "text_alignment": "center", "overlay_opacity": 40}	\N	\N	\N	\N	#181728	#FFFFFF	1	t	45fe7b04-e602-4347-9b58-db19457ba4b2	2026-02-04 12:54:44.49988+00	2026-02-04 12:54:44.49988+00
 a39be6ce-35fc-436a-814f-c5c50fc34c69	agents	hero	CONNECT WITH OUR LUXURY REAL ESTATE AGENTS	AGENTS		https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/videos/uey1aipcid_1770307812131.mp4	video	{"height": "screen", "variant": "agents", "text_alignment": "center", "overlay_opacity": 20, "search_placeholder": "Enter agent name, state or office address", "show_scroll_indicator": true}					#181728	#FFFFFF	1	t	45fe7b04-e602-4347-9b58-db19457ba4b2	2026-02-04 12:53:56.566012+00	2026-02-10 11:50:12.579425+00
 40566a97-787a-4f67-a6a3-aceffe7a004c	sell	hero	Elevate Your Property, Maximize Your Return.	SELL WITH US	Our agents are local experts, record breakers, and trusted advocates for you.	https://res.cloudinary.com/dk92v0fkk/image/upload/v1727313545/staging/if0tunyrf2dsgrf6eeec.webp	image	{"height": "screen", "variant": "default", "text_alignment": "center", "overlay_opacity": 40, "show_scroll_indicator": true}					#000000	#FFFFFF	1	t	45fe7b04-e602-4347-9b58-db19457ba4b2	2026-02-04 12:53:56.566012+00	2026-02-10 11:37:05.710457+00
 9fa6d2e1-7b01-493d-a8de-6ac5f2f0aef0	rentals	hero	FIND YOUR FAVORITE PLACE TO BES	We are experts in the luxury rental market.			image	{"height": "auto", "text_alignment": "center", "overlay_opacity": 0, "background_color": "#4d525c"}					#4d525c	#FFFFFF	1	t	45fe7b04-e602-4347-9b58-db19457ba4b2	2026-02-04 12:53:56.566012+00	2026-02-11 05:16:14.736729+00
 fae98aee-4b96-4d97-ad35-c947b6978157	agents	hero	PARTNER WITH THE BEST	OUR AGENTS	Our agents are more than just transaction managers—they are your advisors, local experts, and trusted advocates.	https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/in3mtsohk2_1770293861458.jpeg	image	{"height": "screen", "variant": "default", "text_alignment": "center", "overlay_opacity": 40}					#000000	#FFFFFF	2	t	45fe7b04-e602-4347-9b58-db19457ba4b2	2026-02-04 12:53:56.566012+00	2026-02-10 11:49:37.217827+00
 62534159-19c4-4da9-a3a0-6730ca0f6700	sales	hero	FIND YOUR DREAM HOME	We are experts in the luxury sales market.		https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/in3mtsohk2_1770293861458.jpeg	image	{"height": "auto", "text_alignment": "center", "overlay_opacity": 0, "background_color": "#4d525c"}					#4d525c	#FFFFFF	1	t	45fe7b04-e602-4347-9b58-db19457ba4b2	2026-02-04 12:53:56.566012+00	2026-02-22 14:53:21.820686+00
+70e6effa-20f5-4d38-afdf-f81060333db6	terms-of-service	hero	TERMS OF USE	SIRIMARA REALTY		https://res.cloudinary.com/dk92v0fkk/image/upload/v1727311016/staging/zkbtspvuvdutxii11lzk.webp	image	{"height": "60vh", "variant": "default", "text_alignment": "center", "overlay_opacity": 40}					#181728	#FFFFFF	1	t	45fe7b04-e602-4347-9b58-db19457ba4b2	2026-02-04 12:54:44.49988+00	2026-03-26 14:07:54.526685+00
 b2222222-2222-2222-2222-222222222222	property-management	hero	Property Management	\N	We treat your property like it is our own.	https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2940&auto=format&fit=crop	image	{"height": "60vh", "variant": "default", "text_alignment": "left", "overlay_opacity": 40}	\N	\N	\N	\N	#181728	#FFFFFF	1	t	\N	2026-03-21 00:36:15.403508+00	2026-03-21 00:36:15.403508+00
-b3333333-3333-3333-3333-333333333333	property-management	prop_mgmt_intro	Our qualified team will take care of every detail of your property	\N	For over 20 years, Sirimara has maintained an excellent track record in the management of its own and third-party property portfolios. The company has integrated a feedback-loop of continuous improvement, innovations and solutions. This has elevated Sirimara to one of the leading property management companies in the region.\r\n\r\nVarious managed third-party properties were handed over in dilapidated condition and Sirimara progressively spearheaded the rehabilitation and restoration of these properties through a strategic financial and operational planning system that includes a stringent Planned Preventative Maintenance programme (PPM) maintained using its bespoke Computerized Maintenance Management System (CMMS).\r\n\r\nThese properties are currently fully occupied by quality tenants and are in good tenable condition.	\N	\N	{"stats": [{"icon": "History", "label": "Experience", "value": "20+ years"}, {"icon": "Maximize", "label": "Management", "value": "Over 500K sq ft"}, {"icon": "Users", "label": "Average Occupancy", "value": "95%"}, {"icon": "Briefcase", "label": "", "value": "Multidisciplinary Team"}, {"icon": "Settings", "label": "Bespoke CMMS", "value": "Computerized Maintenance Management System"}, {"icon": "Wrench", "label": "Robust PPM", "value": "Planned Preventative Maintenance"}]}	\N	\N	\N	\N	#FFFFFF	#181728	2	t	\N	2026-03-21 00:36:15.403508+00	2026-03-21 00:36:15.403508+00
 c405354e-9f77-4991-b339-ed9db0d78893	home	hero	Discover the Riftvalley	Our estates here combine natural beauty with refined design, creating sanctuaries of peace and prestige.		https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/videos/d8afhdci7c4_1770289160422.mp4	video	{"height": "screen", "variant": "default", "text_alignment": "center", "overlay_opacity": 30, "show_scroll_indicator": false}	Search	/sales			#FFFFFF	#000000	3	t	45fe7b04-e602-4347-9b58-db19457ba4b2	2026-02-05 11:00:05.931536+00	2026-02-05 12:14:14.697269+00
 62acb9e9-d0ed-4ba2-9f64-f1dbbab2f703	agents	agents_grid	Our Agents	Meet our team of luxury real estate experts	\N	\N	\N	{}	\N	\N	\N	\N	#FFFFFF	#181728	3	t	\N	2026-02-05 03:00:57.439786+00	2026-02-05 03:00:57.439786+00
-05e64495-f7c0-491a-8f68-16be8fd9b3f9	terms-of-service	legal	TERMS AND CONDITIONS OF USE		<p>Welcome to SIRIMARA REALTY. By accessing our website, you agree to these legal terms.</p>\n\n<h3>1. Acceptance of Terms</h3>\n<p>By using our services, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.</p>\n\n<h3>2. Use of Services</h3>\n<p>You may use our services only as permitted by law. We may suspend or stop providing our services to you if you do not comply with our terms or policies or if we are investigating suspected misconduct.</p>\n\n<h3>3. Intellectual Property</h3>\n<p>The content, organization, graphics, design, compilation, magnetic translation, digital conversion and other matters related to the Site are protected under applicable copyrights, trademarks and other proprietary (including but not limited to intellectual property) rights.</p>\n\n<h3>4. Disclaimer of Warranties</h3>\n<p>THE SERVICES ARE PROVIDED "AS IS". WE MAKE NO WARRANTIES, EXPRESSED OR IMPLIED, AND HEREBY DISCLAIM AND NEGATE ALL OTHER WARRANTIES, INCLUDING WITHOUT LIMITATION, IMPLIED WARRANTIES OR CONDITIONS OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT OF INTELLECTUAL PROPERTY OR OTHER VIOLATION OF RIGHTS.</p>\n		none	{"last_modified_date": "2025-04-09", "show_last_modified": true}					#FFFFFF	#000000	2	t	766db7e4-23d1-4126-953e-9a1f46228419	2026-02-04 12:54:44.49988+00	2026-02-22 14:37:52.505043+00
+79b53dbc-dc18-4cd9-ba72-eed4cfde0f35	home	newsletter	The latest in luxury property, lifestyle & culture, curated just for you.	THE NEXT MOVE IS YOURS	Local Experts, Global Reach	https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/in3mtsohk2_1770293861458.jpeg	image	{"layout": "horizontal"}				/newsletters	#ffffff	#000000	6	t	dd333c2b-9364-47f0-ba1d-2f04535b812d	2026-02-05 12:14:43.740751+00	2026-03-26 13:55:37.397405+00
 f3566bee-e36a-4ed8-ace1-31be2532a6ef	home	hero	Discover Nairobi	Invest in Nairobi’s prime addresses—where business, culture, and luxury converge.		https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/videos/p1j72f9eby_1770289116420.mp4	video	{"height": "screen", "variant": "default", "text_alignment": "center", "overlay_opacity": 30, "show_scroll_indicator": false}	Search	/sales			#FFFFFF	#f48e57	2	t	45fe7b04-e602-4347-9b58-db19457ba4b2	2026-02-04 18:15:10.714142+00	2026-02-22 14:44:42.297284+00
-79b53dbc-dc18-4cd9-ba72-eed4cfde0f35	home	newsletter	The latest in luxury property, lifestyle & culture, curated just for you.	THE NEXT MOVE IS YOURS	Local Experts, Global Reach	https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/in3mtsohk2_1770293861458.jpeg	image	{"layout": "horizontal"}				/agents	#ffffff	#000000	6	t	dd333c2b-9364-47f0-ba1d-2f04535b812d	2026-02-05 12:14:43.740751+00	2026-02-05 14:36:16.980725+00
 cb543754-0ce2-4ac0-b06e-526e9ebfb9a7	home	hero	Discover the Coast	Exclusive oceanfront estates where every sunrise is a masterpiece and every sunset a private escape.		https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/videos/uey1aipcid_1770307812131.mp4	video	{"height": "screen", "variant": "default", "text_alignment": "center", "overlay_opacity": 30, "show_scroll_indicator": false}	Search	/sales			#FFFFFF	#000000	4	t	45fe7b04-e602-4347-9b58-db19457ba4b2	2026-02-05 11:04:41.497755+00	2026-02-05 16:11:56.53003+00
-b4444444-4444-4444-4444-444444444444	property-management	tabs	\N	Our Edge	\N	\N	\N	{"layout": "side-by-side", "show_gradient": false, "image_position": "left"}	\N	\N	\N	\N	#F8F8F8	#181728	3	t	\N	2026-03-21 00:36:15.403508+00	2026-03-21 00:51:41.294404+00
 b8888888-8888-8888-8888-888888888888	property-management	contact	Ready to Transform Your Property?	\N	Let our exceptional property management team maximize the value of your real estate investments.	\N	\N	{"layout": "horizontal", "show_intro_text": true}	Talk to an Expert	tel:+254795456604	Email Us	mailto:sirimararealty@gmail.com	#181728	#FFFFFF	7	t	\N	2026-03-21 00:36:15.403508+00	2026-03-21 01:19:00.035094+00
 c325fc25-1f1f-4f7f-88b6-1c290f6ddab2	privacy-policy	legal	PRIVACY POLICY		<h1>Terms of Use</h1> <section> <h2>Liability Disclaimer</h2> <p>The information, materials, and opinions on this website are for general information only and do not constitute legal advice. You should seek specific legal advice. Any reliance is at your own risk and SIRIMARA accepts no responsibility for any resulting loss. No client/advocate relationship is created by use of the site.</p> <p>We do not warrant that the website or its contents are free of viruses or malicious code.</p> <ul> <li>SIRIMARA is not responsible for interrupted or failed transmissions due to causes beyond its control.</li> <li>Reliance on website content is at your own risk.</li> <li>Content may be inaccurate, incomplete, or inadequate.</li> <li>SIRIMARA does not control and is not liable for content on linked external websites.</li> </ul> <p>SIRIMARA shall not be liable for any damages resulting from use of or reliance on this website or its contents.</p> </section> <section> <h2>Indemnity</h2> <p>You agree to fully indemnify SIRIMARA, its partners, associates, employees, or suppliers against any claims related to your use of the website or third-party content errors.</p> </section> <section> <h2>Violation and Waiver</h2> <p>SIRIMARA reserves all legal rights in case of breach. Failure to enforce any provision does not waive that provision. If any provision is found invalid, the remaining terms remain enforceable.</p> </section> <section> <h2>Applicable Law</h2> <p>These terms are governed by the laws of the Republic of Kenya. You consent to the exclusive jurisdiction of the High Court of Kenya for any disputes.</p> </section> <section> <h2>Data Privacy</h2> <p>SIRIMARA collects personal information when you use the website for purposes such as:</p> <ul> <li>Responding to your requests</li> <li>Providing legal services</li> <li>Compliance with anti-money laundering laws</li> <li>Processing employment applications</li> <li>Marketing and business development</li> <li>Market research</li> <li>Audit and compliance</li> </ul> <p>Data may be shared internally for conflict checks, client management, and administrative use. It may be stored outside your region. We do not share data with third parties unless required by law or authorized by you.</p> </section> <section> <h2>Links to Other Websites</h2> <p>SIRIMARA is not responsible for the content or policies of third-party websites. Use them at your own risk.</p> </section> <section> <h2>Anti-Money Laundering</h2> <p>SIRIMARA may require proof of identity and report suspicious activity without notice or liability. We follow applicable AML laws and may cease work without explanation.</p> </section> <section> <h2>Anti-Bribery and Anti-Corruption</h2> <p>SIRIMARA has a zero-tolerance policy towards bribery and corruption, applicable to all personnel and third-party service providers.</p> </section> <section> <h2>Intellectual Property Rights</h2> <p>All content is owned by SIRIMARA or its suppliers and protected by copyright laws.</p> <p>You may:</p> <ul> <li>Use content for informational, non-commercial purposes</li> <li>Download and distribute content if unmodified and with proper attribution</li> </ul> <p>Misuse or reproduction in breach of these terms will terminate your right to use the site.</p> </section> <section> <h2>Term and Termination</h2> <p>These terms remain in effect indefinitely. You may terminate by deleting stored website data. SIRIMARA may terminate access without notice if you breach these terms or misuse the site.</p> </section> <section> <h2>Trademarks</h2> <p>SIRIMARA is a registered trademark.</p> </section> <section> <h2>Contact</h2> <p>For questions, contact us at <a href="mailto:sirimararealty@gmail.com">sirimararealty@gmail.com</a>.</p> </section> <p><strong>Your continued use of this website is contingent upon your agreement to be bound by these Terms of Use.</strong></p>		none	{"last_modified_date": "2025-04-09", "show_last_modified": true}					#FFFFFF	#000000	2	t	766db7e4-23d1-4126-953e-9a1f46228419	2026-02-04 12:54:44.49988+00	2026-03-21 01:19:00.035094+00
+05e64495-f7c0-491a-8f68-16be8fd9b3f9	terms-of-service	legal	TERMS AND CONDITIONS OF USE		 <h2><strong>Liability Disclaimer</strong></h2>\n    <p>\n        The information materials and opinions on this website are for general information only and do not constitute real estate, financial or legal advice. You should seek specific real estate, financial or legal advice.\n    </p>\n    <p>\n        Any reliance is at your own risk and Sirimara Realty Limited <b>(“Sirimara Realty”) </b>accepts no responsibility for any resulting loss. No client relationship is created by use of the site.\n    </p>\n    <ul>\n        <li>We do not warrant that the website or its contents are free of viruses or malicious code.</li>\n        <li>Sirimara Realty is not responsible for interrupted or failed transmissions due to causes beyond its control.</li>\n        <li>Reliance on website content is at your own risk.</li>\n        <li>Content may be inaccurate, incomplete, or inadequate.</li>\n        <li>Sirimara Realty does not control and is not liable for content on linked external websites.</li>\n        <li>Sirimara Realty shall not be liable for any damages resulting from use of or reliance on this website or its contents.</li>\n    </ul>\n\n    <h2><strong>Indemnity</strong></h2>\n    <p>\n        You agree to fully indemnify Sirimara Realty, its partners, associates, employees or suppliers against any claims related to your use of the website or third-party content errors.\n    </p>\n\n    <h2><strong>Violation and Waiver</strong></h2>\n    <p>\n        Sirimara Realty reserves all legal rights in case of breach. Failure to enforce any provision does not waive that provision. If any provision is found invalid, the remaining terms remain enforceable.\n    </p>\n\n    <h2><strong>Applicable Law</strong></h2>\n    <p>\n        These terms are governed by the laws of the Republic of Kenya. You consent to the exclusive jurisdiction of the High Court of Kenya for any disputes.\n    </p>\n\n    <h2><strong>Data Privacy</strong></h2>\n    <p>Sirimara Realty collects personal information when you use the website for purposes such as:</p>\n    <ul>\n        <li>Responding to your requests</li>\n        <li>Providing real estate services</li>\n        <li>Compliance with anti-money laundering laws</li>\n        <li>Processing employment applications</li>\n        <li>Marketing and business development</li>\n        <li>Market research</li>\n        <li>Audit and compliance</li>\n    </ul>\n    <p>\n        Data may be shared internally for conflict checks, client management, and administrative use. It may be stored outside your region. We do not share data with third parties unless required by law or authorized by you.\n    </p>\n\n    <h2><strong>Links to Other Websites</strong></h2>\n    <p>\n        Sirimara Realty is not responsible for the content or policies of third-party websites. Use them at your own risk.\n    </p>\n\n    <h2><strong>Anti-Money Laundering</strong></h2>\n    <p>\n        Sirimara Realty may require proof of identity and report suspicious activity without notice or liability. We follow applicable AML laws in Kenya and may cease work without explanation.\n    </p>\n\n    <h2><strong>Anti-Bribery and Anti-Corruption</strong></h2>\n    <p>\n        Sirimara Realty has a zero-tolerance policy towards bribery and corruption, applicable to all personnel and third-party service providers.\n    </p>\n\n    <h2><strong>Intellectual Property Rights</strong></h2>\n    <p>\n        All content is owned by Sirimara Realty or its suppliers and protected by copyright laws.\n    </p>\n    <p>You may:</p>\n    <ul>\n        <li>Use content for informational, non-commercial purposes</li>\n        <li>Download and distribute content if unmodified and with proper attribution</li>\n    </ul>\n    <p>\n        Misuse or reproduction in breach of these terms will terminate your right to use the site.\n    </p>\n\n    <h2><strong>Term and Termination</strong></h2>\n    <p>\n        These terms remain in effect indefinitely. You may terminate by deleting stored website data. Sirimara Realty may terminate access without notice if you breach these terms or misuse the site.\n    </p>\n\n    <h2><strong>Trademarks</strong></h2>\n    <p>\n        Sirimara Realty is a registered trademark.\n    </p>\n\n    <h2><strong>Contact</strong></h2>\n    <p>\n        For questions, contact us at <a href="mailto:sirimararealty@gmail.com">sirimararealty@gmail.com</a>.\n    </p>\n\n    <p>\n        Your continued use of this website is contingent upon your agreement to be bound by these Terms & Conditions.\n    </p>		none	{"last_modified_date": "2025-04-09", "show_last_modified": true}					#FFFFFF	#000000	2	t	766db7e4-23d1-4126-953e-9a1f46228419	2026-02-04 12:54:44.49988+00	2026-03-26 14:07:32.456261+00
+b3333333-3333-3333-3333-333333333333	property-management	prop_mgmt_intro	Our qualified team will take care of every detail of your property.		For over 20 years, Sirimara has maintained an excellent track record in the management of its own and third-party property portfolios. The company has integrated a feedback-loop of continuous improvement, innovations and solutions. This has elevated Sirimara to one of the leading property management companies in the region.\r\n\r\nVarious managed third-party properties were handed over in dilapidated condition and Sirimara progressively spearheaded the rehabilitation and restoration of these properties through a strategic financial and operational planning system that includes a stringent Planned Preventative Maintenance programme (PPM) maintained using its bespoke Computerized Maintenance Management System (CMMS).\r\n\r\nThese properties are currently fully occupied by quality tenants and are in good tenable condition.		image	{"stats": [{"icon": "History", "label": "Experience", "value": "20+ years"}, {"icon": "Maximize", "label": "Management", "value": "Over 500K sq ft"}, {"icon": "Users", "label": "Average Occupancy", "value": "95%"}, {"icon": "Briefcase", "label": "", "value": "Multidisciplinary Team"}, {"icon": "Settings", "label": "Bespoke CMMS", "value": "Computerized Maintenance Management System"}, {"icon": "Wrench", "label": "Robust PPM", "value": "Planned Preventative Maintenance"}]}					#FFFFFF	#181728	2	t	\N	2026-03-21 00:36:15.403508+00	2026-03-26 13:34:32.401398+00
 \.
 
 
@@ -4634,9 +4870,90 @@ c325fc25-1f1f-4f7f-88b6-1c290f6ddab2	privacy-policy	legal	PRIVACY POLICY		<h1>Te
 -- Data for Name: properties; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY "public"."properties" ("id", "title", "slug", "city", "address", "state", "zip_code", "bedrooms", "bathrooms", "half_baths", "price", "description", "property_type", "status", "square_feet", "lot_size", "year_built", "is_featured", "featured_order", "images", "amenities", "category", "created_at", "updated_at", "is_exclusive", "badge_text", "badge_expires_at", "listing_type", "neighborhood", "search_vector") FROM stdin;
-27d05fa2-1bc0-45c5-a443-067ff34dfbc8	Nakuru property=Elevate Your Property, Maximize Your Return.	nakuru-property	Nakuru	 Lanet Farm	Nakuru	00000	5	3.0	0	260.00	20 acres Lanet Farm: \n1. 5 bedroom main house, all ensuite, with lounge, dining & kitchen\n2. Guest house with lounge/dining room, and 1 bathroom\n3. Prime land used for farming ( maize, organic vegetables, avocados( & bee keeping.	house	active	123	\N	2006	f	\N	["https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/0syk62i722k9_1770295236848.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/mg5p423kjwn_1770295244542.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/g5zuhzy3i6i_1770295249795.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/s8pbdsxix2_1770295257278.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/im8fynvyzd_1770295263687.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/ehkx9oon206_1770295270133.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/gghkd5r7ymd_1770295284512.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/jrhhhy312sj_1770295292359.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/3dvdxzg23up_1770295298478.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/r3psdmbj4a8_1770295304524.jpeg"]	[]	farm-ranch	2026-02-05 12:41:50.996077+00	2026-02-05 12:41:50.996077+00	f	\N	\N	sale	\N	'00000':5C 'farm':2A 'lanet':1A 'nakuru':3A,4B
-06ce0936-1e8d-456c-8112-ce7be355076d	Nairobi Property-Karen 2728 sq ft commercial office:	karen-2728-sq-ft-commercial-office	Nairobi	Karen	Nairobi	00000	\N	2.0	0	400000.00	Karen 2728 sq ft commercial office:\n1. Top floor Office in Grade 1 Building along Ngong Road, with in-office kitchenette and bathrooms\n2. 2 Parkings included with Property\n3. Access to lush and well maintained gardens\n\nSale Price: Kshs 40M exclusive of VAT	apartment	active	2728	\N	2000	t	\N	["https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/rxvr7b3u3a_1770295519054.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/j9i10dnnizm_1770295527192.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/9b9q69kqji_1770295533051.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/chm46svf1np_1770295540933.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/26p58afg2ln_1770295549996.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/wg3a0p45wym_1770295556294.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/wda6xr4xb88_1770295561369.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/94knj8ghzv_1770295568993.jpeg"]	[]	city-skylines	2026-02-05 12:46:29.259228+00	2026-03-26 09:57:52.129076+00	f	\N	\N	rent	\N	'00000':4C 'karen':1A 'nairobi':2A,3B
+COPY "public"."properties" ("id", "title", "slug", "city", "address", "state", "zip_code", "bedrooms", "bathrooms", "half_baths", "price", "description", "property_type", "status", "square_feet", "lot_size", "year_built", "is_featured", "featured_order", "images", "amenities", "category", "created_at", "updated_at", "is_exclusive", "badge_text", "badge_expires_at", "listing_type", "neighborhood", "search_vector", "category_id", "type_id", "contract_type_id") FROM stdin;
+27d05fa2-1bc0-45c5-a443-067ff34dfbc8	Nakuru property=Elevate Your Property, Maximize Your Return.	nakuru-property	Nakuru	 Lanet Farm	Nakuru	00000	5	3.0	0	260.00	20 acres Lanet Farm: \n1. 5 bedroom main house, all ensuite, with lounge, dining & kitchen\n2. Guest house with lounge/dining room, and 1 bathroom\n3. Prime land used for farming ( maize, organic vegetables, avocados( & bee keeping.	house	active	123	\N	2006	f	\N	["https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/0syk62i722k9_1770295236848.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/mg5p423kjwn_1770295244542.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/g5zuhzy3i6i_1770295249795.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/s8pbdsxix2_1770295257278.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/im8fynvyzd_1770295263687.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/ehkx9oon206_1770295270133.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/gghkd5r7ymd_1770295284512.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/jrhhhy312sj_1770295292359.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/3dvdxzg23up_1770295298478.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/r3psdmbj4a8_1770295304524.jpeg"]	[]	farm-ranch	2026-02-05 12:41:50.996077+00	2026-03-26 12:38:09.975891+00	f	\N	\N	sale	\N	'00000':5C 'farm':2A 'lanet':1A 'nakuru':3A,4B	\N	06e5705e-cbc3-44be-a17c-9da83252c020	5ac820db-5fe4-4ea1-b5c1-cb5ca46dd984
+06ce0936-1e8d-456c-8112-ce7be355076d	Nairobi Property-Karen 2728 sq ft commercial office:	karen-2728-sq-ft-commercial-office	Nairobi	Karen	Nairobi	00000	\N	2.0	0	400000.00	Karen 2728 sq ft commercial office:\n1. Top floor Office in Grade 1 Building along Ngong Road, with in-office kitchenette and bathrooms\n2. 2 Parkings included with Property\n3. Access to lush and well maintained gardens\n\nSale Price: Kshs 40M exclusive of VAT	apartment	active	2728	\N	2000	t	\N	["https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/rxvr7b3u3a_1770295519054.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/j9i10dnnizm_1770295527192.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/9b9q69kqji_1770295533051.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/chm46svf1np_1770295540933.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/26p58afg2ln_1770295549996.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/wg3a0p45wym_1770295556294.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/wda6xr4xb88_1770295561369.jpeg", "https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/94knj8ghzv_1770295568993.jpeg"]	[]	city-skylines	2026-02-05 12:46:29.259228+00	2026-03-26 12:38:09.975891+00	f	\N	\N	rent	\N	'00000':4C 'karen':1A 'nairobi':2A,3B	\N	\N	254654c9-1d63-480d-a20f-ebdced276b16
+\.
+
+
+--
+-- Data for Name: property_categories; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY "public"."property_categories" ("id", "name", "slug", "description", "order_index", "is_active", "created_at", "updated_at") FROM stdin;
+f46ea817-f3a4-48c6-932c-3d89959f9116	Residential	residential	Residential properties for living	2	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+1f9cae6a-a8e4-4c1a-9b68-741a4d943591	Godown	godown	Storage/warehouse facilities	3	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+133fc10b-e56b-45d5-ae5e-fe7a4253ff65	Plot	plot	Land plots for development	4	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+7bd698b8-93c4-41bb-ab86-7abffea8ed05	Commercial	commercial	Commercial properties for business use	1	t	2026-03-26 12:38:09.975891+00	2026-03-27 08:27:45.587526+00
+\.
+
+
+--
+-- Data for Name: property_contract_types; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY "public"."property_contract_types" ("id", "name", "slug", "description", "order_index", "is_active", "created_at", "updated_at") FROM stdin;
+5ac820db-5fe4-4ea1-b5c1-cb5ca46dd984	For Sale	for-sale	Property available for purchase	1	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+254654c9-1d63-480d-a20f-ebdced276b16	To Let	to-let	Property available for rent/lease	2	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+\.
+
+
+--
+-- Data for Name: property_feature_links; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY "public"."property_feature_links" ("id", "property_id", "feature_id", "created_at") FROM stdin;
+\.
+
+
+--
+-- Data for Name: property_features; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY "public"."property_features" ("id", "name", "slug", "description", "category", "order_index", "is_active", "created_at", "updated_at") FROM stdin;
+d9132de2-c634-44f6-818a-b802dc860815	24 Hour Security	24-hour-security	\N	security	1	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+9cf868d8-1af4-4645-a902-4249dae76059	Electric Fence	electric-fence	\N	security	2	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+c9858eb5-48ca-4766-b3db-8ea248ec5c01	CCTV	cctv	\N	security	3	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+3591655d-0cd2-4908-a0c9-72e6a2f0d077	Guarded Security	guarded-security	\N	security	4	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+42ee6b68-50a3-4297-a635-ce99781bbef4	Intercom	intercom	\N	security	5	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+b367b6f6-1f45-4dde-8d76-4e06e7da29ea	Backup Generator	backup-generator	\N	utilities	10	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+5e589c89-653c-4389-b43e-7a3e27211ee0	Borehole	borehole	\N	utilities	11	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+8f7b5f3f-4acb-4edb-bb30-d583cb1de273	Solar Water Heater	solar-water-heater	\N	utilities	12	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+b2dd56a5-38d4-494d-8a1e-bc389251099b	High Speed Internet	high-speed-internet	\N	utilities	13	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+d4203061-d9fd-40ab-8169-25ce6dee5d53	Swimming Pool	swimming-pool	\N	recreational	20	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+0416fa61-e12f-4349-9bbc-fe7fa7f79495	Gym	gym	\N	recreational	21	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+372bbb3b-97f1-48a8-99ab-72f4a3a78deb	Garden	garden	\N	recreational	22	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+00818bb3-1700-48cc-8d5a-9303e5bc1231	Children Play Area	children-play-area	\N	recreational	23	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+67ee7371-c00b-4c8f-a6f6-5d1de0d04bd6	Entertainment Area	entertainment-area	\N	recreational	24	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+3cb00ba7-6d9a-4610-9add-05465ea8271b	Sauna	sauna	\N	recreational	25	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+23fcb88b-a857-422d-8e4c-12a238b2a512	Steam	steam	\N	recreational	26	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+5a717567-6a14-417f-a6fb-30f263c6f6f4	Built in Cupboards	built-in-cupboards	\N	interior	30	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+503db31e-79fd-4217-bbe7-75e3a3a0aab7	DSQ	dsq	\N	interior	31	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+ad28f8b6-efd9-4225-b5f9-607fbc8cc333	Jaccuzi	jaccuzi	\N	interior	32	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+f7d2dbe0-1352-4413-bac3-53f3c48b6b5e	Laundry	laundry	\N	interior	33	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+4e033569-3d02-440b-a49b-5bd7b0a3dfbd	Lift	lift	\N	interior	34	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+b715249d-5aa2-4035-a1be-2f3380ddbd97	Parking	parking	\N	interior	35	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+4830211d-6238-4b7d-9f91-343d48dce041	All En-suite	all-en-suite	\N	interior	36	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+3fd7f06f-ef07-43c6-b43a-0dafd631f323	Walk-in Closets	walk-in-closets	\N	interior	37	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+c81cd118-0e33-4653-ae34-7946060173b9	Balcony	balcony	\N	exterior	40	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+4743145d-9a67-43e1-a6c4-ee4f5a3f834c	Terrace	terrace	\N	exterior	41	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+d1b283d2-12f7-4741-b8e6-bb956eb97c28	Private Patio	private-patio	\N	exterior	42	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+\.
+
+
+--
+-- Data for Name: property_types; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY "public"."property_types" ("id", "name", "slug", "description", "order_index", "is_active", "created_at", "updated_at") FROM stdin;
+237e1e7c-26ea-4152-88aa-89e1df819bfc	Apartments	apartments	Multi-unit residential buildings	1	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+06e5705e-cbc3-44be-a17c-9da83252c020	House	house	Standalone residential building	2	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+b92213ec-0e78-4478-a3e3-d9fb75b297bb	Land	land	Undeveloped land	3	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+8930c28b-7017-4120-8ced-fd2c43cdcb98	Office Space	office-space	Commercial office premises	4	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+66cddfbe-babf-4fd0-9531-85f4fd5fc8de	Retail Shops	retail-shops	Commercial retail spaces	5	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+9ab33843-8ac7-4948-b7a3-72bf552f9a4f	Town House	town-house	Multi-level attached homes	6	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+a6c5b569-867e-4d32-acb0-b69430244a70	Warehouse	warehouse	Storage and industrial facilities	7	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
+b536239b-819c-4f1c-8dfb-55a209151b81	Yard	yard	Open land for industrial/commercial use	8	t	2026-03-26 12:38:09.975891+00	2026-03-26 12:38:09.975891+00
 \.
 
 
@@ -4645,31 +4962,31 @@ COPY "public"."properties" ("id", "title", "slug", "city", "address", "state", "
 --
 
 COPY "public"."site_config" ("id", "key", "value", "category", "updated_at") FROM stdin;
-32587141-bd8d-4b1f-ad5b-bea689fcd2a8	company_name	"SIRIMARA"	branding	2026-02-12 14:25:45.438+00
-dbd203d7-3f7f-438b-8050-1799b8e68e6d	tagline	"Leaders in Luxury Real Estate"	branding	2026-02-12 14:25:45.593+00
-6af88330-4662-4c36-87eb-f9c3530106d0	logo_image_url	"https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/i7qdemgbsds_1770301997758.png"	branding	2026-02-12 14:25:45.642+00
-89d3da69-d96d-4506-9317-2a02016f7a4a	logo_header_svg	"SIRIMARA"	branding	2026-02-12 14:25:45.683+00
-9e10d838-8653-442a-816c-cafa8493f070	contact_address	"No. 25, Apple Cross Road, Lavington, Nairobi, Kenya"	contact	2026-02-12 14:25:45.719+00
-7e7f1894-d093-41f5-9322-94348228ac75	phone	"+254 795 456 604  "	contact	2026-02-12 14:25:45.798+00
-48766918-2b18-4be0-ae6a-375e5277d815	property_showcase_title	"THE NEXT MOVE IS YOURS"	content	2026-02-12 14:25:45.837+00
-ff395379-a6a9-45d9-8a21-5d3cbdc51c3e	property_showcase_subtitle	"Local Experts, Global Reach"	content	2026-02-12 14:25:45.879+00
-bcb987a4-d56c-4e77-af75-2f13ad080920	newsletter_placeholder	"ENTER YOUR EMAIL"	content	2026-02-12 14:25:45.921+00
-e1922d94-7400-489b-97d5-9cff5f7c0be5	newsletter_text	"The latest in luxury property, lifestyle & culture, curated just for you."	content	2026-02-12 14:25:45.959+00
-9a7f01de-f5d5-43e5-b904-a2058dc3b4f6	footer_section_titles	"{\\"company_title\\":\\"Company\\",\\"resources_title\\":\\"Resources\\"}"	content	2026-02-12 14:25:45.993+00
-029156c5-3538-4861-be33-3ab4ec4c84ca	footer_powered_by	""	legal	2026-02-12 14:25:46.031+00
-d5e9bce0-f96a-4b4b-b3c8-9ccc177e7bbf	footer_disclaimer_2	""	legal	2026-02-12 14:25:46.067+00
-c8a3d451-fb95-4205-a487-e47d8d295980	footer_disclaimer_3	""	legal	2026-02-12 14:25:46.103+00
-beaac808-a307-48a1-a69c-a4ca2b38655d	footer_disclaimer_1	""	legal	2026-02-12 14:25:46.138+00
-861682bd-9e6d-40e4-9511-0a74eb387278	default_meta_description	"Leaders in luxury real estate with exceptional agents in key markets worldwide."	seo	2026-02-12 14:25:46.172+00
-cc3d569f-e6e9-4160-bca8-238e771bb41a	default_meta_title	"sirimara| Luxury Real Estate"	seo	2026-02-12 14:25:46.21+00
-d14b68f6-633f-428d-af6e-97fa20b61472	facebook_url	"https://facebook.com/"	social	2026-02-12 14:25:46.246+00
-d0718836-4af3-4da0-b5b5-8fb95f9642f1	twitter_url	"https://twitter.com/"	social	2026-02-12 14:25:46.28+00
-d74f41e4-a2d6-4ae9-b613-576782183f0d	linkedin_url	"https://linkedin.com/company/"	social	2026-02-12 14:25:46.325+00
-0a4930f1-ce2a-46c4-8fa6-ba5a6e26f596	instagram_url	"https://instagram.com/"	social	2026-02-12 14:25:46.363+00
-a37db0b0-caad-4518-98c4-687191b4448d	theme_colors	{"accent": "#181728", "primary": "#ff7e00", "primary_hover": "#252438"}	theme	2026-02-22 14:40:52.258+00
-0510faf4-ce3d-4082-9c26-0e022e713651	email	"sirimararealty@gmail.com"	contact	2026-02-12 14:25:45.759+00
-cf35337e-7194-4e4e-a2e3-91b78175546e	footer_keepingup_title	"Keep up to date with Sirimara Realty"	footer	2026-03-21 02:15:42.244058+00
-cbc4ef70-ca6d-4b7b-ae08-b01063f18e1f	google_maps_embed_url	"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15955.277444359858!2d36.8147115!3d-1.283333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f10d6118d3b85%3A0x6bba46c5332f9157!2sNairobi%20Central%2C%20Nairobi%2C%20Kenya!5e0!3m2!1sen!2sus!4v1714400000000!5m2!1sen!2sus"	footer	2026-03-21 02:15:42.244058+00
+dbd203d7-3f7f-438b-8050-1799b8e68e6d	tagline	"Leaders in Luxury Real Estate"	branding	2026-03-26 13:37:41.005+00
+6af88330-4662-4c36-87eb-f9c3530106d0	logo_image_url	"https://bbvrobnjlyzckyzgjuoi.supabase.co/storage/v1/object/public/property-images/lev3aq4ufda_1774532231734.png"	branding	2026-03-26 13:37:41.081+00
+32587141-bd8d-4b1f-ad5b-bea689fcd2a8	company_name	"SIRIMARA"	branding	2026-03-26 13:37:41.157+00
+89d3da69-d96d-4506-9317-2a02016f7a4a	logo_header_svg	"SIRIMARA"	branding	2026-03-26 13:37:41.2+00
+0510faf4-ce3d-4082-9c26-0e022e713651	email	"sirimararealty@gmail.com"	contact	2026-03-26 13:37:41.254+00
+9e10d838-8653-442a-816c-cafa8493f070	contact_address	"No. 25, Apple Cross Road, Lavington, Nairobi, Kenya"	contact	2026-03-26 13:37:41.295+00
+7e7f1894-d093-41f5-9322-94348228ac75	phone	"+254 795 456 604  "	contact	2026-03-26 13:37:41.343+00
+ff395379-a6a9-45d9-8a21-5d3cbdc51c3e	property_showcase_subtitle	"Local Experts, Global Reach"	content	2026-03-26 13:37:41.38+00
+bcb987a4-d56c-4e77-af75-2f13ad080920	newsletter_placeholder	"ENTER YOUR EMAIL"	content	2026-03-26 13:37:41.425+00
+e1922d94-7400-489b-97d5-9cff5f7c0be5	newsletter_text	"The latest in luxury property, lifestyle & culture, curated just for you."	content	2026-03-26 13:37:41.465+00
+9a7f01de-f5d5-43e5-b904-a2058dc3b4f6	footer_section_titles	"{\\"company_title\\":\\"Company\\",\\"resources_title\\":\\"Resources\\"}"	content	2026-03-26 13:37:41.503+00
+48766918-2b18-4be0-ae6a-375e5277d815	property_showcase_title	"THE NEXT MOVE IS YOURS"	content	2026-03-26 13:37:41.542+00
+cbc4ef70-ca6d-4b7b-ae08-b01063f18e1f	google_maps_embed_url	"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15955.277444359858!2d36.8147115!3d-1.283333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f10d6118d3b85%3A0x6bba46c5332f9157!2sNairobi%20Central%2C%20Nairobi%2C%20Kenya!5e0!3m2!1sen!2sus!4v1714400000000!5m2!1sen!2sus"	footer	2026-03-26 13:37:41.615+00
+cf35337e-7194-4e4e-a2e3-91b78175546e	footer_keepingup_title	"Keep up to date with Sirimara Realty"	footer	2026-03-26 13:37:41.675+00
+beaac808-a307-48a1-a69c-a4ca2b38655d	footer_disclaimer_1	""	legal	2026-03-26 13:37:41.736+00
+d5e9bce0-f96a-4b4b-b3c8-9ccc177e7bbf	footer_disclaimer_2	""	legal	2026-03-26 13:37:41.775+00
+029156c5-3538-4861-be33-3ab4ec4c84ca	footer_powered_by	""	legal	2026-03-26 13:37:41.825+00
+c8a3d451-fb95-4205-a487-e47d8d295980	footer_disclaimer_3	""	legal	2026-03-26 13:37:41.866+00
+861682bd-9e6d-40e4-9511-0a74eb387278	default_meta_description	"Leaders in luxury real estate with exceptional agents in key markets worldwide."	seo	2026-03-26 13:37:41.902+00
+cc3d569f-e6e9-4160-bca8-238e771bb41a	default_meta_title	"sirimara| Luxury Real Estate"	seo	2026-03-26 13:37:41.942+00
+d14b68f6-633f-428d-af6e-97fa20b61472	facebook_url	"https://facebook.com/"	social	2026-03-26 13:37:41.98+00
+d74f41e4-a2d6-4ae9-b613-576782183f0d	linkedin_url	"https://linkedin.com/company/"	social	2026-03-26 13:37:42.02+00
+0a4930f1-ce2a-46c4-8fa6-ba5a6e26f596	instagram_url	"https://instagram.com/"	social	2026-03-26 13:37:42.055+00
+d0718836-4af3-4da0-b5b5-8fb95f9642f1	twitter_url	"https://twitter.com/"	social	2026-03-26 13:37:42.105+00
+a37db0b0-caad-4518-98c4-687191b4448d	theme_colors	{"accent": "#181728", "primary": "#ff7e00", "primary_hover": "#252438"}	theme	2026-03-26 13:37:42.147+00
 \.
 
 
@@ -4722,9 +5039,6 @@ ea617d30-da8d-4e0f-83f4-6b445007cfa3	1397227f-3893-4359-9cdb-89e9a00f93c7	resear
 6a7bbd2e-a1b5-4e1e-b808-6dc5ccb99999	1397227f-3893-4359-9cdb-89e9a00f93c7	planning + design	Collaborating with world-renowned architects and designers to create residences that define the modern luxury lifestyle.	https://res.cloudinary.com/dk92v0fkk/image/upload/v1733498315/production/t0y1m0valxjjgovcrsuj.jpg	2	{}	t	2026-02-04 12:53:56.566012+00
 beb8268e-5449-4d8f-846d-a7d0473368bd	1397227f-3893-4359-9cdb-89e9a00f93c7	branding + marketing	Crafting compelling narratives and elevated visual identities that resonate with the global elite.	https://res.cloudinary.com/dk92v0fkk/image/upload/v1721338194/staging/emdaxu0bvayeflhkeeqx.jpg	3	{}	t	2026-02-04 12:53:56.566012+00
 c319bd6c-597c-4dad-bee5-3dcbe7c51e30	1397227f-3893-4359-9cdb-89e9a00f93c7	sales + operations	Unparalleled expertise in lead generation and conversion, supported by a global network of top-tier professionals.	https://res.cloudinary.com/dk92v0fkk/image/upload/v1731963295/staging-test/boqens24o7fqalofhu7e.jpg	4	{}	t	2026-02-04 12:53:56.566012+00
-5fade575-9d21-4914-b49f-fb164707515a	b4444444-4444-4444-4444-444444444444	CMMS	Computerized Maintenance Management Systems are the future of Property and Facilities Management. Using CMMS our property team is able to effectively manage real assets, schedule maintenance, track work orders and costs to ensure seamless and cost-effective operation of the buildings under management.	https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2940&auto=format&fit=crop	1	{}	t	2026-03-21 00:36:15.403508+00
-b597356e-39e6-4c3c-a131-91551af7dfed	b5555555-5555-5555-5555-555555555555	Tenant Management	Our team manages tenant relations, contracts, and communications to ensure high occupancy rates and smooth tenancy operations across all managed properties.	https://images.unsplash.com/photo-1621360841013-c76831f18ef8?q=80&w=2832&auto=format&fit=crop	1	{}	t	2026-03-21 00:36:15.403508+00
-35e64692-66f9-4020-ac69-9ebb18151df6	b6666666-6666-6666-6666-666666666666	Facilities Audit	By leveraging our multidisciplinary team, Sirimara conducts periodic facilities and conditions audits to ascertain the health of the building's shared amenities and services. This audit forms the basis of the planned preventative maintenance (PPM) programme and also guides the formulation of the maintenance budget.	https://images.unsplash.com/photo-1541888086925-0c13bb39cd98?q=80&w=2938&auto=format&fit=crop	1	{}	t	2026-03-21 00:36:15.403508+00
 24624eb7-736a-4354-91cf-1c68b5dd460b	b7777777-7777-7777-7777-777777777777	Financial Reporting	We provide comprehensive financial reporting including income statements, expense tracking, and budget forecasts — giving property owners full visibility and confidence in their investment performance.	https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=2936&auto=format&fit=crop	1	{}	t	2026-03-21 00:36:15.403508+00
 \.
 
@@ -4953,6 +5267,14 @@ df700e21-8747-4900-be4b-dea1d51b7140	property-images	wda6xr4xb88_1770295561369.j
 2b1546e7-81a7-4a6d-9c8e-91208ebdb1e8	videos	uey1aipcid_1770307812131.mp4	47838213-c39c-4135-9d1a-a924307c77d6	2026-02-05 16:10:44.153497+00	2026-02-05 16:10:44.153497+00	2026-02-05 16:10:44.153497+00	{"eTag": "\\"ad6782de6d46535be6fcb48dcda97111-8\\"", "size": 38792771, "mimetype": "video/mp4", "cacheControl": "max-age=3600", "lastModified": "2026-02-05T16:10:40.000Z", "contentLength": 38792771, "httpStatusCode": 200}	fcab5bb2-77af-4961-8de3-ff34d6885742	47838213-c39c-4135-9d1a-a924307c77d6	{}
 c4fc5512-88a8-4aa6-a297-c9bcc07758bf	agent-photos	jm3lu23snva_1771771195206.jpg	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-02-22 14:39:57.836817+00	2026-02-22 14:39:57.836817+00	2026-02-22 14:39:57.836817+00	{"eTag": "\\"3cb2d0e7b9e62cc96204c8e2fa385880\\"", "size": 31201, "mimetype": "image/jpeg", "cacheControl": "max-age=3600", "lastModified": "2026-02-22T14:39:58.000Z", "contentLength": 31201, "httpStatusCode": 200}	e6f1df23-3f5c-4a92-aef3-3731c67caabd	742c31bf-d94b-45d2-906a-8de86a6d8954	{}
 83160787-b0dc-4e67-bd58-cbd73ec02bd1	agent-photos	tsp11p1irx7_1774507553844.jpg	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-03-26 06:45:54.862765+00	2026-03-26 06:45:54.862765+00	2026-03-26 06:45:54.862765+00	{"eTag": "\\"3cb2d0e7b9e62cc96204c8e2fa385880\\"", "size": 31201, "mimetype": "image/jpeg", "cacheControl": "max-age=3600", "lastModified": "2026-03-26T06:45:55.000Z", "contentLength": 31201, "httpStatusCode": 200}	b284cc7d-89ec-4a1a-ba94-a7f0bc3658dd	742c31bf-d94b-45d2-906a-8de86a6d8954	{}
+b29fee75-a791-4f8c-a632-e3031b0bce27	property-images	lev3aq4ufda_1774532231734.png	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-03-26 13:37:13.253213+00	2026-03-26 13:37:13.253213+00	2026-03-26 13:37:13.253213+00	{"eTag": "\\"a05ba79d5d1c838ab65fd5ffb0d44abf\\"", "size": 116953, "mimetype": "image/png", "cacheControl": "max-age=3600", "lastModified": "2026-03-26T13:37:14.000Z", "contentLength": 116953, "httpStatusCode": 200}	209bedc6-45c4-4c3c-8178-ac0ad29be7df	742c31bf-d94b-45d2-906a-8de86a6d8954	{}
+e233221c-86a1-416c-87ba-7d85131956e7	property-images	7nt5er0ly7e_1774534751959.jpeg	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-03-26 14:19:14.252497+00	2026-03-26 14:19:14.252497+00	2026-03-26 14:19:14.252497+00	{"eTag": "\\"0e60e9b906a98de695868b7354ef7797\\"", "size": 271984, "mimetype": "image/jpeg", "cacheControl": "max-age=3600", "lastModified": "2026-03-26T14:19:15.000Z", "contentLength": 271984, "httpStatusCode": 200}	e45563d9-0d25-4f99-bd84-ff9a99a1fc6d	742c31bf-d94b-45d2-906a-8de86a6d8954	{}
+19722fe5-a210-4dac-9483-246859446543	property-images	ox5w77ty3v_1774534759791.jpeg	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-03-26 14:19:20.748167+00	2026-03-26 14:19:20.748167+00	2026-03-26 14:19:20.748167+00	{"eTag": "\\"26b5888a746e50f398dc6de18a44f71c\\"", "size": 190395, "mimetype": "image/jpeg", "cacheControl": "max-age=3600", "lastModified": "2026-03-26T14:19:21.000Z", "contentLength": 190395, "httpStatusCode": 200}	1efe9fe2-c123-413f-a3c9-ee546d41403b	742c31bf-d94b-45d2-906a-8de86a6d8954	{}
+b2b5c892-745e-4729-aa26-5384a1a2e208	property-images	ec16wa0fpmi_1774534767128.jpeg	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-03-26 14:19:28.570202+00	2026-03-26 14:19:28.570202+00	2026-03-26 14:19:28.570202+00	{"eTag": "\\"d5d96d33c4266f41f64c902ce13f5fbc\\"", "size": 208073, "mimetype": "image/jpeg", "cacheControl": "max-age=3600", "lastModified": "2026-03-26T14:19:29.000Z", "contentLength": 208073, "httpStatusCode": 200}	6278a042-11c1-4df3-9292-cb336cb4eab2	742c31bf-d94b-45d2-906a-8de86a6d8954	{}
+ae999993-699b-4497-8910-194aa6ec56b6	property-images	rt1vgf5o7l_1774534775373.jpeg	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-03-26 14:19:36.934409+00	2026-03-26 14:19:36.934409+00	2026-03-26 14:19:36.934409+00	{"eTag": "\\"704f81b9e97a6b5101054203f1b3563d\\"", "size": 185335, "mimetype": "image/jpeg", "cacheControl": "max-age=3600", "lastModified": "2026-03-26T14:19:37.000Z", "contentLength": 185335, "httpStatusCode": 200}	0aed8f23-27cd-4b9d-99e9-5eabf0f9e3e8	742c31bf-d94b-45d2-906a-8de86a6d8954	{}
+f6620da2-11f7-4a48-96aa-9b38e18f6717	property-images	5hevibzsksj_1774534782957.jpeg	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-03-26 14:19:44.014295+00	2026-03-26 14:19:44.014295+00	2026-03-26 14:19:44.014295+00	{"eTag": "\\"d235395711915315c604894c84a37870\\"", "size": 181018, "mimetype": "image/jpeg", "cacheControl": "max-age=3600", "lastModified": "2026-03-26T14:19:44.000Z", "contentLength": 181018, "httpStatusCode": 200}	91846b76-2a10-4bd0-8d32-939e95187e40	742c31bf-d94b-45d2-906a-8de86a6d8954	{}
+3e8aff3e-9911-4fcb-964e-a4038bc4f3ac	property-images	l63qncw34u_1774534791588.jpeg	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-03-26 14:19:53.313342+00	2026-03-26 14:19:53.313342+00	2026-03-26 14:19:53.313342+00	{"eTag": "\\"aec7af1bdb21172bea7171951e1239d8\\"", "size": 245812, "mimetype": "image/jpeg", "cacheControl": "max-age=3600", "lastModified": "2026-03-26T14:19:54.000Z", "contentLength": 245812, "httpStatusCode": 200}	256b12a7-5ba6-42b1-8f7c-860b5a3b31aa	742c31bf-d94b-45d2-906a-8de86a6d8954	{}
+0ebd211f-7b0c-46fe-bc1e-55715059c052	property-images	hlq8jkigw2d_1774534799199.jpeg	742c31bf-d94b-45d2-906a-8de86a6d8954	2026-03-26 14:20:00.395329+00	2026-03-26 14:20:00.395329+00	2026-03-26 14:20:00.395329+00	{"eTag": "\\"6efcf93e909a34db1ebe2c157d08bae1\\"", "size": 184352, "mimetype": "image/jpeg", "cacheControl": "max-age=3600", "lastModified": "2026-03-26T14:20:01.000Z", "contentLength": 184352, "httpStatusCode": 200}	d46be96f-039c-4a3b-aadd-32629fd3841e	742c31bf-d94b-45d2-906a-8de86a6d8954	{}
 \.
 
 
@@ -5001,7 +5323,7 @@ COPY "vault"."secrets" ("id", "name", "description", "secret", "key_id", "nonce"
 -- Name: refresh_tokens_id_seq; Type: SEQUENCE SET; Schema: auth; Owner: -
 --
 
-SELECT pg_catalog.setval('"auth"."refresh_tokens_id_seq"', 131, true);
+SELECT pg_catalog.setval('"auth"."refresh_tokens_id_seq"', 140, true);
 
 
 --
@@ -5441,6 +5763,86 @@ ALTER TABLE ONLY "public"."properties"
 
 ALTER TABLE ONLY "public"."properties"
     ADD CONSTRAINT "properties_slug_key" UNIQUE ("slug");
+
+
+--
+-- Name: property_categories property_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "public"."property_categories"
+    ADD CONSTRAINT "property_categories_pkey" PRIMARY KEY ("id");
+
+
+--
+-- Name: property_categories property_categories_slug_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "public"."property_categories"
+    ADD CONSTRAINT "property_categories_slug_key" UNIQUE ("slug");
+
+
+--
+-- Name: property_contract_types property_contract_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "public"."property_contract_types"
+    ADD CONSTRAINT "property_contract_types_pkey" PRIMARY KEY ("id");
+
+
+--
+-- Name: property_contract_types property_contract_types_slug_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "public"."property_contract_types"
+    ADD CONSTRAINT "property_contract_types_slug_key" UNIQUE ("slug");
+
+
+--
+-- Name: property_feature_links property_feature_links_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "public"."property_feature_links"
+    ADD CONSTRAINT "property_feature_links_pkey" PRIMARY KEY ("id");
+
+
+--
+-- Name: property_feature_links property_feature_links_property_id_feature_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "public"."property_feature_links"
+    ADD CONSTRAINT "property_feature_links_property_id_feature_id_key" UNIQUE ("property_id", "feature_id");
+
+
+--
+-- Name: property_features property_features_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "public"."property_features"
+    ADD CONSTRAINT "property_features_pkey" PRIMARY KEY ("id");
+
+
+--
+-- Name: property_features property_features_slug_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "public"."property_features"
+    ADD CONSTRAINT "property_features_slug_key" UNIQUE ("slug");
+
+
+--
+-- Name: property_types property_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "public"."property_types"
+    ADD CONSTRAINT "property_types_pkey" PRIMARY KEY ("id");
+
+
+--
+-- Name: property_types property_types_slug_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "public"."property_types"
+    ADD CONSTRAINT "property_types_slug_key" UNIQUE ("slug");
 
 
 --
@@ -6106,10 +6508,24 @@ CREATE INDEX "idx_properties_category" ON "public"."properties" USING "btree" ("
 
 
 --
+-- Name: idx_properties_category_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX "idx_properties_category_id" ON "public"."properties" USING "btree" ("category_id");
+
+
+--
 -- Name: idx_properties_city; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX "idx_properties_city" ON "public"."properties" USING "btree" ("city");
+
+
+--
+-- Name: idx_properties_contract_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX "idx_properties_contract_type_id" ON "public"."properties" USING "btree" ("contract_type_id");
 
 
 --
@@ -6152,6 +6568,90 @@ CREATE INDEX "idx_properties_slug" ON "public"."properties" USING "btree" ("slug
 --
 
 CREATE INDEX "idx_properties_status" ON "public"."properties" USING "btree" ("status");
+
+
+--
+-- Name: idx_properties_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX "idx_properties_type_id" ON "public"."properties" USING "btree" ("type_id");
+
+
+--
+-- Name: idx_property_categories_active; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX "idx_property_categories_active" ON "public"."property_categories" USING "btree" ("is_active");
+
+
+--
+-- Name: idx_property_categories_slug; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX "idx_property_categories_slug" ON "public"."property_categories" USING "btree" ("slug");
+
+
+--
+-- Name: idx_property_contract_types_active; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX "idx_property_contract_types_active" ON "public"."property_contract_types" USING "btree" ("is_active");
+
+
+--
+-- Name: idx_property_contract_types_slug; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX "idx_property_contract_types_slug" ON "public"."property_contract_types" USING "btree" ("slug");
+
+
+--
+-- Name: idx_property_feature_links_feature; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX "idx_property_feature_links_feature" ON "public"."property_feature_links" USING "btree" ("feature_id");
+
+
+--
+-- Name: idx_property_feature_links_property; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX "idx_property_feature_links_property" ON "public"."property_feature_links" USING "btree" ("property_id");
+
+
+--
+-- Name: idx_property_features_active; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX "idx_property_features_active" ON "public"."property_features" USING "btree" ("is_active");
+
+
+--
+-- Name: idx_property_features_category; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX "idx_property_features_category" ON "public"."property_features" USING "btree" ("category");
+
+
+--
+-- Name: idx_property_features_slug; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX "idx_property_features_slug" ON "public"."property_features" USING "btree" ("slug");
+
+
+--
+-- Name: idx_property_types_active; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX "idx_property_types_active" ON "public"."property_types" USING "btree" ("is_active");
+
+
+--
+-- Name: idx_property_types_slug; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX "idx_property_types_slug" ON "public"."property_types" USING "btree" ("slug");
 
 
 --
@@ -6306,6 +6806,34 @@ CREATE TRIGGER "update_page_sections_updated_at" BEFORE UPDATE ON "public"."page
 --
 
 CREATE TRIGGER "update_properties_updated_at" BEFORE UPDATE ON "public"."properties" FOR EACH ROW EXECUTE FUNCTION "public"."update_updated_at_column"();
+
+
+--
+-- Name: property_categories update_property_categories_updated_at; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER "update_property_categories_updated_at" BEFORE UPDATE ON "public"."property_categories" FOR EACH ROW EXECUTE FUNCTION "public"."update_updated_at_column"();
+
+
+--
+-- Name: property_contract_types update_property_contract_types_updated_at; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER "update_property_contract_types_updated_at" BEFORE UPDATE ON "public"."property_contract_types" FOR EACH ROW EXECUTE FUNCTION "public"."update_updated_at_column"();
+
+
+--
+-- Name: property_features update_property_features_updated_at; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER "update_property_features_updated_at" BEFORE UPDATE ON "public"."property_features" FOR EACH ROW EXECUTE FUNCTION "public"."update_updated_at_column"();
+
+
+--
+-- Name: property_types update_property_types_updated_at; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER "update_property_types_updated_at" BEFORE UPDATE ON "public"."property_types" FOR EACH ROW EXECUTE FUNCTION "public"."update_updated_at_column"();
 
 
 --
@@ -6525,6 +7053,46 @@ ALTER TABLE ONLY "public"."navigation_items"
 
 ALTER TABLE ONLY "public"."page_sections"
     ADD CONSTRAINT "page_sections_template_id_fkey" FOREIGN KEY ("template_id") REFERENCES "public"."component_templates"("id");
+
+
+--
+-- Name: properties properties_category_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "public"."properties"
+    ADD CONSTRAINT "properties_category_id_fkey" FOREIGN KEY ("category_id") REFERENCES "public"."property_categories"("id");
+
+
+--
+-- Name: properties properties_contract_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "public"."properties"
+    ADD CONSTRAINT "properties_contract_type_id_fkey" FOREIGN KEY ("contract_type_id") REFERENCES "public"."property_contract_types"("id");
+
+
+--
+-- Name: properties properties_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "public"."properties"
+    ADD CONSTRAINT "properties_type_id_fkey" FOREIGN KEY ("type_id") REFERENCES "public"."property_types"("id");
+
+
+--
+-- Name: property_feature_links property_feature_links_feature_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "public"."property_feature_links"
+    ADD CONSTRAINT "property_feature_links_feature_id_fkey" FOREIGN KEY ("feature_id") REFERENCES "public"."property_features"("id") ON DELETE CASCADE;
+
+
+--
+-- Name: property_feature_links property_feature_links_property_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "public"."property_feature_links"
+    ADD CONSTRAINT "property_feature_links_property_id_fkey" FOREIGN KEY ("property_id") REFERENCES "public"."properties"("id") ON DELETE CASCADE;
 
 
 --
@@ -6759,6 +7327,51 @@ CREATE POLICY "Admins can do everything with properties" ON "public"."properties
 
 
 --
+-- Name: property_categories Admins can do everything with property categories; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY "Admins can do everything with property categories" ON "public"."property_categories" USING ((EXISTS ( SELECT 1
+   FROM "public"."admin_users"
+  WHERE ("admin_users"."id" = "auth"."uid"()))));
+
+
+--
+-- Name: property_contract_types Admins can do everything with property contract types; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY "Admins can do everything with property contract types" ON "public"."property_contract_types" USING ((EXISTS ( SELECT 1
+   FROM "public"."admin_users"
+  WHERE ("admin_users"."id" = "auth"."uid"()))));
+
+
+--
+-- Name: property_feature_links Admins can do everything with property feature links; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY "Admins can do everything with property feature links" ON "public"."property_feature_links" USING ((EXISTS ( SELECT 1
+   FROM "public"."admin_users"
+  WHERE ("admin_users"."id" = "auth"."uid"()))));
+
+
+--
+-- Name: property_features Admins can do everything with property features; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY "Admins can do everything with property features" ON "public"."property_features" USING ((EXISTS ( SELECT 1
+   FROM "public"."admin_users"
+  WHERE ("admin_users"."id" = "auth"."uid"()))));
+
+
+--
+-- Name: property_types Admins can do everything with property types; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY "Admins can do everything with property types" ON "public"."property_types" USING ((EXISTS ( SELECT 1
+   FROM "public"."admin_users"
+  WHERE ("admin_users"."id" = "auth"."uid"()))));
+
+
+--
 -- Name: agents Admins can manage agents; Type: POLICY; Schema: public; Owner: -
 --
 
@@ -6831,6 +7444,41 @@ CREATE POLICY "Authenticated users can manage admin users" ON "public"."admin_us
 --
 
 CREATE POLICY "Authenticated users can view admin users" ON "public"."admin_users" FOR SELECT USING (("auth"."role"() = 'authenticated'::"text"));
+
+
+--
+-- Name: property_categories Enable read access for all users; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY "Enable read access for all users" ON "public"."property_categories" FOR SELECT USING (true);
+
+
+--
+-- Name: property_contract_types Enable read access for all users; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY "Enable read access for all users" ON "public"."property_contract_types" FOR SELECT USING (true);
+
+
+--
+-- Name: property_feature_links Enable read access for all users; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY "Enable read access for all users" ON "public"."property_feature_links" FOR SELECT USING (true);
+
+
+--
+-- Name: property_features Enable read access for all users; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY "Enable read access for all users" ON "public"."property_features" FOR SELECT USING (true);
+
+
+--
+-- Name: property_types Enable read access for all users; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY "Enable read access for all users" ON "public"."property_types" FOR SELECT USING (true);
 
 
 --
@@ -7015,6 +7663,36 @@ ALTER TABLE "public"."page_sections" ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE "public"."properties" ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: property_categories; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE "public"."property_categories" ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: property_contract_types; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE "public"."property_contract_types" ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: property_feature_links; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE "public"."property_feature_links" ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: property_features; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE "public"."property_features" ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: property_types; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE "public"."property_types" ENABLE ROW LEVEL SECURITY;
 
 --
 -- Name: site_config; Type: ROW SECURITY; Schema: public; Owner: -
@@ -7246,5 +7924,5 @@ CREATE EVENT TRIGGER "pgrst_drop_watch" ON "sql_drop"
 -- PostgreSQL database dump complete
 --
 
-\unrestrict N0gZUEU8d02k8U5KQVlmeSSljqZW6jRLDsk9rOPNa0nCzlbAGOb2WNMIQmkkBSa
+\unrestrict Hz1PDfu7MXJd4lk8fDNZYvc8Jn6SCSW1ghyQmXezHg44GuGWDgNAqnEARXb9dlr
 

@@ -80,9 +80,6 @@ export default async function Footer() {
                                         <FooterLink link={link} />
                                     </li>
                                 ))}
-                                <li>
-                                    <div className="mt-8 mb-6 text-sm font-bold tracking-[0.2em] uppercase text-white/80 uppercase">Contact Us</div>
-                                </li>
                             </ul>
                         </div>
                     </div>
