@@ -18,6 +18,35 @@ export interface Listing {
     latitude: number;
     longitude: number;
     exclusive: boolean;
+    propertyTypeId?: string | null;
+    featureIds?: string[];
+}
+
+export interface PropertyFeature {
+    id: string;
+    name: string;
+}
+
+export interface PropertyWithTaxonomy {
+    id: string;
+    slug: string;
+    address: string;
+    city: string;
+    state: string;
+    zip_code: string;
+    price: number;
+    bedrooms: number;
+    bathrooms: number;
+    half_baths: number;
+    square_feet: number | null;
+    images: string[];
+    badge_text: string | null;
+    latitude: number;
+    longitude: number;
+    is_exclusive: boolean;
+    type_id: string | null;
+    features: PropertyFeature[] | null;
+    [key: string]: unknown;
 }
 
 export interface FilterState {

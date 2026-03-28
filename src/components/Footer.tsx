@@ -161,23 +161,23 @@ export default async function Footer() {
                     </div>
 
                     {config.footer_disclaimer_1 && (
-                        <p className="text-xs text-gray-400 leading-relaxed mb-4 uppercase">
+                        <p className="text-xs text-white/80 leading-relaxed mb-4 uppercase">
                             {config.footer_disclaimer_1}
                         </p>
                     )}
 
-                    <p className="text-xs text-gray-400 leading-relaxed mb-4">
+                    <p className="text-xs text-white/80 leading-relaxed mb-4">
                         {contactAddress && `${contactAddress}. `}{contactPhone && `${contactPhone} `}© {new Date().getFullYear()} {siteName}.
                         {config.footer_disclaimer_2 && ` ${config.footer_disclaimer_2}`}
                     </p>
 
                     {config.footer_disclaimer_3 && (
-                        <p className="text-xs text-gray-400 leading-relaxed mb-4">
+                        <p className="text-xs text-white/80 leading-relaxed mb-4">
                             {config.footer_disclaimer_3}
                         </p>
                     )}
 
-                    <p className="text-xs text-gray-400">
+                    <p className="text-xs text-white/80">
                         {config.footer_powered_by ?? 'POWERED BY PURLIN.AI'}
                     </p>
                 </div>

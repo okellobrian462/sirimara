@@ -2,8 +2,7 @@ import RentalsSearchClient from "@/app/rentals/RentalsSearchClient";
 import type { PageSection } from "@/lib/content/fetchPageSections";
 import { createClient } from "@/lib/supabase/server";
 import { fetchSiteConfig } from "@/lib/content/fetchSiteConfig";
-
-import type { Listing } from "@/lib/types/listing";
+import type { Listing, PropertyWithTaxonomy, PropertyFeature } from "@/lib/types/listing";
 import type { Property } from "@/types/database.types";
 
 interface RentalsSearchSectionProps {
@@ -17,7 +16,7 @@ export default async function RentalsSearchSection({ section }: RentalsSearchSec
 
     // Fetch properties with contract type "For Rent" or "To Let"
     const { data: properties } = await supabase
-        .from("properties")
+        .from("properties_with_taxonomy")
         .select(`*, property_contract_types!inner(name, slug)`)
         .eq("status", "active")
         .or('name.eq.For Rent,name.eq.To Let', { referencedTable: 'property_contract_types' });
@@ -28,7 +27,7 @@ export default async function RentalsSearchSection({ section }: RentalsSearchSec
         supabase.from("property_features").select("id, name, category").eq("is_active", true).order("category").order("name"),
     ]);
 
-    const listings: Listing[] = ((properties as unknown as Property[]) || []).map((p: Property) => ({
+    const listings: Listing[] = ((properties as unknown as PropertyWithTaxonomy[]) || []).map((p: PropertyWithTaxonomy) => ({
         id: p.id,
         slug: p.slug || p.id,
         address: p.address || "",
@@ -36,18 +35,20 @@ export default async function RentalsSearchSection({ section }: RentalsSearchSec
         state: p.state || "",
         zip: p.zip_code || "",
         price: p.price,
-        priceFormatted: `KSh ${p.price.toLocaleString()}`,
+        priceFormatted: `KES ${p.price.toLocaleString()}`,
         listingType: "rental",
         beds: p.bedrooms || 0,
         baths: p.bathrooms || 0,
         halfBaths: p.half_baths || 0,
-        sqft: p.sqft ?? null,
+        sqft: p.square_feet ?? null,
         images: p.images || [],
         status: `${siteName} EXCLUSIVE`,
         badge: p.badge_text || null,
         latitude: p.latitude || -1.2921,
         longitude: p.longitude || 36.8219,
         exclusive: p.is_exclusive || false,
+        propertyTypeId: p.type_id || null,
+        featureIds: Array.isArray(p.features) ? p.features.map((f: PropertyFeature) => f.id) : [],
     }));
 
     const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";

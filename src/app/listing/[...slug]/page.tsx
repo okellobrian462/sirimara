@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ImageCarousel from '@/components/listing/ImageCarousel';
+import ExpandableFeaturesList from '@/components/listing/ExpandableFeaturesList';
 import Link from 'next/link';
 
 export default async function ListingDetailPage({ params }: { params: Promise<{ slug: string[] }> }) {
@@ -15,7 +16,7 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
     // Fetch property by slug
     // We also check 'id' in case the slug passed is actually an ID (backward compatibility or direct link)
     let { data: property } = await supabase
-        .from('properties')
+        .from('properties_with_taxonomy')
         .select('*')
         .eq('slug', lookupSlug)
         .single();
@@ -23,7 +24,7 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
     if (!property) {
         // Try fetching by ID as fallback if slug lookup failed
         const { data: propertyById } = await supabase
-            .from('properties')
+            .from('properties_with_taxonomy')
             .select('*')
             .eq('id', lookupSlug)
             .single();
@@ -47,11 +48,18 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
     const data = {
         address: property.address || "Address Unavailable",
         location: `${property.city || ''}, ${property.state || ''} ${property.zip_code || ''}`.trim().toUpperCase(),
-        price: property.price ? `KSh ${property.price.toLocaleString()}` : "Price Upon Request",
+        price: property.price ? `KES ${property.price.toLocaleString()}` : "Price Upon Request",
         beds: property.bedrooms ? `${property.bedrooms} BR` : "",
         baths: property.bathrooms ? `${property.bathrooms} BA${property.half_baths ? `, ${property.half_baths} HALF BA` : ''}` : "",
-        sqft: property.sqft ? `Approx. ${property.sqft.toLocaleString()} SQM` : '',
+        sqft: property.square_feet ? `APPROX. ${property.square_feet.toLocaleString()} SF` : '',
         images: property.images || [],
+        
+        square_feet: property.square_feet,
+        lot_size: property.lot_size,
+        property_type: property.type_name || property.property_type || null,
+        year_built: property.year_built,
+        listing_id: property.id ? property.id.split('-')[0].toUpperCase() : null,
+        features: property.features || [],
         agent: {
             name: agent ? `${agent.first_name} ${agent.last_name}` : 'Sirimara Agent',
             image: agent?.photo_url || 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=256&q=80',
@@ -108,8 +116,8 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
                         )}
                         {data.sqft && (
                             <div className="flex items-center gap-3 py-4">
-                                <svg className="w-6 h-6 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-                                    <path d="M3 3h18v18H3zM9 3v18M15 3v18M3 9h18M3 15h18" />
+                                <svg className="w-5 h-5 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+                                    <path d="M8 4H4v4M16 20h4v-4" />
                                 </svg>
                                 <span className="text-sm font-medium tracking-[0.2em] uppercase">{data.sqft}</span>
                             </div>
@@ -117,7 +125,27 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
                     </div>
                     <div className="w-full h-[1px] bg-gray-200"></div>
 
+                    {/* DETAILS & AMENITIES SECTION */}
+                    <div className="py-16 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24">
+                        {/* DETAILS */}
+                        <div>
+                            <h3 className="text-[13px] font-semibold tracking-[0.1em] text-brand-dark uppercase mb-6">Details</h3>
+                            <div className="space-y-4 text-[#333333] tracking-[0.02em] text-[15px]">
+                                {data.square_feet && <p>{data.square_feet.toLocaleString()} Sq Ft</p>}
+                                {data.lot_size && <p>{data.lot_size.toLocaleString()} Sq Ft Lot Size</p>}
+                                {data.property_type && <p>{data.property_type}</p>}
+                                {data.year_built && <p>Built in {data.year_built}</p>}
+                                {data.listing_id && <p>MLS/Listing ID {data.listing_id}</p>}
+                            </div>
+                        </div>
 
+                        {/* AMENITIES */}
+                        <div>
+                            <h3 className="text-[13px] font-semibold tracking-[0.1em] text-brand-dark uppercase mb-6">Amenities & Features</h3>
+                            <ExpandableFeaturesList features={data.features} />
+                        </div>
+                    </div>
+                    {/* END DETAILS & AMENITIES SECTION */}
                 </div>
             </section>
 

@@ -6,7 +6,7 @@ import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 const MOCK_LISTINGS = [
     {
         id: 1,
-        price: 'KSh 475,000,000',
+        price: 'KES 475,000,000',
         address: 'Riverside Drive',
         cityStateZip: 'Nairobi, Kenya',
         beds: 7,
@@ -21,7 +21,7 @@ const MOCK_LISTINGS = [
     },
     {
         id: 2,
-        price: 'KSh 17,500,000',
+        price: 'KES 17,500,000',
         address: 'Kilimani Estate',
         cityStateZip: 'Nairobi, Kenya',
         beds: 1,
@@ -36,7 +36,7 @@ const MOCK_LISTINGS = [
     },
     {
         id: 3,
-        price: 'KSh 1,390,000',
+        price: 'KES 1,390,000',
         address: 'Ngong Road',
         cityStateZip: 'Nairobi, Kenya',
         beds: 1,
@@ -50,7 +50,7 @@ const MOCK_LISTINGS = [
     },
     {
         id: 4,
-        price: 'KSh 34,950,000',
+        price: 'KES 34,950,000',
         address: 'Lavington Gardens',
         cityStateZip: 'Nairobi, Kenya',
         beds: 3,
@@ -64,7 +64,7 @@ const MOCK_LISTINGS = [
     },
     {
         id: 5,
-        price: 'KSh 27,000,000',
+        price: 'KES 27,000,000',
         address: 'Karen Estate',
         cityStateZip: 'Nairobi, Kenya',
         beds: 4,
@@ -77,7 +77,7 @@ const MOCK_LISTINGS = [
     },
     {
         id: 6,
-        price: 'KSh 17,960,000',
+        price: 'KES 17,960,000',
         address: 'Westlands Business Park',
         cityStateZip: 'Nairobi, Kenya',
         beds: 3,

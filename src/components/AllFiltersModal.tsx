@@ -168,11 +168,10 @@ export default function AllFiltersModal({
                         <button
                             key={tab.id}
                             onClick={() => handleTabChange(tab.id as typeof activeTab)}
-                            className={`flex-1 py-4 text-sm font-medium tracking-wide uppercase transition-colors ${
-                                activeTab === tab.id
+                            className={`flex-1 py-4 text-sm font-medium tracking-wide uppercase transition-colors ${activeTab === tab.id
                                     ? "text-brand-dark border-b-2 border-brand-dark"
                                     : "text-gray-500 hover:text-gray-700"
-                            }`}
+                                }`}
                         >
                             {tab.label}
                         </button>
@@ -192,11 +191,11 @@ export default function AllFiltersModal({
                                     Min Price
                                 </label>
                                 <div className="relative">
-                                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">KSh</span>
+                                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">KES</span>
                                     <input
                                         type="number"
                                         placeholder="No min"
-                                        className="w-full pl-7 pr-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-brand-dark text-sm"
+                                        className="w-full pl-12 pr-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-brand-dark text-sm"
                                         value={localFilters.priceMin || ""}
                                         onChange={(e) =>
                                             updateLocalFilter(
@@ -212,11 +211,11 @@ export default function AllFiltersModal({
                                     Max Price
                                 </label>
                                 <div className="relative">
-                                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">KSh</span>
+                                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">KES</span>
                                     <input
                                         type="number"
                                         placeholder="No max"
-                                        className="w-full pl-7 pr-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-brand-dark text-sm"
+                                        className="w-full pl-12 pr-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-brand-dark text-sm"
                                         value={localFilters.priceMax || ""}
                                         onChange={(e) =>
                                             updateLocalFilter(
@@ -245,11 +244,10 @@ export default function AllFiltersModal({
                                             localFilters.beds === option.value ? null : option.value
                                         )
                                     }
-                                    className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                                        localFilters.beds === option.value
+                                    className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${localFilters.beds === option.value
                                             ? "bg-brand-dark text-white"
                                             : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                                    }`}
+                                        }`}
                                 >
                                     {option.label}
                                 </button>
@@ -272,11 +270,10 @@ export default function AllFiltersModal({
                                             localFilters.baths === option.value ? null : option.value
                                         )
                                     }
-                                    className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                                        localFilters.baths === option.value
+                                    className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${localFilters.baths === option.value
                                             ? "bg-brand-dark text-white"
                                             : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                                    }`}
+                                        }`}
                                 >
                                     {option.label}
                                 </button>

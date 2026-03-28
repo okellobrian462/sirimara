@@ -146,15 +146,15 @@ export default async function AdminDashboard() {
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="text-sm text-gray-900 font-medium">
-                                            KSh {property.price.toLocaleString()}
+                                            KES {property.price.toLocaleString()}
                                         </div>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <span className={`inline-flex px-2 py-1 text-[9px] font-bold tracking-widest uppercase rounded-sm ${property.status === 'active'
-                                                ? 'bg-green-50 text-green-700 border border-green-100'
-                                                : property.status === 'pending'
-                                                    ? 'bg-yellow-50 text-yellow-700 border border-yellow-100'
-                                                    : 'bg-gray-50 text-gray-700 border border-gray-100'
+                                            ? 'bg-green-50 text-green-700 border border-green-100'
+                                            : property.status === 'pending'
+                                                ? 'bg-yellow-50 text-yellow-700 border border-yellow-100'
+                                                : 'bg-gray-50 text-gray-700 border border-gray-100'
                                             }`}>
                                             {property.status}
                                         </span>

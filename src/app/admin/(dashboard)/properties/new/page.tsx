@@ -212,12 +212,52 @@ export default function NewPropertyPage() {
                             <input type="text" name="address" value={formData.address} onChange={handleChange}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" />
                         </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">State</label>
+                            <input type="text" name="state" value={formData.state} onChange={handleChange}
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">ZIP Code</label>
+                            <input type="text" name="zip_code" value={formData.zip_code} onChange={handleChange}
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" />
+                        </div>
                     </div>
                 </div>
 
                 <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6 shadow-sm">
                     <h2 className="text-lg font-medium text-gray-900 mb-4">Property Details</h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Bedrooms</label>
+                            <input type="number" name="bedrooms" value={formData.bedrooms} onChange={handleChange} min="0"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Bathrooms</label>
+                            <input type="number" name="bathrooms" value={formData.bathrooms} onChange={handleChange} min="0" step="0.5"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Half Baths</label>
+                            <input type="number" name="half_baths" value={formData.half_baths} onChange={handleChange} min="0"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Price *</label>
+                            <input type="number" name="price" value={formData.price} onChange={handleChange} required min="0"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Square Feet</label>
+                            <input type="number" name="square_feet" value={formData.square_feet} onChange={handleChange} min="0"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Year Built</label>
+                            <input type="number" name="year_built" value={formData.year_built} onChange={handleChange} min="1800" max={new Date().getFullYear()}
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" />
+                        </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
                             <select name="category_id" value={formData.category_id} onChange={handleChange}
@@ -242,6 +282,28 @@ export default function NewPropertyPage() {
                                 {contractTypes.map(ct => <option key={ct.id} value={ct.id}>{ct.name}</option>)}
                             </select>
                         </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Status *</label>
+                            <select name="status" value={formData.status} onChange={handleChange} required
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white">
+                                <option value="active">Active</option>
+                                <option value="pending">Pending</option>
+                                <option value="sold">Sold</option>
+                                <option value="off-market">Off Market</option>
+                            </select>
+                        </div>
+                        <div className="flex items-end">
+                            <label className="flex items-center gap-2">
+                                <input type="checkbox" name="is_featured" checked={formData.is_featured} onChange={handleChange}
+                                    className="w-4 h-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500" />
+                                <span className="text-sm font-medium text-gray-700">Featured Property</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div className="mt-6">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                        <textarea name="description" value={formData.description} onChange={handleChange} rows={4}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" />
                     </div>
                 </div>
 

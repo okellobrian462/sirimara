@@ -75,8 +75,14 @@ export default function SalesSearchClient({
 
         // Property Type check
         if (filters.propertyTypes.length > 0) {
-            // Note: This would need property type data in the listing
-            // For now, skipping as listings don't have type_id yet
+            if (!listing.propertyTypeId || !filters.propertyTypes.includes(listing.propertyTypeId)) return false;
+        }
+
+        // Features check
+        if (filters.features.length > 0) {
+            if (!listing.featureIds) return false;
+            const hasAllFeatures = filters.features.every(id => listing.featureIds!.includes(id));
+            if (!hasAllFeatures) return false;
         }
 
         // Square Feet check

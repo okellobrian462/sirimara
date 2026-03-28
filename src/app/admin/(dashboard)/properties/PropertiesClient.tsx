@@ -215,17 +215,17 @@ export default function PropertiesClient({ properties, categories }: PropertiesC
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="text-sm font-semibold text-gray-900">
-                                            KSh {property.price.toLocaleString()}
+                                            KES {property.price.toLocaleString()}
                                         </div>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <span className={`inline-flex px-2 py-1 text-[9px] font-bold tracking-widest uppercase rounded-sm ${property.status === 'active'
-                                                ? 'bg-green-50 text-green-700 border border-green-100'
-                                                : property.status === 'pending'
-                                                    ? 'bg-yellow-50 text-yellow-700 border border-yellow-100'
-                                                    : property.status === 'sold'
-                                                        ? 'bg-blue-50 text-blue-700 border border-blue-100'
-                                                        : 'bg-gray-50 text-gray-700 border border-gray-100'
+                                            ? 'bg-green-50 text-green-700 border border-green-100'
+                                            : property.status === 'pending'
+                                                ? 'bg-yellow-50 text-yellow-700 border border-yellow-100'
+                                                : property.status === 'sold'
+                                                    ? 'bg-blue-50 text-blue-700 border border-blue-100'
+                                                    : 'bg-gray-50 text-gray-700 border border-gray-100'
                                             }`}>
                                             {property.status}
                                         </span>
@@ -234,8 +234,8 @@ export default function PropertiesClient({ properties, categories }: PropertiesC
                                         <button
                                             onClick={() => handleToggleFeatured(property)}
                                             className={`inline-flex items-center gap-1 px-2 py-1 text-[9px] font-bold tracking-widest uppercase rounded-sm transition-colors ${property.is_featured
-                                                    ? 'bg-orange-50 text-orange-700 border border-orange-100 hover:bg-orange-100'
-                                                    : 'bg-gray-50 text-gray-400 border border-gray-200 hover:bg-gray-100'
+                                                ? 'bg-orange-50 text-orange-700 border border-orange-100 hover:bg-orange-100'
+                                                : 'bg-gray-50 text-gray-400 border border-gray-200 hover:bg-gray-100'
                                                 }`}
                                         >
                                             <Star className={`w-3 h-3 ${property.is_featured ? 'fill-orange-700' : ''}`} />
