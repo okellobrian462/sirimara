@@ -136,11 +136,13 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
                     <div className="w-full flex items-center justify-between">
                         {/* Left Section: Navigation */}
                         <div className={`flex items-center gap-8 ${textColor}`}>
+                            {/* Hide search icon for now
                             <div className="flex items-center gap-4">
                                 <Link href="/search" className="hover:opacity-80 p-2 -ml-2">
                                     <Search className="w-5 h-5" />
                                 </Link>
                             </div>
+                            */}
                             <nav className="hidden md:flex gap-6 text-xs tracking-widest font-medium h-full items-center">
                                 {mainNav.map((item) => (
                                     <div
