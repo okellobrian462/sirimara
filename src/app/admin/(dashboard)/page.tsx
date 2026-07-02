@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/server';
 import { Property } from './featured/FeaturedClient';
-import { Building2, Star, Mail, TrendingUp } from 'lucide-react';
+import { Building2, Star, Mail, Inbox } from 'lucide-react';
 import Link from 'next/link';
 
 // Define a local interface that extends the base Property with dashboard-specific fields
@@ -16,11 +16,13 @@ async function getDashboardStats() {
         { count: propertiesCount },
         { count: featuredCount },
         { count: subscribersCount },
+        { count: submissionsCount },
         { data: recentProperties }
     ] = await Promise.all([
         supabase.from('properties').select('*', { count: 'exact', head: true }),
         supabase.from('properties').select('*', { count: 'exact', head: true }).eq('is_featured', true),
         supabase.from('newsletter_subscribers').select('*', { count: 'exact', head: true }).eq('is_active', true),
+        supabase.from('form_submissions').select('*', { count: 'exact', head: true }),
         supabase.from('properties').select('*').order('created_at', { ascending: false }).limit(5)
     ]);
 
@@ -28,6 +30,7 @@ async function getDashboardStats() {
         propertiesCount: propertiesCount || 0,
         featuredCount: featuredCount || 0,
         subscribersCount: subscribersCount || 0,
+        submissionsCount: submissionsCount || 0,
         recentProperties: (recentProperties || []) as unknown as DashboardProperty[]
     };
 }
@@ -58,10 +61,10 @@ export default async function AdminDashboard() {
             color: 'bg-green-500',
         },
         {
-            name: 'Active Listings',
-            value: stats.propertiesCount,
-            icon: TrendingUp,
-            href: '/admin/properties',
+            name: 'Total Inquiries',
+            value: stats.submissionsCount,
+            icon: Inbox,
+            href: '/admin/submissions',
             color: 'bg-orange-500',
         },
     ];
@@ -170,7 +173,7 @@ export default async function AdminDashboard() {
             </div>
 
             {/* Quick Actions */}
-            <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <Link
                     href="/admin/properties/new"
                     className="bg-white border border-gray-200 text-gray-900 rounded-xl p-6 hover:shadow-md hover:border-orange-200 transition-all group"
@@ -198,6 +201,16 @@ export default async function AdminDashboard() {
                     <h3 className="text-lg font-light tracking-wide mb-2 group-hover:text-orange-600 transition-colors">View Subscribers</h3>
                     <p className="text-gray-500 text-sm">
                         Manage newsletter subscribers
+                    </p>
+                </Link>
+
+                <Link
+                    href="/admin/submissions"
+                    className="bg-white border border-gray-200 text-gray-900 rounded-xl p-6 hover:shadow-md hover:border-orange-200 transition-all group"
+                >
+                    <h3 className="text-lg font-light tracking-wide mb-2 group-hover:text-orange-600 transition-colors">Manage Inquiries</h3>
+                    <p className="text-gray-500 text-sm">
+                        View and process contact submissions
                     </p>
                 </Link>
             </div>

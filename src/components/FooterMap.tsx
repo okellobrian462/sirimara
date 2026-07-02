@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
+
+// import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
 // Fix for default Leaflet marker icons in Next.js
@@ -17,7 +18,10 @@ const defaultIcon = L.icon({
     shadowSize: [41, 41]
 });
 
-L.Marker.prototype.options.icon = defaultIcon;
+// Ensure we set the icon only on the client.
+if (typeof window !== 'undefined') {
+    L.Marker.prototype.options.icon = defaultIcon;
+}
 
 interface FooterMapProps {
     lat: number;
@@ -26,9 +30,23 @@ interface FooterMapProps {
 
 export default function FooterMap({ lat, lng }: FooterMapProps) {
     const [isMounted, setIsMounted] = useState(false);
+    const mapRef = useRef<L.Map | null>(null);
+
 
     useEffect(() => {
         setIsMounted(true);
+        return () => {
+            // Ensure any leftover Leaflet map instance is removed to avoid
+            // "Map container is already initialized" errors on re-mount.
+            if (mapRef.current) {
+                try {
+                    mapRef.current.remove();
+                } catch (e) {
+                    // ignore removal errors
+                }
+                mapRef.current = null;
+            }
+        };
     }, []);
 
     // Prevent SSR rendering issues with react-leaflet
@@ -40,20 +58,21 @@ export default function FooterMap({ lat, lng }: FooterMapProps) {
         );
     }
 
-    return (
-        <MapContainer 
-            center={[lat, lng]} 
-            zoom={15} 
-            scrollWheelZoom={false}
-            className="absolute inset-0 w-full h-full z-0"
-            style={{ minHeight: '100%', minWidth: '100%' }}
-        >
-            {/* CartoDB Dark Matter free tiles */}
-            <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-                url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-            />
-            <Marker position={[lat, lng]} />
-        </MapContainer>
-    );
+    // return (
+    //     <MapContainer 
+    //         center={[lat, lng]} 
+    //         zoom={15} 
+    //         scrollWheelZoom={false}
+    //         ref={mapRef}
+    //         className="absolute inset-0 w-full h-full z-0"
+    //         style={{ minHeight: '100%', minWidth: '100%' }}
+    //     >
+    //         {/* CartoDB Dark Matter free tiles */}
+    //         <TileLayer
+    //             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+    //             url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+    //         />
+    //         <Marker position={[lat, lng]} />
+    //     </MapContainer>
+    // );
 }

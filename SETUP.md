@@ -1,130 +1,77 @@
-# Sirimara Admin Panel Setup Guide
+# Sirimara Fresh Database Setup
 
-## Prerequisites
-- Node.js installed
-- Supabase account and project created
+This project is already coded around Supabase: the public site, admin panel, auth checks, storage uploads, and server actions all use the Supabase client. For the simplest reliable install, use a fresh Supabase project and import the consolidated schema in this repo.
 
-## Step 1: Environment Variables
+## What You Need
 
-Create a `.env.local` file in the root directory with the following content:
+- Node.js 20+
+- A Supabase project
+- The project URL and anon key from Supabase Settings > API
+
+## 1. Create a Fresh Supabase Database
+
+1. Create a new Supabase project.
+2. Open Supabase SQL Editor.
+3. Open `supabase/schema.sql` from this project.
+4. Copy the whole file into the SQL Editor.
+5. Run it once.
+
+The import creates:
+
+- Admin users table linked to Supabase Auth
+- Property tables, taxonomy tables, featured listings, and `properties_with_taxonomy`
+- Agents, CMS sections, hero sections, content blocks, navigation, newsletters, subscribers, media, forms, statistics, and site config
+- Storage buckets for property images, agent photos, and videos
+- RLS policies matching the way the current app reads and writes data
+- Minimal seed data for navigation, property taxonomy, site config, and statistics
+
+## 2. Configure Environment Variables
+
+Create `.env.local` in the project root:
 
 ```env
-NEXT_PUBLIC_SUPABASE_URL=https://bbvrobnjlyzckyzgjuoi.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJidnJvYm5qbHl6Y2t5emdqdW9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ4NDk5OTAsImV4cCI6MjA1MDQyNTk5MH0.sb_publishable_Orvlmg6DOcEpgy9HPUlxxQ_Aem8iXdz
+NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your-google-maps-api-key
 ```
 
-> **Note**: You can find these values in your Supabase project dashboard under Settings > API
+The Google Maps key is optional for basic site/admin access, but map features need it.
 
-## Step 2: Run Database Schema
+## 3. Create an Admin User
 
-1. Go to your Supabase project dashboard
-2. Navigate to the SQL Editor
-3. Open the file `supabase/schema.sql` from this project
-4. Copy the entire contents
-5. Paste into the Supabase SQL Editor
-6. Click "Run" to execute the schema
+1. In Supabase, go to Authentication > Users.
+2. Create a user with your admin email and password.
+3. Open `supabase/admin-user-repair.sql`.
+4. Set `admin_email` to the email you created.
+5. Run the file in Supabase SQL Editor.
 
-This will create:
-- All necessary tables (properties, featured_properties, agents, newsletter_subscribers, admin_users)
-- Indexes for performance
-- Row Level Security (RLS) policies
-- Seed data with sample properties
+Avoid inserting password users directly into `auth.users`; Supabase Auth also
+manages identity metadata, and incomplete manual rows can cause password login
+to fail with `Database error querying schema`.
 
-## Step 3: Create Admin User
-
-After running the schema, you need to create an admin user:
-
-1. In Supabase dashboard, go to Authentication > Users
-2. Click "Add user" > "Create new user"
-3. Enter email and password (e.g., `admin@sirimara.com` / `your-secure-password`)
-4. Click "Create user"
-5. Copy the user ID from the users table
-6. Go back to SQL Editor and run:
-
-```sql
-INSERT INTO admin_users (id, email, full_name, role)
-VALUES ('YOUR_USER_ID_HERE', 'admin@sirimara.com', 'Admin User', 'super_admin');
-```
-
-Replace `YOUR_USER_ID_HERE` with the actual user ID you copied.
-
-## Step 4: Install Dependencies
+## 4. Install and Run
 
 ```bash
 npm install
-```
-
-## Step 5: Run Development Server
-
-```bash
 npm run dev
 ```
 
-The application will be available at `http://localhost:3000`
+Open `http://localhost:3000`.
 
-## Step 6: Access Admin Panel
+Admin panel: `http://localhost:3000/admin/login`
 
-1. Navigate to `http://localhost:3000/admin/login`
-2. Sign in with the admin credentials you created
-3. You'll be redirected to the admin dashboard
+## Hosting Notes
 
-## Admin Panel Features
+The easiest hosting combination is:
 
-### Dashboard
-- View statistics (total properties, featured properties, subscribers)
-- See recent properties
-- Quick action links
+- Supabase for database, auth, and storage
+- Vercel or any Node-capable host for the Next.js website
 
-### Properties Management
-- View all properties in a table
-- Search and filter properties
-- Add new properties with full details
-- Edit existing properties
-- Delete properties
-- Toggle featured status
+Set the same environment variables on your host before deploying.
 
-### Featured Properties
-- Manage properties shown in the homepage carousel
-- Reorder featured properties
+## Why Not MySQL or SQLite Here?
 
-### Newsletter Subscribers
-- View all email subscribers
-- Export subscriber list
+MySQL or SQLite can work for a different version of this project, but this codebase currently depends on Supabase-specific behavior: Auth sessions, Row Level Security, storage buckets, JSONB fields, Postgres views, and the Supabase query API. Keeping Supabase gives you a fresh database without a risky rewrite.
 
-## Frontend Features
-
-The homepage now dynamically fetches:
-- Featured properties for the carousel
-- Property listings from the database
-- All data is real-time from Supabase
-
-## Troubleshooting
-
-### "Unauthorized: Not an admin user" error
-- Make sure you've added your user to the `admin_users` table
-- Check that the user ID matches exactly
-
-### "Infinite recursion detected in policy" error
-This occurs when RLS policies on `admin_users` create circular dependencies. To fix:
-1. Run the SQL script in `supabase/fix-admin-rls.sql` in your Supabase SQL Editor
-2. This will replace the recursive policies with non-recursive ones
-3. Alternatively, for local development only, you can disable RLS: `ALTER TABLE admin_users DISABLE ROW LEVEL SECURITY;`
-
-
-### Properties not showing on homepage
-- Verify the schema was run successfully
-- Check that properties have `status = 'active'`
-- For featured properties, ensure `is_featured = true`
-
-### Database connection errors
-- Verify environment variables are set correctly
-- Check that `.env.local` file exists in the root directory
-- Restart the development server after adding environment variables
-
-## Next Steps
-
-You can now:
-1. Add more properties through the admin panel
-2. Customize the featured properties carousel
-3. Manage newsletter subscribers
-4. Extend the admin panel with additional features (agents, analytics, etc.)
+If you later want a full SQLite/MySQL migration, plan for a separate change that replaces Supabase auth, storage, and every `.from(...)` data call with a server-side database layer.

@@ -22,7 +22,8 @@ import {
     Palette,
     BarChart2,
     Newspaper,
-    Tag // Added for Property Taxonomy icon
+    Tag, // Added for Property Taxonomy icon
+    Inbox
 } from 'lucide-react';
 import { useState } from 'react';
 import { useSiteConfig } from '@/context/SiteConfigContext';
@@ -42,6 +43,7 @@ const navigation = [
     { name: 'Site Config', href: '/admin/config', icon: Sliders },
     { name: 'Statistics', href: '/admin/statistics', icon: BarChart2 },
     { name: 'Subscribers', href: '/admin/subscribers', icon: Mail },
+    { name: 'Inquiries', href: '/admin/submissions', icon: Inbox },
     { name: 'Settings', href: '/admin/settings', icon: Settings },
 ];
 
