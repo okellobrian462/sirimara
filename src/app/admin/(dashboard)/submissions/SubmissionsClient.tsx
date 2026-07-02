@@ -48,8 +48,8 @@ export default function SubmissionsClient({ initialSubmissions }: SubmissionsCli
 
     // Helper: Initials
     const getInitials = (sub: FormSubmission) => {
-        const first = sub.data.firstName || '';
-        const last = sub.data.lastName || '';
+        const first = String(sub.data.firstName || '');
+        const last = String(sub.data.lastName || '');
         if (!first && !last) return 'SM';
         return `${first.charAt(0)}${last.charAt(0)}`.toUpperCase();
     };
@@ -130,10 +130,10 @@ export default function SubmissionsClient({ initialSubmissions }: SubmissionsCli
         if (searchQuery.trim()) {
             const query = searchQuery.toLowerCase();
             const name = getSenderName(sub).toLowerCase();
-            const email = (sub.data.email || '').toLowerCase();
-            const phone = (sub.data.phone || '').toLowerCase();
-            const message = (sub.data.message || sub.data.details || '').toLowerCase();
-            const address = (sub.data.address || '').toLowerCase();
+            const email = String(sub.data.email || '').toLowerCase();
+            const phone = String(sub.data.phone || '').toLowerCase();
+            const message = String(sub.data.message || sub.data.details || '').toLowerCase();
+            const address = String(sub.data.address || '').toLowerCase();
 
             return (
                 name.includes(query) ||
@@ -334,13 +334,13 @@ export default function SubmissionsClient({ initialSubmissions }: SubmissionsCli
                             ) : (
                                 filteredSubmissions.map((sub) => {
                                     const senderName = getSenderName(sub);
-                                    const senderEmail = sub.data.email || 'N/A';
+                                    const senderEmail = String(sub.data.email || 'N/A');
                                     const isValuation = sub.form_type === 'valuation';
                                     
                                     // Get dynamic preview text
                                     const previewText = isValuation 
-                                        ? `Property: ${sub.data.address || 'N/A'}`
-                                        : sub.data.message || 'No message provided';
+                                        ? `Property: ${String(sub.data.address || 'N/A')}`
+                                        : String(sub.data.message || 'No message provided');
 
                                     return (
                                         <tr 
@@ -397,9 +397,9 @@ export default function SubmissionsClient({ initialSubmissions }: SubmissionsCli
                                                 <div className="text-xs text-gray-600 line-clamp-1 max-w-[400px]">
                                                     {previewText}
                                                 </div>
-                                                {isValuation && sub.data.unit && (
+                                                {isValuation && !!sub.data.unit && (
                                                     <div className="text-[10px] text-gray-400 font-bold uppercase mt-0.5">
-                                                        Apt/Unit: {sub.data.unit}
+                                                        Apt/Unit: {String(sub.data.unit)}
                                                     </div>
                                                 )}
                                             </td>
@@ -545,17 +545,17 @@ export default function SubmissionsClient({ initialSubmissions }: SubmissionsCli
                                     <div className="flex items-center gap-2.5 text-gray-600">
                                         <User className="w-4 h-4 text-gray-400 shrink-0" />
                                         <span className="font-bold uppercase text-[9px] tracking-wider text-gray-400 w-12 shrink-0">Email:</span>
-                                        <a href={`mailto:${selectedSubmission.data.email}`} className="text-brand-dark hover:underline font-medium break-all">
-                                            {selectedSubmission.data.email || 'N/A'}
+                                        <a href={`mailto:${String(selectedSubmission.data.email)}`} className="text-brand-dark hover:underline font-medium break-all">
+                                            {String(selectedSubmission.data.email || 'N/A')}
                                         </a>
                                     </div>
 
-                                    {selectedSubmission.data.phone && (
+                                    {String(selectedSubmission.data.phone || '') && (
                                         <div className="flex items-center gap-2.5 text-gray-600">
                                             <Phone className="w-4 h-4 text-gray-400 shrink-0" />
                                             <span className="font-bold uppercase text-[9px] tracking-wider text-gray-400 w-12 shrink-0">Phone:</span>
-                                            <a href={`tel:${selectedSubmission.data.phone.replace(/[^0-9]/g, '')}`} className="text-brand-dark hover:underline font-medium">
-                                                {selectedSubmission.data.phone}
+                                            <a href={`tel:${String(selectedSubmission.data.phone).replace(/[^0-9]/g, '')}`} className="text-brand-dark hover:underline font-medium">
+                                                {String(selectedSubmission.data.phone)}
                                             </a>
                                         </div>
                                     )}
@@ -580,22 +580,22 @@ export default function SubmissionsClient({ initialSubmissions }: SubmissionsCli
                                             <MapPin className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
                                             <div>
                                                 <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Property Address</p>
-                                                <p className="text-sm font-serif text-gray-900 mt-0.5">{selectedSubmission.data.address || 'N/A'}</p>
+                                                <p className="text-sm font-serif text-gray-900 mt-0.5">{String(selectedSubmission.data.address || 'N/A')}</p>
                                             </div>
                                         </div>
 
-                                        {selectedSubmission.data.unit && (
+                                        {!!selectedSubmission.data.unit && (
                                             <div className="pl-8 border-t border-gray-50 pt-3">
                                                 <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Unit / Apartment</p>
-                                                <p className="text-sm font-serif text-gray-900 mt-0.5">{selectedSubmission.data.unit}</p>
+                                                <p className="text-sm font-serif text-gray-900 mt-0.5">{String(selectedSubmission.data.unit)}</p>
                                             </div>
                                         )}
 
-                                        {selectedSubmission.data.details && (
+                                        {!!selectedSubmission.data.details && (
                                             <div className="pl-8 border-t border-gray-50 pt-3">
                                                 <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Additional Details Provided</p>
                                                 <p className="text-xs text-gray-600 leading-relaxed bg-gray-50 p-3 rounded-lg border border-gray-100 whitespace-pre-wrap mt-1">
-                                                    {selectedSubmission.data.details}
+                                                    {String(selectedSubmission.data.details)}
                                                 </p>
                                             </div>
                                         )}
@@ -608,7 +608,7 @@ export default function SubmissionsClient({ initialSubmissions }: SubmissionsCli
                                     <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
                                         <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-2">Message</p>
                                         <p className="text-xs text-gray-700 leading-relaxed whitespace-pre-wrap bg-gray-50 p-4 rounded-lg border border-gray-100">
-                                            {selectedSubmission.data.message || 'No message provided.'}
+                                            {String(selectedSubmission.data.message || 'No message provided.')}
                                         </p>
                                     </div>
                                 </div>
@@ -620,7 +620,7 @@ export default function SubmissionsClient({ initialSubmissions }: SubmissionsCli
                                 <div>
                                     <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">SMS Consent Status</p>
                                     <p className="text-xs text-gray-600 mt-0.5 leading-relaxed">
-                                        {selectedSubmission.data.consent === true 
+                                        {String(selectedSubmission.data.consent) === 'true' 
                                             ? '✓ Client consented to receive text/SMS communication from the site.'
                                             : '✗ Client did not consent/opted out of text messages.'}
                                     </p>

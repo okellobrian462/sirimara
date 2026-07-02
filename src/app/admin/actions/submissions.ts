@@ -6,7 +6,7 @@ import { revalidatePath } from 'next/cache';
 export interface FormSubmission {
     id: string;
     form_type: string;
-    data: Record<string, any>;
+    data: Record<string, unknown>;
     status: string;
     created_at: string;
     updated_at: string;
