@@ -1,14 +1,13 @@
 'use client';
 import { useSiteConfig } from '@/context/SiteConfigContext';
 
-
 export default function AgentsInsider() {
     const config = useSiteConfig();
     const insiderName = config.insider_name || 'Sirimara Insider';
 
     return (
         <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
-            {/* Background Image */}
+            {}
             <div className="absolute inset-0 z-0">
                 <img
                     src="https://res.cloudinary.com/dk92v0fkk/image/upload/v1732739597/staging-test/bphx0i6ibnimc8pbhyek.webp"

@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 
 interface ControlBulletsProps {
-    sections: string[]; // Array of section IDs
+    sections: string[]; 
 }
 
 export default function ControlBullets({ sections }: ControlBulletsProps) {
@@ -21,7 +21,7 @@ export default function ControlBullets({ sections }: ControlBulletsProps) {
             {
                 root: null,
                 rootMargin: '0px',
-                threshold: 0.5, // Trigger when 50% of the section is visible
+                threshold: 0.5, 
             }
         );
 

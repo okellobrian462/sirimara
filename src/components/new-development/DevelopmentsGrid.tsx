@@ -37,7 +37,7 @@ export default function DevelopmentsGrid() {
                         Our projects are the most highly coveted residences in leading luxury markets.
                     </p>
                     <Link
-                        href="/sales/new-development"
+                        href="/buy/new-development"
                         className="inline-block bg-brand-dark text-white text-xs font-bold tracking-[0.2em] py-5 px-10 rounded-full hover:bg-gray-800 transition-colors uppercase"
                     >
                         EXPLORE current developments

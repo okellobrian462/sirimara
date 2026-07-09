@@ -26,7 +26,7 @@ export default function HomeClient({ featuredProperties, propertyListings, categ
     };
     const formatPrice = (price: number) => `$${price.toLocaleString()}`;
 
-    // Filter properties based on active tab
+    
     const filteredProperties = propertyListings.filter(property => {
         if (!property.category) return false;
         return property.category === activeTab;
@@ -34,7 +34,7 @@ export default function HomeClient({ featuredProperties, propertyListings, categ
 
     return (
         <>
-            {/* Property Showcase Slider */}
+            {}
             {featuredProperties.length > 0 && (
                 <section className="relative">
                     <div className="relative h-[600px] overflow-hidden">
@@ -78,7 +78,7 @@ export default function HomeClient({ featuredProperties, propertyListings, categ
                 </section>
             )}
 
-            {/* Property Listings Section */}
+            {}
             <section className="bg-brand-dark py-20">
                 <div className="px-6">
                     <div className="text-center text-white mb-12">
@@ -88,11 +88,11 @@ export default function HomeClient({ featuredProperties, propertyListings, categ
                         <h2 className="text-5xl md:text-6xl tracking-wide mb-12">
                             {propertyShowcaseTitle || 'THE NEXT MOVE IS YOURS'}
                         </h2>
-                        {/* Vertical Divider */}
+                        {}
                         <div className="w-px h-20 bg-white/40 mx-auto mb-12" />
                     </div>
 
-                    {/* Tabs */}
+                    {}
                     <div className="flex flex-wrap justify-center gap-4 md:gap-8 mb-12 border-b border-white/20">
                         {categories.map((category) => (
                             <button
@@ -108,7 +108,7 @@ export default function HomeClient({ featuredProperties, propertyListings, categ
                         ))}
                     </div>
 
-                    {/* Property Grid */}
+                    {}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
                         {filteredProperties.length > 0 ? (
                             filteredProperties.map((property) => (
@@ -139,9 +139,9 @@ export default function HomeClient({ featuredProperties, propertyListings, categ
                         )}
                     </div>
 
-                    {/* View All Button */}
+                    {}
                     <div className="text-center">
-                        <Link href="/sales" className="inline-block px-8 py-4 border-2 border-white rounded-full text-sm tracking-widest text-white hover:bg-white hover:text-gray-900 transition-colors uppercase">
+                        <Link href="/buy" className="inline-block px-8 py-4 border-2 border-white rounded-full text-sm tracking-widest text-white hover:bg-white hover:text-gray-900 transition-colors uppercase">
                             View All Listings
                         </Link>
                     </div>

@@ -16,7 +16,7 @@ export async function generateMetadata(
     { params }: Props
 ): Promise<Metadata> {
     const { slug } = await params;
-    // In a real implementation, we would fetch metadata from a page_meta table
+    
     const [sections, siteConfig] = await Promise.all([
         fetchPageSections(slug),
         fetchSiteConfig()
@@ -44,7 +44,7 @@ export default async function Page({ params }: Props) {
         <div className="min-h-screen bg-brand-dark">
             <Header />
 
-            {/* Render sections from CMS */}
+            {}
             {sections.map((section) => (
                 <SectionRenderer key={section.id} section={section} />
             ))}

@@ -38,16 +38,16 @@ export default function DeleteConfirmModal({
 
     return (
         <div className="fixed inset-0 z-50 overflow-y-auto">
-            {/* Backdrop */}
+            {}
             <div
                 className="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
                 onClick={onClose}
             />
 
-            {/* Modal */}
+            {}
             <div className="flex min-h-full items-center justify-center p-4">
                 <div className="relative bg-white rounded-xl shadow-xl max-w-md w-full p-6 border border-gray-200">
-                    {/* Close button */}
+                    {}
                     <button
                         onClick={onClose}
                         className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
@@ -55,7 +55,7 @@ export default function DeleteConfirmModal({
                         <X className="w-5 h-5" />
                     </button>
 
-                    {/* Content */}
+                    {}
                     <div className="mb-6">
                         <h3 className="text-xl font-light tracking-wide text-gray-900 mb-2">
                             {title}
@@ -70,7 +70,7 @@ export default function DeleteConfirmModal({
                         )}
                     </div>
 
-                    {/* Actions */}
+                    {}
                     <div className="flex items-center gap-3">
                         <button
                             onClick={onClose}

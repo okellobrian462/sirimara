@@ -28,7 +28,7 @@ export default function SearchFilters({
     const [isModalOpen, setIsModalOpen] = useState(false);
     const filtersRef = useRef<HTMLDivElement>(null);
 
-    // Close dropdowns when clicking outside
+    
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
             if (filtersRef.current && !filtersRef.current.contains(event.target as Node)) {
@@ -44,8 +44,8 @@ export default function SearchFilters({
     };
 
     const handleGoalChange = (newGoal: "sale" | "rental" | "sold") => {
-        if (newGoal === "sale") router.push("/sales");
-        else if (newGoal === "rental") router.push("/rentals");
+        if (newGoal === "sale") router.push("/buy");
+        else if (newGoal === "rental") router.push("/rent");
         else router.push("/sold");
         setActiveDropdown(null);
     };
@@ -57,7 +57,7 @@ export default function SearchFilters({
     return (
         <div ref={filtersRef} className="w-full bg-white px-6 py-4 border-t border-gray-100 flex flex-wrap items-center justify-between gap-4 relative z-50">
             <div className="flex items-center gap-4">
-                {/* Sale/Rent Toggle */}
+                {}
                 <div className="relative">
                     <button
                         onClick={() => toggleDropdown("goal")}
@@ -72,21 +72,21 @@ export default function SearchFilters({
                                 onClick={() => handleGoalChange("sale")}
                                 className="w-full text-left px-4 py-3 text-xs uppercase tracking-wider hover:bg-gray-50 flex justify-between items-center"
                             >
-                                For Sale
+                                Buy
                                 {filters.goal === "sale" && <Check className="w-3 h-3" />}
                             </button>
                             <button
                                 onClick={() => handleGoalChange("rental")}
                                 className="w-full text-left px-4 py-3 text-xs uppercase tracking-wider hover:bg-gray-50 flex justify-between items-center"
                             >
-                                For Rent
+                                Rent
                                 {filters.goal === "rental" && <Check className="w-3 h-3" />}
                             </button>
                         </div>
                     )}
                 </div>
 
-                {/* Price Filter */}
+                {}
                 <div className="relative">
                     <button
                         onClick={() => toggleDropdown("price")}
@@ -132,7 +132,7 @@ export default function SearchFilters({
                     )}
                 </div>
 
-                {/* Bed / Bath Filter */}
+                {}
                 <div className="relative">
                     <button
                         onClick={() => toggleDropdown("beds")}
@@ -189,13 +189,13 @@ export default function SearchFilters({
                     )}
                 </div>
 
-                {/* Property Type Filter - Placeholder until DB support */}
-                <button className="flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 cursor-not-allowed">
+                {}
+                {/* <button className="flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 cursor-not-allowed">
                     Property Type
                     <ChevronDown className="w-3 h-3" />
-                </button>
+                </button> */}
 
-                {/* All Filters Button */}
+                {}
                 <button
                     onClick={() => setIsModalOpen(true)}
                     className="flex items-center gap-2 px-8 py-3 border border-gray-300 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase text-brand-dark hover:bg-gray-50 transition-colors ml-4"
@@ -205,7 +205,7 @@ export default function SearchFilters({
                 </button>
             </div>
 
-            {/* All Filters Modal */}
+            {}
             <AllFiltersModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}

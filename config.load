@@ -1,0 +1,4 @@
+LOAD DATABASE
+FROM postgres://user:password@host/source_db
+INTO postgres://postgres:password@supabase_host:6543/postgres
+ALTER SCHEMA 'public' OWNER TO 'postgres';

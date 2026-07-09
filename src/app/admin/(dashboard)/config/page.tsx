@@ -40,7 +40,7 @@ export default function SiteConfigPage() {
 
         if (result.success) {
             setMessage('Configuration saved successfully!');
-            router.refresh(); // Refresh to show updated data on main site
+            router.refresh(); 
             setTimeout(() => setMessage(''), 3000);
         } else {
             setMessage('Error saving configuration');

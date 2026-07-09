@@ -6,21 +6,17 @@ interface StatsSectionProps {
     section: PageSection;
 }
 
-/**
- * Reusable Stats Section Component
- * Displays statistics in a configurable grid layout
- */
 export default async function StatsSection({ section }: StatsSectionProps) {
     const config = section.layout_config || {};
     const columns = (config.columns as number) || 3;
     const showBorder = (config.show_border as boolean) !== false;
     const showIntroText = (config.show_intro_text as boolean) !== false;
 
-    // Fetch statistics from database
+    
     const statsCategory = (config.stats_category as string) || 'company';
     const statistics = await fetchStatistics(statsCategory);
 
-    // Determine grid columns class
+    
     const gridClass = columns === 3 ? 'md:grid-cols-3' : columns === 4 ? 'md:grid-cols-4' : 'md:grid-cols-2';
 
     return (
@@ -32,7 +28,7 @@ export default async function StatsSection({ section }: StatsSectionProps) {
             }}
         >
             <div className="container mx-auto max-w-6xl">
-                {/* Intro Text */}
+                {}
                 {showIntroText && (section.title || section.content) && (
                     <div className="text-center mb-24 max-w-4xl mx-auto">
                         {section.title && (
@@ -55,7 +51,7 @@ export default async function StatsSection({ section }: StatsSectionProps) {
                     </div>
                 )}
 
-                {/* Statistics Grid */}
+                {}
                 <div className={`grid grid-cols-1 ${gridClass} gap-16 md:gap-8 text-center ${showBorder ? 'border-t border-current/10 pt-24' : ''}`}>
                     {statistics.slice(0, columns).map((stat) => (
                         <div key={stat.id}>

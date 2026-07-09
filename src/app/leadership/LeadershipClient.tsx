@@ -95,7 +95,7 @@ export default function LeadershipClient({ header, footer }: LeadershipClientPro
         <main className="min-h-screen bg-brand-dark">
             {header}
 
-            {/* Hero Section */}
+            {}
             <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 z-0">
                     <img
@@ -126,7 +126,7 @@ export default function LeadershipClient({ header, footer }: LeadershipClientPro
                 </div>
             </section>
 
-            {/* Top Leadership Tiles */}
+            {}
             <section className="bg-gray-100">
                 <div className="container mx-auto px-6 py-20 lg:py-32">
                     <div className="max-w-7xl mx-auto space-y-12">
@@ -145,7 +145,7 @@ export default function LeadershipClient({ header, footer }: LeadershipClientPro
                 </div>
             </section>
 
-            {/* Regional Accordions */}
+            {}
             <section className="bg-brand-dark">
                 <div className="container mx-auto px-6 py-20 lg:py-32">
                     <div className="max-w-6xl mx-auto">

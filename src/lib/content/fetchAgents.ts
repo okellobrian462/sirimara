@@ -11,10 +11,6 @@ export interface Agent {
     phone: string | null;
 }
 
-/**
- * Fetch all active agents
- * Cached per request
- */
 export const fetchActiveAgents = cache(async (): Promise<Agent[]> => {
     const supabase = await createClient();
 

@@ -29,7 +29,7 @@ export default function ImageUpload({
         const file = e.target.files?.[0];
         if (!file) return;
 
-        // Basic validation
+        
         if (!file.type.startsWith('image/')) {
             setError('Please select an image file');
             return;

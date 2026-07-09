@@ -24,9 +24,6 @@ export interface PageSection {
     template_id: string | null;
 }
 
-/**
- * Create a new page section
- */
 export async function createPageSection(section: Omit<PageSection, 'id'>) {
     const supabase = await createClient();
 
@@ -47,9 +44,6 @@ export async function createPageSection(section: Omit<PageSection, 'id'>) {
     return { success: true, data };
 }
 
-/**
- * Update an existing page section
- */
 export async function updatePageSection(id: string, updates: Partial<PageSection>) {
     const supabase = await createClient();
 
@@ -65,7 +59,7 @@ export async function updatePageSection(id: string, updates: Partial<PageSection
         return { success: false, error: error.message };
     }
 
-    // Revalidate the page
+    
     if (data) {
         revalidatePath(`/${data.page}`);
         revalidatePath('/admin/pages');
@@ -74,13 +68,10 @@ export async function updatePageSection(id: string, updates: Partial<PageSection
     return { success: true, data };
 }
 
-/**
- * Delete a page section
- */
 export async function deletePageSection(id: string) {
     const supabase = await createClient();
 
-    // Get the section first to know which page to revalidate
+    
     const { data: section } = await supabase
         .from('page_sections')
         .select('page')
@@ -105,13 +96,10 @@ export async function deletePageSection(id: string) {
     return { success: true };
 }
 
-/**
- * Reorder page sections
- */
 export async function reorderPageSections(page: string, sectionIds: string[]) {
     const supabase = await createClient();
 
-    // Update order_index for each section individually to avoid NOT NULL constraint issues with upsert
+    
     for (let i = 0; i < sectionIds.length; i++) {
         const { error } = await supabase
             .from('page_sections')
@@ -130,9 +118,6 @@ export async function reorderPageSections(page: string, sectionIds: string[]) {
     return { success: true };
 }
 
-/**
- * Get all sections for a specific page
- */
 export async function getPageSections(page: string) {
     const supabase = await createClient();
 
@@ -150,9 +135,6 @@ export async function getPageSections(page: string) {
     return { success: true, data: data || [] };
 }
 
-/**
- * Get all available component templates
- */
 export async function getComponentTemplates() {
     const supabase = await createClient();
 
@@ -170,9 +152,6 @@ export async function getComponentTemplates() {
     return { success: true, data: data || [] };
 }
 
-/**
- * Toggle section active status
- */
 export async function toggleSectionActive(id: string, isActive: boolean) {
     const supabase = await createClient();
 

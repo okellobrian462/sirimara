@@ -1,4 +1,4 @@
-import SalesSearchClient from "@/app/sales/SalesSearchClient";
+import SalesSearchClient from "@/app/buy/SalesSearchClient";
 import type { PageSection } from "@/lib/content/fetchPageSections";
 import { createClient } from "@/lib/supabase/server";
 import { fetchSiteConfig } from "@/lib/content/fetchSiteConfig";
@@ -14,14 +14,14 @@ export default async function SalesSearchSection({ section }: SalesSearchSection
     const config = await fetchSiteConfig();
     const siteName = (config.company_name || 'Sirimara').toUpperCase();
 
-    // Fetch properties with contract type "For Sale"
+    
     const { data: properties } = await supabase
         .from("properties_with_taxonomy")
         .select(`*, property_contract_types!inner(name, slug)`)
         .eq("status", "active")
         .or('name.eq.For Sale', { referencedTable: 'property_contract_types' });
 
-    // Fetch taxonomy data for filters
+    
     const [{ data: propertyTypes }, { data: features }] = await Promise.all([
         supabase.from("property_types").select("id, name, slug").eq("is_active", true).order("order_index"),
         supabase.from("property_features").select("id, name, category").eq("is_active", true).order("category").order("name"),

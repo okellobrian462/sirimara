@@ -46,7 +46,7 @@ export default function ServicesSection() {
                 </div>
 
                 <div className="flex flex-col lg:flex-row gap-12 lg:gap-24 items-start">
-                    {/* Tabs */}
+                    {}
                     <div className="w-full lg:w-1/3 flex flex-col gap-4">
                         {SERVICES.map((service) => (
                             <button
@@ -69,7 +69,7 @@ export default function ServicesSection() {
                         ))}
                     </div>
 
-                    {/* Image Display */}
+                    {}
                     <div className="w-full lg:w-2/3 aspect-video relative overflow-hidden group">
                         {SERVICES.map((service) => (
                             <div

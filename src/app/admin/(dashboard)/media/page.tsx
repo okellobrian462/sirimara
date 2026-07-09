@@ -25,8 +25,6 @@ export default function MediaLibraryPage() {
     const [message, setMessage] = useState('');
     const [showUpload, setShowUpload] = useState(false);
 
-
-
     const fetchMedia = useCallback(async () => {
         const supabase = createClient();
         let query = supabase.from('media_library').select('*').order('uploaded_at', { ascending: false });
@@ -72,7 +70,7 @@ export default function MediaLibraryPage() {
     }
 
     async function handleUploadComplete(url: string) {
-        // Extract filename from URL
+        
         const filename = url.split('/').pop() || 'uploaded_file';
         const mediaType = url.includes('.mp4') || url.includes('.mov') ? 'video' : 'image';
 

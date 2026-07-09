@@ -21,12 +21,11 @@ export default function ConnectModal({ isOpen, onClose }: ConnectModalProps) {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-
     useEffect(() => {
         if (isOpen) {
             setIsVisible(true);
             document.body.style.overflow = 'hidden';
-            // Fetch config when modal opens
+
             getContactConfig().then(data => {
                 setContactConfig({
                     phone: data.phone || '1-800-SIRIMARA',
@@ -37,7 +36,7 @@ export default function ConnectModal({ isOpen, onClose }: ConnectModalProps) {
         } else {
             const timer = setTimeout(() => {
                 setIsVisible(false);
-                setSubmitStatus('idle'); // Reset status on close
+                setSubmitStatus('idle');
             }, 500);
             document.body.style.overflow = 'unset';
             return () => clearTimeout(timer);
@@ -64,8 +63,8 @@ export default function ConnectModal({ isOpen, onClose }: ConnectModalProps) {
         setIsSubmitting(false);
         if (result.success) {
             setSubmitStatus('success');
-            // Optional: Close modal after success
-            // setTimeout(onClose, 2000);
+
+
         } else {
             setSubmitStatus('error');
         }
@@ -75,19 +74,19 @@ export default function ConnectModal({ isOpen, onClose }: ConnectModalProps) {
 
     return (
         <div className={`fixed inset-0 z-50 flex justify-end transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-            {/* Backdrop */}
+            { }
             <div
                 className="absolute inset-0 bg-black/50 backdrop-blur-sm"
                 onClick={onClose}
             />
 
-            {/* Drone/Drawer */}
+            { }
             <div
                 className={`relative w-full md:w-[500px] h-full bg-white shadow-2xl flex flex-col transform transition-transform duration-500 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
             >
-                {/* Header */}
+                { }
                 <div className="relative flex items-center justify-center p-6 border-b border-gray-100">
-                    <h2 className="text-sm tracking-[0.2em] uppercase font-medium text-brand-dark">Connect</h2>
+                    <h2 className="text-sm tracking-[0.2em] uppercase font-medium text-brand-dark">Contact Us</h2>
                     <button
                         onClick={onClose}
                         className="absolute right-6 p-2 hover:bg-gray-100 rounded-full transition-colors"
@@ -96,9 +95,9 @@ export default function ConnectModal({ isOpen, onClose }: ConnectModalProps) {
                     </button>
                 </div>
 
-                {/* Content */}
+                { }
                 <div className="flex-1 overflow-y-auto p-8">
-                    {/* Agent Info */}
+                    { }
                     <div className="flex items-start gap-6 mb-12">
                         <div className="w-20 h-20 rounded-full border border-gray-200 p-2 flex items-center justify-center shrink-0">
                             <span className="text-3xl font-serif text-gray-300">SM</span>
@@ -119,7 +118,7 @@ export default function ConnectModal({ isOpen, onClose }: ConnectModalProps) {
 
                     </div>
 
-                    {/* Form */}
+                    { }
                     {submitStatus === 'success' ? (
                         <div className="text-center py-12">
                             <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -150,7 +149,7 @@ export default function ConnectModal({ isOpen, onClose }: ConnectModalProps) {
                                         <input
                                             name="lastName"
                                             type="text"
-                                            placeholder="Last Name"
+                                            placeholder="Last Name (optional)"
                                             className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-brand-dark p-0"
                                             required
                                         />
@@ -176,26 +175,26 @@ export default function ConnectModal({ isOpen, onClose }: ConnectModalProps) {
                                         <input
                                             name="message"
                                             type="text"
-                                            placeholder="Message (optional)"
+                                            placeholder="Message (mandatory)"
                                             className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-brand-dark p-0"
                                         />
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Checkbox */}
+                            { }
                             <label className="flex items-start gap-4 cursor-pointer group">
                                 <div className="relative flex items-center justify-center shrink-0">
                                     <input name="consent" type="checkbox" className="peer w-5 h-5 border border-gray-300 rounded-sm checked:bg-brand-dark checked:border-brand-dark appearance-none transition-colors" defaultChecked />
                                     <Check className="absolute w-3 h-3 text-white opacity-0 peer-checked:opacity-100 pointer-events-none" />
                                 </div>
                                 <p className="text-xs text-gray-500 leading-relaxed">
-                                    By checking this box, you consent to receive sms/text messages from {siteName}. Reply STOP to opt-out anytime. <Link href="/privacy-policy" className="underline hover:text-brand-dark">Privacy Policy</Link>
+                                    By checking this box, you consent to receive sms/text messages from {siteName}. <Link href="/privacy-policy" className="underline hover:text-brand-dark">Privacy Policy</Link>
                                 </p>
 
                             </label>
 
-                            {/* Submit */}
+                            { }
                             <button
                                 disabled={isSubmitting}
                                 className="w-full py-4 bg-[#100B28] text-white hover:bg-[#100B28]/90 transition-colors uppercase text-sm tracking-widest rounded-full flex items-center justify-center gap-2 disabled:opacity-70"

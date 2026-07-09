@@ -7,10 +7,6 @@ interface HeroSectionProps {
     section: PageSection;
 }
 
-/**
- * Reusable Hero Section Component
- * Supports multiple variants including the special homepage hero with bottom navigation
- */
 export default function HeroSection({ section }: HeroSectionProps) {
     const config = section.layout_config || {};
     const variant = config.variant || 'default';
@@ -20,15 +16,15 @@ export default function HeroSection({ section }: HeroSectionProps) {
     const showScrollIndicator = config.show_scroll_indicator || false;
     const showBottomNav = config.show_bottom_nav || false;
 
-    // Determine height class
+    
     const heightClass = height === 'screen' ? 'h-screen' : height === '80vh' ? 'h-[80vh]' : 'h-[60vh]';
 
-    // Determine text alignment class
+    
     const alignmentClass = textAlignment === 'left' ? 'text-left' : textAlignment === 'right' ? 'text-right' : 'text-center';
 
     return (
         <section className={`relative ${heightClass} flex items-center justify-center overflow-hidden`}>
-            {/* Background Media */}
+            {}
             {section.media_type === 'video' && section.media_url ? (
                 <video
                     autoPlay
@@ -47,10 +43,10 @@ export default function HeroSection({ section }: HeroSectionProps) {
                 />
             ) : null}
 
-            {/* Overlay */}
+            {}
             <div className={`absolute inset-0 bg-black/${overlayOpacity}`} />
 
-            {/* Content */}
+            {}
             <div className={`relative z-10 ${alignmentClass} text-white px-6 ${variant === 'home' ? 'max-w-none' : 'max-w-5xl mx-auto'}`}>
                 {section.title && (
                     <h1 className={`${variant === 'home' ? 'text-[40px] tracking-[0.25rem]' : 'text-3xl md:text-5xl lg:text-6xl font-light tracking-[0.05em]'} uppercase leading-[1.2] mb-4`}>
@@ -68,7 +64,7 @@ export default function HeroSection({ section }: HeroSectionProps) {
                     </p>
                 )}
 
-                {/* CTAs */}
+                {}
                 {variant === 'agents' ? (
                     <div className="max-w-4xl mx-auto w-full mt-8">
                         <UnifiedSearch
@@ -99,15 +95,15 @@ export default function HeroSection({ section }: HeroSectionProps) {
                 )}
             </div>
 
-            {/* Homepage Bottom Navigation - Only shown for home variant */}
+            {}
             {showBottomNav && variant === 'home' && (
                 <div className="absolute bottom-0 left-0 right-0 z-20">
                     <div className="px-6 py-8 flex items-center justify-between text-white">
                         <div className="flex items-center gap-8">
                             <nav className="hidden md:flex gap-8 uppercase text-sm tracking-wider">
-                                <Link href="/sales" className="hover:opacity-80 transition-opacity">Buy</Link>
+                                <Link href="/buy" className="hover:opacity-80 transition-opacity">Buy</Link>
                                 <span>|</span>
-                                <Link href="/rentals" className="hover:opacity-80 transition-opacity">Rent</Link>
+                                <Link href="/rent" className="hover:opacity-80 transition-opacity">Rent</Link>
                                 <Link href="/sell" className="hover:opacity-80 transition-opacity">Sell</Link>
                                 <Link href="/agents" className="hover:opacity-80 transition-opacity">Agents</Link>
                                 <Link href="/property-management" className="hover:opacity-80 transition-opacity">Property Management</Link>
@@ -117,7 +113,7 @@ export default function HeroSection({ section }: HeroSectionProps) {
                 </div>
             )}
 
-            {/* Scroll Indicator */}
+            {}
             {showScrollIndicator && (
                 <div className="absolute bottom-12 left-1/2 -translate-x-1/2 text-center text-white z-20">
                     <span className="text-[10px] font-bold tracking-[0.2em] uppercase block mb-4">

@@ -47,7 +47,7 @@ export default function PropertiesClient({ properties, categories }: PropertiesC
         property: null
     });
 
-    // Filter and search properties
+    
     const filteredProperties = useMemo(() => {
         return properties.filter(property => {
             const matchesSearch = searchQuery === '' ||
@@ -62,14 +62,14 @@ export default function PropertiesClient({ properties, categories }: PropertiesC
         });
     }, [properties, searchQuery, statusFilter, categoryFilter]);
 
-    // Pagination
+    
     const totalPages = Math.ceil(filteredProperties.length / ITEMS_PER_PAGE);
     const paginatedProperties = useMemo(() => {
         const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
         return filteredProperties.slice(startIndex, startIndex + ITEMS_PER_PAGE);
     }, [filteredProperties, currentPage]);
 
-    // Reset to page 1 when filters change
+    
     const handleSearchChange = (value: string) => {
         setSearchQuery(value);
         setCurrentPage(1);
@@ -96,7 +96,7 @@ export default function PropertiesClient({ properties, categories }: PropertiesC
 
     return (
         <div className="p-8">
-            {/* Header */}
+            {}
             <div className="flex items-center justify-between mb-8">
                 <div>
                     <h1 className="text-3xl font-light tracking-[0.15em] text-gray-900 mb-2">
@@ -115,7 +115,7 @@ export default function PropertiesClient({ properties, categories }: PropertiesC
                 </Link>
             </div>
 
-            {/* Search and Filters */}
+            {}
             <div className="mb-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                 <div className="flex-1 relative">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -150,7 +150,7 @@ export default function PropertiesClient({ properties, categories }: PropertiesC
                 </select>
             </div>
 
-            {/* Properties Table */}
+            {}
             <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
                 <div className="overflow-x-auto">
                     <table className="w-full">
@@ -263,7 +263,7 @@ export default function PropertiesClient({ properties, categories }: PropertiesC
                 </div>
             </div>
 
-            {/* Pagination */}
+            {}
             {totalPages > 1 && (
                 <Pagination
                     currentPage={currentPage}
@@ -272,7 +272,7 @@ export default function PropertiesClient({ properties, categories }: PropertiesC
                 />
             )}
 
-            {/* Empty State */}
+            {}
             {filteredProperties.length === 0 && (
                 <div className="text-center py-12 bg-white rounded-xl border border-gray-200 mt-6">
                     <p className="text-gray-500 mb-4">
@@ -292,7 +292,7 @@ export default function PropertiesClient({ properties, categories }: PropertiesC
                 </div>
             )}
 
-            {/* Delete Confirmation Modal */}
+            {}
             <DeleteConfirmModal
                 isOpen={deleteModal.isOpen}
                 onClose={() => setDeleteModal({ isOpen: false, property: null })}

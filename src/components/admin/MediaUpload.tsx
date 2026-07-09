@@ -10,8 +10,8 @@ interface MediaUploadProps {
     label?: string;
     description?: string;
     className?: string;
-    currentImage?: string; // Kept for backward compat, but we might want currentMediaUrl
-    acceptedFileTypes?: string; // e.g. "image/*,video/*"
+    currentImage?: string; 
+    acceptedFileTypes?: string; 
     maxSizeMB?: number;
     videoBucket?: StorageBucket;
 }
@@ -38,7 +38,7 @@ export default function MediaUpload({
     };
 
     const validateAndUpload = async (file: File) => {
-        // Validation
+        
         const fileType = file.type;
         const acceptedTypes = acceptedFileTypes.split(',').map(t => t.trim());
 
@@ -101,7 +101,7 @@ export default function MediaUpload({
 
     const isVideo = (url?: string) => {
         if (!url) return false;
-        return url.toLowerCase().match(/\.(mp4|mov|webm)$/) || url.includes('video'); // Heuristic
+        return url.toLowerCase().match(/\.(mp4|mov|webm)$/) || url.includes('video'); 
     };
 
     return (

@@ -22,8 +22,8 @@ export function SiteConfigProvider({
 export function useSiteConfig() {
     const context = useContext(SiteConfigContext);
     if (!context) {
-        // Return an empty object or a default value instead of throwing
-        // to avoid crashing components if the provider is missing
+        
+        
         return {} as SiteConfig;
     }
     return context;

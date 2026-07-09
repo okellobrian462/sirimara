@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import { slugifyAgentFirstName } from '@/lib/agentSlug';
 
 export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
     const query = searchParams.get('q') || '';
-    const type = searchParams.get('type') || 'all'; // 'buy', 'rent', 'agents', 'all'
+    const type = searchParams.get('type') || 'all'; 
     const limit = parseInt(searchParams.get('limit') || '10');
 
     const minPrice = parseInt(searchParams.get('min_price') || '0');
@@ -36,7 +37,7 @@ export async function GET(request: NextRequest) {
     const results: SearchResult[] = [];
 
     try {
-        // Search properties (buy)
+        
         if (type === 'buy' || type === 'all') {
             let propertyQuery = supabase
                 .from('properties')
@@ -49,7 +50,7 @@ export async function GET(request: NextRequest) {
             if (beds > 0) propertyQuery = propertyQuery.gte('bedrooms', beds);
             if (baths > 0) propertyQuery = propertyQuery.gte('bathrooms', baths);
 
-            // Text search
+            
             propertyQuery = propertyQuery.or(`address.ilike.%${query}%,city.ilike.%${query}%,zip_code.ilike.%${query}%,neighborhood.ilike.%${query}%`);
 
             const { data: buyProperties } = await propertyQuery.limit(limit);
@@ -72,13 +73,13 @@ export async function GET(request: NextRequest) {
             }
         }
 
-        // Search properties (rent)
+        
         if (type === 'rent' || type === 'all') {
             let propertyQuery = supabase
                 .from('properties')
                 .select('id, address, city, state, zip_code, price, images, slug, bedrooms, bathrooms')
                 .eq('status', 'active')
-                .eq('listing_type', 'rent') // Assuming you handle rent price similarly or separate params
+                .eq('listing_type', 'rent') 
                 .gte('price', minPrice)
                 .lte('price', maxPrice);
 
@@ -107,7 +108,7 @@ export async function GET(request: NextRequest) {
             }
         }
 
-        // Search agents
+        
         if (type === 'agents' || type === 'all') {
             const { data: agents } = await supabase
                 .from('agents')
@@ -123,13 +124,13 @@ export async function GET(request: NextRequest) {
                     title: `${a.first_name} ${a.last_name}`,
                     subtitle: a.title || 'Real Estate Agent',
                     image: a.photo_url || '',
-                    url: `/agents/${a.id}`,
+                    url: `/agents/${slugifyAgentFirstName(a.first_name)}`,
                     metadata: {}
                 })));
             }
         }
 
-        // Sort by relevance (properties first, then agents)
+        
         const sortedResults = results.sort((a, b) => {
             if (a.type === 'property' && b.type === 'agent') return -1;
             if (a.type === 'agent' && b.type === 'property') return 1;

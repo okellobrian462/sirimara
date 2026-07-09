@@ -3,7 +3,6 @@ import { Property } from './featured/FeaturedClient';
 import { Building2, Star, Mail, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 
-// Define a local interface that extends the base Property with dashboard-specific fields
 interface DashboardProperty extends Property {
     status: string;
     created_at: string;
@@ -68,7 +67,7 @@ export default async function AdminDashboard() {
 
     return (
         <div className="p-8">
-            {/* Header */}
+            {}
             <div className="mb-8">
                 <h1 className="text-3xl font-light tracking-[0.15em] text-gray-900 mb-2">
                     DASHBOARD OVERVIEW
@@ -78,7 +77,7 @@ export default async function AdminDashboard() {
                 </p>
             </div>
 
-            {/* Stats Grid */}
+            {}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 {statCards.map((stat) => (
                     <Link
@@ -103,7 +102,7 @@ export default async function AdminDashboard() {
                 ))}
             </div>
 
-            {/* Recent Properties */}
+            {}
             <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
                 <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
                     <h2 className="text-lg font-light tracking-[0.15em] text-gray-900">
@@ -169,7 +168,7 @@ export default async function AdminDashboard() {
                 </div>
             </div>
 
-            {/* Quick Actions */}
+            {}
             <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
                 <Link
                     href="/admin/properties/new"

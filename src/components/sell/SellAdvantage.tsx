@@ -3,7 +3,7 @@
 export default function SellAdvantage() {
     return (
         <section className="relative h-[600px] flex items-center justify-center overflow-hidden">
-            {/* Background Image */}
+            {}
             <div className="absolute inset-0 z-0">
                 <img
                     src="https://res.cloudinary.com/dk92v0fkk/image/upload/v1732501450/staging-test/vrvgksmitdbeff170j1y.jpg"

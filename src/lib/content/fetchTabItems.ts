@@ -13,9 +13,6 @@ export interface TabItem {
     is_active: boolean;
 }
 
-/**
- * Fetch tabs for a specific section
- */
 export async function fetchTabItems(sectionId: string): Promise<TabItem[]> {
     const supabase = await createClient();
 

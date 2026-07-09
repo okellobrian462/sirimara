@@ -22,12 +22,6 @@ export interface PageSection {
     template_id: string | null;
 }
 
-/**
- * Fetch all active page sections for a specific page
- * Cached per request to avoid duplicate queries
- * @param page - The page identifier (e.g., 'home', 'about', 'sell')
- * @returns Array of page sections ordered by order_index
- */
 export const fetchPageSections = cache(async (page: string): Promise<PageSection[]> => {
     const supabase = await createClient();
 
@@ -46,11 +40,6 @@ export const fetchPageSections = cache(async (page: string): Promise<PageSection
     return data || [];
 });
 
-/**
- * Fetch a single page section by ID
- * @param id - The section ID
- * @returns Single page section or null
- */
 export const fetchPageSection = cache(async (id: string): Promise<PageSection | null> => {
     const supabase = await createClient();
 

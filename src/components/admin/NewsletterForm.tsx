@@ -9,8 +9,6 @@ import { Loader2, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { useSiteConfig } from '@/context/SiteConfigContext';
 
-
-// Dynamic import for ReactQuill to avoid SSR issues
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 import 'react-quill-new/dist/quill.snow.css';
 
@@ -48,7 +46,7 @@ export default function NewsletterForm({ newsletter }: Props) {
 
     const title = watch('title');
 
-    // Auto-generate slug from title if creating new
+    
     useEffect(() => {
         if (!newsletter && title) {
             const generatedSlug = title
@@ -76,7 +74,7 @@ export default function NewsletterForm({ newsletter }: Props) {
             } else {
                 await createNewsletter(formData);
             }
-            // Redirect happens in server action
+            
         } catch (error) {
             console.error(error);
             alert('Something went wrong');

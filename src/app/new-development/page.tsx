@@ -10,7 +10,7 @@ export const metadata = {
 };
 
 export default async function NewDevelopmentPage() {
-    // Fetch CMS-managed sections
+    
     const sections = await fetchPageSections('new-development');
 
     return (
@@ -18,7 +18,7 @@ export default async function NewDevelopmentPage() {
             <Header theme="light" />
 
             <main>
-                {/* Render CMS-managed sections */}
+                {}
                 {sections?.map((section) => (
                     <SectionRenderer key={section.id} section={section} />
                 ))}

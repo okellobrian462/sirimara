@@ -95,7 +95,7 @@ export default function ExclusivesGrid() {
         <section className="bg-white py-12 px-6">
             <div className="w-full px-6 md:px-8">
 
-                {/* Header & Controls */}
+                {}
                 <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-8">
                     <div>
                         <h1 className="text-2xl font-sans font-light mb-1">
@@ -124,14 +124,14 @@ export default function ExclusivesGrid() {
                     </div>
                 </div>
 
-                {/* Grid */}
+                {}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16 mb-24">
                     {MOCK_LISTINGS.map(listing => (
                         <ListingCard key={listing.id} listing={listing} />
                     ))}
                 </div>
 
-                {/* Pagination */}
+                {}
                 <div className="flex justify-center items-center gap-8 mb-12">
                     <button className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 disabled:opacity-50" disabled>
                         <ChevronLeft className="w-4 h-4" />

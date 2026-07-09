@@ -2,7 +2,6 @@ import type { PageSection } from '@/lib/content/fetchPageSections';
 import type { StoryItem } from '@/lib/content/fetchStoryItems';
 import { useSiteConfig } from '@/context/SiteConfigContext';
 
-
 interface StoriesSectionProps {
     section: PageSection;
     items: StoryItem[];
@@ -11,7 +10,6 @@ interface StoriesSectionProps {
 export default function StoriesSection({ section, items }: StoriesSectionProps) {
     const config = useSiteConfig();
     const platformName = config.platform_name || 'Sirimara Inspirations';
-
 
     return (
         <section className="bg-white py-24 md:py-32 px-6">
@@ -50,7 +48,7 @@ export default function StoriesSection({ section, items }: StoriesSectionProps) 
                                                 />
 
                                             )}
-                                            {/* Text fallback for other categories */}
+                                            {}
                                             {story.category !== 'INSIDER' && (
                                                 <span className="text-white text-xs tracking-widest uppercase font-bold">
                                                     {story.category}

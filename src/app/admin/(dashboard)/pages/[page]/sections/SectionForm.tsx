@@ -70,7 +70,7 @@ export default function SectionForm({ page, section, templates, onClose, onUpdat
             }
 
             if (result.success) {
-                // Refresh sections
+                
                 const updatedSections = isEditing
                     ? currentSections.map(s => s.id === section?.id ? result.data : s)
                     : [...currentSections, result.data];
@@ -95,7 +95,7 @@ export default function SectionForm({ page, section, templates, onClose, onUpdat
     return (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-lg shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col">
-                {/* Header */}
+                {}
                 <div className="flex items-center justify-between p-6 border-b">
                     <h2 className="text-2xl font-light">
                         {isEditing ? 'Edit Section' : 'Add New Section'}
@@ -105,10 +105,10 @@ export default function SectionForm({ page, section, templates, onClose, onUpdat
                     </button>
                 </div>
 
-                {/* Form */}
+                {}
                 <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6">
                     <div className="space-y-6">
-                        {/* Template Selector (only for new sections) */}
+                        {}
                         {!isEditing && (
                             <div>
                                 <label className="block text-sm font-medium mb-3">Select Template</label>
@@ -136,7 +136,7 @@ export default function SectionForm({ page, section, templates, onClose, onUpdat
                             </div>
                         )}
 
-                        {/* Section Type */}
+                        {}
                         <div>
                             <label className="block text-sm font-medium mb-2">Section Type</label>
                             <select
@@ -154,7 +154,7 @@ export default function SectionForm({ page, section, templates, onClose, onUpdat
                             </select>
                         </div>
 
-                        {/* Title */}
+                        {}
                         <div>
                             <label className="block text-sm font-medium mb-2">Title</label>
                             <input
@@ -166,7 +166,7 @@ export default function SectionForm({ page, section, templates, onClose, onUpdat
                             />
                         </div>
 
-                        {/* Subtitle */}
+                        {}
                         <div>
                             <label className="block text-sm font-medium mb-2">Subtitle</label>
                             <input
@@ -178,7 +178,7 @@ export default function SectionForm({ page, section, templates, onClose, onUpdat
                             />
                         </div>
 
-                        {/* Content */}
+                        {}
                         <div>
                             <label className="block text-sm font-medium mb-2">Content</label>
                             <textarea
@@ -189,7 +189,7 @@ export default function SectionForm({ page, section, templates, onClose, onUpdat
                             />
                         </div>
 
-                        {/* Media */}
+                        {}
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-sm font-medium mb-2">Media Type</label>
@@ -215,7 +215,7 @@ export default function SectionForm({ page, section, templates, onClose, onUpdat
                             </div>
                         </div>
 
-                        {/* Primary CTAs */}
+                        {}
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-sm font-medium mb-2">Primary CTA Text</label>
@@ -239,7 +239,7 @@ export default function SectionForm({ page, section, templates, onClose, onUpdat
                             </div>
                         </div>
 
-                        {/* Secondary CTAs */}
+                        {}
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-sm font-medium mb-2">Secondary CTA Text</label>
@@ -263,7 +263,7 @@ export default function SectionForm({ page, section, templates, onClose, onUpdat
                             </div>
                         </div>
 
-                        {/* Colors */}
+                        {}
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-sm font-medium mb-2">Background Color</label>
@@ -285,7 +285,7 @@ export default function SectionForm({ page, section, templates, onClose, onUpdat
                             </div>
                         </div>
 
-                        {/* Active Status */}
+                        {}
                         <div className="flex items-center gap-3">
                             <input
                                 type="checkbox"
@@ -301,7 +301,7 @@ export default function SectionForm({ page, section, templates, onClose, onUpdat
                     </div>
                 </form>
 
-                {/* Footer */}
+                {}
                 <div className="flex items-center justify-end gap-3 p-6 border-t bg-gray-50">
                     <button
                         type="button"

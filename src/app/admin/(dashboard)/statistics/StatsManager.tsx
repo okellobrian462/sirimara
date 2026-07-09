@@ -13,7 +13,7 @@ export default function StatsManager({ initialStatistics }: StatsManagerProps) {
     const [editingId, setEditingId] = useState<string | null>(null);
     const [isAdding, setIsAdding] = useState(false);
 
-    // Form state for editing/adding
+    
     const [formData, setFormData] = useState<Partial<Statistic>>({});
 
     const handleEdit = (stat: Statistic) => {
@@ -30,7 +30,7 @@ export default function StatsManager({ initialStatistics }: StatsManagerProps) {
 
     const handleSave = async () => {
         if (editingId) {
-            // Update
+            
             const result = await updateStatistic(editingId, formData);
             if (result.success && result.data) {
                 setStatistics(statistics.map(s => s.id === editingId ? result.data : s));
@@ -39,7 +39,7 @@ export default function StatsManager({ initialStatistics }: StatsManagerProps) {
                 alert('Failed to update: ' + result.error);
             }
         } else {
-            // Create
+            
             const result = await createStatistic({
                 label: formData.label || '',
                 value: formData.value || '',
@@ -73,7 +73,7 @@ export default function StatsManager({ initialStatistics }: StatsManagerProps) {
         setFormData(prev => ({ ...prev, [field]: value }));
     };
 
-    // Group by category
+    
     const groupedStats = statistics.reduce((acc, stat) => {
         const cat = stat.category || 'uncategorized';
         if (!acc[cat]) acc[cat] = [];

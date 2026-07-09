@@ -10,12 +10,12 @@ interface WoeBannerSectionProps {
 }
 
 export default function WoeBannerSection({ section, items }: WoeBannerSectionProps) {
-    // Transform tabs_items to BannerItem format
+    
     const bannerItems = items.map(tab => ({
         label: tab.description || '',
         title: tab.title,
-        ctaText: 'WHY WE RIDE', // Default or from config
-        ctaLink: '/world-of-sirimara', // Default or from config
+        ctaText: 'WHY WE RIDE', 
+        ctaLink: '/world-of-sirimara', 
         imageUrl: tab.image_url || ''
     }));
 

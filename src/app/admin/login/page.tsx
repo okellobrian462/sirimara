@@ -6,7 +6,6 @@ import { createClient } from '@/lib/supabase/client';
 import { Lock, Mail } from 'lucide-react';
 import { useSiteConfig } from '@/context/SiteConfigContext';
 
-
 export default function AdminLoginPage() {
     const config = useSiteConfig();
     const siteName = config.company_name || 'Sirimara';
@@ -32,7 +31,7 @@ export default function AdminLoginPage() {
 
             if (signInError) throw signInError;
 
-            // Check if user is an admin
+            
             const { data: adminData, error: adminError } = await supabase
                 .from('admin_users')
                 .select('*')
@@ -44,7 +43,7 @@ export default function AdminLoginPage() {
                 throw new Error('Unauthorized: Not an admin user');
             }
 
-            // Update last login
+            
             await supabase
                 .from('admin_users')
                 .update({ last_login: new Date().toISOString() })
@@ -62,7 +61,7 @@ export default function AdminLoginPage() {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-[#181728] via-[#1a1a2e] to-[#0f0f1e] flex items-center justify-center px-6">
-            {/* Background Pattern */}
+            {}
             <div className="absolute inset-0 opacity-5">
                 <div className="absolute inset-0" style={{
                     backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
@@ -70,7 +69,7 @@ export default function AdminLoginPage() {
             </div>
 
             <div className="relative w-full max-w-md">
-                {/* Logo/Brand */}
+                {}
                 <div className="text-center mb-12">
                     <h1 className="text-4xl font-light tracking-[0.3em] text-white mb-3 uppercase">
                         {siteName}
@@ -82,10 +81,10 @@ export default function AdminLoginPage() {
                     </p>
                 </div>
 
-                {/* Login Card */}
+                {}
                 <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-2xl">
                     <form onSubmit={handleSubmit} className="space-y-6">
-                        {/* Email Field */}
+                        {}
                         <div>
                             <label htmlFor="email" className="block text-white/80 text-sm font-medium mb-2 tracking-wide">
                                 Email Address
@@ -106,7 +105,7 @@ export default function AdminLoginPage() {
                             </div>
                         </div>
 
-                        {/* Password Field */}
+                        {}
                         <div>
                             <label htmlFor="password" className="block text-white/80 text-sm font-medium mb-2 tracking-wide">
                                 Password
@@ -127,14 +126,14 @@ export default function AdminLoginPage() {
                             </div>
                         </div>
 
-                        {/* Error Message */}
+                        {}
                         {error && (
                             <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-3 text-red-400 text-sm">
                                 {error}
                             </div>
                         )}
 
-                        {/* Submit Button */}
+                        {}
                         <button
                             type="submit"
                             disabled={loading}
@@ -144,7 +143,7 @@ export default function AdminLoginPage() {
                         </button>
                     </form>
 
-                    {/* Footer */}
+                    {}
                     <div className="mt-6 text-center">
                         <p className="text-white/40 text-xs tracking-wide">
                             Authorized personnel only
@@ -152,7 +151,7 @@ export default function AdminLoginPage() {
                     </div>
                 </div>
 
-                {/* Bottom Text */}
+                {}
                 <div className="mt-8 text-center">
                     <p className="text-white/30 text-xs tracking-widest uppercase">
                         © {new Date().getFullYear()} {siteName}

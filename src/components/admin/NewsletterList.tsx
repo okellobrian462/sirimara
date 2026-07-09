@@ -78,7 +78,7 @@ export default function NewsletterList({ initialNewsletters }: Props) {
                             </td>
                             <td className="px-6 py-4 text-right space-x-2">
                                 <Link
-                                    href={`/newsletters/${newsletter.slug}`}
+                                    href={`/insights/${newsletter.slug}`}
                                     target="_blank"
                                     className="inline-flex p-2 text-gray-400 hover:text-gray-600 transition-colors"
                                     title="View Page"

@@ -31,11 +31,11 @@ export default function PropertyShowcaseSection({ section }: PropertyShowcaseSec
     useEffect(() => {
         async function fetchData() {
             try {
-                // Fetch properties
+                
                 const response = await fetch('/api/properties?status=active');
                 const data = await response.json();
 
-                // Extract unique categories
+                
                 const uniqueCategories = [...new Set(
                     data
                         .map((p: Property) => p.category)
@@ -45,7 +45,7 @@ export default function PropertyShowcaseSection({ section }: PropertyShowcaseSec
                 setCategories(uniqueCategories.sort());
                 setProperties(data);
 
-                // Set initial active tab
+                
                 if (uniqueCategories.length > 0) {
                     setActiveTab(uniqueCategories[0]);
                 }
@@ -60,7 +60,7 @@ export default function PropertyShowcaseSection({ section }: PropertyShowcaseSec
     }, []);
 
     useEffect(() => {
-        // Filter properties based on active tab
+        
         const filtered = properties.filter(property => property.category === activeTab);
         setFilteredProperties(filtered);
     }, [activeTab, properties]);
@@ -98,11 +98,11 @@ export default function PropertyShowcaseSection({ section }: PropertyShowcaseSec
                             {section.title}
                         </h2>
                     )}
-                    {/* Vertical Divider */}
+                    {}
                     <div className="w-px h-20 bg-white/40 mx-auto mb-12" />
                 </div>
 
-                {/* Tabs */}
+                {}
                 {categories.length > 0 && (
                     <div className="flex flex-wrap justify-center gap-4 md:gap-8 mb-12 border-b border-white/20">
                         {categories.map((category) => (
@@ -120,7 +120,7 @@ export default function PropertyShowcaseSection({ section }: PropertyShowcaseSec
                     </div>
                 )}
 
-                {/* Property Grid */}
+                {}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
                     {filteredProperties.length > 0 ? (
                         filteredProperties.slice(0, 4).map((property) => (
@@ -151,7 +151,7 @@ export default function PropertyShowcaseSection({ section }: PropertyShowcaseSec
                     )}
                 </div>
 
-                {/* View All Button */}
+                {}
                 {section.cta_primary_text && section.cta_primary_link && (
                     <div className="text-center">
                         <Link

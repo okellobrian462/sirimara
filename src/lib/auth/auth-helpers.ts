@@ -13,7 +13,7 @@ export async function signIn(email: string, password: string) {
         throw error;
     }
 
-    // Check if user is an admin
+    
     const { data: adminData, error: adminError } = await supabase
         .from('admin_users')
         .select('*')
@@ -25,7 +25,7 @@ export async function signIn(email: string, password: string) {
         throw new Error('Unauthorized: Not an admin user');
     }
 
-    // Update last login
+    
     await supabase
         .from('admin_users')
         .update({ last_login: new Date().toISOString() })

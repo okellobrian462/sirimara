@@ -16,12 +16,6 @@ export interface NavigationItem {
     dropdown_config: Record<string, unknown>;
 }
 
-/**
- * Fetch navigation items for a specific menu location
- * Cached per request to avoid duplicate queries
- * @param menuLocation - The menu location to fetch items for
- * @returns Array of navigation items ordered by order_index
- */
 export const fetchNavigationItems = cache(async (menuLocation: string): Promise<NavigationItem[]> => {
     const supabase = await createClient();
 
@@ -40,12 +34,6 @@ export const fetchNavigationItems = cache(async (menuLocation: string): Promise<
     return data || [];
 });
 
-/**
- * Fetch all navigation items for multiple menu locations
- * Cached per request to avoid duplicate queries
- * @param menuLocations - Array of menu locations to fetch
- * @returns Object with menu locations as keys and navigation items as values
- */
 export const fetchNavigationByLocations = cache(async (menuLocations: string[]): Promise<Record<string, NavigationItem[]>> => {
     const supabase = await createClient();
 
@@ -61,7 +49,7 @@ export const fetchNavigationByLocations = cache(async (menuLocations: string[]):
         return {};
     }
 
-    // Group by menu_location
+    
     const grouped: Record<string, NavigationItem[]> = {};
     (data || []).forEach((item: NavigationItem) => {
         if (!grouped[item.menu_location]) {

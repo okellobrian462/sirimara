@@ -38,8 +38,6 @@ export default function NavigationPage() {
         is_active: true,
     });
 
-
-
     const fetchItems = useCallback(async () => {
         setLoading(true);
         const supabase = createClient();
@@ -96,7 +94,7 @@ export default function NavigationPage() {
         const supabase = createClient();
 
         if (editingItem) {
-            // Update existing item
+            
             const { error } = await supabase
                 .from('navigation_items')
                 .update(formData)
@@ -107,7 +105,7 @@ export default function NavigationPage() {
                 closeModal();
             }
         } else {
-            // Create new item
+            
             const maxOrder = items.length > 0 ? Math.max(...items.map(i => i.order_index)) : 0;
             const { error } = await supabase
                 .from('navigation_items')
@@ -158,7 +156,7 @@ export default function NavigationPage() {
         const targetIndex = direction === 'up' ? index - 1 : index + 1;
         [newItems[index], newItems[targetIndex]] = [newItems[targetIndex], newItems[index]];
 
-        // Update order_index for both items
+        
         const supabase = createClient();
         await Promise.all([
             supabase
@@ -176,7 +174,7 @@ export default function NavigationPage() {
 
     return (
         <div className="p-8">
-            {/* Header */}
+            {}
             <div className="mb-8">
                 <h1 className="text-3xl font-light tracking-[0.15em] text-gray-900 mb-2">
                     NAVIGATION MANAGEMENT
@@ -186,7 +184,7 @@ export default function NavigationPage() {
                 </p>
             </div>
 
-            {/* Tabs */}
+            {}
             <div className="mb-6 border-b border-gray-200">
                 <div className="flex gap-4 overflow-x-auto">
                     {MENU_LOCATIONS.map((location) => (
@@ -204,7 +202,7 @@ export default function NavigationPage() {
                 </div>
             </div>
 
-            {/* Add Button */}
+            {}
             <div className="mb-6">
                 <button
                     onClick={() => openModal()}
@@ -215,7 +213,7 @@ export default function NavigationPage() {
                 </button>
             </div>
 
-            {/* Items List */}
+            {}
             <div className="bg-white rounded-xl border border-gray-200 shadow-sm">
                 {loading ? (
                     <div className="p-8 text-center text-gray-500">Loading...</div>
@@ -230,7 +228,7 @@ export default function NavigationPage() {
                                 key={item.id}
                                 className="p-4 flex items-center gap-4 hover:bg-gray-50 transition-colors"
                             >
-                                {/* Drag Handle */}
+                                {}
                                 <div className="flex flex-col gap-1">
                                     <button
                                         onClick={() => moveItem(index, 'up')}
@@ -248,7 +246,7 @@ export default function NavigationPage() {
                                     </button>
                                 </div>
 
-                                {/* Content */}
+                                {}
                                 <div className="flex-1">
                                     <div className="flex items-center gap-3">
                                         <h3 className="font-medium text-gray-900">{item.label}</h3>
@@ -266,7 +264,7 @@ export default function NavigationPage() {
                                     <p className="text-sm text-gray-500 mt-1">{item.url}</p>
                                 </div>
 
-                                {/* Actions */}
+                                {}
                                 <div className="flex items-center gap-2">
                                     <button
                                         onClick={() => handleToggleActive(item)}
@@ -296,7 +294,7 @@ export default function NavigationPage() {
                 )}
             </div>
 
-            {/* Modal */}
+            {}
             {isModalOpen && (
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
                     <div className="bg-white rounded-xl max-w-md w-full p-6">

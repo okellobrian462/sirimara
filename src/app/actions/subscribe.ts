@@ -11,7 +11,7 @@ export async function subscribeToNewsletter(formData: FormData) {
 
     const supabase = await createClient();
 
-    // Check if subscriber exists
+    
     const { data: existing } = await supabase
         .from('newsletter_subscribers')
         .select('id, is_active')
@@ -20,7 +20,7 @@ export async function subscribeToNewsletter(formData: FormData) {
 
     if (existing) {
         if (!existing.is_active) {
-            // Reactivate them
+            
             const { error: updateError } = await supabase
                 .from('newsletter_subscribers')
                 .update({ is_active: true, unsubscribed_at: null })
@@ -35,7 +35,7 @@ export async function subscribeToNewsletter(formData: FormData) {
         return { success: false, error: 'This email is already subscribed' };
     }
 
-    // Insert new subscriber
+    
     const { error: insertError } = await supabase
         .from('newsletter_subscribers')
         .insert([{

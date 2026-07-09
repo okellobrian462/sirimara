@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import Link from 'next/link';
 import ImageUpload from '@/components/admin/ImageUpload';
+import VideoUpload from '@/components/admin/VideoUpload';
 import { ArrowLeft, Upload, X, Plus } from 'lucide-react';
 
 interface EditPropertyPageProps {
@@ -21,6 +22,8 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
     const [error, setError] = useState('');
     const [images, setImages] = useState<string[]>([]);
     const [imageInput, setImageInput] = useState('');
+    const [videos, setVideos] = useState<string[]>([]);
+    const [videoInput, setVideoInput] = useState('');
 
     const [formData, setFormData] = useState({
         title: '',
@@ -44,7 +47,7 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
         is_featured: false,
     });
 
-    // Taxonomy state
+    
     const [categories, setCategories] = useState<{id: string; name: string}[]>([]);
     const [propertyTypes, setPropertyTypes] = useState<{id: string; name: string}[]>([]);
     const [contractTypes, setContractTypes] = useState<{id: string; name: string}[]>([]);
@@ -56,7 +59,7 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
             try {
                 const supabase = createClient();
                 
-                // Fetch property
+                
                 const { data, error } = await supabase
                     .from('properties')
                     .select(`*, property_feature_links(feature_id)`)
@@ -65,7 +68,7 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
 
                 if (error) throw error;
 
-                // Fetch taxonomy options
+                
                 const [{ data: cats }, { data: types }, { data: contracts }, { data: feats }] = await Promise.all([
                     supabase.from('property_categories').select('id, name').eq('is_active', true).order('order_index'),
                     supabase.from('property_types').select('id, name').eq('is_active', true).order('order_index'),
@@ -101,8 +104,9 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
                         is_featured: data.is_featured || false,
                     });
                     setImages(data.images || []);
+                    setVideos(data.videos || []);
                     
-                    // Set selected features from property_feature_links
+                    
                     const linkedFeatures = data.property_feature_links?.map((link: {feature_id: string}) => link.feature_id) || [];
                     setSelectedFeatures(linkedFeatures);
                 }
@@ -139,6 +143,17 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
         setImages(prev => prev.filter((_, i) => i !== index));
     };
 
+    const handleAddVideo = () => {
+        if (videoInput.trim()) {
+            setVideos(prev => [...prev, videoInput.trim()]);
+            setVideoInput('');
+        }
+    };
+
+    const handleRemoveVideo = (index: number) => {
+        setVideos(prev => prev.filter((_, i) => i !== index));
+    };
+
     const toggleFeature = (featureId: string) => {
         setSelectedFeatures(prev => 
             prev.includes(featureId) 
@@ -165,6 +180,7 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
                 lot_size: formData.lot_size ? parseFloat(formData.lot_size) : null,
                 year_built: formData.year_built ? parseInt(formData.year_built) : null,
                 images,
+                videos,
                 category_id: formData.category_id || null,
                 type_id: formData.type_id || null,
                 contract_type_id: formData.contract_type_id || null,
@@ -177,7 +193,7 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
 
             if (updateError) throw updateError;
 
-            // Update feature links - delete existing and insert new
+            
             await supabase.from('property_feature_links').delete().eq('property_id', id);
             
             if (selectedFeatures.length > 0) {
@@ -210,7 +226,7 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
 
     return (
         <div className="p-8">
-            {/* Header */}
+            {}
             <div className="mb-8">
                 <Link
                     href="/admin/properties"
@@ -227,7 +243,7 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
                 </p>
             </div>
 
-            {/* Form */}
+            {}
             <form onSubmit={handleSubmit} className="max-w-4xl">
                 {error && (
                     <div className="mb-6 bg-red-50 border border-red-200 rounded-lg p-4 text-red-600">
@@ -512,7 +528,7 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
                     </div>
                 </div>
 
-                {/* Features Section */}
+                {}
                 {features.length > 0 && (
                     <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6 shadow-sm">
                         <h2 className="text-lg font-medium text-gray-900 mb-4">Features & Amenities</h2>
@@ -604,6 +620,58 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
                                     </button>
                                 </div>
                             ))}
+                        </div>
+                    )}
+                </div>
+
+                <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6 shadow-sm">
+                    <h2 className="text-lg font-medium text-gray-900 mb-6">Videos</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                        <VideoUpload onUpload={(url) => setVideos(prev => [...prev, url])} description="Upload property videos (MP4, WebM, MOV - Max 500MB)" />
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Add Via URL</label>
+                            <div className="flex gap-2">
+                                <input 
+                                    type="url" 
+                                    value={videoInput} 
+                                    onChange={(e) => setVideoInput(e.target.value)}
+                                    placeholder="https://example.com/video.mp4"
+                                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" 
+                                />
+                                <button 
+                                    type="button" 
+                                    onClick={handleAddVideo} 
+                                    className="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors"
+                                >
+                                    <Plus className="w-5 h-5" />
+                                </button>
+                            </div>
+                            <p className="text-xs text-gray-500 mt-2">
+                                Paste a direct link to a video file
+                            </p>
+                        </div>
+                    </div>
+
+                    {videos.length > 0 && (
+                        <div className="space-y-3">
+                            <h3 className="text-sm font-medium text-gray-600">Uploaded Videos</h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                {videos.map((video, index) => (
+                                    <div key={index} className="relative group flex items-center justify-between bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                        <div className="flex-1 min-w-0">
+                                            <p className="text-sm font-medium text-gray-900 truncate">{video.split('/').pop()}</p>
+                                            <p className="text-xs text-gray-500 truncate">{video}</p>
+                                        </div>
+                                        <button 
+                                            type="button" 
+                                            onClick={() => handleRemoveVideo(index)} 
+                                            className="ml-2 p-1 bg-red-500 text-white rounded hover:bg-red-600 transition-colors flex-shrink-0"
+                                        >
+                                            <X className="w-4 h-4" />
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     )}
                 </div>

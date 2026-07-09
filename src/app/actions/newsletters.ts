@@ -62,7 +62,7 @@ export async function getNewsletterBySlug(slug: string) {
 export async function createNewsletter(formData: FormData) {
     const supabase = await createClient();
 
-    // Check auth
+    
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error('Unauthorized');
 
@@ -84,7 +84,7 @@ export async function createNewsletter(formData: FormData) {
             category,
             cover_image_url,
             is_featured,
-            order_index: 999 // Put at end initially
+            order_index: 999 
         });
 
     if (error) {
@@ -92,7 +92,7 @@ export async function createNewsletter(formData: FormData) {
         return { success: false, error: error.message };
     }
 
-    revalidatePath('/newsletters');
+    revalidatePath('/insights');
     revalidatePath('/admin/newsletters');
     redirect('/admin/newsletters');
 }
@@ -100,7 +100,7 @@ export async function createNewsletter(formData: FormData) {
 export async function updateNewsletter(id: string, formData: FormData) {
     const supabase = await createClient();
 
-    // Check auth
+    
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error('Unauthorized');
 
@@ -130,8 +130,8 @@ export async function updateNewsletter(id: string, formData: FormData) {
         return { success: false, error: error.message };
     }
 
-    revalidatePath('/newsletters');
-    revalidatePath(`/newsletters/${slug}`);
+    revalidatePath('/insights');
+    revalidatePath(`/insights/${slug}`);
     revalidatePath('/admin/newsletters');
     redirect('/admin/newsletters');
 }
@@ -151,7 +151,7 @@ export async function deleteNewsletter(id: string) {
         return { success: false, error: error.message };
     }
 
-    revalidatePath('/newsletters');
+    revalidatePath('/insights');
     revalidatePath('/admin/newsletters');
     return { success: true };
 }

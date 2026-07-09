@@ -145,7 +145,7 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
         try {
             const supabase = createClient();
 
-            // Extract profile fields from formData
+            
             const { 
                 profile_intro, 
                 profile_experience, 
@@ -204,7 +204,7 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
 
     return (
         <div className="p-8">
-            {/* Header */}
+            {}
             <div className="mb-8">
                 <Link
                     href="/admin/agents"
@@ -221,7 +221,7 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                 </p>
             </div>
 
-            {/* Form */}
+            {}
             <form onSubmit={handleSubmit} className="max-w-4xl">
                 {error && (
                     <div className="mb-6 bg-red-50 border border-red-200 rounded-lg p-4 text-red-600">
@@ -316,7 +316,7 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                     </div>
                 </div>
 
-                {/* Extended Profile Data for Tabs */}
+                {}
                 <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6 shadow-sm">
                     <h2 className="text-lg font-medium text-gray-900 mb-4">Extended Profile (Tabs)</h2>
                     <p className="text-sm text-gray-500 mb-6">These fields populate the Experience, Capabilities, and Credentials tabs.</p>
@@ -396,7 +396,7 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                     </div>
                 </div>
 
-                {/* Featured Section */}
+                {}
                 <div className="bg-orange-50 rounded-xl border border-orange-200 p-6 mb-6">
                     <h2 className="text-lg font-medium text-gray-900 mb-4">Featured Agent</h2>
 
@@ -436,7 +436,7 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                     </div>
                 </div>
 
-                {/* Specialties & Languages */}
+                {}
                 <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6 shadow-sm">
                     <h2 className="text-lg font-medium text-gray-900 mb-4">Specialties & Languages</h2>
 
@@ -523,7 +523,7 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                     </div>
                 </div>
 
-                {/* Social Media */}
+                {}
                 <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6 shadow-sm">
                     <h2 className="text-lg font-medium text-gray-900 mb-4">Social Media</h2>
 
@@ -572,7 +572,7 @@ export default function EditAgentPage({ params }: EditAgentPageProps) {
                     </div>
                 </div>
 
-                {/* Profile Image */}
+                {}
                 <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6 shadow-sm">
                     <h2 className="text-lg font-medium text-gray-900 mb-4">Profile Image</h2>
 

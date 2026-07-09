@@ -15,7 +15,7 @@ interface AgentProfileHeroProps {
 export default function AgentProfileHero({ agent }: AgentProfileHeroProps) {
     return (
         <section className="flex flex-col md:flex-row h-auto md:h-[600px] w-full">
-            {/* Image Section */}
+            {}
             <div className="w-full md:w-1/2 h-[400px] md:h-full relative bg-gray-200">
                 <img
                     src={agent.image}
@@ -24,7 +24,7 @@ export default function AgentProfileHero({ agent }: AgentProfileHeroProps) {
                 />
             </div>
 
-            {/* Details Section */}
+            {}
             <div className="w-full md:w-1/2 bg-[#2C2F3B] text-white p-10 md:p-20 flex flex-col justify-center">
                 <h1 className="text-3xl md:text-5xl font-sans font-light tracking-[0.1em] uppercase mb-4">
                     {agent.name}

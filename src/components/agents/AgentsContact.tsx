@@ -28,7 +28,7 @@ export default function AgentsContact() {
                 </div>
 
                 <form className="space-y-8">
-                    {/* Name Row */}
+                    { }
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div className="relative group">
                             <input
@@ -40,13 +40,13 @@ export default function AgentsContact() {
                         <div className="relative group">
                             <input
                                 type="text"
-                                placeholder="Last Name"
+                                placeholder="Last Name (optional)"
                                 className="w-full bg-transparent border-b border-gray-600 py-4 text-white placeholder:text-gray-500 focus:outline-none focus:border-white transition-colors"
                             />
                         </div>
                     </div>
 
-                    {/* Email/Phone Row */}
+                    { }
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div className="relative group">
                             <input
@@ -64,16 +64,16 @@ export default function AgentsContact() {
                         </div>
                     </div>
 
-                    {/* Message */}
+                    { }
                     <div className="relative group">
                         <input
                             type="text"
-                            placeholder="Message (optional)"
+                            placeholder="Message (mandatory)"
                             className="w-full bg-transparent border-b border-gray-600 py-4 text-white placeholder:text-gray-500 focus:outline-none focus:border-white transition-colors"
                         />
                     </div>
 
-                    {/* Checkbox */}
+                    { }
                     <div className="flex items-start gap-4 pt-4">
                         <input
                             type="checkbox"
@@ -81,12 +81,12 @@ export default function AgentsContact() {
                             className="mt-1 w-4 h-4 rounded border-gray-600 bg-transparent"
                         />
                         <label htmlFor="sms-consent" className="text-xs text-gray-400 leading-relaxed">
-                            By checking this box, you consent to receive sms/text messages from {siteName}. Reply STOP to opt-out anytime. <Link href="/privacy-policy" className="underline hover:text-white">Privacy Policy</Link>
+                            By checking this box, you consent to receive sms/text messages from {siteName}. <Link href="/privacy-policy" className="underline hover:text-white">Privacy Policy</Link>
                         </label>
 
                     </div>
 
-                    {/* Submit Button */}
+                    { }
                     <div className="text-center pt-8">
                         <button
                             type="submit"

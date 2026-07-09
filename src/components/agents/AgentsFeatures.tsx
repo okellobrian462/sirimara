@@ -30,7 +30,7 @@ export default function AgentsFeatures() {
         <section className="bg-brand-dark py-20 md:py-32 text-white overflow-hidden">
             <div className="container mx-auto px-6">
                 <div className="flex flex-col md:flex-row gap-16 items-center">
-                    {/* Left Side: Content */}
+                    {}
                     <div className="w-full md:w-1/2 z-10">
                         <h2 className="text-3xl md:text-5xl font-sans font-light tracking-[0.1em] uppercase mb-6 leading-tight">
                             START YOUR JOURNEY WITH EVERY ADVANTAGE
@@ -56,7 +56,7 @@ export default function AgentsFeatures() {
                         </div>
                     </div>
 
-                    {/* Right Side: Images */}
+                    {}
                     <div className="w-full md:w-1/2 relative h-[500px] md:h-[700px]">
                         {features.map((feature, index) => (
                             <div
@@ -68,7 +68,7 @@ export default function AgentsFeatures() {
                                     alt={feature.title}
                                     className="w-full h-full object-cover"
                                 />
-                                {/* Gradient Overlay */}
+                                {}
                                 <div className="absolute inset-0 bg-gradient-to-r from-brand-dark via-transparent to-transparent md:w-1/2" />
                             </div>
                         ))}

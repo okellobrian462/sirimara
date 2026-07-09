@@ -15,6 +15,6 @@ export async function getContactConfig(): Promise<ContactConfig> {
 
     return {
         phone: phone || '1-800-SIRIMARA',
-        email: email || 'info@sirimara.com'
+        email: email || 'okellobrian462@gmail.com'
     };
 }

@@ -13,7 +13,7 @@ interface AgentProfileTabsContentProps {
 }
 
 export default function AgentProfileTabsContent({ profileData, bio, name }: AgentProfileTabsContentProps) {
-    // If no profile data, fallback to old bio layout
+    
     const fallbackBio = (
         <section id="experience" className="bg-[#FAF9F5] py-20 px-6">
             <div className="container mx-auto max-w-4xl text-center md:text-left">
@@ -35,7 +35,7 @@ export default function AgentProfileTabsContent({ profileData, bio, name }: Agen
 
     return (
         <div className="bg-[#FAF9F5]">
-            {/* Intro block */}
+            {}
             {(intro || bio) && (
                 <section className="py-20 px-6 max-w-4xl mx-auto text-center">
                     <p className="text-xl md:text-2xl font-light text-gray-800 leading-relaxed font-serif italic">
@@ -44,7 +44,7 @@ export default function AgentProfileTabsContent({ profileData, bio, name }: Agen
                 </section>
             )}
 
-            {/* Experience Section */}
+            {}
             {experience && (
                 <section id="experience" className="py-20 px-6 border-t border-gray-200">
                     <div className="container mx-auto max-w-4xl">
@@ -58,7 +58,7 @@ export default function AgentProfileTabsContent({ profileData, bio, name }: Agen
                 </section>
             )}
 
-            {/* Capabilities Section */}
+            {}
             {capabilities && capabilities.length > 0 && (
                 <section id="capabilities" className="py-20 px-6 border-t border-gray-200">
                     <div className="container mx-auto max-w-4xl">
@@ -76,7 +76,7 @@ export default function AgentProfileTabsContent({ profileData, bio, name }: Agen
                 </section>
             )}
 
-            {/* Credentials Section */}
+            {}
             {((admissions?.length ?? 0) > 0 || (academic_qualifications?.length ?? 0) > 0) && (
                 <section id="credentials" className="py-20 px-6 border-t border-gray-200">
                     <div className="container mx-auto max-w-4xl">

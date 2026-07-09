@@ -5,11 +5,6 @@ interface BannerSectionProps {
     section: PageSection;
 }
 
-/**
- * Reusable Banner Section Component
- * Full-width banner with media background and CTA buttons
- * Used for recruitment, market makers, and other promotional sections
- */
 export default function BannerSection({ section }: BannerSectionProps) {
     const config = section.layout_config || {};
     const height = (config.height as string) || '80vh';
@@ -23,7 +18,7 @@ export default function BannerSection({ section }: BannerSectionProps) {
 
     return (
         <section className={`relative ${heightClass} flex items-center justify-center overflow-hidden`}>
-            {/* Background Media */}
+            {}
             {section.media_type === 'video' && section.media_url ? (
                 <video
                     autoPlay
@@ -42,10 +37,10 @@ export default function BannerSection({ section }: BannerSectionProps) {
                 />
             ) : null}
 
-            {/* Overlay */}
+            {}
             <div className={`absolute inset-0 bg-black/${overlayOpacity}`} />
 
-            {/* Content */}
+            {}
             <div className={`relative z-10 ${alignmentClass} text-white px-6 max-w-4xl mx-auto`}>
                 {section.title && (
                     <h2 className="text-5xl md:text-7xl font-light tracking-widest mb-6 uppercase">
@@ -56,7 +51,7 @@ export default function BannerSection({ section }: BannerSectionProps) {
                     <p className="text-xl mb-12">{section.content}</p>
                 )}
 
-                {/* CTAs */}
+                {}
                 {(section.cta_primary_text || section.cta_secondary_text) && (
                     <div className={`flex ${ctaLayoutClass} gap-6 justify-center`}>
                         {section.cta_primary_text && section.cta_primary_link && (
@@ -77,7 +72,7 @@ export default function BannerSection({ section }: BannerSectionProps) {
                 )}
             </div>
 
-            {/* Caption for image-only banners (like leadership photo) */}
+            {}
             {(config.show_caption as boolean) && section.content && (
                 <div className={`absolute ${(config.caption_position as string) === 'bottom-left' ? 'bottom-6 left-6' : 'bottom-6 right-6'} z-10`}>
                     <div className="text-white bg-black/50 p-4 backdrop-blur-sm md:bg-transparent md:backdrop-blur-none md:p-0">

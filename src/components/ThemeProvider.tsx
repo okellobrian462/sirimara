@@ -12,7 +12,7 @@ interface ThemeProviderProps {
 
 export default function ThemeProvider({ colors }: ThemeProviderProps) {
     useEffect(() => {
-        // Update CSS variables when colors change
+        
         if (typeof document !== 'undefined') {
             document.documentElement.style.setProperty('--brand-primary', colors.primary);
             document.documentElement.style.setProperty('--brand-primary-hover', colors.primary_hover);

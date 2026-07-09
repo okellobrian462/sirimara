@@ -24,10 +24,6 @@ interface UnifiedSearchProps {
     className?: string;
 }
 
-/**
- * Unified search component with autocomplete
- * Reusable across header, dropdowns, and hero sections
- */
 export default function UnifiedSearch({
     searchType = 'buy',
     placeholder = 'Enter location, address, ZIP...',
@@ -43,7 +39,7 @@ export default function UnifiedSearch({
     const router = useRouter();
     const searchRef = useRef<HTMLDivElement>(null);
 
-    // Fetch search results with debounce
+    
     useEffect(() => {
         const timeoutId = setTimeout(async () => {
             if (query.length >= 2) {
@@ -70,7 +66,7 @@ export default function UnifiedSearch({
         return () => clearTimeout(timeoutId);
     }, [query, activeType]);
 
-    // Close results when clicking outside
+    
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
@@ -112,7 +108,7 @@ export default function UnifiedSearch({
 
     return (
         <div ref={searchRef} className={`relative ${className}`}>
-            {/* Type Toggle (optional) */}
+            {}
             {showTypeToggle && (
                 <div className="flex gap-2 mb-4">
                     {['buy', 'rent', 'agents'].map((type) => (
@@ -130,7 +126,7 @@ export default function UnifiedSearch({
                 </div>
             )}
 
-            {/* Search Input */}
+            {}
             <form onSubmit={handleSearch} className="relative">
                 <div className="relative flex items-center bg-white border border-gray-300 focus-within:border-gray-900 transition-colors">
                     <input
@@ -163,7 +159,7 @@ export default function UnifiedSearch({
                     </button>
                 </div>
 
-                {/* Autocomplete Results */}
+                {}
                 {showResults && (
                     <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 shadow-2xl max-h-96 overflow-y-auto z-50">
                         {isLoading ? (
@@ -179,7 +175,7 @@ export default function UnifiedSearch({
                                         onClick={() => handleResultClick(result.url)}
                                         className="w-full flex items-center gap-4 p-4 hover:bg-gray-50 transition-colors text-left border-b border-gray-100 last:border-b-0"
                                     >
-                                        {/* Image */}
+                                        {}
                                         <div className="w-16 h-16 flex-shrink-0 bg-gray-100 overflow-hidden">
                                             {result.image ? (
                                                 <img
@@ -194,7 +190,7 @@ export default function UnifiedSearch({
                                             )}
                                         </div>
 
-                                        {/* Content */}
+                                        {}
                                         <div className="flex-1 min-w-0">
                                             <div className="flex items-center gap-2 mb-1">
                                                 <h4 className="text-sm font-medium text-gray-900 truncate">
@@ -218,7 +214,7 @@ export default function UnifiedSearch({
                                     </button>
                                 ))}
 
-                                {/* View All Results */}
+                                {}
                                 <button
                                     onClick={handleSearch}
                                     className="w-full p-4 text-center text-sm font-medium text-gray-900 hover:bg-gray-50 transition-colors border-t border-gray-200"

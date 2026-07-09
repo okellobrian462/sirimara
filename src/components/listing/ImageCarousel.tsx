@@ -1,41 +1,63 @@
 'use client';
 
 import { useState } from 'react';
-import { Camera, Map as MapIcon, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface ImageCarouselProps {
     images: string[];
+    videos?: string[];
     address: string;
 }
 
-export default function ImageCarousel({ images, address }: ImageCarouselProps) {
+type MediaItem = {
+    type: 'image' | 'video';
+    url: string;
+};
+
+export default function ImageCarousel({ images, videos = [], address }: ImageCarouselProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const mediaItems: MediaItem[] = [
+        ...images.map((url) => ({ type: 'image' as const, url })),
+        ...videos.map((url) => ({ type: 'video' as const, url })),
+    ];
+    const displayMedia = mediaItems.length > 0
+        ? mediaItems
+        : [{ type: 'image' as const, url: 'https://images.unsplash.com/photo-1600596542815-27b88eae2b30?auto=format&fit=crop&w=1200&q=80' }];
+    const currentMedia = displayMedia[currentIndex];
 
     const goToPrevious = () => {
         setCurrentIndex((prevIndex) =>
-            prevIndex === 0 ? images.length - 1 : prevIndex - 1
+            prevIndex === 0 ? displayMedia.length - 1 : prevIndex - 1
         );
     };
 
     const goToNext = () => {
         setCurrentIndex((prevIndex) =>
-            prevIndex === images.length - 1 ? 0 : prevIndex + 1
+            prevIndex === displayMedia.length - 1 ? 0 : prevIndex + 1
         );
     };
 
-    // If no images, show placeholder
-    const displayImages = images.length > 0 ? images : ['https://images.unsplash.com/photo-1600596542815-27b88eae2b30?auto=format&fit=crop&w=1200&q=80'];
-
     return (
         <section className="relative w-full h-[60vh] md:h-[85vh] group overflow-hidden bg-gray-100">
-            <img
-                src={displayImages[currentIndex]}
-                alt={`${address} - Image ${currentIndex + 1}`}
-                className="w-full h-full object-cover"
-            />
+            {currentMedia.type === 'video' ? (
+                <video
+                    src={currentMedia.url}
+                    className="w-full h-full object-cover bg-black"
+                    controls
+                    playsInline
+                    preload="metadata"
+                    aria-label={`${address} - Video ${currentIndex + 1}`}
+                />
+            ) : (
+                <img
+                    src={currentMedia.url}
+                    alt={`${address} - Image ${currentIndex + 1}`}
+                    className="w-full h-full object-cover"
+                />
+            )}
 
-            {/* Image Nav Arrows - Only show if there are multiple images */}
-            {displayImages.length > 1 && (
+            {}
+            {displayMedia.length > 1 && (
                 <>
                     <button
                         onClick={goToPrevious}
@@ -52,9 +74,9 @@ export default function ImageCarousel({ images, address }: ImageCarouselProps) {
                         <ChevronRight className="w-6 h-6 text-brand-dark" />
                     </button>
 
-                    {/* Image Counter */}
+                    {}
                     <div className="absolute top-6 right-6 px-4 py-2 bg-black/60 text-white text-sm rounded-full">
-                        {currentIndex + 1} / {displayImages.length}
+                        {currentIndex + 1} / {displayMedia.length}
                     </div>
                 </>
             )}

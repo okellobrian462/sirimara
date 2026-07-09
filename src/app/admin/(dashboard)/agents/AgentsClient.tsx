@@ -34,7 +34,7 @@ export default function AgentsClient({ agents }: AgentsClientProps) {
         agent: null
     });
 
-    // Filter and search agents
+    
     const filteredAgents = useMemo(() => {
         return agents.filter(agent => {
             const fullName = `${agent.first_name} ${agent.last_name}`.toLowerCase();
@@ -50,7 +50,7 @@ export default function AgentsClient({ agents }: AgentsClientProps) {
         });
     }, [agents, searchQuery, statusFilter]);
 
-    // Pagination
+    
     const totalPages = Math.ceil(filteredAgents.length / ITEMS_PER_PAGE);
     const paginatedAgents = useMemo(() => {
         const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -78,7 +78,7 @@ export default function AgentsClient({ agents }: AgentsClientProps) {
 
     return (
         <div className="p-8">
-            {/* Header */}
+            {}
             <div className="flex items-center justify-between mb-8">
                 <div>
                     <h1 className="text-3xl font-light tracking-[0.15em] text-gray-900 mb-2">
@@ -97,7 +97,7 @@ export default function AgentsClient({ agents }: AgentsClientProps) {
                 </Link>
             </div>
 
-            {/* Search and Filters */}
+            {}
             <div className="mb-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                 <div className="flex-1 relative">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -120,7 +120,7 @@ export default function AgentsClient({ agents }: AgentsClientProps) {
                 </select>
             </div>
 
-            {/* Agents Table */}
+            {}
             <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
                 <div className="overflow-x-auto">
                     <table className="w-full">
@@ -231,7 +231,7 @@ export default function AgentsClient({ agents }: AgentsClientProps) {
                 </div>
             </div>
 
-            {/* Pagination */}
+            {}
             {totalPages > 1 && (
                 <Pagination
                     currentPage={currentPage}
@@ -240,7 +240,7 @@ export default function AgentsClient({ agents }: AgentsClientProps) {
                 />
             )}
 
-            {/* Empty State */}
+            {}
             {filteredAgents.length === 0 && (
                 <div className="text-center py-12 bg-white rounded-xl border border-gray-200 mt-6">
                     <p className="text-gray-500 mb-4">
@@ -260,7 +260,7 @@ export default function AgentsClient({ agents }: AgentsClientProps) {
                 </div>
             )}
 
-            {/* Delete Confirmation Modal */}
+            {}
             <DeleteConfirmModal
                 isOpen={deleteModal.isOpen}
                 onClose={() => setDeleteModal({ isOpen: false, agent: null })}

@@ -111,7 +111,7 @@ export default function NewAgentPage() {
 
     return (
         <div className="p-8">
-            {/* Header */}
+            {}
             <div className="mb-8">
                 <Link
                     href="/admin/agents"
@@ -128,7 +128,7 @@ export default function NewAgentPage() {
                 </p>
             </div>
 
-            {/* Form */}
+            {}
             <form onSubmit={handleSubmit} className="max-w-4xl">
                 {error && (
                     <div className="mb-6 bg-red-50 border border-red-200 rounded-lg p-4 text-red-600">
@@ -137,7 +137,7 @@ export default function NewAgentPage() {
                 )}
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {/* Main Info */}
+                    {}
                     <div className="md:col-span-2 space-y-6">
                         <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
                             <h2 className="text-lg font-medium text-gray-900 mb-4">Personal Information</h2>
@@ -222,7 +222,7 @@ export default function NewAgentPage() {
                             </div>
                         </div>
 
-                        {/* Extended Profile Data for Tabs */}
+                        {}
                         <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
                             <h2 className="text-lg font-medium text-gray-900 mb-4">Extended Profile (Tabs)</h2>
                             <p className="text-sm text-gray-500 mb-6">These fields populate the Experience, Capabilities, and Credentials tabs.</p>
@@ -348,7 +348,7 @@ export default function NewAgentPage() {
                         </div>
                     </div>
 
-                    {/* Sidebar Info */}
+                    {}
                     <div className="space-y-6">
                         <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
                             <h2 className="text-lg font-medium text-gray-900 mb-4">Profile Photo</h2>

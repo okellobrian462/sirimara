@@ -24,7 +24,7 @@ export default function FooterNewsletter({ title = "Keep up to date with Sirimar
             });
             
             if (result.success) {
-                // Clear the form
+                
                 const form = document.getElementById('footer-newsletter-form') as HTMLFormElement;
                 if (form) form.reset();
             }

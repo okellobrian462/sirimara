@@ -51,7 +51,7 @@ export default function WorldOfEllimanClient({ header, footer }: WorldOfEllimanC
             </div>
             <ControlBullets sections={SECTIONS} />
 
-            {/* 1. Hero */}
+            {}
             <div id="hero">
                 <FullBleedStory
                     title="elliman"
@@ -62,7 +62,7 @@ export default function WorldOfEllimanClient({ header, footer }: WorldOfEllimanC
                 />
             </div>
 
-            {/* 2. Equine Life */}
+            {}
             <div id="equine">
                 <FullBleedStory
                     title="LIVING THE EQUINE LIFE"
@@ -73,9 +73,7 @@ export default function WorldOfEllimanClient({ header, footer }: WorldOfEllimanC
                 />
             </div>
 
-
-
-            {/* 4. Split Banner (Ride for Love / Driving Force) */}
+            {}
             <div id="impact">
                 <GroupedBanner
                     items={[
@@ -97,7 +95,7 @@ export default function WorldOfEllimanClient({ header, footer }: WorldOfEllimanC
                 />
             </div>
 
-            {/* 5. Finding Freedom */}
+            {}
             <div id="freedom">
                 <FullBleedStory
                     title="FINDING FREEDOM"
@@ -108,7 +106,7 @@ export default function WorldOfEllimanClient({ header, footer }: WorldOfEllimanC
                 />
             </div>
 
-            {/* 6. Call of Aspen */}
+            {}
             <div id="aspen">
                 <FullBleedStory
                     title="THE CALL OF ASPEN"
@@ -119,14 +117,12 @@ export default function WorldOfEllimanClient({ header, footer }: WorldOfEllimanC
                 />
             </div>
 
-
-
-            {/* 8. Market Modules */}
+            {}
             <div id="modules">
                 <MarketModules />
             </div>
 
-            {/* 9. Footer */}
+            {}
             <div id="footer" className="snap-start">
                 {footer}
             </div>

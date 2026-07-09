@@ -16,11 +16,6 @@ interface TabsSectionProps {
     tabs: TabItem[];
 }
 
-/**
- * Reusable Tabs Section Component
- * Displays interactive tabs with image switching
- * Used for Sell page spotlight and Agents page advantages
- */
 export default function TabsSection({ section, tabs }: TabsSectionProps) {
     const [activeTab, setActiveTab] = useState(tabs[0]);
     const config = section.layout_config || {};
@@ -36,7 +31,7 @@ export default function TabsSection({ section, tabs }: TabsSectionProps) {
             }}
         >
             <div className="container mx-auto max-w-6xl">
-                {/* Header */}
+                {}
                 {(section.title || section.content) && (
                     <div className="mb-20">
                         {section.title && (
@@ -52,9 +47,9 @@ export default function TabsSection({ section, tabs }: TabsSectionProps) {
                     </div>
                 )}
 
-                {/* Tabs Layout */}
+                {}
                 <div className={`flex flex-col lg:flex-row gap-16 items-start ${imagePosition === 'left' ? 'lg:flex-row-reverse' : ''}`}>
-                    {/* Tabs List */}
+                    {}
                     <div className="w-full lg:w-1/2 space-y-12">
                         {tabs.map((tab) => (
                             <div
@@ -81,7 +76,7 @@ export default function TabsSection({ section, tabs }: TabsSectionProps) {
                         ))}
                     </div>
 
-                    {/* Active Image */}
+                    {}
                     <div className="w-full lg:w-1/2 relative aspect-[4/3] md:aspect-square overflow-hidden rounded-sm">
                         {activeTab.image_url && (
                             <>

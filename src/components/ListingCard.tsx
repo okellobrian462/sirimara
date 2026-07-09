@@ -5,7 +5,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import type { Listing } from "@/lib/types/listing";
 
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -23,7 +22,7 @@ export default function ListingCard({
 }: ListingCardProps) {
     return (
         <div className="group cursor-pointer" onClick={() => onClick?.(listing.id)}>
-            {/* Image Carousel */}
+            {}
             <div className="relative aspect-[4/3] overflow-hidden mb-4 bg-gray-100">
                 <Swiper
                     modules={[Navigation, Pagination]}
@@ -51,19 +50,19 @@ export default function ListingCard({
                     ))}
                 </Swiper>
 
-                {/* Badge */}
+                {}
                 {listing.badge && (
                     <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 text-[10px] font-bold tracking-widest uppercase z-10">
                         {listing.badge}
                     </div>
                 )}
 
-                {/* Navigation Dots */}
+                {}
                 <div
                     className={`listing-${listing.id}-pagination absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10`}
                 />
 
-                {/* Navigation Arrows */}
+                {}
                 {listing.images.length > 1 && (
                     <>
                         <button
@@ -107,7 +106,7 @@ export default function ListingCard({
                     </>
                 )}
 
-                {/* Favorite Button */}
+                {}
                 <button
                     type="button"
                     className="absolute bottom-4 right-4 w-8 h-8 flex items-center justify-center bg-transparent text-white hover:scale-110 transition-transform z-10"
@@ -120,7 +119,7 @@ export default function ListingCard({
                 </button>
             </div>
 
-            {/* Details */}
+            {}
             <div>
                 <div className="flex justify-between items-start mb-1">
                     <div className="flex items-end gap-1">

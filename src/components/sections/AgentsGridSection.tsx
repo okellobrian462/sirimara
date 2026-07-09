@@ -1,5 +1,6 @@
 import { fetchActiveAgents } from '@/lib/content/fetchAgents';
 import type { PageSection } from '@/lib/content/fetchPageSections';
+import { slugifyAgentFirstName } from '@/lib/agentSlug';
 import Link from 'next/link';
 
 interface AgentsGridSectionProps {
@@ -12,9 +13,9 @@ export default async function AgentsGridSection({ section }: AgentsGridSectionPr
     return (
         <section className="bg-white py-20 px-6">
             <div className="container mx-auto max-w-7xl">
-                {section.title && (
+                {/* {section.title && (
                     <div className="text-center mb-16">
-                        {/* Optional icon similar to newsletter page if desired, for now just title */}
+                        {}
                         <h2 className="text-3xl md:text-5xl font-serif tracking-widest mb-4 uppercase text-brand-dark">
                             {section.title}
                         </h2>
@@ -24,13 +25,13 @@ export default async function AgentsGridSection({ section }: AgentsGridSectionPr
                             </p>
                         )}
                     </div>
-                )}
+                )} */}
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {agents.map((agent) => (
                         <Link
                             key={agent.id}
-                            href={`/agents/${agent.id}`}
+                            href={`/agents/${slugifyAgentFirstName(agent.first_name)}`}
                             className="group block"
                         >
                             <div className="relative aspect-[3/4] mb-4 overflow-hidden bg-gray-100">

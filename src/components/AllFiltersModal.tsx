@@ -139,15 +139,15 @@ export default function AllFiltersModal({
 
     return (
         <div className="fixed inset-0 z-[100] flex items-center justify-center">
-            {/* Backdrop */}
+            {}
             <div
                 className="absolute inset-0 bg-black/50"
                 onClick={onClose}
             />
 
-            {/* Modal */}
+            {}
             <div className="relative bg-white w-full max-w-2xl max-h-[90vh] rounded-lg shadow-2xl overflow-hidden flex flex-col mx-4">
-                {/* Header */}
+                {}
                 <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
                     <h2 className="text-lg font-medium tracking-wide uppercase">All Filters</h2>
                     <button
@@ -158,7 +158,7 @@ export default function AllFiltersModal({
                     </button>
                 </div>
 
-                {/* Tabs */}
+                {}
                 <div className="flex border-b border-gray-200">
                     {[
                         { id: "sale", label: "For Sale" },
@@ -178,9 +178,9 @@ export default function AllFiltersModal({
                     ))}
                 </div>
 
-                {/* Scrollable Content */}
+                {}
                 <div className="flex-1 overflow-y-auto p-6">
-                    {/* Price Range */}
+                    {}
                     <div className="mb-8">
                         <h3 className="text-sm font-medium text-gray-900 uppercase tracking-wide mb-4">
                             Price
@@ -229,7 +229,7 @@ export default function AllFiltersModal({
                         </div>
                     </div>
 
-                    {/* Bedrooms */}
+                    {}
                     <div className="mb-8">
                         <h3 className="text-sm font-medium text-gray-900 uppercase tracking-wide mb-4">
                             Bedrooms
@@ -255,7 +255,7 @@ export default function AllFiltersModal({
                         </div>
                     </div>
 
-                    {/* Bathrooms */}
+                    {}
                     <div className="mb-8">
                         <h3 className="text-sm font-medium text-gray-900 uppercase tracking-wide mb-4">
                             Bathrooms
@@ -281,7 +281,7 @@ export default function AllFiltersModal({
                         </div>
                     </div>
 
-                    {/* Property Types */}
+                    {}
                     {propertyTypes.length > 0 && (
                         <div className="mb-8">
                             <h3 className="text-sm font-medium text-gray-900 uppercase tracking-wide mb-4">
@@ -306,7 +306,7 @@ export default function AllFiltersModal({
                         </div>
                     )}
 
-                    {/* Square Meters */}
+                    {}
                     <div className="mb-8">
                         <h3 className="text-sm font-medium text-gray-900 uppercase tracking-wide mb-4">
                             Square Meters
@@ -349,7 +349,7 @@ export default function AllFiltersModal({
                         </div>
                     </div>
 
-                    {/* Parking */}
+                    {}
                     <div className="mb-8">
                         <h3 className="text-sm font-medium text-gray-900 uppercase tracking-wide mb-4">
                             Parking Spots
@@ -401,7 +401,7 @@ export default function AllFiltersModal({
                         </div>
                     </div>
 
-                    {/* Year Built */}
+                    {}
                     <div className="mb-8">
                         <h3 className="text-sm font-medium text-gray-900 uppercase tracking-wide mb-4">
                             Year Built
@@ -444,7 +444,7 @@ export default function AllFiltersModal({
                         </div>
                     </div>
 
-                    {/* Features */}
+                    {}
                     {features.length > 0 && (
                         <div className="mb-8">
                             <h3 className="text-sm font-medium text-gray-900 uppercase tracking-wide mb-2">
@@ -482,7 +482,7 @@ export default function AllFiltersModal({
                     )}
                 </div>
 
-                {/* Footer */}
+                {}
                 <div className="flex items-center justify-between px-6 py-4 border-t border-gray-200 bg-gray-50">
                     <button
                         onClick={handleReset}

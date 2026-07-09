@@ -3,7 +3,7 @@
 export default function SellHero() {
     return (
         <section className="relative h-screen flex items-center justify-center overflow-hidden">
-            {/* Background Image */}
+            {}
             <div className="absolute inset-0 z-0">
                 <img
                     src="https://res.cloudinary.com/dk92v0fkk/image/upload/v1727313545/staging/if0tunyrf2dsgrf6eeec.webp"
@@ -25,7 +25,7 @@ export default function SellHero() {
                 </p>
             </div>
 
-            {/* Scroll Indicator */}
+            {}
             <div className="absolute bottom-12 left-1/2 -translate-x-1/2 text-center text-white z-20">
                 <span className="text-[10px] font-bold tracking-[0.2em] uppercase block mb-4">
                     SCROLL TO DISCOVER

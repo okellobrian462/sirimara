@@ -13,38 +13,38 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
     const showEllipsisStart = currentPage > 3;
     const showEllipsisEnd = currentPage < totalPages - 2;
 
-    // Always show first page
+    
     pages.push(1);
 
-    // Show ellipsis or pages before current
+    
     if (showEllipsisStart) {
-        pages.push(-1); // -1 represents ellipsis
+        pages.push(-1); 
     } else {
         for (let i = 2; i < currentPage; i++) {
             pages.push(i);
         }
     }
 
-    // Show current page and neighbors (if not first or last)
+    
     if (currentPage > 1 && currentPage < totalPages) {
         if (currentPage - 1 > 1) pages.push(currentPage - 1);
         pages.push(currentPage);
         if (currentPage + 1 < totalPages) pages.push(currentPage + 1);
     }
 
-    // Show ellipsis or pages after current
+    
     if (showEllipsisEnd) {
-        pages.push(-2); // -2 represents ellipsis
+        pages.push(-2); 
     } else {
         for (let i = currentPage + 1; i < totalPages; i++) {
             pages.push(i);
         }
     }
 
-    // Always show last page
+    
     if (totalPages > 1) pages.push(totalPages);
 
-    // Remove duplicates
+    
     const uniquePages = Array.from(new Set(pages));
 
     return (

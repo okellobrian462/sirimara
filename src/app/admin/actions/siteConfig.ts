@@ -11,9 +11,6 @@ export interface SiteConfigItem {
     updated_at?: string;
 }
 
-/**
- * Get all site configuration items
- */
 export async function getSiteConfig() {
     const supabase = await createClient();
     
@@ -30,9 +27,6 @@ export async function getSiteConfig() {
     return { success: true, data: data || [] };
 }
 
-/**
- * Update a single site configuration item
- */
 export async function updateSiteConfigItem(id: string, value: string | number | boolean | null | { [key: string]: unknown } | unknown[]) {
     const supabase = await createClient();
 
@@ -51,16 +45,13 @@ export async function updateSiteConfigItem(id: string, value: string | number | 
         return { success: false, error: error.message };
     }
 
-    // Revalidate all pages that might use site config
-    revalidatePath('/', 'layout'); // Revalidate entire site
+    
+    revalidatePath('/', 'layout'); 
     revalidatePath('/admin/config');
 
     return { success: true, data };
 }
 
-/**
- * Update multiple site configuration items at once
- */
 export async function updateSiteConfigBatch(items: Array<{ id: string; value: string | number | boolean | null | { [key: string]: unknown } | unknown[] }>) {
     const supabase = await createClient();
 
@@ -77,8 +68,8 @@ export async function updateSiteConfigBatch(items: Array<{ id: string; value: st
             if (error) throw error;
         }
 
-        // Revalidate all pages that might use site config
-        revalidatePath('/', 'layout'); // Revalidate entire site
+        
+        revalidatePath('/', 'layout'); 
         revalidatePath('/admin/config');
 
         return { success: true };

@@ -37,7 +37,7 @@ export default function SellContact() {
                         <div className="relative group">
                             <input
                                 type="text"
-                                placeholder="Last Name"
+                                placeholder="Last Name (optional)"
                                 className="w-full bg-black/20 border-b border-white/20 py-4 px-0 outline-none focus:border-white transition-colors placeholder:text-gray-500 uppercase text-xs tracking-widest font-bold"
                             />
                         </div>
@@ -63,7 +63,7 @@ export default function SellContact() {
                     <div className="relative group">
                         <input
                             type="text"
-                            placeholder="Message (optional)"
+                            placeholder="Message (mandatory)"
                             className="w-full bg-black/20 border-b border-white/20 py-4 px-0 outline-none focus:border-white transition-colors placeholder:text-gray-500 uppercase text-xs tracking-widest font-bold"
                         />
                     </div>
@@ -80,7 +80,7 @@ export default function SellContact() {
                                 </div>
                             </div>
                             <span className="text-[10px] md:text-xs text-gray-400 leading-relaxed uppercase tracking-widest font-bold">
-                                By checking this box, you consent to receive sms/text messages from {siteName}. Reply STOP to opt-out anytime.
+                                By checking this box, you consent to receive sms/text messages from {siteName}.  Reply STOP to opt-out anytime.
                                 <Link href="/privacy-policy" className="ml-2 text-white underline hover:opacity-70 transition-opacity">Privacy Policy</Link>
                             </span>
 

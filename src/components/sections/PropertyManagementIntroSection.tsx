@@ -12,15 +12,11 @@ interface PropertyManagementIntroSectionProps {
     section: PageSection;
 }
 
-/**
- * Custom section for Property Management page
- * Features a split layout with intro text on the left and a 2-column stats grid on the right
- */
 export default function PropertyManagementIntroSection({ section }: PropertyManagementIntroSectionProps) {
     const config = section.layout_config || {};
     const stats: StatItem[] = (config.stats as StatItem[]) || [];
 
-    // Safe icon renderer
+    
     const renderIcon = (iconName: string) => {
         const Icon = Icons[iconName as keyof typeof Icons] as React.ElementType;
         if (!Icon) return <Icons.CheckCircle className="w-8 h-8 text-[#ff7e00]" />;
@@ -37,7 +33,7 @@ export default function PropertyManagementIntroSection({ section }: PropertyMana
         >
             <div className="container mx-auto max-w-7xl">
                 <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
-                    {/* Left Column: Intro */}
+                    {}
                     <div className="w-full lg:w-1/2 flex flex-col justify-center">
                         {section.title && (
                             <h2 className="text-3xl md:text-5xl font-sans font-light tracking-[0.05em] uppercase mb-8 leading-tight">
@@ -63,7 +59,7 @@ export default function PropertyManagementIntroSection({ section }: PropertyMana
                         )}
                     </div>
 
-                    {/* Right Column: Stats Grid */}
+                    {}
                     <div className="w-full lg:w-1/2">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-12">
                             {stats.map((stat, idx) => (

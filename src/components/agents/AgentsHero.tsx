@@ -5,7 +5,7 @@ import { Search } from 'lucide-react';
 export default function AgentsHero() {
     return (
         <section className="relative h-screen flex items-center justify-center overflow-hidden">
-            {/* Background Image */}
+            {}
             <div className="absolute inset-0 z-0">
                 <img
                     src="https://res.cloudinary.com/dk92v0fkk/image/upload/v1727311016/staging/zkbtspvuvdutxii11lzk.webp"
@@ -23,12 +23,12 @@ export default function AgentsHero() {
                     CONNECT WITH OUR LUXURY REAL ESTATE AGENTS
                 </h1>
 
-                {/* Search Bar */}
+                {}
                 <div className="max-w-4xl mx-auto relative group w-full">
                     <div className="relative flex items-center bg-white p-2">
                         <input
                             type="text"
-                            placeholder="Enter agent name, state or office address"
+                            placeholder="Enter agent name"
                             className="w-full bg-transparent border-none py-4 px-6 text-brand-dark placeholder:text-gray-400 focus:outline-none text-lg md:text-xl font-light"
                         />
                         <button className="p-4 hover:opacity-70 transition-opacity">
@@ -38,7 +38,7 @@ export default function AgentsHero() {
                 </div>
             </div>
 
-            {/* Scroll Indicator */}
+            {}
             <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white text-[10px] tracking-[0.2em] uppercase font-bold text-center z-20">
                 SCROLL TO DISCOVER
                 <div className="w-[1px] h-12 bg-white mx-auto mt-4" />

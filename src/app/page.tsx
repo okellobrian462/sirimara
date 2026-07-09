@@ -5,14 +5,14 @@ import { fetchPageSections } from '@/lib/content/fetchPageSections';
 import SectionRenderer from '@/components/sections/SectionRenderer';
 
 export default async function Home() {
-  // Fetch all sections from CMS
+  
   const sections = await fetchPageSections('home');
 
   return (
     <div className="min-h-screen bg-white">
       <Header />
 
-      {/* All sections now CMS-managed */}
+      {}
       {sections.map((section) => (
         <SectionRenderer key={section.id} section={section} />
       ))}

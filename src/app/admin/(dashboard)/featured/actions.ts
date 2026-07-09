@@ -6,7 +6,7 @@ import { revalidatePath } from 'next/cache';
 export async function addToFeatured(propertyId: string) {
     const supabase = await createClient();
 
-    // Get current max order
+    
     const { data: maxItem } = await supabase
         .from('featured_properties')
         .select('display_order')
@@ -17,7 +17,7 @@ export async function addToFeatured(propertyId: string) {
     const nextOrder = (maxItem?.display_order || 0) + 1;
 
     const { error } = await supabase
-        .from('featured_properties') // Correct table name
+        .from('featured_properties') 
         .insert({
             property_id: propertyId,
             display_order: nextOrder
@@ -52,8 +52,8 @@ export async function removeFromFeatured(featuredId: string) {
 export async function updateFeaturedOrder(items: { id: string; display_order: number }[]) {
     const supabase = await createClient();
 
-    // In a real app we might want to do this in a transaction or batch update
-    // minimizing round trips, but for < 20 items a loop is acceptable.
+    
+    
     const updates = items.map(async (item) => {
         return supabase
             .from('featured_properties')

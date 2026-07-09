@@ -44,10 +44,10 @@ export async function updateStatistic(id: string, data: Partial<Statistic>) {
     }
 
     revalidatePath('/admin/statistics');
-    revalidatePath('/about'); // Revalidate pages where stats appear
+    revalidatePath('/about'); 
     revalidatePath('/sell');
     revalidatePath('/new-development');
-    revalidatePath('/'); // Home might have stats too
+    revalidatePath('/'); 
 
     return { success: true, data: updated };
 }

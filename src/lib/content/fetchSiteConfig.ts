@@ -2,14 +2,10 @@ import { createClient } from '@/lib/supabase/server';
 import { cache } from 'react';
 
 export interface SiteConfig {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    
     [key: string]: any;
 }
 
-/**
- * Fetch site configuration
- * Cached per request to avoid duplicate queries
- */
 export const fetchSiteConfig = cache(async (category?: string): Promise<SiteConfig> => {
     const supabase = await createClient();
     let query = supabase.from('site_config').select('*');
@@ -25,9 +21,9 @@ export const fetchSiteConfig = cache(async (category?: string): Promise<SiteConf
         return {};
     }
 
-    // Convert array to key-value object
+    
     const config = data?.reduce((acc, item) => {
-        // Parse JSON value if it's a string
+        
         try {
             acc[item.key] = typeof item.value === 'string' ? JSON.parse(item.value) : item.value;
         } catch {
@@ -39,11 +35,6 @@ export const fetchSiteConfig = cache(async (category?: string): Promise<SiteConf
     return config;
 });
 
-/**
- * Fetch a specific config value by key
- * Cached per request to avoid duplicate queries
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const fetchConfigValue = cache(async (key: string): Promise<any> => {
     const supabase = await createClient();
     const { data, error } = await supabase

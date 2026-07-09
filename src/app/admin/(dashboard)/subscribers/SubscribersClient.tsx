@@ -91,7 +91,7 @@ export default function SubscribersClient({ subscribers }: SubscribersClientProp
                 </button>
             </div>
 
-            {/* Filter Bar */}
+            {}
             <div className="mb-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                 <div className="flex-1 relative">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -114,7 +114,7 @@ export default function SubscribersClient({ subscribers }: SubscribersClientProp
                 </select>
             </div>
 
-            {/* Table */}
+            {}
             <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
                 <div className="overflow-x-auto">
                     <table className="w-full">

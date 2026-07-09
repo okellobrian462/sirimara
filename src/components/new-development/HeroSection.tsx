@@ -13,7 +13,7 @@ export default function HeroSection() {
 
     return (
         <section className="relative w-full h-[90vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-gray-900 text-white">
-            {/* Background Video */}
+            {}
             <div className="absolute inset-0 z-0">
                 <video
                     ref={videoRef}
@@ -27,7 +27,7 @@ export default function HeroSection() {
                 <div className="absolute inset-0 bg-black/30" />
             </div>
 
-            {/* Content */}
+            {}
             <div className="relative z-10 text-center px-4 max-w-4xl mx-auto flex flex-col items-center">
                 <p className="text-sm md:text-base font-medium tracking-[0.2em] uppercase mb-4 opacity-90">
                     NEW DEVELOPMENT
@@ -40,7 +40,7 @@ export default function HeroSection() {
                 </p>
             </div>
 
-            {/* Scroll Indicator */}
+            {}
             <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-80 animate-bounce">
                 <span className="text-xs font-medium tracking-[0.2em] uppercase">SCROLL TO DISCOVER</span>
                 <div className="w-[1px] h-12 bg-white/50" />

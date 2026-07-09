@@ -54,7 +54,7 @@ export default function FullBleedStory({
 
     return (
         <section className={`relative w-full h-screen overflow-hidden bg-black snap-start ${className}`}>
-            {/* Background Layer */}
+            {}
             <div className="absolute inset-0 z-0">
                 {videoUrl ? (
                     <div className="relative w-full h-full">
@@ -87,11 +87,11 @@ export default function FullBleedStory({
                 ) : (
                     <div className="w-full h-full bg-gray-900" />
                 )}
-                {/* Overlay gradient for text readability */}
+                {}
                 <div className="absolute inset-0 bg-black/20" />
             </div>
 
-            {/* Content Layer */}
+            {}
             <div className={`relative z-10 w-full h-full flex flex-col p-8 md:p-16 text-white
                 ${isHero ? 'items-center justify-center text-center' : 'justify-end items-start'}
             `}>
@@ -126,7 +126,7 @@ export default function FullBleedStory({
                 </div>
             </div>
 
-            {/* Scroll indicator - absolute to section for perfect centering */}
+            {}
             {isHero && (
                 <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 text-sm font-medium tracking-[0.2em] text-white animate-bounce whitespace-nowrap">
                     SCROLL TO DISCOVER

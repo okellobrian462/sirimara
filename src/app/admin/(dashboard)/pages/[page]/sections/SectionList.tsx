@@ -21,7 +21,7 @@ export default function SectionList({ page, sections, onEdit, onUpdate }: Sectio
     const handleDragStart = (e: React.DragEvent, index: number) => {
         setDraggedIndex(index);
         e.dataTransfer.effectAllowed = 'move';
-        // Add a ghost image or styling if desired
+        
     };
 
     const handleDragEnter = (index: number) => {
@@ -45,12 +45,12 @@ export default function SectionList({ page, sections, onEdit, onUpdate }: Sectio
         const newSections = [...sections];
         const draggedSection = newSections[draggedIndex];
 
-        // Remove from old position
+        
         newSections.splice(draggedIndex, 1);
-        // Insert into new position
+        
         newSections.splice(targetIndex, 0, draggedSection);
 
-        // Update order_index property locally for immediate feedback
+        
         const reorderedSections = newSections.map((s, i) => ({
             ...s,
             order_index: i + 1
@@ -66,7 +66,7 @@ export default function SectionList({ page, sections, onEdit, onUpdate }: Sectio
             const result = await reorderPageSections(page, sectionIds);
             if (!result.success) {
                 alert('Failed to save order: ' + result.error);
-                // Optionally revert state here if failure is critical
+                
             }
             router.refresh();
         } catch (error) {
@@ -112,7 +112,7 @@ export default function SectionList({ page, sections, onEdit, onUpdate }: Sectio
         );
     }
 
-    // Check for duplicate order indexes (wonky data)
+    
     const hasOrderIssues = new Set(sections.map(s => s.order_index)).size !== sections.length;
 
     return (
@@ -139,12 +139,12 @@ export default function SectionList({ page, sections, onEdit, onUpdate }: Sectio
                         } ${dragOverIndex === index && draggedIndex !== index ? 'border-t-4 border-t-gray-900 pt-5' : ''} ${!section.is_active ? 'bg-gray-50 opacity-60' : ''}`}
                 >
                     <div className="flex items-start gap-4">
-                        {/* Drag Handle */}
+                        {}
                         <div className="cursor-move pt-1">
                             <GripVertical className="w-5 h-5 text-gray-400" />
                         </div>
 
-                        {/* Section Info */}
+                        {}
                         <div className="flex-1">
                             <div className="flex items-start justify-between mb-2">
                                 <div>
@@ -184,7 +184,7 @@ export default function SectionList({ page, sections, onEdit, onUpdate }: Sectio
                             )}
                         </div>
 
-                        {/* Actions */}
+                        {}
                         <div className="flex items-center gap-2">
                             <button
                                 onClick={() => handleToggleActive(section.id!, section.is_active)}

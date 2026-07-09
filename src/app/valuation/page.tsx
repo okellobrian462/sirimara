@@ -4,7 +4,6 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ValuationForm from './ValuationForm';
 
-
 export async function generateMetadata(): Promise<Metadata> {
     const config = await fetchSiteConfig();
     const siteName = config.company_name || 'Sirimara';
@@ -14,7 +13,6 @@ export async function generateMetadata(): Promise<Metadata> {
         description: `Get a complimentary market analysis of your property from ${siteName} experts.`,
     };
 }
-
 
 export default function ValuationPage() {
     return (

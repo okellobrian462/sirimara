@@ -9,14 +9,14 @@ export const metadata = {
 }
 
 export default async function SellPage() {
-    // Fetch CMS-managed sections
+    
     const sections = await fetchPageSections('sell');
 
     return (
         <main className="min-h-screen bg-white">
             <Header />
 
-            {/* Render CMS-managed sections (includes tabs section) */}
+            {}
             {sections.map((section) => (
                 <SectionRenderer key={section.id} section={section} />
             ))}

@@ -36,7 +36,7 @@ export default function AdminHeader({ userEmail }: AdminHeaderProps) {
             </div>
 
             <div className="flex items-center gap-4">
-                {/* User Info */}
+                {}
                 <div className="flex items-center gap-3 px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg">
                     <User className="w-4 h-4 text-gray-500" />
                     <span className="text-sm text-gray-700 tracking-wide">
@@ -44,7 +44,7 @@ export default function AdminHeader({ userEmail }: AdminHeaderProps) {
                     </span>
                 </div>
 
-                {/* Sign Out Button */}
+                {}
                 <button
                     onClick={handleSignOut}
                     disabled={loading}

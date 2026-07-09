@@ -22,11 +22,11 @@ import {
     Palette,
     BarChart2,
     Newspaper,
-    Tag // Added for Property Taxonomy icon
+    Tag,
+    FileText
 } from 'lucide-react';
 import { useState } from 'react';
 import { useSiteConfig } from '@/context/SiteConfigContext';
-
 
 const navigation = [
     { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
@@ -42,6 +42,7 @@ const navigation = [
     { name: 'Site Config', href: '/admin/config', icon: Sliders },
     { name: 'Statistics', href: '/admin/statistics', icon: BarChart2 },
     { name: 'Subscribers', href: '/admin/subscribers', icon: Mail },
+    { name: 'Contact Submissions', href: '/admin/contact-submissions', icon: FileText },
     { name: 'Settings', href: '/admin/settings', icon: Settings },
 ];
 
@@ -57,7 +58,7 @@ export default function Sidebar() {
             className={`${collapsed ? 'w-20' : 'w-64'
                 } bg-white border-r border-gray-200 flex flex-col transition-all duration-300`}
         >
-            {/* Logo */}
+            {}
             <div className="h-16 flex items-center justify-between px-6 border-b border-gray-200">
                 {!collapsed && (
                     <h1 className="text-xl font-light tracking-[0.2em] text-gray-900 uppercase">
@@ -77,7 +78,7 @@ export default function Sidebar() {
                 </button>
             </div>
 
-            {/* Navigation */}
+            {}
             <nav className="flex-1 px-3 py-6 space-y-1">
                 {navigation.map((item) => {
                     const isActive = pathname === item.href ||
@@ -104,7 +105,7 @@ export default function Sidebar() {
                 })}
             </nav>
 
-            {/* Footer */}
+            {}
             {!collapsed && (
                 <div className="p-6 border-t border-gray-100">
                     <p className="text-xs text-gray-400 tracking-wide">

@@ -16,7 +16,7 @@ interface FooterLinkProps {
 export default function FooterLink({ link, className = "hover:opacity-80 transition-opacity uppercase tracking-wider" }: FooterLinkProps) {
     const { openConnectModal } = useModal();
 
-    // Handle Contact Us link
+    
     if (link.url === '#contact' || link.label.toLowerCase() === 'contact us') {
         return (
             <button
@@ -28,7 +28,7 @@ export default function FooterLink({ link, className = "hover:opacity-80 transit
         );
     }
 
-    // Handle mailto links
+    
     if (link.url.startsWith('mailto:')) {
         return (
             <a
@@ -40,7 +40,7 @@ export default function FooterLink({ link, className = "hover:opacity-80 transit
         );
     }
 
-    // Handle external links
+    
     if (link.url.startsWith('http')) {
         return (
             <a
@@ -54,7 +54,7 @@ export default function FooterLink({ link, className = "hover:opacity-80 transit
         );
     }
 
-    // Handle internal links
+    
     return (
         <Link
             href={link.url}

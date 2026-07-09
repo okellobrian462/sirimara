@@ -5,7 +5,7 @@ export default function SellValuation() {
     const siteName = config.company_name || 'Sirimara';
     return (
         <section className="relative h-[500px] flex items-center justify-center overflow-hidden">
-            {/* Background Image */}
+            {}
             <div className="absolute inset-0 z-0">
                 <img
                     src="https://res.cloudinary.com/dk92v0fkk/image/upload/v1720625904/staging/sqpw1fppqlcf6cokh69b.webp"

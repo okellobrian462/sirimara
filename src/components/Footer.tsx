@@ -16,7 +16,7 @@ export default async function Footer() {
         'footer_legal'
     ]);
 
-    // Extract config values with fallbacks
+    
     const contactPhone = config.phone || '';
     const contactEmail = config.email || '';
     const contactAddress = config.contact_address || '';
@@ -28,7 +28,7 @@ export default async function Footer() {
     const location = config.location;
     const keepingUpTitle = config.footer_keepingup_title || 'Keep up to date with Sirimara Realty';
 
-    // Extract footer section titles
+    
     const footerTitles = config.footer_section_titles ?? {
         company_title: 'Company',
         resources_title: 'Resources',
@@ -47,14 +47,14 @@ export default async function Footer() {
             <div className="px-6">
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16 items-start">
                     
-                    {/* Newsletter Card - Spans 4 columns */}
+                    {}
                     <div className="md:col-span-4 h-full min-h-[280px]">
                         <FooterNewsletter title={keepingUpTitle} />
                     </div>
 
-                    {/* Navigation Links - Spans 4 columns (2 each) */}
+                    {}
                     <div className="md:col-span-4 grid grid-cols-2 gap-8">
-                        {/* Company Section */}
+                        {}
                         <div className="space-y-6">
                             <h3 className="text-sm font-bold tracking-[0.2em] uppercase text-white/80">{footerTitles.company_title}</h3>
                             <ul className="space-y-4 text-xs font-bold tracking-[0.1em] uppercase text-white hover:[&_a]:opacity-70 transition-opacity">
@@ -63,7 +63,7 @@ export default async function Footer() {
                                         <FooterLink link={link} />
                                     </li>
                                 ))}
-                                {/* Re-map resources here for simpler 2-col visual stack */}
+                                {}
                                 {resourcesLinks.map((link) => (
                                     <li key={link.id}>
                                         <FooterLink link={link} />
@@ -72,7 +72,7 @@ export default async function Footer() {
                             </ul>
                         </div>
 
-                        {/* Brand Portfolio Section */}
+                        {}
                         <div className="space-y-6">
                             <h3 className="text-sm font-bold tracking-[0.2em] uppercase text-white/80">{footerTitles.portfolio_title}</h3>
                             <ul className="space-y-4 text-xs font-bold tracking-[0.1em] uppercase text-white hover:[&_a]:opacity-70 transition-opacity">
@@ -85,7 +85,7 @@ export default async function Footer() {
                         </div>
                     </div>
 
-                    {/* Location Map Embed - Spans 4 columns */}
+                    {}
                     <div className="md:col-span-4 h-full min-h-[280px] flex flex-col relative z-0">
                         <h3 className="text-sm font-bold tracking-[0.2em] uppercase text-white/80 mb-6">Location</h3>
                         <div className="bg-gray-800 flex-1 relative w-full overflow-hidden min-h-[200px]">
@@ -100,10 +100,10 @@ export default async function Footer() {
                     </div>
                 </div>
 
-                {/* Our Markets Expandable Section */}
+                {}
                 <FooterMarkets markets={marketsLinks} title={footerTitles.markets_title} />
 
-                {/* Bottom Footer */}
+                {}
                 <div className="border-t border-white/20 pt-8">
                     <div className="flex flex-wrap gap-6 text-xs mb-6 uppercase tracking-wider">
                         {legalLinks.slice(0, 2).map((link) => (
@@ -140,7 +140,7 @@ export default async function Footer() {
                         </a>
                     </div>
 
-                    {/* Legal Document Links */}
+                    {}
                     <div className="mb-8 space-y-2">
                         {legalLinks.slice(2).map((link) => (
                             <a

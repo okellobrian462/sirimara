@@ -22,8 +22,8 @@ export const metadata: Metadata = {
 
 const PAGES = [
     { id: 'home', name: 'Homepage', icon: Home, path: '/' },
-    { id: 'sales', name: 'Sales', icon: Search, path: '/sales' },
-    { id: 'rentals', name: 'Rentals', icon: Key, path: '/rentals' },
+    { id: 'sales', name: 'Sales', icon: Search, path: '/buy' },
+    { id: 'rentals', name: 'Rentals', icon: Key, path: '/rent' },
     { id: 'about', name: 'About Us', icon: FileText, path: '/about' },
     { id: 'sell', name: 'Sell', icon: ShoppingBag, path: '/sell' },
     { id: 'agents', name: 'Agents', icon: Users, path: '/agents' },
@@ -33,7 +33,7 @@ const PAGES = [
     { id: 'world-of-sirimara', name: 'World of Sirimara', icon: Globe, path: '/world-of-sirimara' },
     { id: 'valuation', name: 'Valuation', icon: TrendingUp, path: '/valuation' },
     { id: 'exclusives', name: 'Exclusives', icon: Star, path: '/exclusives' },
-    { id: 'newsletters', name: 'Newsletters', icon: Mail, path: '/newsletters' },
+    { id: 'newsletters', name: 'Insights', icon: Mail, path: '/insights' },
     { id: 'terms-of-service', name: 'Terms of Service', icon: FileText, path: '/terms-of-service' },
     { id: 'privacy-policy', name: 'Privacy Policy', icon: FileText, path: '/privacy-policy' },
 ];

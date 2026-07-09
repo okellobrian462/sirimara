@@ -13,8 +13,8 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
 
     const supabase = await createClient();
 
-    // Fetch property by slug
-    // We also check 'id' in case the slug passed is actually an ID (backward compatibility or direct link)
+    
+    
     let { data: property } = await supabase
         .from('properties_with_taxonomy')
         .select('*')
@@ -22,7 +22,7 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
         .single();
 
     if (!property) {
-        // Try fetching by ID as fallback if slug lookup failed
+        
         const { data: propertyById } = await supabase
             .from('properties_with_taxonomy')
             .select('*')
@@ -36,8 +36,8 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
         return notFound();
     }
 
-    // Fetch a random active agent to display as contact
-    // In a real scenario, this would link to the specific listing agent(s)
+    
+    
     const { data: agent } = await supabase
         .from('agents')
         .select('*')
@@ -53,6 +53,7 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
         baths: property.bathrooms ? `${property.bathrooms} BA${property.half_baths ? `, ${property.half_baths} HALF BA` : ''}` : "",
         sqft: property.square_feet ? `APPROX. ${property.square_feet.toLocaleString()} SF` : '',
         images: property.images || [],
+        videos: Array.isArray(property.videos) ? property.videos : [],
         
         square_feet: property.square_feet,
         lot_size: property.lot_size,
@@ -72,10 +73,10 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
         <main className="min-h-screen bg-white">
             <Header theme="dark" />
 
-            {/* Image Hero Section */}
-            <ImageCarousel images={data.images} address={data.address} />
+            {}
+            <ImageCarousel images={data.images} videos={data.videos} address={data.address} />
 
-            {/* Property Info Container */}
+            {}
             <section className="bg-[#F8F8F8] py-20">
                 <div className="container mx-auto px-6 max-w-5xl">
                     <div className="text-center space-y-4 mb-12">
@@ -95,7 +96,7 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
                         </div>
                     </div>
 
-                    {/* Stats Divider Lines */}
+                    {}
                     <div className="w-full h-[1px] bg-gray-200"></div>
                     <div className="flex flex-wrap justify-center items-center gap-x-12 md:gap-x-20 py-8 text-brand-dark">
                         {data.beds && (
@@ -125,9 +126,9 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
                     </div>
                     <div className="w-full h-[1px] bg-gray-200"></div>
 
-                    {/* DETAILS & AMENITIES SECTION */}
+                    {}
                     <div className="py-16 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24">
-                        {/* DETAILS */}
+                        {}
                         <div>
                             <h3 className="text-[13px] font-semibold tracking-[0.1em] text-brand-dark uppercase mb-6">Details</h3>
                             <div className="space-y-4 text-[#333333] tracking-[0.02em] text-[15px]">
@@ -139,13 +140,13 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
                             </div>
                         </div>
 
-                        {/* AMENITIES */}
+                        {}
                         <div>
                             <h3 className="text-[13px] font-semibold tracking-[0.1em] text-brand-dark uppercase mb-6">Amenities & Features</h3>
                             <ExpandableFeaturesList features={data.features} />
                         </div>
                     </div>
-                    {/* END DETAILS & AMENITIES SECTION */}
+                    {}
                 </div>
             </section>
 

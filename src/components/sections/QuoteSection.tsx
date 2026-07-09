@@ -4,16 +4,12 @@ interface QuoteSectionProps {
     section: PageSection;
 }
 
-/**
- * Reusable Quote Section Component
- * Displays quotes/testimonials with optional quotation marks and author info
- */
 export default function QuoteSection({ section }: QuoteSectionProps) {
     const config = section.layout_config || {};
     const showQuotationMarks = (config.show_quotation_marks as boolean) !== false;
     const textAlignment = (config.text_alignment as string) || 'center';
 
-    // Extract author info from config
+    
     const author = (config.author as string) || section.subtitle;
     const authorTitle = (config.author_title as string) || '';
 

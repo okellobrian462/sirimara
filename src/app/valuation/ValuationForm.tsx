@@ -6,14 +6,12 @@ import Link from 'next/link';
 import { submitForm } from '@/app/actions/contact';
 import { useSiteConfig } from '@/context/SiteConfigContext';
 
-
 export default function ValuationForm() {
     const config = useSiteConfig();
     const siteName = config.company_name || 'Sirimara';
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -37,7 +35,7 @@ export default function ValuationForm() {
         setIsSubmitting(false);
         if (result.success) {
             setSubmitStatus('success');
-            // Scroll to top
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
         } else {
             setSubmitStatus('error');
@@ -103,7 +101,7 @@ export default function ValuationForm() {
                             <input
                                 name="lastName"
                                 type="text"
-                                placeholder="Last Name"
+                                placeholder="Last Name (optional)"
                                 className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-brand-dark p-0 outline-none"
                                 required
                             />
@@ -129,7 +127,7 @@ export default function ValuationForm() {
                     <div className="border-b border-gray-300 py-2">
                         <textarea
                             name="details"
-                            placeholder="Additional Details (Optional)"
+                            placeholder="Additional Details (mandatory)"
                             rows={3}
                             className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-brand-dark p-0 outline-none resize-none"
                         />
@@ -143,7 +141,7 @@ export default function ValuationForm() {
                     <Check className="absolute w-3 h-3 text-white opacity-0 peer-checked:opacity-100 pointer-events-none" />
                 </div>
                 <p className="text-xs text-gray-500 leading-relaxed">
-                    By checking this box, you consent to receive sms/text messages from {siteName}. Reply STOP to opt-out anytime. <Link href="/privacy-policy" className="underline hover:text-brand-dark">Privacy Policy</Link>
+                    By checking this box, you consent to receive sms/text messages from {siteName}. <Link href="/privacy-policy" className="underline hover:text-brand-dark">Privacy Policy</Link>
                 </p>
 
             </label>

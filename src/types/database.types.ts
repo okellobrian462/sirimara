@@ -14,7 +14,7 @@ export interface Property {
     property_type?: string;
     status: 'active' | 'pending' | 'sold' | 'off-market';
     square_feet?: number;
-    sqft?: number; // Added for compatibility with some mappings
+    sqft?: number; 
     lot_size?: number;
     year_built?: number;
     is_featured: boolean;

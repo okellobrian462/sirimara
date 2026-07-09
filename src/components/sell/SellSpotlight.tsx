@@ -34,7 +34,6 @@ export default function SellSpotlight() {
         }
     ];
 
-
     return (
         <section className="bg-brand-dark text-white py-24 md:py-32 px-6 overflow-hidden">
             <div className="container mx-auto max-w-6xl">
@@ -48,7 +47,7 @@ export default function SellSpotlight() {
                 </div>
 
                 <div className="flex flex-col lg:flex-row gap-16 items-start">
-                    {/* Tabs List */}
+                    {}
                     <div className="w-full lg:w-1/2 space-y-12">
                         {tabs.map((tab) => (
                             <div
@@ -67,7 +66,7 @@ export default function SellSpotlight() {
                         ))}
                     </div>
 
-                    {/* Active Image */}
+                    {}
                     <div className="w-full lg:w-1/2 relative aspect-[4/3] md:aspect-square overflow-hidden rounded-sm">
                         <img
                             key={activeTab.id}

@@ -29,12 +29,8 @@ interface SectionRendererProps {
     section: PageSection;
 }
 
-/**
- * Universal section renderer that dynamically renders sections based on type
- * This is the core component that makes the CMS system work
- */
 export default async function SectionRenderer({ section }: SectionRendererProps) {
-    // Fetch common sub-items if applicable
+    
     const tabs = (['tabs', 'woe_banner', 'leadership_tiles', 'accordion'].includes(section.section_type))
         ? await fetchTabItems(section.id!)
         : [];
@@ -79,7 +75,7 @@ export default async function SectionRenderer({ section }: SectionRendererProps)
         case 'woe_banner':
             return <WoeBannerSection section={section} items={tabs} />;
         case 'woe_modules':
-            return <WoeModulesSection section={section} items={stories} />; // We'll reuse this for the gallery
+            return <WoeModulesSection section={section} items={stories} />; 
         case 'leadership_hero':
             return <LeadershipHeroSection section={section} />;
         case 'leadership_tiles':

@@ -32,7 +32,7 @@ export default function SearchClient() {
     const [isLoading, setIsLoading] = useState(true);
     const [showFilters, setShowFilters] = useState(false);
 
-    // Filter states
+    
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
     const [beds, setBeds] = useState('');
@@ -77,7 +77,7 @@ export default function SearchClient() {
     return (
         <div className="min-h-[60vh]">
             <div className="mb-8">
-                {/* Search Header */}
+                {}
                 <div className="flex flex-col md:flex-row gap-6 items-start md:items-center justify-between mb-8">
                     <div>
                         <h1 className="text-3xl font-serif text-brand-dark mb-2">
@@ -88,7 +88,7 @@ export default function SearchClient() {
                         </p>
                     </div>
 
-                    {/* Tabs */}
+                    {}
                     <div className="flex bg-gray-100 p-1 rounded-lg">
                         {['buy', 'rent', 'agents'].map((tab) => (
                             <button
@@ -105,7 +105,7 @@ export default function SearchClient() {
                     </div>
                 </div>
 
-                {/* Filters Bar */}
+                {}
                 {activeTab !== 'agents' && (
                     <div className="border-y border-gray-200 py-4 mb-8">
                         <div className="flex flex-wrap gap-4 items-center">
@@ -117,7 +117,7 @@ export default function SearchClient() {
                             </button>
 
                             <div className={`flex-1 flex flex-wrap gap-4 ${showFilters ? 'block w-full mt-4 md:mt-0' : 'hidden md:flex'}`}>
-                                {/* Price Range */}
+                                {}
                                 <div className="flex items-center gap-2">
                                     <input
                                         type="number"
@@ -136,7 +136,7 @@ export default function SearchClient() {
                                     />
                                 </div>
 
-                                {/* Beds/Baths */}
+                                {}
                                 <select
                                     value={beds}
                                     onChange={(e) => setBeds(e.target.value)}
@@ -165,7 +165,7 @@ export default function SearchClient() {
                 )}
             </div>
 
-            {/* Results Grid */}
+            {}
             {isLoading ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (

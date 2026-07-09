@@ -13,7 +13,7 @@ export const metadata = {
 export default async function WorldOfSirimaraPage() {
     const sections = await fetchPageSections('world-of-sirimara');
 
-    // Create section IDs for the scroll bullets
+    
     const bulletIds = sections.map((s, i) => s.section_type === 'woe_story' ? (s.title?.split(' ')[0].toLowerCase() || `section-${i}`) : `section-${i}`);
 
     return (
@@ -22,8 +22,8 @@ export default async function WorldOfSirimaraPage() {
                 <Header theme="light" />
             </div>
 
-            {/* Note: ControlBullets might need an update to handle dynamic section IDs better */}
-            {/* For now, we'll keep it as is or pass the sections */}
+            {}
+            {}
 
             {sections.map((section) => (
                 <div key={section.id} id={section.title?.split(' ')[0].toLowerCase()}>

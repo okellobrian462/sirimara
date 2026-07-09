@@ -4,7 +4,6 @@ import React from 'react';
 import Link from 'next/link';
 import { useSiteConfig } from '@/context/SiteConfigContext';
 
-
 interface Publication {
     title: string;
     imageUrl: string;

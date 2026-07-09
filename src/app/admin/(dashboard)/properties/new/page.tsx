@@ -6,6 +6,7 @@ import { createClient } from '@/lib/supabase/client';
 import { ArrowLeft, Upload, X, Plus } from 'lucide-react';
 import Link from 'next/link';
 import ImageUpload from '@/components/admin/ImageUpload';
+import VideoUpload from '@/components/admin/VideoUpload';
 
 interface TaxonomyOption {
     id: string;
@@ -25,6 +26,8 @@ export default function NewPropertyPage() {
     const [error, setError] = useState('');
     const [images, setImages] = useState<string[]>([]);
     const [imageInput, setImageInput] = useState('');
+    const [videos, setVideos] = useState<string[]>([]);
+    const [videoInput, setVideoInput] = useState('');
 
     const [categories, setCategories] = useState<TaxonomyOption[]>([]);
     const [propertyTypes, setPropertyTypes] = useState<TaxonomyOption[]>([]);
@@ -104,6 +107,17 @@ export default function NewPropertyPage() {
         setImages(prev => prev.filter((_, i) => i !== index));
     };
 
+    const handleAddVideo = () => {
+        if (videoInput.trim()) {
+            setVideos(prev => [...prev, videoInput.trim()]);
+            setVideoInput('');
+        }
+    };
+
+    const handleRemoveVideo = (index: number) => {
+        setVideos(prev => prev.filter((_, i) => i !== index));
+    };
+
     const toggleFeature = (featureId: string) => {
         setSelectedFeatures(prev => 
             prev.includes(featureId) 
@@ -130,6 +144,7 @@ export default function NewPropertyPage() {
                 lot_size: formData.lot_size ? parseFloat(formData.lot_size) : null,
                 year_built: formData.year_built ? parseInt(formData.year_built) : null,
                 images,
+                videos,
                 category_id: formData.category_id || null,
                 type_id: formData.type_id || null,
                 contract_type_id: formData.contract_type_id || null,
@@ -351,6 +366,41 @@ export default function NewPropertyPage() {
                                     </button>
                                 </div>
                             ))}
+                        </div>
+                    )}
+                </div>
+
+                <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6 shadow-sm">
+                    <h2 className="text-lg font-medium text-gray-900 mb-6">Videos</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                        <VideoUpload onUpload={(url) => setVideos(prev => [...prev, url])} description="Upload property videos (MP4, WebM, MOV - Max 500MB)" />
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Add Via URL</label>
+                            <div className="flex gap-2">
+                                <input type="url" value={videoInput} onChange={(e) => setVideoInput(e.target.value)}
+                                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" />
+                                <button type="button" onClick={handleAddVideo} className="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700">
+                                    <Plus className="w-5 h-5" />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {videos.length > 0 && (
+                        <div className="space-y-3">
+                            <h3 className="text-sm font-medium text-gray-600">Uploaded Videos</h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                {videos.map((video, index) => (
+                                    <div key={index} className="relative group flex items-center justify-between bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                        <div className="flex-1 min-w-0">
+                                            <p className="text-sm font-medium text-gray-900 truncate">{video.split('/').pop()}</p>
+                                            <p className="text-xs text-gray-500 truncate">{video}</p>
+                                        </div>
+                                        <button type="button" onClick={() => handleRemoveVideo(index)} className="ml-2 p-1 bg-red-500 text-white rounded hover:bg-red-600 flex-shrink-0">
+                                            <X className="w-4 h-4" />
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     )}
                 </div>

@@ -47,7 +47,6 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
     const siteName = config.company_name || 'Sirimara';
     const siteNameUpper = siteName.toUpperCase();
 
-
     useEffect(() => {
         const timeoutId = setTimeout(async () => {
             if (searchQuery.length >= 2) {
@@ -94,9 +93,9 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Background classes:
-    // If search is open, always white background with dark text (looks like search overlay)
-    // Otherwise, depend on theme and scroll
+
+
+
     const bgClass = isSearchOpen || activeDropdown
         ? 'bg-white shadow-lg'
         : isScrolled
@@ -122,8 +121,8 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
         }, 300);
     };
 
-    // Dropdown state is now driven by database
-    // No need for hardcoded hasDropdown function
+
+
 
     return (
         <>
@@ -132,17 +131,11 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
                 onMouseLeave={handleMouseLeave}
             >
                 <div className="px-6 relative h-12 flex items-center justify-between">
-                    {/* Normal Header Content */}
+                    { }
                     <div className="w-full flex items-center justify-between">
-                        {/* Left Section: Navigation */}
+                        { }
                         <div className={`flex items-center gap-8 ${textColor}`}>
-                            {/* Hide search icon for now
-                            <div className="flex items-center gap-4">
-                                <Link href="/search" className="hover:opacity-80 p-2 -ml-2">
-                                    <Search className="w-5 h-5" />
-                                </Link>
-                            </div>
-                            */}
+                            { }
                             <nav className="hidden md:flex gap-6 text-xs tracking-widest font-medium h-full items-center">
                                 {mainNav.map((item) => (
                                     <div
@@ -159,7 +152,7 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
                                             {item.label}
                                         </Link>
 
-                                        {/* Dynamic Dropdown - Rendered from database config */}
+                                        { }
                                         {item.has_dropdown && activeDropdown === item.label.toLowerCase() && item.dropdown_config && (
                                             <div className="absolute top-[calc(100%+16px)] left-[-24px] w-[380px] bg-white shadow-2xl border border-gray-100 p-8 flex flex-col gap-6 text-brand-primary animate-in fade-in slide-in-from-top-2 duration-300">
                                                 {item.dropdown_type === 'search' && (
@@ -180,7 +173,7 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
                                                             />
                                                         </div>
 
-                                                        {/* Quick Links from config */}
+                                                        { }
                                                         {item.dropdown_config.quick_links && (
                                                             <div className="flex flex-col gap-4">
                                                                 {(item.dropdown_config.quick_links as { url: string; label: string }[]).map((link, idx) => (
@@ -203,29 +196,29 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
                             </nav>
                         </div>
 
-                        {/* Logo Section */}
+                        { }
                         <div className={`absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 ${textColor} transition-colors duration-300`}>
                             <Link href="/">
                                 {logoImage ? (
                                     <img
                                         src={logoImage}
                                         alt={siteName}
-                                        className={`${isScrolled ? 'h-8' : 'h-10'} w-auto transition-all duration-300 object-contain`}
+                                        className={`${isScrolled ? 'h-20' : 'h-24'} w-auto transition-all duration-300 object-contain`}
                                     />
 
                                 ) : logoSvg ? (
                                     <div
-                                        className={`${isScrolled ? 'h-8' : 'h-10'} w-auto transition-all duration-300 [&>svg]:h-full [&>svg]:w-auto [&>svg]:fill-current`}
+                                        className={`${isScrolled ? 'h-20' : 'h-24'} w-auto transition-all duration-300 [&>svg]:h-full [&>svg]:w-auto [&>svg]:fill-current`}
                                         dangerouslySetInnerHTML={{ __html: logoSvg }}
                                     />
                                 ) : (
-                                    <SirimaraLogo className={`${isScrolled ? 'h-8' : 'h-10'} w-auto transition-all duration-300`} />
+                                    <SirimaraLogo className={`${isScrolled ? 'h-20' : 'h-24'} w-auto transition-all duration-300`} />
                                 )}
 
                             </Link>
                         </div>
 
-                        {/* Right Section: Additional Navigation */}
+                        { }
                         <div className={`hidden md:flex gap-6 transition-opacity duration-300 ${textColor} text-xs tracking-widest font-medium`}>
                             {secondaryNav.map((item) => (
                                 <Link
@@ -240,12 +233,11 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
                             ))}
                         </div>
 
-
                     </div>
                 </div>
             </header>
 
-            {/* Search Modal Dropdown - Positioned below header */}
+            { }
             {isSearchOpen && (
                 <div className="fixed top-[88px] left-0 right-0 z-40 bg-white shadow-lg border-t border-gray-100">
                     <div className="container mx-auto px-6 py-8 max-w-7xl">
@@ -261,7 +253,7 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
                                         placeholder={
                                             activeSearchTab === 'agents'
                                                 ? "Search by agent name..."
-                                                : "Enter your location, address, ZIP, property ID or agent name"
+                                                : "Enter location"
                                         }
                                         className="flex-1 text-base text-gray-500 outline-none placeholder:text-gray-400 bg-transparent"
                                     />
@@ -269,8 +261,8 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
                                         <button
                                             onClick={() => {
                                                 setSearchQuery('');
-                                                // Optionally, you might want to close search or clear input only
-                                                // setIsSearchOpen(false); // Removed as per original Crosshair behavior
+
+
                                             }}
                                             className="p-2 hover:bg-gray-50 rounded-full transition-colors"
                                         >
@@ -285,8 +277,8 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
                                     </div>
                                 </div>
 
-                                {/* Tabs Row */}
-                                {/* Tabs Row */}
+                                { }
+                                { }
                                 <div className="flex gap-8 mt-6 border-b border-gray-100 mb-8">
                                     <button
                                         onClick={() => setActiveSearchTab('buy')}
@@ -317,10 +309,10 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
                                     </button>
                                 </div>
 
-                                {/* Results Area */}
+                                { }
                                 <div className="animate-in fade-in duration-200 min-h-[200px]">
                                     {searchQuery.length < 2 ? (
-                                        /* Initial State - Links */
+
                                         <div>
                                             <h4 className="text-[10px] font-bold tracking-[0.2em] mb-6 uppercase text-gray-500">
                                                 {activeSearchTab === 'agents' ? 'Find an Agent' : 'Find Your Next Property'}
@@ -358,7 +350,7 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
                                             </div>
                                         </div>
                                     ) : (
-                                        /* Realtime Results */
+
                                         <div>
                                             <div className="flex items-center gap-2 mb-4 text-brand-primary text-[10px] tracking-[0.2em] font-medium uppercase">
                                                 {activeSearchTab === 'agents' ? (
@@ -407,7 +399,7 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
                                 </div>
                             </div>
 
-                            {/* Close Button */}
+                            { }
                             <button
                                 onClick={() => setIsSearchOpen(false)}
                                 className="p-2 hover:bg-gray-50 rounded-full transition-colors shrink-0"

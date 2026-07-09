@@ -49,7 +49,7 @@ export default function PageSectionManager({ page, initialSections, templates }:
 
     return (
         <div className="p-8">
-            {/* Header */}
+            {}
             <div className="mb-8 flex items-center justify-between">
                 <div>
                     <Link
@@ -71,7 +71,7 @@ export default function PageSectionManager({ page, initialSections, templates }:
                 </button>
             </div>
 
-            {/* Section List */}
+            {}
             <SectionList
                 page={page}
                 sections={sections}
@@ -79,7 +79,7 @@ export default function PageSectionManager({ page, initialSections, templates }:
                 onUpdate={handleSectionUpdate}
             />
 
-            {/* Section Form Modal */}
+            {}
             {isFormOpen && (
                 <SectionForm
                     page={page}

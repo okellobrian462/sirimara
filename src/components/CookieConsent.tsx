@@ -7,7 +7,7 @@ export default function CookieConsent() {
     const [showCookieConsent, setShowCookieConsent] = useState(false);
 
     useEffect(() => {
-        // Check if user has already made a choice
+        
         const consent = localStorage.getItem('cookie-consent');
         if (!consent) {
             setShowCookieConsent(true);
@@ -51,7 +51,7 @@ export default function CookieConsent() {
                     Deny Non-Essential
                 </button>
                 <button
-                    onClick={() => handleConsent('essential')} // For now, treat as essential until preferences are implemented
+                    onClick={() => handleConsent('essential')} 
                     className="w-full py-3 border-2 border-gray-900 rounded-full text-sm font-semibold tracking-wider uppercase hover:bg-gray-900 hover:text-white transition-all active:scale-[0.98]"
                 >
                     Manage Preferences

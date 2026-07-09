@@ -5,10 +5,6 @@ interface ContactSectionProps {
     section: PageSection;
 }
 
-/**
- * Reusable Contact Section Component
- * Displays contact CTAs (phone, email, etc.)
- */
 export default function ContactSection({ section }: ContactSectionProps) {
     const config = section.layout_config || {};
     const layout = (config.layout as string) || 'horizontal';
@@ -34,7 +30,7 @@ export default function ContactSection({ section }: ContactSectionProps) {
                     <p className="text-xl opacity-80 mb-12">{section.content}</p>
                 )}
 
-                {/* CTAs */}
+                {}
                 <div className={`flex ${layoutClass} gap-6 justify-center`}>
                     {section.cta_primary_text && section.cta_primary_link && (
                         <Link href={section.cta_primary_link}>

@@ -2,7 +2,7 @@ import { createClient } from '@/lib/supabase/server';
 
 export interface Statistic {
     id: string;
-    // stat_key removed
+    
     value: string;
     label: string;
     sublabel: string | null;

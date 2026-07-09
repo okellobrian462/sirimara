@@ -11,7 +11,7 @@ interface TaxonomyItem {
     description: string | null;
     order_index: number;
     is_active: boolean;
-    category?: string; // Only for features
+    category?: string; 
 }
 
 const TABS = [
@@ -208,7 +208,7 @@ export default function PropertyTaxonomyPage() {
 
     return (
         <div className="p-8">
-            {/* Header */}
+            {}
             <div className="mb-8">
                 <h1 className="text-3xl font-light tracking-[0.15em] text-gray-900 mb-2">
                     PROPERTY TAXONOMY
@@ -218,7 +218,7 @@ export default function PropertyTaxonomyPage() {
                 </p>
             </div>
 
-            {/* Tabs */}
+            {}
             <div className="mb-6 border-b border-gray-200">
                 <div className="flex gap-4 overflow-x-auto">
                     {TABS.map((tab) => (
@@ -236,7 +236,7 @@ export default function PropertyTaxonomyPage() {
                 </div>
             </div>
 
-            {/* Add Button */}
+            {}
             <div className="mb-6">
                 <button
                     onClick={() => openModal()}
@@ -247,7 +247,7 @@ export default function PropertyTaxonomyPage() {
                 </button>
             </div>
 
-            {/* Items List */}
+            {}
             <div className="bg-white rounded-xl border border-gray-200 shadow-sm">
                 {loading ? (
                     <div className="p-8 text-center text-gray-500">Loading...</div>
@@ -262,7 +262,7 @@ export default function PropertyTaxonomyPage() {
                                 key={item.id}
                                 className="p-4 flex items-center gap-4 hover:bg-gray-50 transition-colors"
                             >
-                                {/* Drag Handle */}
+                                {}
                                 <div className="flex flex-col gap-1">
                                     <button
                                         onClick={() => moveItem(index, 'up')}
@@ -280,7 +280,7 @@ export default function PropertyTaxonomyPage() {
                                     </button>
                                 </div>
 
-                                {/* Content */}
+                                {}
                                 <div className="flex-1">
                                     <div className="flex items-center gap-3">
                                         <h3 className="font-medium text-gray-900">{item.name}</h3>
@@ -301,7 +301,7 @@ export default function PropertyTaxonomyPage() {
                                     </p>
                                 </div>
 
-                                {/* Actions */}
+                                {}
                                 <div className="flex items-center gap-2">
                                     <button
                                         onClick={() => handleToggleActive(item)}
@@ -331,7 +331,7 @@ export default function PropertyTaxonomyPage() {
                 )}
             </div>
 
-            {/* Modal */}
+            {}
             {isModalOpen && (
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
                     <div className="bg-white rounded-xl max-w-md w-full p-6">

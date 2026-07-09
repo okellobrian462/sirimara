@@ -15,8 +15,8 @@ export interface Property {
 }
 
 export interface FeaturedProperty {
-    id: string; // The featured_properties ID
-    property_id: string; // The properties ID
+    id: string; 
+    property_id: string; 
     display_order: number;
     property: Property;
 }
@@ -32,12 +32,12 @@ export default function FeaturedClient({ initialFeatured }: FeaturedClientProps)
     const [searchResults, setSearchResults] = useState<Property[]>([]);
     const [searching, setSearching] = useState(false);
 
-    // Update local state when props change (e.g. after revalidation)
+    
     useEffect(() => {
         setFeatured(initialFeatured.sort((a, b) => a.display_order - b.display_order));
     }, [initialFeatured]);
 
-    // Search properties for adding
+    
     useEffect(() => {
         if (!isAddModalOpen) return;
 
@@ -45,7 +45,7 @@ export default function FeaturedClient({ initialFeatured }: FeaturedClientProps)
             setSearching(true);
             const supabase = createClient();
 
-            // Get already featured IDs to exclude
+            
             const featuredIds = featured.map(f => f.property_id);
 
             let query = supabase
@@ -60,7 +60,7 @@ export default function FeaturedClient({ initialFeatured }: FeaturedClientProps)
             const { data } = await query;
 
             if (data) {
-                // Filter out already featured properties client-side as "not in" is potentialperf hit or just easier here
+                
                 const available = (data as Property[]).filter((p) => !featuredIds.includes(p.id));
                 setSearchResults(available);
             }
@@ -92,13 +92,13 @@ export default function FeaturedClient({ initialFeatured }: FeaturedClientProps)
         }
     };
 
-    // Simple Drag and Drop implementation
+    
     const [draggedItem, setDraggedItem] = useState<FeaturedProperty | null>(null);
 
     const handleDragStart = (e: React.DragEvent, item: FeaturedProperty) => {
         setDraggedItem(item);
         e.dataTransfer.effectAllowed = 'move';
-        // Make the drag image transparent or look like the row
+        
     };
 
     const handleDragOver = (e: React.DragEvent, index: number) => {
@@ -113,7 +113,7 @@ export default function FeaturedClient({ initialFeatured }: FeaturedClientProps)
         newItems.splice(draggedIndex, 1);
         newItems.splice(index, 0, item);
 
-        // Update display_order locally
+        
         const reordered = newItems.map((item, idx) => ({
             ...item,
             display_order: idx
@@ -124,7 +124,7 @@ export default function FeaturedClient({ initialFeatured }: FeaturedClientProps)
 
     const handleDragEnd = async () => {
         setDraggedItem(null);
-        // Persist new order
+        
         const orderUpdates = featured.map((item, index) => ({
             id: item.id,
             display_order: index
@@ -134,7 +134,7 @@ export default function FeaturedClient({ initialFeatured }: FeaturedClientProps)
             await updateFeaturedOrder(orderUpdates);
         } catch (error) {
             console.error('Failed to update order', error);
-            // Revert or show error
+            
         }
     };
 
@@ -211,7 +211,7 @@ export default function FeaturedClient({ initialFeatured }: FeaturedClientProps)
                 )}
             </div>
 
-            {/* Add Modal */}
+            {}
             {isAddModalOpen && (
                 <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
                     <div className="bg-white rounded-xl shadow-xl w-full max-w-lg max-h-[80vh] flex flex-col">
