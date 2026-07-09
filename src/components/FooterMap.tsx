@@ -28,26 +28,40 @@ interface FooterMapProps {
 }
 
 export default function FooterMap({ lat, lng }: FooterMapProps) {
+    const containerRef = useRef<HTMLDivElement>(null);
     const [isMounted, setIsMounted] = useState(false);
-    const mapRef = useRef<L.Map | null>(null);
 
     useEffect(() => {
         setIsMounted(true);
-        return () => {
-            // Ensure any leftover Leaflet map instance is removed to avoid
-            // "Map container is already initialized" errors on re-mount.
-            if (mapRef.current) {
-                try {
-                    mapRef.current.remove();
-                } catch (e) {
-                    // ignore removal errors
-                }
-                mapRef.current = null;
-            }
-        };
     }, []);
 
-    // Prevent SSR rendering issues with react-leaflet
+    // Manage Leaflet map instance manually to avoid "container already initialized" errors
+    // that occur when react-leaflet's MapContainer re-renders on the same DOM element.
+    useEffect(() => {
+        if (!containerRef.current) return;
+
+        // Create tile layer
+        const tileLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+        });
+
+        // Create map instance directly
+        const map = L.map(containerRef.current, {
+            center: [lat, lng],
+            zoom: 15,
+            scrollWheelZoom: false,
+            layers: [tileLayer],
+            zoomControl: true,
+        });
+
+        // Add marker
+        L.marker([lat, lng], { icon: defaultIcon }).addTo(map);
+
+        return () => {
+            map.remove();
+        };
+    }, [lat, lng]);
+
     if (!isMounted) {
         return (
             <div className="absolute inset-0 flex items-center justify-center text-gray-500 text-sm">
@@ -57,19 +71,10 @@ export default function FooterMap({ lat, lng }: FooterMapProps) {
     }
 
     return (
-        <MapContainer
-            center={[lat, lng]}
-            zoom={15}
-            scrollWheelZoom={false}
-            ref={mapRef}
+        <div
+            ref={containerRef}
             className="absolute inset-0 w-full h-full z-0"
             style={{ minHeight: '100%', minWidth: '100%' }}
-        >
-            <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-                url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-            />
-            <Marker position={[lat, lng]} />
-        </MapContainer>
+        />
     );
 }
