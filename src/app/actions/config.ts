@@ -14,7 +14,7 @@ export async function getContactConfig(): Promise<ContactConfig> {
     ]);
 
     return {
-        phone: phone || '1-800-SIRIMARA',
-        email: email || 'okellobrian462@gmail.com'
+        phone: (phone as string) || '1-800-SIRIMARA',
+        email: (email as string) || 'okellobrian462@gmail.com'
     };
 }

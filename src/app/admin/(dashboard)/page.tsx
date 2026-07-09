@@ -171,13 +171,8 @@ export default async function AdminDashboard() {
                 </div>
             </div>
 
-<<<<<<< HEAD
-            {}
-            <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-=======
             {/* Quick Actions */}
             <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
->>>>>>> f07decf4f00ca7b5d31c55279f326ae284c18b54
                 <Link
                     href="/admin/properties/new"
                     className="bg-white border border-gray-200 text-gray-900 rounded-xl p-6 hover:shadow-md hover:border-orange-200 transition-all group"

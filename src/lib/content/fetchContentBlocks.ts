@@ -7,7 +7,7 @@ export interface ContentBlock {
     title: string | null;
     content: string | null;
     
-    metadata: any;
+    metadata: Record<string, string>;
     order: number;
     is_active: boolean;
 }

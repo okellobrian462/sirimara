@@ -28,17 +28,8 @@ interface FooterMapProps {
 }
 
 export default function FooterMap({ lat, lng }: FooterMapProps) {
-<<<<<<< HEAD
-    useEffect(() => {
-        return () => {
-            const container = document.getElementById('footer-map-container');
-            if (container) {
-                // @ts-ignore
-                container._leaflet_id = null;
-=======
     const [isMounted, setIsMounted] = useState(false);
     const mapRef = useRef<L.Map | null>(null);
-
 
     useEffect(() => {
         setIsMounted(true);
@@ -52,30 +43,10 @@ export default function FooterMap({ lat, lng }: FooterMapProps) {
                     // ignore removal errors
                 }
                 mapRef.current = null;
->>>>>>> f07decf4f00ca7b5d31c55279f326ae284c18b54
             }
         };
     }, []);
 
-<<<<<<< HEAD
-    return (
-        <MapContainer
-            id="footer-map-container"
-            center={[lat, lng]}
-            zoom={15}
-            scrollWheelZoom={false}
-            className="absolute inset-0 w-full h-full z-0"
-            style={{ minHeight: '100%', minWidth: '100%' }}
-        >
-            { }
-            <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-                url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-            />
-            <Marker position={[lat, lng]} />
-        </MapContainer>
-    );
-=======
     // Prevent SSR rendering issues with react-leaflet
     if (!isMounted) {
         return (
@@ -85,22 +56,20 @@ export default function FooterMap({ lat, lng }: FooterMapProps) {
         );
     }
 
-    // return (
-    //     <MapContainer 
-    //         center={[lat, lng]} 
-    //         zoom={15} 
-    //         scrollWheelZoom={false}
-    //         ref={mapRef}
-    //         className="absolute inset-0 w-full h-full z-0"
-    //         style={{ minHeight: '100%', minWidth: '100%' }}
-    //     >
-    //         {/* CartoDB Dark Matter free tiles */}
-    //         <TileLayer
-    //             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-    //             url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-    //         />
-    //         <Marker position={[lat, lng]} />
-    //     </MapContainer>
-    // );
->>>>>>> f07decf4f00ca7b5d31c55279f326ae284c18b54
+    return (
+        <MapContainer
+            center={[lat, lng]}
+            zoom={15}
+            scrollWheelZoom={false}
+            ref={mapRef}
+            className="absolute inset-0 w-full h-full z-0"
+            style={{ minHeight: '100%', minWidth: '100%' }}
+        >
+            <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+                url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+            />
+            <Marker position={[lat, lng]} />
+        </MapContainer>
+    );
 }
