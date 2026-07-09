@@ -16,6 +16,16 @@ export default function AdminLoginPage() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
+    const getFriendlyAuthError = (err: unknown) => {
+        const message = err instanceof Error ? err.message : 'Invalid credentials';
+
+        if (message.toLowerCase().includes('database error querying schema')) {
+            return 'Supabase could not complete the login because the Auth user or admin record needs repair. Create the user in Supabase Authentication, then run supabase/admin-user-repair.sql.';
+        }
+
+        return message;
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError('');
@@ -52,8 +62,7 @@ export default function AdminLoginPage() {
             router.push('/admin');
             router.refresh();
         } catch (err: unknown) {
-            const errorMessage = err instanceof Error ? err.message : 'Invalid credentials';
-            setError(errorMessage);
+            setError(getFriendlyAuthError(err));
         } finally {
             setLoading(false);
         }
