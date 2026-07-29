@@ -25,7 +25,6 @@ export default async function Footer() {
     const socialInstagram = config.instagram_url || '#';
     const socialLinkedin = config.linkedin_url || '#';
     const siteName = (config.company_name ?? 'Sirimara Real Estate').toUpperCase();
-    const location = config.location;
     const keepingUpTitle = config.footer_keepingup_title || 'Keep up to date with Sirimara Realty';
 
     
@@ -89,13 +88,7 @@ export default async function Footer() {
                     <div className="md:col-span-4 h-full min-h-[280px] flex flex-col relative z-0">
                         <h3 className="text-sm font-bold tracking-[0.2em] uppercase text-white/80 mb-6">Location</h3>
                         <div className="bg-gray-800 flex-1 relative w-full overflow-hidden min-h-[200px]">
-                            {location?.lat && location?.lng ? (
-                                <FooterMapWrapper lat={location.lat} lng={location.lng} />
-                            ) : (
-                                <div className="absolute inset-0 flex items-center justify-center text-gray-500 text-sm p-4 text-center">
-                                    Location coordinates not configured in CMS
-                                </div>
-                            )}
+                            <FooterMapWrapper />
                         </div>
                     </div>
                 </div>

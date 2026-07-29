@@ -96,7 +96,7 @@ export default function HeroSection({ section }: HeroSectionProps) {
             </div>
 
             {}
-            {showBottomNav && variant === 'home' && (
+            {/* {showBottomNav && variant === 'home' && (
                 <div className="absolute bottom-0 left-0 right-0 z-20">
                     <div className="px-6 py-8 flex items-center justify-between text-white">
                         <div className="flex items-center gap-8">
@@ -111,7 +111,7 @@ export default function HeroSection({ section }: HeroSectionProps) {
                         </div>
                     </div>
                 </div>
-            )}
+            )} */}
 
             {}
             {showScrollIndicator && (

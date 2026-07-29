@@ -141,3 +141,44 @@
   opacity: 0.3 !important;
   cursor: not-allowed !important;
 }
+
+/* Rich text content overflow safety (Quill / newsletter content) */
+.prose {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  max-width: 100%;
+}
+
+.prose img,
+.prose video,
+.prose iframe {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+.prose pre {
+  overflow-x: auto;
+  max-width: 100%;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.prose table {
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.prose a,
+.prose span,
+.prose p,
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6,
+.prose li {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}

@@ -28,10 +28,10 @@ export default async function NewsletterDetailPage({ params }: Props) {
     }
 
     return (
-        <main className="min-h-screen bg-white">
+        <main className="min-h-screen bg-white overflow-x-hidden">
             <Header />
 
-            <article className="pt-32 pb-20">
+            <article className="pt-32 pb-20 overflow-hidden">
                 <div className="container mx-auto px-6 max-w-4xl">
                     <div className="text-center mb-12">
                         {newsletter.category && (
