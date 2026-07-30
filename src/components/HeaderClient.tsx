@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Search, X, MapPin, Crosshair } from 'lucide-react';
+import { Search, X, MapPin, Crosshair, Menu } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSearch } from '@/context/SearchContext';
@@ -82,6 +82,7 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
         router.push(url);
     };
     const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const isScrolled = externalIsScrolled ?? internalIsScrolled;
 
@@ -96,13 +97,32 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
 
 
 
-    const bgClass = isSearchOpen || activeDropdown
+    // Close mobile menu when search opens
+    useEffect(() => {
+        if (isSearchOpen) {
+            setIsMobileMenuOpen(false);
+        }
+    }, [isSearchOpen]);
+
+    // Lock body scroll when mobile menu is open
+    useEffect(() => {
+        if (isMobileMenuOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isMobileMenuOpen]);
+
+    const bgClass = isSearchOpen || activeDropdown || isMobileMenuOpen
         ? 'bg-white shadow-lg'
         : isScrolled
             ? (theme === 'dark' ? 'bg-white/95 backdrop-blur-md shadow-sm' : 'bg-black/80 backdrop-blur-md')
             : (theme === 'dark' ? 'bg-white' : 'bg-transparent');
 
-    const textColor = isSearchOpen || activeDropdown
+    const textColor = isSearchOpen || activeDropdown || isMobileMenuOpen
         ? 'text-brand-primary'
         : isScrolled
             ? (theme === 'dark' ? 'text-brand-primary' : 'text-white')
@@ -127,7 +147,7 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
     return (
         <>
             <header
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${bgClass} ${isScrolled || isSearchOpen || activeDropdown ? 'py-4' : 'py-6'}`}
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${bgClass} ${isScrolled || isSearchOpen || activeDropdown || isMobileMenuOpen ? 'py-4' : 'py-6'}`}
                 onMouseLeave={handleMouseLeave}
             >
                 <div className="px-6 relative h-12 flex items-center justify-between">
@@ -135,7 +155,14 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
                     <div className="w-full flex items-center justify-between">
                         { }
                         <div className={`flex items-center gap-8 ${textColor}`}>
-                            { }
+                            <button
+                                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                                className="md:hidden p-2 -ml-2 hover:opacity-80 transition-opacity"
+                                aria-label="Toggle menu"
+                                aria-expanded={isMobileMenuOpen}
+                            >
+                                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                            </button>
                             <nav className="hidden md:flex gap-6 text-xs tracking-widest font-medium h-full items-center">
                                 {mainNav.map((item) => (
                                     <div
@@ -236,6 +263,72 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
                     </div>
                 </div>
             </header>
+
+            {/* Mobile menu */}
+            {isMobileMenuOpen && (
+                <div className="fixed inset-0 z-40 bg-white overflow-y-auto md:hidden pt-[80px] animate-in fade-in slide-in-from-top-2 duration-300">
+                    <div className="container mx-auto px-6 py-8">
+                        {/* Search */}
+                        <div className="mb-8">
+                            <UnifiedSearch
+                                searchType="buy"
+                                placeholder="Search properties, locations..."
+                                className="w-full"
+                            />
+                        </div>
+
+                        {/* Main navigation */}
+                        <nav className="flex flex-col gap-6">
+                            {mainNav.map((item) => (
+                                <div key={item.id}>
+                                    <Link
+                                        href={item.url}
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className="text-sm font-medium tracking-widest uppercase text-brand-primary hover:opacity-80 transition-opacity"
+                                        target={item.opens_in_new_tab ? '_blank' : undefined}
+                                        rel={item.opens_in_new_tab ? 'noopener noreferrer' : undefined}
+                                    >
+                                        {item.label}
+                                    </Link>
+                                    {item.has_dropdown && Array.isArray(item.dropdown_config?.quick_links) && (
+                                        <div className="mt-3 ml-4 flex flex-col gap-3 border-l border-gray-100 pl-4">
+                                            {(item.dropdown_config.quick_links as { url: string; label: string }[]).map((link, idx) => (
+                                                <Link
+                                                    key={idx}
+                                                    href={link.url}
+                                                    onClick={() => setIsMobileMenuOpen(false)}
+                                                    className="text-xs tracking-widest uppercase text-brand-dark hover:text-brand-primary transition-colors"
+                                                >
+                                                    {link.label}
+                                                </Link>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </nav>
+
+                        {/* Divider */}
+                        <div className="my-8 border-t border-gray-100" />
+
+                        {/* Secondary navigation */}
+                        <nav className="flex flex-col gap-6">
+                            {secondaryNav.map((item) => (
+                                <Link
+                                    key={item.id}
+                                    href={item.url}
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className="text-sm font-medium tracking-widest uppercase text-brand-primary hover:opacity-80 transition-opacity"
+                                    target={item.opens_in_new_tab ? '_blank' : undefined}
+                                    rel={item.opens_in_new_tab ? 'noopener noreferrer' : undefined}
+                                >
+                                    {item.label}
+                                </Link>
+                            ))}
+                        </nav>
+                    </div>
+                </div>
+            )}
 
             { }
             {isSearchOpen && (
