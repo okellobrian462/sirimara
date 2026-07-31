@@ -75,7 +75,7 @@ export default function AgentProfileContact({ name }: AgentProfileContactProps) 
                                 type="text"
                                 placeholder="Last Name"
                                 className="w-full bg-transparent border-b border-gray-300 py-4 text-brand-dark placeholder:text-gray-400 focus:outline-none focus:border-brand-dark transition-colors"
-                                required
+                                
                             />
                         </div>
                     </div>
@@ -128,7 +128,7 @@ export default function AgentProfileContact({ name }: AgentProfileContactProps) 
                                 className="mt-1 w-4 h-4 rounded border-gray-300 text-brand-dark"
                             />
                             <label htmlFor="sms-consent" className="text-xs text-gray-500 leading-relaxed">
-                                By checking this box, you consent to receive sms/text messages from {siteName}. Reply STOP to opt-out anytime. <Link href="/privacy-policy" className="underline hover:text-brand-dark">Privacy Policy</Link>
+                                By checking this box you consent to the terms & conditions of this website. Reply STOP to opt-out anytime. <Link href="/privacy-policy" className="underline hover:text-brand-dark">Privacy Policy</Link>
                             </label>
                         </div>
                     </div>

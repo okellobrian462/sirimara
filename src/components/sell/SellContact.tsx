@@ -80,7 +80,7 @@ export default function SellContact() {
                                 </div>
                             </div>
                             <span className="text-[10px] md:text-xs text-gray-400 leading-relaxed uppercase tracking-widest font-bold">
-                                By checking this box, you consent to receive sms/text messages from {siteName}.  Reply STOP to opt-out anytime.
+                                By checking this box you consent to the terms & conditions of this website.  Reply STOP to opt-out anytime.
                                 <Link href="/privacy-policy" className="ml-2 text-white underline hover:opacity-70 transition-opacity">Privacy Policy</Link>
                             </span>
 

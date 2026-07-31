@@ -69,7 +69,7 @@ export default function HeroSection({ section }: HeroSectionProps) {
                     <div className="max-w-4xl mx-auto w-full mt-8">
                         <UnifiedSearch
                             searchType="agents"
-                            placeholder={(section.layout_config?.search_placeholder as string) || 'Enter agent name, state or office address'}
+                            placeholder={(section.layout_config?.search_placeholder as string) || 'Enter agent name'}
                             className="w-full shadow-lg"
                         />
                     </div>

@@ -414,14 +414,14 @@ export default function HeaderClient({ theme = 'light', isScrolled: externalIsSc
                                                 {activeSearchTab === 'buy' && (
                                                     <>
                                                         <Link href="/search?type=buy" onClick={() => setIsSearchOpen(false)} className="text-[10px] font-bold tracking-[0.2em] uppercase text-brand-primary hover:text-gray-500 transition-colors">
-                                                            Find all sales properties
+                                                            Find all properties to buy
                                                         </Link>
                                                         <Link href="/agents" onClick={() => setIsSearchOpen(false)} className="text-[10px] font-bold tracking-[0.2em] uppercase text-brand-dark hover:text-gray-500 transition-colors">
-                                                            Find a {siteName} agent
+                                                            Find an agent
                                                         </Link>
-                                                        <Link href="/search?type=buy&category=commercial" onClick={() => setIsSearchOpen(false)} className="text-[10px] font-bold tracking-[0.2em] uppercase text-brand-dark hover:text-gray-500 transition-colors">
+                                                        {/* <Link href="/search?type=buy&category=commercial" onClick={() => setIsSearchOpen(false)} className="text-[10px] font-bold tracking-[0.2em] uppercase text-brand-dark hover:text-gray-500 transition-colors">
                                                             Find commercial properties
-                                                        </Link>
+                                                        </Link> */}
                                                     </>
                                                 )}
                                                 {activeSearchTab === 'rent' && (

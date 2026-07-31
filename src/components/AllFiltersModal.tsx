@@ -161,8 +161,8 @@ export default function AllFiltersModal({
                 {}
                 <div className="flex border-b border-gray-200">
                     {[
-                        { id: "sale", label: "For Sale" },
-                        { id: "rental", label: "For Rent" },
+                        { id: "sale", label: "Buy" },
+                        { id: "rental", label: "Rent" },
                         { id: "sold", label: "Sold" },
                     ].map((tab) => (
                         <button

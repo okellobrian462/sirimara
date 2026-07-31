@@ -33,7 +33,7 @@ export default function ExclusivesFilterBar() {
                 <div className="w-full px-6 md:px-8 py-4 flex flex-wrap items-center justify-between gap-4">
                     <div className="flex items-center gap-6 md:gap-8 overflow-x-auto no-scrollbar">
                         <button className="flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-brand-dark whitespace-nowrap">
-                            FOR SALE <ChevronDown className="w-3 h-3" />
+                            BUY <ChevronDown className="w-3 h-3" />
                         </button>
                         <button className="flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-brand-dark whitespace-nowrap">
                             PRICE <ChevronDown className="w-3 h-3" />

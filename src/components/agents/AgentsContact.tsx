@@ -81,7 +81,7 @@ export default function AgentsContact() {
                             className="mt-1 w-4 h-4 rounded border-gray-600 bg-transparent"
                         />
                         <label htmlFor="sms-consent" className="text-xs text-gray-400 leading-relaxed">
-                            By checking this box, you consent to receive sms/text messages from {siteName}. <Link href="/privacy-policy" className="underline hover:text-white">Privacy Policy</Link>
+                            By checking this box you consent to the terms & conditions of this website. <Link href="/privacy-policy" className="underline hover:text-white">Privacy Policy</Link>
                         </label>
 
                     </div>

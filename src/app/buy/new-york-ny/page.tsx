@@ -92,7 +92,7 @@ export default function SalesSearchPage() {
                 <div className="container mx-auto px-6 py-3 flex justify-between items-center text-xs font-semibold tracking-widest uppercase text-brand-dark">
                     <div className="flex items-center gap-8">
                         <button className="flex items-center gap-2 hover:opacity-70">
-                            For Sale <ChevronDown className="w-3 h-3" />
+                            Buy <ChevronDown className="w-3 h-3" />
                         </button>
                         <button className="flex items-center gap-2 hover:opacity-70">
                             Price <ChevronDown className="w-3 h-3" />
@@ -122,7 +122,7 @@ export default function SalesSearchPage() {
                 <div className="w-full lg:w-3/5 overflow-y-auto p-6 bg-white">
                     <div className="flex justify-between items-end mb-6">
                         <div>
-                            <h1 className="text-2xl font-serif text-brand-dark mb-1">Luxury listings for sale in New York City</h1>
+                            <h1 className="text-2xl font-serif text-brand-dark mb-1">Luxury listings Buy in New York City</h1>
                             <p className="text-xs text-gray-500 uppercase tracking-widest font-medium">18 of 28,594 Homes</p>
                         </div>
                         <div className="flex items-center gap-6 text-[10px] font-bold tracking-[0.2em] text-brand-dark uppercase">

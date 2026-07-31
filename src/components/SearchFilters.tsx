@@ -63,7 +63,7 @@ export default function SearchFilters({
                         onClick={() => toggleDropdown("goal")}
                         className={`flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase transition-opacity ${activeDropdown === "goal" ? "opacity-100" : "text-brand-dark hover:opacity-70"}`}
                     >
-                        {filters.goal === 'sale' ? 'For Sale' : 'For Rent'}
+                        {filters.goal === 'sale' ? 'Buy' : 'Rent'}
                         <ChevronDown className={`w-3 h-3 transition-transform ${activeDropdown === "goal" ? "rotate-180" : ""}`} />
                     </button>
                     {activeDropdown === "goal" && (

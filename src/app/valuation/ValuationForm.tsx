@@ -103,7 +103,7 @@ export default function ValuationForm() {
                                 type="text"
                                 placeholder="Last Name (optional)"
                                 className="w-full border-none focus:ring-0 text-sm placeholder:text-gray-400 text-brand-dark p-0 outline-none"
-                                required
+                                
                             />
                         </div>
                     </div>
@@ -141,7 +141,7 @@ export default function ValuationForm() {
                     <Check className="absolute w-3 h-3 text-white opacity-0 peer-checked:opacity-100 pointer-events-none" />
                 </div>
                 <p className="text-xs text-gray-500 leading-relaxed">
-                    By checking this box, you consent to receive sms/text messages from {siteName}. <Link href="/privacy-policy" className="underline hover:text-brand-dark">Privacy Policy</Link>
+                    By checking this box you consent to the terms & conditions of this website. <Link href="/privacy-policy" className="underline hover:text-brand-dark">Privacy Policy</Link>
                 </p>
 
             </label>

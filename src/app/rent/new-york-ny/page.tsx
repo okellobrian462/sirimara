@@ -102,7 +102,7 @@ export default function RentalsSearchPage() {
                 <div className="container mx-auto px-6 py-3 flex justify-between items-center text-xs font-semibold tracking-widest uppercase text-brand-dark">
                     <div className="flex items-center gap-8">
                         <button className="flex items-center gap-2 hover:opacity-70">
-                            For Rent <ChevronDown className="w-3 h-3" />
+                            Rent <ChevronDown className="w-3 h-3" />
                         </button>
                         <button className="flex items-center gap-2 hover:opacity-70">
                             Price <ChevronDown className="w-3 h-3" />
