@@ -259,8 +259,8 @@ export default function NewPropertyPage() {
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">Price *</label>
-                            <input type="number" name="price" value={formData.price} onChange={handleChange} required min="0"
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Price </label>
+                            <input type="number" name="price" value={formData.price} onChange={handleChange}  min="0"
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" />
                         </div>
                         <div>
