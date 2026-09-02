@@ -5,6 +5,72 @@ import Footer from '@/components/Footer';
 import ImageCarousel from '@/components/listing/ImageCarousel';
 import ExpandableFeaturesList from '@/components/listing/ExpandableFeaturesList';
 import Link from 'next/link';
+import type { Metadata } from "next";
+import { COMPANY_NAME, SITE_URL } from "@/lib/seo/site";
+import { slugifyAgentName } from "@/lib/agentSlug";
+
+const PROPERTY_SELECT =
+  "slug, title, address, city, state, zip_code, price, listing_type, description, images, bedrooms, bathrooms, square_feet, year_built, created_at, updated_at";
+
+async function fetchPropertyForSeo(lookupSlug: string) {
+  const supabase = await createClient();
+
+  const { data: property } = await supabase
+    .from('properties_with_taxonomy')
+    .select(PROPERTY_SELECT)
+    .eq('slug', lookupSlug)
+    .single();
+
+  if (property) return property;
+
+  const { data: propertyById } = await supabase
+    .from('properties_with_taxonomy')
+    .select(PROPERTY_SELECT)
+    .eq('id', lookupSlug)
+    .single();
+
+  return propertyById as typeof property | null;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string[] }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const lookupSlug = Array.isArray(slug) ? slug[0] : slug;
+  const property = await fetchPropertyForSeo(lookupSlug);
+  if (!property) return {};
+
+  const listingLabel = property.listing_type === "rent" ? "For Rent" : "For Sale";
+  const address = property.address || property.title || "Property";
+  const location = [property.city, property.state].filter(Boolean).join(", ");
+  const title = `${address} - ${listingLabel} | ${COMPANY_NAME}`;
+  const description = property.description
+    ? property.description.replace(/\s+/g, " ").trim().slice(0, 160)
+    : `${address}${location ? ` in ${location}` : ""} - ${listingLabel}. Contact ${COMPANY_NAME} for details.`;
+  const images = Array.isArray(property.images) ? property.images.filter(Boolean) : [];
+  const canonicalPath = `/listing/${property.slug || lookupSlug}`;
+
+  return {
+    title,
+    description,
+    alternates: { canonical: canonicalPath },
+    openGraph: {
+      type: "website",
+      url: `${SITE_URL}${canonicalPath}`,
+      title,
+      description,
+      images: images.length ? images.slice(0, 5) : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: images.slice(0, 1),
+    },
+  };
+}
 
 export default async function ListingDetailPage({ params }: { params: Promise<{ slug: string[] }> }) {
     const resolvedParams = await params;
@@ -71,6 +137,55 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
 
     return (
         <main className="min-h-screen bg-white">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "RealEstateListing",
+                        name: property.title || data.address,
+                        description: property.description || `${data.address} - ${data.location}${data.price ? ` ${data.price}.` : ""}`,
+                        url: `${SITE_URL}/listing/${property.slug || lookupSlug}`,
+                        image: Array.isArray(property.images) ? property.images.filter(Boolean) : undefined,
+                        datePosted: property.created_at || undefined,
+                        offers: {
+                            "@type": "Offer",
+                            url: `${SITE_URL}/listing/${property.slug || lookupSlug}`,
+                            price: property.price ?? undefined,
+                            priceCurrency: "KES",
+                            availability: "https://schema.org/InStock"
+                        },
+                        address: {
+                            "@type": "PostalAddress",
+                            streetAddress: property.address || undefined,
+                            addressLocality: property.city || undefined,
+                            addressRegion: property.state || undefined,
+                            postalCode: property.zip_code || undefined,
+                            addressCountry: "KE"
+                        },
+                        numberOfBedrooms: property.bedrooms ?? undefined,
+                        numberOfBathroomsTotal: property.bathrooms ?? undefined,
+                        floorSize: property.square_feet
+                            ? { "@type": "QuantitativeValue", value: property.square_feet, unitCode: "FTK" }
+                            : undefined,
+                        yearBuilt: property.year_built ?? undefined,
+                        realEstateAgent: agent && agent.first_name
+                            ? {
+                                "@type": "RealEstateAgent",
+                                name: `${agent.first_name} ${agent.last_name}`,
+                                url: `${SITE_URL}/agents/${slugifyAgentName(agent.first_name, agent.last_name)}`,
+                                telephone: agent.phone || undefined,
+                                image: agent.photo_url || undefined
+                            }
+                            : undefined,
+                        seller: {
+                            "@type": "Organization",
+                            name: COMPANY_NAME,
+                            url: SITE_URL
+                        }
+                    })
+                }}
+            />
             <Header theme="dark" />
 
             {}

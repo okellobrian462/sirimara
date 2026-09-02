@@ -3,6 +3,11 @@ import Footer from '@/components/Footer';
 import SearchClient from './SearchClient';
 import { Suspense } from 'react';
 
+export const metadata = {
+    title: 'Search Properties | Sirimara Realty',
+    description: 'Search the full Sirimara Realty portfolio of homes for sale and rent across Kenya.',
+};
+
 export default function SearchPage() {
     return (
         <div className="min-h-screen bg-white">

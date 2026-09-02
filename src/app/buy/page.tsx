@@ -3,6 +3,11 @@ import Header from "@/components/Header";
 import { fetchPageSections } from "@/lib/content/fetchPageSections";
 import SectionRenderer from "@/components/sections/SectionRenderer";
 
+export const metadata = {
+    title: 'Homes for Sale | Sirimara Realty',
+    description: 'Browse luxury homes and properties for sale in Kenya. Sirimara Realty connects you with exceptional listings nationwide.',
+};
+
 export default async function SalesSearchPage() {
     
     const sections = await fetchPageSections('sales');

@@ -3,6 +3,15 @@ import Footer from '@/components/Footer';
 import { ChevronDown, Plus, Search, Heart, Camera, MapPin, SlidersHorizontal, Image as ImageIcon } from 'lucide-react';
 import Link from 'next/link';
 
+export const metadata = {
+    title: 'Homes for Sale in New York, NY | Sirimara Realty',
+    description: 'Sample sales listings page (demo content).',
+    robots: {
+        index: false,
+        follow: false,
+    },
+};
+
 export default function SalesSearchPage() {
 
     const listings = [

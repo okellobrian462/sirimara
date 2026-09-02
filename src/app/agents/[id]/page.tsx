@@ -8,6 +8,8 @@ import AgentProfileContact from '@/components/agents/profile/AgentProfileContact
 import { createClient } from '@/lib/supabase/server';
 import { slugifyAgentFirstName, slugifyAgentName } from '@/lib/agentSlug';
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
+import { COMPANY_NAME, SITE_URL } from '@/lib/seo/site';
 
 export const revalidate = 3600; 
 
@@ -51,6 +53,38 @@ async function fetchAgent(identifier: string) {
     }) ?? null;
 }
 
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+    const { id } = await params;
+    const agent = await fetchAgent(id);
+    if (!agent) return {};
+
+    const name = `${agent.first_name} ${agent.last_name}`;
+    const slug = slugifyAgentName(agent.first_name, agent.last_name);
+    const title = `${name} | ${agent.title || 'Real Estate Agent'} | ${COMPANY_NAME}`;
+    const description =
+        agent.bio?.replace(/\s+/g, ' ').trim().slice(0, 155) ||
+        `${name} is a real estate agent at ${COMPANY_NAME} in Nairobi, Kenya.`;
+
+    return {
+        title,
+        description,
+        alternates: { canonical: `/agents/${slug}` },
+        openGraph: {
+            type: 'profile',
+            url: `${SITE_URL}/agents/${slug}`,
+            title,
+            description,
+            ...(agent.photo_url ? { images: [agent.photo_url] } : {}),
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title,
+            description,
+            ...(agent.photo_url ? { images: [agent.photo_url] } : {}),
+        },
+    };
+}
+
 export default async function AgentProfilePage(props: PageProps) {
     const params = await props.params;
     const agentData = await fetchAgent(params.id);
@@ -76,6 +110,35 @@ export default async function AgentProfilePage(props: PageProps) {
 
     return (
         <main className="min-h-screen bg-white">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        '@context': 'https://schema.org',
+                        '@type': 'RealEstateAgent',
+                        '@id': `${SITE_URL}/agents/${slugifyAgentName(agentData.first_name, agentData.last_name)}`,
+                        name: agent.name,
+                        jobTitle: agent.title || undefined,
+                        description: agent.bio
+                            ? agent.bio.replace(/\s+/g, ' ').trim().slice(0, 300)
+                            : undefined,
+                        url: `${SITE_URL}/agents/${slugifyAgentName(agentData.first_name, agentData.last_name)}`,
+                        telephone: agent.phone || undefined,
+                        email: agent.email || undefined,
+                        image: agent.image || undefined,
+                        worksFor: {
+                            '@type': 'Organization',
+                            name: COMPANY_NAME,
+                            url: SITE_URL
+                        },
+                        address: {
+                            '@type': 'PostalAddress',
+                            addressLocality: 'Nairobi',
+                            addressCountry: 'KE'
+                        }
+                    })
+                }}
+            />
             <Header />
             <AgentProfileHero agent={agent} />
             <AgentProfileNav />

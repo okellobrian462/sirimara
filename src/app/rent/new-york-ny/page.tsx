@@ -2,6 +2,15 @@ import Header from '@/components/Header';
 import { ChevronDown, Plus, Search, Heart, Camera, MapPin, SlidersHorizontal } from 'lucide-react';
 import Link from 'next/link';
 
+export const metadata = {
+    title: 'Homes for Rent in New York, NY | Sirimara Realty',
+    description: 'Sample rental listings page (demo content).',
+    robots: {
+        index: false,
+        follow: false,
+    },
+};
+
 export default function RentalsSearchPage() {
 
     const listings = [
