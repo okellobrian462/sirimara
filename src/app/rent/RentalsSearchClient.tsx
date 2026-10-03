@@ -187,7 +187,7 @@ export default function RentalsSearchClient({
                                 onClick={(id) => {
                                     const listing = listings.find((l) => l.id === id);
                                     if (listing) {
-                                        router.push(`/listing/${listing.slug}`);
+                                        router.push(`/listing/${String(listing.slug).trim()}`);
                                     }
                                 }}
                             />

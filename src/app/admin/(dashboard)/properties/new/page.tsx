@@ -136,6 +136,7 @@ export default function NewPropertyPage() {
 
             const propertyData = {
                 ...formData,
+                slug: formData.slug.trim(),
                 bedrooms: formData.bedrooms ? parseInt(formData.bedrooms) : null,
                 bathrooms: formData.bathrooms ? parseFloat(formData.bathrooms) : null,
                 half_baths: formData.half_baths ? parseInt(formData.half_baths) : 0,

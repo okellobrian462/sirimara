@@ -67,7 +67,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     properties?.forEach((p) => {
       if (p.status !== "active") return;
       entries.push({
-        url: `${SITE_URL}/listing/${p.slug}`,
+        url: `${SITE_URL}/listing/${encodeURIComponent(String(p.slug || "").trim())}`,
         lastModified: p.updated_at ? new Date(p.updated_at) : now,
         changeFrequency: "weekly",
         priority: 0.8,

@@ -12,24 +12,72 @@ import { slugifyAgentName } from "@/lib/agentSlug";
 const PROPERTY_SELECT =
   "slug, title, address, city, state, zip_code, price, listing_type, description, images, bedrooms, bathrooms, square_feet, year_built, created_at, updated_at";
 
-async function fetchPropertyForSeo(lookupSlug: string) {
+// Normalizes the route segment(s) into a single, trimmed lookup value.
+function normalizeLookupSlug(slug: string | string[] | undefined): string {
+  const raw = Array.isArray(slug) ? slug[0] : slug;
+  const segment = raw ?? "";
+
+  // Catch-all route segments arrive percent-encoded (e.g.
+  // "Luxury%20residence%20in%20Kileleshwa"), so spaces never reach us as
+  // spaces and an exact slug lookup would always miss. Decode first, then trim.
+  // Malformed sequences (e.g. a literal "%" in a slug) are left as-is instead
+  // of throwing URIError.
+  let decoded = segment;
+  try {
+    decoded = decodeURIComponent(segment);
+  } catch {
+    decoded = segment;
+  }
+
+  return decoded.trim();
+}
+
+// Resolves a property from the `properties_with_taxonomy` view by slug, then
+// falls back to a whitespace/case tolerant match, and finally by id.
+// Generic over `Select` so Supabase's query result keeps its inferred shape.
+async function findPropertyBySlugOrId<Select extends string>(select: Select, lookupSlug: string) {
   const supabase = await createClient();
 
+  if (!lookupSlug) return null;
+
+  // Fast path: exact slug match.
   const { data: property } = await supabase
     .from('properties_with_taxonomy')
-    .select(PROPERTY_SELECT)
+    .select(select)
     .eq('slug', lookupSlug)
-    .single();
+    .maybeSingle();
 
   if (property) return property;
 
+  // Legacy/imported listings occasionally store stray leading/trailing
+  // whitespace or inconsistent casing in their slug (for example
+  // "Premium 2 bedroom Skyline view apartment "). A trailing space is dropped
+  // from the URL by the browser, so an exact match would 404. Fall back to a
+  // whitespace- and case-tolerant match so those links still resolve.
+  const { data: looseMatches } = await supabase
+    .from('properties_with_taxonomy')
+    .select(select)
+    .ilike('slug', `%${lookupSlug.replace(/[%_]/g, '')}%`);
+
+  const looseMatch = (looseMatches ?? []).find((row) => {
+    const rowSlug = (row as unknown as { slug?: string | null }).slug;
+    return String(rowSlug ?? '').trim().toLowerCase() === lookupSlug.toLowerCase();
+  });
+
+  if (looseMatch) return looseMatch;
+
+  // Finally, allow lookup by id (used by admin/preview links).
   const { data: propertyById } = await supabase
     .from('properties_with_taxonomy')
-    .select(PROPERTY_SELECT)
+    .select(select)
     .eq('id', lookupSlug)
-    .single();
+    .maybeSingle();
 
-  return propertyById as typeof property | null;
+  return propertyById ?? null;
+}
+
+async function fetchPropertyForSeo(lookupSlug: string) {
+  return findPropertyBySlugOrId(PROPERTY_SELECT, lookupSlug);
 }
 
 export async function generateMetadata({
@@ -38,7 +86,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string[] }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const lookupSlug = Array.isArray(slug) ? slug[0] : slug;
+  const lookupSlug = normalizeLookupSlug(slug);
   const property = await fetchPropertyForSeo(lookupSlug);
   if (!property) return {};
 
@@ -50,7 +98,8 @@ export async function generateMetadata({
     ? property.description.replace(/\s+/g, " ").trim().slice(0, 160)
     : `${address}${location ? ` in ${location}` : ""} - ${listingLabel}. Contact ${COMPANY_NAME} for details.`;
   const images = Array.isArray(property.images) ? property.images.filter(Boolean) : [];
-  const canonicalPath = `/listing/${property.slug || lookupSlug}`;
+  const canonicalSlug = String(property.slug || lookupSlug).trim();
+  const canonicalPath = `/listing/${encodeURIComponent(canonicalSlug)}`;
 
   return {
     title,
@@ -75,34 +124,16 @@ export async function generateMetadata({
 export default async function ListingDetailPage({ params }: { params: Promise<{ slug: string[] }> }) {
     const resolvedParams = await params;
     const slugArray = resolvedParams.slug;
-    const lookupSlug = Array.isArray(slugArray) ? slugArray[0] : slugArray;
+    const lookupSlug = normalizeLookupSlug(slugArray);
 
-    const supabase = await createClient();
-
-    
-    
-    let { data: property } = await supabase
-        .from('properties_with_taxonomy')
-        .select('*')
-        .eq('slug', lookupSlug)
-        .single();
-
-    if (!property) {
-        
-        const { data: propertyById } = await supabase
-            .from('properties_with_taxonomy')
-            .select('*')
-            .eq('id', lookupSlug)
-            .single();
-
-        property = propertyById;
-    }
+    const property = await findPropertyBySlugOrId('*', lookupSlug);
 
     if (!property) {
         return notFound();
     }
 
-    
+    const supabase = await createClient();
+
     
     const { data: agent } = await supabase
         .from('agents')
@@ -135,6 +166,8 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
         }
     };
 
+    const listingUrl = `${SITE_URL}/listing/${encodeURIComponent(String(property.slug || lookupSlug).trim())}`;
+
     return (
         <main className="min-h-screen bg-white">
             <script
@@ -145,12 +178,12 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
                         "@type": "RealEstateListing",
                         name: property.title || data.address,
                         description: property.description || `${data.address} - ${data.location}${data.price ? ` ${data.price}.` : ""}`,
-                        url: `${SITE_URL}/listing/${property.slug || lookupSlug}`,
+                        url: listingUrl,
                         image: Array.isArray(property.images) ? property.images.filter(Boolean) : undefined,
                         datePosted: property.created_at || undefined,
                         offers: {
                             "@type": "Offer",
-                            url: `${SITE_URL}/listing/${property.slug || lookupSlug}`,
+                            url: listingUrl,
                             price: property.price ?? undefined,
                             priceCurrency: "KES",
                             availability: "https://schema.org/InStock"

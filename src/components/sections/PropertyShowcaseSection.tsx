@@ -124,7 +124,7 @@ export default function PropertyShowcaseSection({ section }: PropertyShowcaseSec
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
                     {filteredProperties.length > 0 ? (
                         filteredProperties.slice(0, 4).map((property) => (
-                            <Link key={property.id} href={`/listing/${property.slug}`} className="group cursor-pointer">
+                            <Link key={property.id} href={`/listing/${String(property.slug).trim()}`} className="group cursor-pointer">
                                 <div className="relative overflow-hidden mb-4 aspect-[3/4]">
                                     <img
                                         src={property.images[0] || ''}

@@ -63,7 +63,7 @@ export async function GET(request: NextRequest) {
                     title: p.address,
                     subtitle: `${p.city}, ${p.state} ${p.zip_code}`,
                     image: p.images?.[0] || '',
-                    url: `/listing/${p.slug}`,
+                    url: `/listing/${String(p.slug || p.id).trim()}`,
                     metadata: {
                         price: p.price,
                         bedrooms: p.bedrooms,
@@ -98,7 +98,7 @@ export async function GET(request: NextRequest) {
                     title: p.address,
                     subtitle: `${p.city}, ${p.state} ${p.zip_code}`,
                     image: p.images?.[0] || '',
-                    url: `/listing/${p.slug}`,
+                    url: `/listing/${String(p.slug || p.id).trim()}`,
                     metadata: {
                         price: p.price,
                         bedrooms: p.bedrooms,

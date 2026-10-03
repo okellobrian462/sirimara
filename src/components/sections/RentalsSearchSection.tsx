@@ -29,7 +29,7 @@ export default async function RentalsSearchSection({ section }: RentalsSearchSec
 
     const listings: Listing[] = ((properties as unknown as PropertyWithTaxonomy[]) || []).map((p: PropertyWithTaxonomy) => ({
         id: p.id,
-        slug: p.slug || p.id,
+        slug: String(p.slug || p.id).trim(),
         address: p.address || "",
         city: p.city || "",
         state: p.state || "",
